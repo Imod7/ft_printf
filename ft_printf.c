@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int				find_no_args(char *str)
+int					find_no_args(char *str)
 {
 	int			no_args;
 	int			i;
@@ -23,14 +23,16 @@ int				find_no_args(char *str)
 	{
 		if (str[i] == '%')
 			no_args++;
+		if ((str[i] == '%') && str[i + 1] == '%')
+			no_args--;
 		i++;
 	}
 	return (no_args);
 }
 
-int				found_conversion(char *str, size_t index)
+int					found_conversion(char *str, size_t index)
 {
-	printf("inside found_conver - str[index] = %c \n", str[index]);
+	//printf("     Inside FOUND_CONVERSION - str[index] = %c \n", str[index]);
 	if (str[index] == 'c' || str[index] == 's' || str[index] == 'p')
 		return (1);
 	if (str[index] == 'd' || str[index] == 'i' || str[index] == 'o')
@@ -42,45 +44,56 @@ int				found_conversion(char *str, size_t index)
 	return (0);
 }
 
-int				save_flags(char *str, size_t index)
+int					save_flags(char *str, size_t index)
 {
-	uint16_t	flags;
+	t_flagstruct	*t_flags;
 
-	flags = 0;
-	ft_putstr("before conversion \n");
-	printf("str[index] = %c ,flags = %d\n", str[index], flags);
+	//ft_putstr(ANSI_COLOR_CYAN "\n Inside SAVE_FLAGS function \n");
+	//ft_putstr("  Before Saving Flags \n");
+	t_flags = malloc(sizeof(t_flagstruct));
+	t_flags->flags = 0;
+	//printf("  str[%zu] = %c ,flags = %u \n", index, str[index], t_flags->flags);
+	printf(ANSI_COLOR_RESET);
 	while (str[index] != '\0' && found_conversion(str, index) == 0)
 	{
 		if (str[index] == '-')
-			flags |= FLAG_MINUS;
+			t_flags->flags |= FLAG_MINUS;
 		if (str[index] == '+')
-			flags |= FLAG_PLUS;
+			t_flags->flags |= FLAG_PLUS;
 		if (str[index] == ' ')
-			flags |= FLAG_SPACE;
+			t_flags->flags |= FLAG_SPACE;
+		if (str[index] == '0')
+			t_flags->flags |= FLAG_ZERO;
+		if (str[index] == '#')
+			t_flags->flags |= FLAG_HT;
 		index++;
 	}
-	ft_putstr("after conversion \n");
-	printf("str[index] = %c ,flags = %d\n", str[index], flags);
+	//ft_putstr(ANSI_COLOR_CYAN "  After Saving Flags \n");
+	//printf("  str[%zu] = %c ,flags = %u \n", index, str[index], t_flags->flags);
+	printf(ANSI_COLOR_RESET);
 	return (0);
 }
 
-int				ft_printf(char *str, ...)
+int					ft_printf(char *str, ...)
 {
-	va_list		argptr;
-	int			no_args;
-	int			count;
-	size_t		i;
+	va_list			argptr;
+	int				no_args;
+	int				count;
+	size_t			i;
 	//char		*ptr;
 
 	count = 0;
 	i = 0;
 	no_args = find_no_args(str);
+	printf("Number of arguments = %d \n", no_args);
 	va_start(argptr, str);
 	while (count < no_args)
 	{
 		while (str[i] != '\0' && str[i] != '%')
 		{
+			printf(ANSI_COLOR_GREEN);
 			ft_putchar(str[i]);
+			printf(ANSI_COLOR_RESET);
 			i++;
 		}
 		i++;
@@ -91,16 +104,5 @@ int				ft_printf(char *str, ...)
 		i = i + 2;
 	}
 	va_end(argptr);
-	return (0);
-}
-
-int				main(void)
-{
-	printf(ANSI_COLOR_GREEN "\n--- FT_PRINTF ---\n");
-	ft_printf("Number = %+d %+-s really likes %s \n\n", 23, "Dom", "WindSurf");
-	printf(ANSI_COLOR_RESET);
-	printf(ANSI_COLOR_CYAN "\n--- PRINTF ---\n");
-	printf("%s really likes %s \n\n", "Dom", "WindSurf");
-	printf(ANSI_COLOR_RESET);
 	return (0);
 }
