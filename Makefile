@@ -16,6 +16,7 @@ CC = gcc -Wall -Wextra -Werror -g
 SRC =	\
 		ft_printf.c \
 		main.c \
+		ft_print_types.c \
 
 OBJ = $(SRC:%.c=%.o)
 

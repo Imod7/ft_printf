@@ -24,7 +24,7 @@ You can use an asterisk (*) to pass the width specifier/precision to printf(), r
 
 #include <stdio.h>
 
-int             main() 
+int             main()
 {
     int         precision;
     int         biggerPrecision;

@@ -14,13 +14,11 @@
 
 int				main(void)
 {
-	printf(ANSI_COLOR_GREEN "\n--- FT_PRINTF ---\n");
-	ft_printf("Test with one num = %+d &one string %+-s and another string \
-    %s %%\n\n", 23, "Awesome", "Printf");
+	printf(ANSI_COLOR_YELLOW "\n--- PRINTF ---\n");
+	printf("'Test with the number '%+d' and the string '%s' and the char '%c'\n", 44, "coding", 'K');
 	printf(ANSI_COLOR_RESET);
-	printf(ANSI_COLOR_CYAN "\n\n--- PRINTF ---\n");
-	printf("Test with one num = %d &one string %s and another string \
-    %s %%", 23, "Awesome", "Printf");
+	printf(ANSI_COLOR_CYAN "\n--- FT_PRINTF ---\n");
+	ft_printf("'Test with the number '%+d' and the string '%s' and the char '%c'\n\n", 44, "coding", 'K');
 	printf(ANSI_COLOR_RESET);
 	return (0);
 }

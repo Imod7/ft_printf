@@ -12,14 +12,35 @@
 
 #include "ft_printf.h"
 
-int				print_string(char *str, size_t index, ...)
+void			print_format(t_flagstruct t_flags)
 {
-	va_list		argptr;
-	//char		*ptr;
+	if ((t_flags.flags & FLAG_MINUS) > 0)
+		ft_putchar('-');
+	if ((t_flags.flags & FLAG_PLUS) > 0)
+		ft_putchar('+');
+}
 
-	va_start(argptr, str);
-	//ptr = va_arg(argptr, char *);
-	//ft_putstr(ptr);
-	va_end(argptr);
-	return (0);
+void			print_integer(va_list argptr)
+{
+	ft_putnbr(va_arg(argptr, int));
+}
+
+void			print_string(va_list argptr)
+{
+	ft_putstr(va_arg(argptr, char *));
+}
+
+void			print_character(va_list argptr)
+{
+	ft_putchar((char)va_arg(argptr, int));
+}
+
+void			print_arg(va_list argptr, char c)
+{
+	if (c == 'd')
+		print_integer(argptr);
+	if (c == 's')
+		print_string(argptr);
+	if (c == 'c')
+		print_character(argptr);
 }
