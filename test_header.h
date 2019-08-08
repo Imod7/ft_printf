@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_print_helper.c                                  :+:    :+:            */
+/*   test_header.h                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/25 15:58:34 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/07/25 15:58:36 by dsaripap      ########   odam.nl         */
+/*   Created: 2019/08/09 00:31:01 by dsaripap      #+#    #+#                 */
+/*   Updated: 2019/08/09 00:31:03 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef TEST_HEADER_H
+# define TEST_HEADER_H
 
-void				print_binary(uint16_t flag_num)
-{
-	int				bit;
-	int 			col;
-	unsigned short	mask;
+typedef void test_func(void);
 
-	bit = 0;
-	col = 0;
-	while (col < 16)
-	{
-		mask = flag_num >> bit;
-		if (mask & 1)
-			printf("1 ");
-		else
-			printf("0 ");
-		bit++;
-		col++;
-	}
-}
+void	test_one(void);
+void	test_two(void);
+void	test_three(void);
+void	test_four(void);
+void	test_five(void);
+
+# endif

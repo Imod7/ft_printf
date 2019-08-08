@@ -39,12 +39,16 @@ typedef struct  s_flagstruct
 	uint16_t    flags;
 	int         minfw;      // minimum field width
 	int         precision;  // saving the number after the dot
-	char        argtype;    // conversion type
+	char        argtype;    	// conversion type
+	int			chars_printed;	// to keep track how many chars where printed
 }               t_flagstruct;
 
 int				ft_printf(char *str, ...);
 int				save_flags(t_flagstruct *t_flags, char **str);
-void			print_arg(va_list argptr, char c);
+void			print_arg(va_list argptr, char c, t_flagstruct t_flags);
 void			print_format(t_flagstruct t_flags);
+void			print_binary(uint16_t flag_num);
+int				number_of_digits(int minfw);
+void			clear_flagstruct(t_flagstruct *t_flags);
 
 # endif
