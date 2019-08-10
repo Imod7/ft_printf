@@ -34,14 +34,23 @@
 #define FLAG_APOSTR (1 << 5)   // 0000 0010 0000
 #define FLAG_PRECIS (1 << 6)   // 0000 0100 0000
 
-typedef struct  s_flagstruct
+typedef enum	e_modifier {
+	N,
+	H,
+	HH,
+	L,
+	LL
+}				t_modifier;
+
+typedef struct	s_flagstruct
 {
-	uint16_t    flags;
-	int         minfw;      // minimum field width
-	int         precision;  // saving the number after the dot
-	char        argtype;    	// conversion type
+	int			flags;
+	int			minfw;      // minimum field width
+	int			precision;  // saving the number after the dot
+	char		argtype;    	// conversion type
 	int			chars_printed;	// to keep track how many chars where printed
-}               t_flagstruct;
+	t_modifier	modifier;
+}				t_flagstruct;
 
 int				ft_printf(char *str, ...);
 int				save_flags(t_flagstruct *t_flags, char **str);
@@ -51,4 +60,4 @@ void			print_binary(uint16_t flag_num);
 int				number_of_digits(int minfw);
 void			clear_flagstruct(t_flagstruct *t_flags);
 
-# endif
+#endif

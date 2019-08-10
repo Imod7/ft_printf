@@ -43,10 +43,10 @@ int					ft_printf(char *str, ...)
 		if (*str == '%')
 		{
 			str++;
+			clear_flagstruct(&t_flags);
 			save_flags(&t_flags, &str);
 			// print_format(&t_flags);
 			print_arg(argptr, *str, t_flags);
-			clear_flagstruct(&t_flags);
 		}
 		else
 			ft_putchar(*str);

@@ -23,8 +23,8 @@ void			print_padding(t_flagstruct t_flags, int no_digits)
 	chars_printed = 0;
 	if ((t_flags.flags & FLAG_PLUS) > 0)
 		chars_printed++;
-	//printf("\n flag chars printed %d -- %d \n", t_flags.chars_printed, no_digits);
 	pad_len = t_flags.minfw - chars_printed - no_digits;
+	// printf("\n flag chars printed %d, no_digits = %d, padlen = %d \n", t_flags.chars_printed, no_digits, pad_len);
 	while (i < pad_len)
 	{
 		if (t_flags.flags & FLAG_ZERO)
@@ -41,6 +41,11 @@ void			print_format(t_flagstruct t_flags)
 	if ((t_flags.flags & FLAG_PLUS) > 0)
 	{
 		ft_putchar('+');
+		t_flags.chars_printed++;
+	}
+	if ((t_flags.flags & FLAG_SPACE) > 0)
+	{
+		ft_putchar(' ');
 		t_flags.chars_printed++;
 	}
 }
@@ -63,6 +68,8 @@ void			print_integer(va_list argptr, t_flagstruct t_flags)
 	len = number_of_digits(arg);
 	if ((t_flags.flags & FLAG_MINUS) > 0)
 	{
+		// printf("1st option flags = %d", t_flags.flags);
+		// print_binary(t_flags.flags);
 		ft_putnbr(arg);
 		print_format(t_flags);
 		print_padding(t_flags, len);
@@ -71,13 +78,15 @@ void			print_integer(va_list argptr, t_flagstruct t_flags)
 	{
 		if ((t_flags.flags & FLAG_ZERO) > 0)
 		{
-			// printf("why this? flags = %d", t_flags.flags);
+			// printf("2nd option flags = %d", t_flags.flags);
 			// print_binary(t_flags.flags);
 			print_format(t_flags);
 			print_padding(t_flags, len);
 		}
 		else
 		{
+			// printf("3rd option flags = %d", t_flags.flags);
+			// print_binary(t_flags.flags);
 			print_padding(t_flags, len);
 			print_format(t_flags);
 		}
