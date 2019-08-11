@@ -16,7 +16,9 @@ CC = gcc -Wall -Wextra -Werror -g
 SRC =	\
 		ft_printf.c \
 		ft_saveflags.c \
-		ft_print_types.c \
+		ft_error_check.c \
+		ft_printtypes.c \
+		ft_printformat.c \
 		main.c \
 		tests.c \
 

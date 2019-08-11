@@ -24,5 +24,7 @@ void	test_six(void);
 void	test_seven(void);
 void	test_eight(void);
 void	test_nine(void);
+void	test_ten(void);
+void    test_eleven(void);
 
 # endif

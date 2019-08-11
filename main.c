@@ -36,7 +36,7 @@ int				main(void)
 {
 	int			option;
 	int			i;
-	test_func	*test_array[9];
+	test_func	*test_array[11];
 
 	test_array[0] = test_one;
 	test_array[1] = test_two;
@@ -47,6 +47,8 @@ int				main(void)
 	test_array[6] = test_seven;
 	test_array[7] = test_eight;
 	test_array[8] = test_nine;
+	test_array[9] = test_ten;
+	test_array[10] = test_eleven;
 	i = 1;
 	printf("Which Test do you want to run ? (0 to run All) \n");
 	scanf("%d", &option);
@@ -54,7 +56,7 @@ int				main(void)
 		test_array[option - 1]();
 	else
 	{
-		while (i <= 9)
+		while (i <= (int)(sizeof(test_array) / sizeof(test_array[0])))
 		{
 			test_array[i - 1]();
 			i++;
