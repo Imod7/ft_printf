@@ -91,8 +91,9 @@ void			test_ten(void)
 	char		c;
 
 	c = 'A';
+	ft_printf(ANSI_COLOR_GREEN"Test 12 should show error >> ");
 	// printf(ANSI_COLOR_CYAN"Test 10 +c THE PRINTF : '%+c'\n", c);
-	// ft_printf(ANSI_COLOR_YELLOW"Test 10 +c MY  PRINTF : '%+c'\n\n", c);
+	ft_printf(ANSI_COLOR_YELLOW"\nTest 10 +c MY  PRINTF : '%+c'\n\n", c);
 }
 
 void			test_eleven(void)
@@ -100,6 +101,64 @@ void			test_eleven(void)
 	char		c;
 
 	c = 'G';
-	printf(ANSI_COLOR_CYAN"Test 11 -c THE PRINTF : '%-8c'\n", c);
-	ft_printf(ANSI_COLOR_YELLOW"Test 11 -c MY  PRINTF : '%-8c'\n\n", c);
+	printf(ANSI_COLOR_CYAN"\nTest 11 -8c THE PRINTF : '%-8c'\n", c);
+	ft_printf(ANSI_COLOR_YELLOW"Test 11 -8c MY  PRINTF : '%-8c'\n\n", c);
+}
+
+void			test_twelve(void)
+{
+	char		c;
+
+	c = 'K';
+	ft_printf(ANSI_COLOR_GREEN"Test 12 should show error >> ");
+	// printf(ANSI_COLOR_CYAN"Test 12 -0c THE PRINTF : '%-0c'\n", c);
+	ft_printf(ANSI_COLOR_YELLOW"\nTest 12 -0c MY  PRINTF : '%-0c'\n\n", c);
+}
+
+void			test_thirteen(void)
+{
+	char		c;
+
+	c = 'M';
+	ft_printf(ANSI_COLOR_GREEN"Test 13 should show error >> ");
+	// printf(ANSI_COLOR_CYAN"Test 13 hc THE PRINTF : '%hc'\n", c);
+	ft_printf(ANSI_COLOR_YELLOW"Test 13 hc MY  PRINTF : '%hc'\n\n", c);
+}
+
+void			test_fourteen(void)
+{
+	char		c;
+
+	c = 'G';
+	ft_printf(ANSI_COLOR_GREEN"Test 14 should show error >> ");
+	// printf(ANSI_COLOR_CYAN"Test 14 hhc THE PRINTF : '%hhc'\n", c);
+	ft_printf(ANSI_COLOR_YELLOW"Test 14 hhc MY  PRINTF : '%hhc'\n\n", c);
+}
+
+void			test_fifteen(void)
+{
+	char		c;
+
+	c = 'B';
+	printf(ANSI_COLOR_CYAN"Test 15 9lc THE PRINTF : '%9lc'\n", c);
+	ft_printf(ANSI_COLOR_YELLOW"Test 15 9lc MY  PRINTF : '%9lc'\n\n", c);
+}
+
+void			test_16(void)
+{
+	char		c;
+
+	c = 'C';
+	ft_printf(ANSI_COLOR_GREEN"Test 16 should show error >> ");
+	// printf(ANSI_COLOR_CYAN"Test 16 4llc THE PRINTF : '%4llc'\n", c);
+	ft_printf(ANSI_COLOR_YELLOW"Test 16 4llc MY  PRINTF : '%4llc'\n\n", c);
+}
+
+void			test_17(void)
+{
+	int		num;
+
+	num = 74;
+	printf(ANSI_COLOR_CYAN"Test 17 6o THE PRINTF : '%6o'\n", num);
+	ft_printf(ANSI_COLOR_YELLOW"Test 17 6o MY  PRINTF : '%6o'\n\n", num);
 }

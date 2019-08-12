@@ -12,14 +12,16 @@
 
 #include "ft_printf.h"
 
-int					number_of_digits(int minfw)
+int					number_of_digits(int num, t_flagstruct t_flags)
 {
 	int				digits;
 
 	digits = 0;
-	while (minfw > 0)
+	if (t_flags.argtype == 'o')
+		return (number_of_digits_octal(num));
+	while (num > 0)
 	{
-		minfw = minfw / 10;
+		num = num / 10;
 		digits++;
 	}
 	return (digits);
@@ -70,7 +72,7 @@ void				save_flags(t_flagstruct *t_flags, char **str)
 		if ((ft_isdigit(**str) == 1) && (**str != '0'))
 		{
 			(*t_flags).minfw = ft_atoi(*str);
-			digits = number_of_digits((*t_flags).minfw);
+			digits = number_of_digits((*t_flags).minfw, *t_flags);
 			(*str) = (*str) + digits - 1;
 		}
 		if ((**str == 'h' || **str == 'l') && ((*t_flags).modifier == 0))

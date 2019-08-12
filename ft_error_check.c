@@ -32,6 +32,18 @@ int		error_check(t_flagstruct t_flags, char *str)
 					ft_putstr("Error!\n");
 					return (1);
 				}
+				if (((t_flags.flags & FLAG_MINUS) > 0) && \
+				((t_flags.flags & FLAG_ZERO) > 0))
+				{
+					ft_putstr("Error!\n");
+					return (1);
+				}
+				if ((t_flags.modifier == H) || (t_flags.modifier == HH) || \
+				(t_flags.modifier == LL))
+				{
+					ft_putstr("Error!\n");
+					return (1);
+				}
 			}
 		}
 		str++;

@@ -59,8 +59,10 @@ void			print_arg(va_list argptr, char c, t_flagstruct t_flags);
 void			print_format(t_flagstruct t_flags);
 void			print_modifier(long long *arg, t_flagstruct t_flags);
 void			print_padding(t_flagstruct t_flags, int no_digits);
-int				number_of_digits(int minfw);
+int				number_of_digits(int num, t_flagstruct t_flags);
+int     		number_of_digits_octal(int n);
 void			clear_flagstruct(t_flagstruct *t_flags);
 void			print_binary(uint16_t flag_num);
+void			ft_putnbr_octal(int n);
 
 #endif

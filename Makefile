@@ -19,6 +19,7 @@ SRC =	\
 		ft_error_check.c \
 		ft_printtypes.c \
 		ft_printformat.c \
+		ft_putnbr_base.c \
 		main.c \
 		tests.c \
 

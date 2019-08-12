@@ -28,7 +28,7 @@ void			print_integer(va_list argptr, t_flagstruct t_flags)
 
 	arg = va_arg(argptr, long long);
 	print_modifier(&arg, t_flags);
-	len = number_of_digits(arg);
+	len = number_of_digits(arg, t_flags);
 	if ((t_flags.flags & FLAG_MINUS) > 0)
 	{
 		ft_putnbr(arg);
@@ -51,14 +51,60 @@ void			print_integer(va_list argptr, t_flagstruct t_flags)
 	}
 }
 
+void			print_octal(va_list argptr, t_flagstruct t_flags)
+{
+	long long	arg;
+	int			len;
+
+	arg = va_arg(argptr, long long);
+	print_modifier(&arg, t_flags);
+	len = number_of_digits(arg, t_flags);
+	if ((t_flags.flags & FLAG_MINUS) > 0)
+	{
+		ft_putnbr_octal(arg);
+		print_format(t_flags);
+		print_padding(t_flags, len);
+	}
+	else
+	{
+		if ((t_flags.flags & FLAG_ZERO) > 0)
+		{
+			print_format(t_flags);
+			print_padding(t_flags, len);
+		}
+		else
+		{
+			print_padding(t_flags, len);
+			print_format(t_flags);
+		}
+		ft_putnbr_octal(arg);
+	}
+}
+
 void			print_string(va_list argptr)
 {
 	ft_putstr(va_arg(argptr, char *));
 }
 
-void			print_character(va_list argptr)
+void			print_character(va_list argptr, t_flagstruct t_flags)
 {
-	ft_putchar((char)va_arg(argptr, int));
+	char		arg;
+	int			len;
+
+	arg = (char)va_arg(argptr, int);
+	len = 1;
+	if ((t_flags.flags & FLAG_MINUS) > 0)
+	{
+		ft_putchar(arg);
+		print_format(t_flags);
+		print_padding(t_flags, len);
+	}
+	else
+	{
+		print_format(t_flags);
+		print_padding(t_flags, len);
+		ft_putchar(arg);
+	}
 }
 
 void			print_arg(va_list argptr, char c, t_flagstruct t_flags)
@@ -68,5 +114,7 @@ void			print_arg(va_list argptr, char c, t_flagstruct t_flags)
 	if (c == 's')
 		print_string(argptr);
 	if (c == 'c')
-		print_character(argptr);
+		print_character(argptr, t_flags);
+	if (c == 'o')
+		print_octal(argptr, t_flags);
 }
