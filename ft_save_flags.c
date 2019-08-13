@@ -12,21 +12,6 @@
 
 #include "ft_printf.h"
 
-int					number_of_digits(int num, t_flagstruct t_flags)
-{
-	int				digits;
-
-	digits = 0;
-	if (t_flags.argtype == 'o')
-		return (number_of_digits_octal(num));
-	while (num > 0)
-	{
-		num = num / 10;
-		digits++;
-	}
-	return (digits);
-}
-
 int					found_conversion(char str)
 {
 	if (str == 'c' || str == 's' || str == 'p')
@@ -69,6 +54,8 @@ void				save_flags(t_flagstruct *t_flags, char **str)
 			(*t_flags).flags |= FLAG_ZERO;
 		if (**str == '#')
 			(*t_flags).flags |= FLAG_HT;
+		if (**str == '.')
+			(*t_flags).flags |= FLAG_PRECIS;
 		if ((ft_isdigit(**str) == 1) && (**str != '0'))
 		{
 			(*t_flags).minfw = ft_atoi(*str);

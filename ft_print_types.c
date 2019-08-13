@@ -21,10 +21,10 @@
 ** Check Test 1, 2
 */
 
-void			print_integer(va_list argptr, t_flagstruct t_flags)
+void					print_integer(va_list argptr, t_flagstruct t_flags)
 {
-	long long	arg;
-	int			len;
+	long long			arg;
+	int					len;
 
 	arg = va_arg(argptr, long long);
 	print_modifier(&arg, t_flags);
@@ -37,7 +37,8 @@ void			print_integer(va_list argptr, t_flagstruct t_flags)
 	}
 	else
 	{
-		if ((t_flags.flags & FLAG_ZERO) > 0)
+		if (((t_flags.flags & FLAG_ZERO) > 0) || \
+		((t_flags.flags & FLAG_PRECIS) > 0))
 		{
 			print_format(t_flags);
 			print_padding(t_flags, len);
@@ -51,13 +52,13 @@ void			print_integer(va_list argptr, t_flagstruct t_flags)
 	}
 }
 
-void			print_octal(va_list argptr, t_flagstruct t_flags)
+void					print_octal(va_list argptr, t_flagstruct t_flags)
 {
-	long long	arg;
+	unsigned long long	arg;
 	int			len;
 
 	arg = va_arg(argptr, long long);
-	print_modifier(&arg, t_flags);
+	print_modif_un(&arg, t_flags);
 	len = number_of_digits(arg, t_flags);
 	if ((t_flags.flags & FLAG_MINUS) > 0)
 	{
@@ -81,15 +82,45 @@ void			print_octal(va_list argptr, t_flagstruct t_flags)
 	}
 }
 
-void			print_string(va_list argptr)
+void					print_hex(va_list argptr, t_flagstruct t_flags)
+{
+	long long			arg;
+	int					len;
+
+	arg = va_arg(argptr, long long);
+	print_modifier(&arg, t_flags);
+	len = number_of_digits(arg, t_flags);
+	if ((t_flags.flags & FLAG_MINUS) > 0)
+	{
+		ft_putnbr_hex(arg);
+		print_format(t_flags);
+		print_padding(t_flags, len);
+	}
+	else
+	{
+		if ((t_flags.flags & FLAG_ZERO) > 0)
+		{
+			print_format(t_flags);
+			print_padding(t_flags, len);
+		}
+		else
+		{
+			print_padding(t_flags, len);
+			print_format(t_flags);
+		}
+		ft_putnbr_hex(arg);
+	}
+}
+
+void					print_string(va_list argptr)
 {
 	ft_putstr(va_arg(argptr, char *));
 }
 
-void			print_character(va_list argptr, t_flagstruct t_flags)
+void					print_character(va_list argptr, t_flagstruct t_flags)
 {
-	char		arg;
-	int			len;
+	char				arg;
+	int					len;
 
 	arg = (char)va_arg(argptr, int);
 	len = 1;
@@ -107,7 +138,7 @@ void			print_character(va_list argptr, t_flagstruct t_flags)
 	}
 }
 
-void			print_arg(va_list argptr, char c, t_flagstruct t_flags)
+void					print_arg(va_list argptr, char c, t_flagstruct t_flags)
 {
 	if (c == 'd')
 		print_integer(argptr, t_flags);
@@ -117,4 +148,6 @@ void			print_arg(va_list argptr, char c, t_flagstruct t_flags)
 		print_character(argptr, t_flags);
 	if (c == 'o')
 		print_octal(argptr, t_flags);
+	if (c == 'x')
+		print_hex(argptr, t_flags);
 }

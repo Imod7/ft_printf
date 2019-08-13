@@ -15,13 +15,15 @@ LIBFT = libft/libft.a
 CC = gcc -Wall -Wextra -Werror -g
 SRC =	\
 		ft_printf.c \
-		ft_saveflags.c \
+		ft_save_flags.c \
 		ft_error_check.c \
-		ft_printtypes.c \
-		ft_printformat.c \
+		ft_print_types.c \
+		ft_print_format.c \
 		ft_putnbr_base.c \
 		main.c \
 		tests.c \
+		tests_octal.c \
+		tests_hex.c \
 
 OBJ = $(SRC:%.c=%.o)
 

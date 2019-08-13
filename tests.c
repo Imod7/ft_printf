@@ -91,7 +91,7 @@ void			test_ten(void)
 	char		c;
 
 	c = 'A';
-	ft_printf(ANSI_COLOR_GREEN"Test 12 should show error >> ");
+	ft_printf(ANSI_COLOR_GREEN"Test 10 should show error >> ");
 	// printf(ANSI_COLOR_CYAN"Test 10 +c THE PRINTF : '%+c'\n", c);
 	ft_printf(ANSI_COLOR_YELLOW"\nTest 10 +c MY  PRINTF : '%+c'\n\n", c);
 }
@@ -154,11 +154,20 @@ void			test_16(void)
 	ft_printf(ANSI_COLOR_YELLOW"Test 16 4llc MY  PRINTF : '%4llc'\n\n", c);
 }
 
-void			test_17(void)
+void			test_20(void)
 {
-	int		num;
+	int			num;
 
-	num = 74;
-	printf(ANSI_COLOR_CYAN"Test 17 6o THE PRINTF : '%6o'\n", num);
-	ft_printf(ANSI_COLOR_YELLOW"Test 17 6o MY  PRINTF : '%6o'\n\n", num);
+	num = 54;
+	printf(ANSI_COLOR_CYAN"Test 20 .15d THE PRINTF : '%.15d'\n", num);
+	ft_printf(ANSI_COLOR_YELLOW"Test 20 .15d MY  PRINTF : '%.15d'\n\n", num);
+}
+
+void			test_21(void)
+{
+	int			num;
+
+	num = 88;
+	printf(ANSI_COLOR_CYAN"Test 21 .15d THE PRINTF : '%.15d'\n", num);
+	ft_printf(ANSI_COLOR_YELLOW"Test 21 .15d MY  PRINTF : '%.15d'\n\n", num);
 }

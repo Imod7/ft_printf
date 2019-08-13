@@ -32,5 +32,12 @@ void    test_fourteen(void);
 void    test_fifteen(void);
 void    test_16(void);
 void	test_17(void);
+void	test_18(void);
+void	test_19(void);
+void	test_20(void);
+void	test_21(void);
+void	test_22(void);
+void	test_23(void);
+void	test_24(void);
 
 # endif

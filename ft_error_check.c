@@ -38,8 +38,16 @@ int		error_check(t_flagstruct t_flags, char *str)
 					ft_putstr("Error!\n");
 					return (1);
 				}
-				if ((t_flags.modifier == H) || (t_flags.modifier == HH) || \
-				(t_flags.modifier == LL))
+				// if ((t_flags.modifier == H) || (t_flags.modifier == HH) || \
+				// (t_flags.modifier == LL))
+				// {
+				// 	ft_putstr("Error!\n");
+				// 	return (1);
+				// }
+			}
+			if (t_flags.argtype == 'o')
+			{
+				if ((t_flags.flags & FLAG_SPACE) > 0)
 				{
 					ft_putstr("Error!\n");
 					return (1);
