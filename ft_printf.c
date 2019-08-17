@@ -32,26 +32,31 @@ int					find_no_args(char *str)
 
 int					ft_printf(char *str, ...)
 {
-	t_flagstruct	t_flags;
+	t_format	t_flags;
 	va_list			argptr;
 
 	va_start(argptr, str);
-	clear_flagstruct(&t_flags);
+	clear_formatstruct(&t_flags);
 	if (error_check(t_flags, str) == 1)
 		return (0);
+	t_flags.total_chars_printed = 0;
 	while (*str != '\0')
 	{
 		if (*str == '%')
 		{
 			str++;
-			clear_flagstruct(&t_flags);
+			clear_formatstruct(&t_flags);
 			save_flags(&t_flags, &str);
-			print_arg(argptr, *str, t_flags);
+			print_arg(argptr, &t_flags);
 		}
 		else
+		{
+			t_flags.total_chars_printed++;
 			ft_putchar(*str);
+			// printf("char = %c , number_of_chars = %d \n", *str, t_flags.total_chars_printed);
+		}
 		str++;
 	}
 	va_end(argptr);
-	return (0);
+	return (t_flags.total_chars_printed);
 }

@@ -20,10 +20,11 @@ SRC =	\
 		ft_print_types.c \
 		ft_print_format.c \
 		ft_putnbr_base.c \
-		main.c \
-		tests.c \
-		tests_octal.c \
-		tests_hex.c \
+		tests/main.c \
+		tests/tests_int.c \
+		tests/tests_octal.c \
+		tests/tests_hex.c \
+		tests/tests_pointer.c \
 
 OBJ = $(SRC:%.c=%.o)
 

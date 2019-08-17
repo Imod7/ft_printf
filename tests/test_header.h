@@ -13,13 +13,15 @@
 #ifndef TEST_HEADER_H
 # define TEST_HEADER_H
 
+# include <assert.h>
+
 typedef void test_func(void);
 
 void	test_one(void);
 void	test_two(void);
 void	test_three(void);
 void	test_four(void);
-void	test_five(void);
+void	test_int5(void);
 void	test_six(void);
 void	test_seven(void);
 void	test_eight(void);
@@ -36,8 +38,23 @@ void	test_18(void);
 void	test_19(void);
 void	test_20(void);
 void	test_21(void);
-void	test_22(void);
-void	test_23(void);
-void	test_24(void);
+void	test_hex1(void);
+void	test_hex2(void);
+void	test_hex3(void);
+void	test_hex4(void);
+void	test_hex5(void);
+void	test_hex6(void);
+void	test_hex7(void);
+void	test_hex8(void);
+void	test_hex9(void);
+void	test_hex10(void);
+void	test_hex11(void);
+void	test_hex12(void);
+void	test_i1(void);
+void	test_i2(void);
+void	test_i3(void);
+void	test_double1(void);
+void	test_pointer1(void);
+void	test_pointer2(void);
 
 # endif

@@ -12,19 +12,25 @@
 
 #include "ft_printf.h"
 
-int		error_check(t_flagstruct t_flags, char *str)
+int		error_check(t_format t_flags, char *str)
 {
-	clear_flagstruct(&t_flags);
+	clear_formatstruct(&t_flags);
 	while (*str != '\0')
 	{
 		if (*str == '%')
 		{
 			str++;
-			clear_flagstruct(&t_flags);
+			clear_formatstruct(&t_flags);
 			save_flags(&t_flags, &str);
 		}
 		else if (t_flags.argtype != 0)
 		{
+			if (((t_flags.flags & FLAG_ASTER) > 0) && \
+			((t_flags.flags & FLAG_SPACE) > 0))
+			{
+				ft_putstr("Error!\n");
+				return (1);
+			}
 			if (t_flags.argtype == 'c')
 			{
 				if ((t_flags.flags & FLAG_PLUS) > 0)
@@ -38,12 +44,12 @@ int		error_check(t_flagstruct t_flags, char *str)
 					ft_putstr("Error!\n");
 					return (1);
 				}
-				// if ((t_flags.modifier == H) || (t_flags.modifier == HH) || \
-				// (t_flags.modifier == LL))
-				// {
-				// 	ft_putstr("Error!\n");
-				// 	return (1);
-				// }
+				if ((t_flags.modifier == H) || (t_flags.modifier == HH) || \
+				(t_flags.modifier == LL))
+				{
+					ft_putstr("Error!\n");
+					return (1);
+				}
 			}
 			if (t_flags.argtype == 'o')
 			{

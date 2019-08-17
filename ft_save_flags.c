@@ -25,7 +25,7 @@ int					found_conversion(char str)
 	return (0);
 }
 
-int					save_modifier(char *str, t_flagstruct *t_flags)
+int					save_modifier(char *str, t_format *t_flags)
 {
 	if ((str[0] == 'h') && (str[1] != 'h'))
 		(*t_flags).modifier = H;
@@ -38,12 +38,14 @@ int					save_modifier(char *str, t_flagstruct *t_flags)
 	return (0);
 }
 
-void				save_flags(t_flagstruct *t_flags, char **str)
+void				save_flags(t_format *t_flags, char **str)
 {
 	int				digits;
 
 	while (**str != '\0' && found_conversion(**str) == 0)
 	{
+		if (**str == '*')
+			(*t_flags).flags |= FLAG_ASTER;
 		if (**str == '-')
 			(*t_flags).flags |= FLAG_MINUS;
 		if (**str == '+')
@@ -59,7 +61,7 @@ void				save_flags(t_flagstruct *t_flags, char **str)
 		if ((ft_isdigit(**str) == 1) && (**str != '0'))
 		{
 			(*t_flags).minfw = ft_atoi(*str);
-			digits = number_of_digits((*t_flags).minfw, *t_flags);
+			digits = number_of_digits((*t_flags).minfw);
 			(*str) = (*str) + digits - 1;
 		}
 		if ((**str == 'h' || **str == 'l') && ((*t_flags).modifier == 0))
@@ -72,12 +74,18 @@ void				save_flags(t_flagstruct *t_flags, char **str)
 	// print_binary((*t_flags).flags);
 }
 
-void				clear_flagstruct(t_flagstruct *t_flags)
+/*
+** The only thing we do not initialize in the function clear_formatstruct
+** is the member total_chars_printed because we need to continue counting
+** for more than one arguments
+*/
+
+void				clear_formatstruct(t_format *t_flags)
 {
 	(*t_flags).flags = 0;
 	(*t_flags).minfw = 0;
 	(*t_flags).precision = 0;
 	(*t_flags).argtype = 0;
-	(*t_flags).chars_printed = 0;
-	(*t_flags).modifier = 0;
+	(*t_flags).special_chars_printed = 0;
+	(*t_flags).modifier = N;
 }
