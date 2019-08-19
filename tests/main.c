@@ -35,12 +35,12 @@ int				main(void)
 {
 	int			option;
 	int			i;
-	test_func	*test_array[38];
+	test_func	*test_array[42];
 
 	test_array[0] = test_one;
 	test_array[1] = test_two;
 	test_array[2] = test_three;
-	test_array[3] = test_four;
+	test_array[3] = test_int4;
 	test_array[4] = test_int5;
 	test_array[5] = test_six;
 	test_array[6] = test_seven;
@@ -75,6 +75,10 @@ int				main(void)
 	test_array[35] = test_i3;
 	test_array[36] = test_pointer1;
 	test_array[37] = test_pointer2;
+	test_array[38] = test_exceptions1;
+	test_array[39] = test_i4;
+	test_array[40] = test_exceptions2;
+	test_array[41] = test_float1;
 	i = 1;
 	printf("Which Test do you want to run ? (0 to run All) \n");
 	scanf("%d", &option);

@@ -20,7 +20,7 @@ typedef void test_func(void);
 void	test_one(void);
 void	test_two(void);
 void	test_three(void);
-void	test_four(void);
+void	test_int4(void);
 void	test_int5(void);
 void	test_six(void);
 void	test_seven(void);
@@ -56,5 +56,9 @@ void	test_i3(void);
 void	test_double1(void);
 void	test_pointer1(void);
 void	test_pointer2(void);
+void	test_exceptions1(void);
+void	test_i4(void);
+void	test_exceptions2(void);
+void	test_float1(void);
 
 # endif

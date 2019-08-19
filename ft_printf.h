@@ -60,7 +60,8 @@ void			save_flags(t_format *t_flags, char **str);
 int				error_check(t_format t_flags, char *str);
 void			print_arg(va_list argptr, t_format *t_flags);
 void			print_sign(t_format *t_flags);
-void			check_modifier(va_list argptr, long long *arg, t_format *t_flags);
+// void			check_modifier(va_list argptr, long long *arg, t_format *t_flags);
+void			check_modifier(long long *arg, t_format *t_flags);
 void			check_modif_un(unsigned long long *arg, t_format *t_flags);
 void			print_padding(t_format *t_flags, int no_digits);
 int				number_of_digits(long long num);
@@ -71,5 +72,10 @@ void			ft_putnbr_int(int n);
 void			ft_putnbr_octal(unsigned long long n);
 void			ft_putnbr_hex(unsigned long long n);
 void			ft_putnbr_hex_capit(unsigned long long n);
+void			print_string(va_list argptr, t_format *t_flags);
+void			print_character(va_list argptr, t_format *t_flags);
+void			print_other(char arg, t_format *t_flags);
+void			print_octal(va_list argptr, t_format *t_flags);
+void			print_hex(va_list argptr, t_format *t_flags);
 
 #endif

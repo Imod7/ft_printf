@@ -32,7 +32,7 @@ int					find_no_args(char *str)
 
 int					ft_printf(char *str, ...)
 {
-	t_format	t_flags;
+	t_format		t_flags;
 	va_list			argptr;
 
 	va_start(argptr, str);
@@ -45,14 +45,22 @@ int					ft_printf(char *str, ...)
 		if (*str == '%')
 		{
 			str++;
-			clear_formatstruct(&t_flags);
-			save_flags(&t_flags, &str);
-			print_arg(argptr, &t_flags);
+			if (*str == '%')
+			{
+				ft_putchar('%');
+				t_flags.total_chars_printed++;
+			}
+			else
+			{
+				clear_formatstruct(&t_flags);
+				save_flags(&t_flags, &str);
+				print_arg(argptr, &t_flags);
+			}
 		}
 		else
 		{
-			t_flags.total_chars_printed++;
 			ft_putchar(*str);
+			t_flags.total_chars_printed++;
 			// printf("char = %c , number_of_chars = %d \n", *str, t_flags.total_chars_printed);
 		}
 		str++;

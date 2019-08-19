@@ -17,14 +17,12 @@ SRC =	\
 		ft_printf.c \
 		ft_save_flags.c \
 		ft_error_check.c \
-		ft_print_types.c \
+		ft_print_signed.c \
+		ft_print_unsigned.c \
+		ft_print_other.c \
 		ft_print_format.c \
 		ft_putnbr_base.c \
-		tests/main.c \
-		tests/tests_int.c \
-		tests/tests_octal.c \
-		tests/tests_hex.c \
-		tests/tests_pointer.c \
+		$(wildcard tests/*.c) \
 
 OBJ = $(SRC:%.c=%.o)
 

@@ -21,9 +21,9 @@ void		test_one(void)
 	write(1, "\n", 1);
 	total_chars_p = printf(ANSI_COLOR_CYAN"'Test 1 : with the number '%+08d' and the string '%s' and the char '%c'\n", 45, "coding", 'K');
 	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"'Test 1 : with the number '%+08d' and the string '%s' and the char '%c'\n", 45, "coding", 'K');
-	assert(total_chars_p == total_chars_ftp);
-	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	// assert(total_chars_p == total_chars_ftp);
+	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 }
 
 void		test_two(void)
@@ -48,14 +48,14 @@ void		test_three(void)
 	assert(total_chars_p == total_chars_ftp);
 }
 
-void		test_four(void)
+void		test_int4(void)
 {
 	int		total_chars_p;
 	int		total_chars_ftp;
 
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test 4 010d : '%010d' \n", 1256);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 4 010d : '%010d' \n", 1256);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test_4   >010d : '%010d'  > -9d : '% -9d'  > -9d negat value : '% -9d' \n", 1256, 596, -99);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_4   >010d : '%010d'  > -9d : '% -9d'  > -9d negat value : '% -9d' \n", 1256, 596, -99);
 	assert(total_chars_p == total_chars_ftp);
 }
 
@@ -80,8 +80,8 @@ void		test_six(void)
 	a = 32761;
 	b = (short)a;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test 6 hd : '%hd'\n", b);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 6 hd : '%hd'\n", b);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test 6   >hd :  '%hd'  \n", b);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 6   >hd :  '%hd'  \n", b);
 	assert(total_chars_p == total_chars_ftp);
 }
 
@@ -95,8 +95,8 @@ void			test_seven(void)
 	a = 125;
 	b = (signed char)a;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test 7 hhd : '%hhd'  \n", b);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 7 hhd : '%hhd'  \n", b);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test 7   >hhd : '%hhd'    >-15hhd : '%-15hhd'\n", b, b);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 7   >hhd : '%hhd'    >-15hhd : '%-15hhd'\n", b, b);
 	assert(total_chars_p == total_chars_ftp);
 }
 
@@ -220,8 +220,8 @@ void			test_20(void)
 
 	num = 54;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test 20 .15d : '%.15d'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 20 .15d : '%.15d'\n", num);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test 20   >.11d : '%.11d'   >*.18d: '%*.18d'   >0.14d   '%0.14d'\n", num, 33, num, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 20   >.11d : '%.11d'   >*.18d: '%*.18d'   >0.14d   '%0.14d'\n", num, 33, num, num);
 	assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -235,48 +235,9 @@ void			test_21(void)
 
 	num = 88;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test 21 .15d : '%.15d'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 21 .15d : '%.15d'\n", num);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test 21 .15d : '%.15d'  >24.5d    '%24.5d'\n", num, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 21 .15d : '%.15d'  >24.5d    '%24.5d'\n", num, num);
 	assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
-}
-
-void			test_i1(void)
-{
-	int			num;
-	int			total_chars_p;
-	int			total_chars_ftp;
-
-	num = -2147483648;
-	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"34 = test_i1 0.22i : '%0.22i'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"34 = test_i1 0.22i : '%0.22i'\n", num);
-	assert(total_chars_p == total_chars_ftp);
-}
-
-void			test_i2(void)
-{
-	int			num;
-	int			total_chars_p;
-	int			total_chars_ftp;
-
-	num = -21;
-	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"35 = test_i2 *i : '%*i'\n", 5, num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"35 = test_i2 *i : '%*i'\n", 5, num);
-	assert(total_chars_p == total_chars_ftp);
-}
-
-void			test_i3(void)
-{
-	long		num;
-	int			total_chars_p;
-	int			total_chars_ftp;
-
-	num = -2147483648;
-	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"36 = test_i3 with flags -17li and limit of long : '%-17li'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"36 = test_i3 with flags -17li and limit of long : '%-17li'\n", num);
-	assert(total_chars_p == total_chars_ftp);
 }

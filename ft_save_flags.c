@@ -12,17 +12,38 @@
 
 #include "ft_printf.h"
 
-int					found_conversion(char str)
+// int					found_conversion(char str)
+// {
+// 	if (str == 'c' || str == 's' || str == 'p')
+// 		return (1);
+// 	if (str == 'd' || str == 'i' || str == 'o')
+// 		return (1);
+// 	if (str == 'u' || str == 'x' || str == 'X')
+// 		return (1);
+// 	if (str == 'f' || str == '%')
+// 		return (1);
+// 	return (0);
+// }
+
+int					all_flags_retrieved(char str)
 {
-	if (str == 'c' || str == 's' || str == 'p')
-		return (1);
-	if (str == 'd' || str == 'i' || str == 'o')
-		return (1);
-	if (str == 'u' || str == 'x' || str == 'X')
-		return (1);
-	if (str == 'f' || str == '%')
-		return (1);
-	return (0);
+	if (str == '*' || str == '-' || str == '+')
+		return (0);
+	if (str == ' ' || str == '0' || str == '#')
+		return (0);
+	if (str == '.')
+		return (0);
+	if ((str == 'h') && (str != 'h'))
+		return (0);
+	if ((str == 'h') && (str == 'h'))
+		return (0);
+	if ((str == 'l') && (str != 'l'))
+		return (0);
+	if ((str == 'l') && (str == 'l'))
+		return (0);
+	if (ft_isdigit(str) == 1)
+		return (0);
+	return (1);
 }
 
 int					save_modifier(char *str, t_format *t_flags)
@@ -42,7 +63,8 @@ void				save_flags(t_format *t_flags, char **str)
 {
 	int				digits;
 
-	while (**str != '\0' && found_conversion(**str) == 0)
+	// printf("\n save_flags called ! \n");
+	while (**str != '\0' && all_flags_retrieved(**str) == 0)
 	{
 		if (**str == '*')
 			(*t_flags).flags |= FLAG_ASTER;
@@ -56,13 +78,28 @@ void				save_flags(t_format *t_flags, char **str)
 			(*t_flags).flags |= FLAG_ZERO;
 		if (**str == '#')
 			(*t_flags).flags |= FLAG_HT;
-		if (**str == '.')
-			(*t_flags).flags |= FLAG_PRECIS;
-		if ((ft_isdigit(**str) == 1) && (**str != '0'))
+		if ((ft_isdigit(**str) == 1) && (**str != '0') && \
+		((*t_flags).minfw == 0))
 		{
 			(*t_flags).minfw = ft_atoi(*str);
 			digits = number_of_digits((*t_flags).minfw);
 			(*str) = (*str) + digits - 1;
+		}
+		if (**str == '.')
+		{
+			(*t_flags).flags |= FLAG_PRECIS;
+			(*str)++;
+			// printf("OUTSIDE >>>> str = %c, precision=%d, minfw=%d, special_chars=%d\n", **str, (*t_flags).precision, (*t_flags).minfw, (*t_flags).special_chars_printed);
+			if ((ft_isdigit(**str) == 1) && (**str != '0') && \
+			((*t_flags).precision == 0))
+			{
+				(*t_flags).precision = ft_atoi(*str);
+				digits = number_of_digits((*t_flags).precision);
+				(*str) = (*str) + digits - 1;
+				// printf("INSIDE >>>> precision=%d, minfw=%d, special_chars=%d\n", (*t_flags).precision, (*t_flags).minfw, (*t_flags).special_chars_printed);
+			}
+			if ((*t_flags).minfw == 0)
+				(*t_flags).minfw = (*t_flags).precision;
 		}
 		if ((**str == 'h' || **str == 'l') && ((*t_flags).modifier == 0))
 			save_modifier(*str, t_flags);

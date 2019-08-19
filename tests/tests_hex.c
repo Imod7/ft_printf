@@ -21,11 +21,11 @@ void				test_hex1(void)
 
 	num = -2000;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test 22 x : '%x'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 22 x : '%x'\n", num);
-	assert(total_chars_p == total_chars_ftp);
-	// printf(ANSI_COLOR_RED"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_RED"total_chars_ftp = %d \n", total_chars_ftp);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test 22 >x : '%x'  ,  >+x: undefined behaviour but works \n", num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 22 >x : '%x'  ,  >+x: undefined behaviour but works \n", num);
+	// assert(total_chars_p == total_chars_ftp);
+	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 }
 
 void				test_hex2(void)
@@ -36,11 +36,11 @@ void				test_hex2(void)
 
 	num = 4294967295;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_RED"Test_23 #x, #*x  : '%#x', '%#*x'\n", num, 17, num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_RED"Test_23 #x, #*x  : '%#x', '%#*x'\n", num, 17, num);
-	// assert(total_chars_p == total_chars_ftp);
-	printf(ANSI_COLOR_RED"total_chars_p   = %d \n", total_chars_p);
-	printf(ANSI_COLOR_RED"total_chars_ftp = %d \n", total_chars_ftp);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test_23 #x, #*x  : '%#x', '%#*x'\n", num, 17, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_23 #x, #*x  : '%#x', '%#*x'\n", num, 17, num);
+	assert(total_chars_p == total_chars_ftp);
+	// printf(ANSI_COLOR_RED"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_RED"total_chars_ftp = %d \n", total_chars_ftp);
 }
 
 void				test_hex3(void)
@@ -51,8 +51,8 @@ void				test_hex3(void)
 
 	num = 4000;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test 24 0.11x : '%0.11x'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 24 0.11x : '%0.11x'\n", num);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test 24:  >0.11x : '%0.11x'   >*.15x : '%*.15x'   >.13x : '%.13x'\n", num, 30, num, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 24:  >0.11x : '%0.11x'   >*.15x : '%*.15x'   >.13x : '%.13x'\n", num, 30, num, num);
 	assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -66,8 +66,8 @@ void				test_hex4(void)
 
 	num = 65535;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test 25 hx : '%hx'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 25 hx : '%hx'\n", num);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test 25 >hx : '%hx' ,   >-*hx  : '%-*.2hx'   > -5x : undefined behaviour\n", num, 9, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 25 >hx : '%hx' ,   >-*hx  : '%-*.2hx'   > -5x : undefined behaviour\n", num, 9, num);
 	assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -81,8 +81,8 @@ void				test_hex5(void)
 
 	num = 255;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test 26 hhx : '%hhx'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 26 hhx : '%hhx'\n", num);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test 26 >020hhx : '%020hhx'   >015hhx : '%015hhx' \n", num, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 26 >020hhx : '%020hhx'   >015hhx : '%015hhx' \n", num, num);
 	assert(total_chars_p == total_chars_ftp);
 }
 
@@ -120,8 +120,8 @@ void					test_hex8(void)
 
 	num = 65535;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test_28 hX : '%hX'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_28 hX : '%hX'\n", num);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test_29   >hX: '%hX' ,  >0.13X: %0.13X ,  >.12X: %.12X ,  >.9X: %*.9X \n", num, num, num, 10, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_29   >hX: '%hX' ,  >0.13X: %0.13X ,  >.12X: %.12X ,  >.9X: %*.9X \n", num, num, num, 10, num);
 	assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -135,8 +135,8 @@ void					test_hex9(void)
 
 	num = 255;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test_29 09hhX : '%09hhX'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_29 09hhX : '%09hhX'\n", num);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test_30:   >09hhX : '%09hhX'   >#09hhX:  '%#09hhX'\n", num, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_30:   -09hhX : '%09hhX'   -#09hhX:  '%#09hhX'\n", num, num);
 	assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -150,8 +150,8 @@ void					test_hex10(void)
 
 	num = 4294967295;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test_30 0*lX : '%0*lX'\n", 15, num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_30 0*lX : '%0*lX'\n", 15, num);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test_31:  0*lX : '%0*lX'\n", 15, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_31:  0*lX : '%0*lX'\n", 15, num);
 	assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -165,9 +165,9 @@ void					test_hex11(void)
 
 	num = 18446744073709551615U;
 	write(1, "\n", 1);
-	ft_printf(ANSI_COLOR_MAGENTA"32=test_hex11 Error (w flags in gcc) / Warning (wo flags) >> ");
+	ft_printf(ANSI_COLOR_MAGENTA"Test_32 Error (w flags in gcc) / Warning (wo flags) >> ");
 	// total_chars_p = printf(ANSI_COLOR_CYAN"32=test_hex11 space*llX : '% *llX'\n", 28, num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"32=test_hex11 space*llX : '% *llX'\n", 28, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_32: space*llX : '% *llX'\n", 28, num);
 	// assert(total_chars_p == total_chars_ftp);
 }
 
@@ -177,7 +177,7 @@ void					test_hex12(void)
 	int					total_chars_p;
 	int					total_chars_ftp;
 
-	num = 18446744073709551615U;
+	num = 123789555845795653;
 	write(1, "\n", 1);
 	total_chars_p = printf(ANSI_COLOR_CYAN"33 = test_hex12 -*llX : '%-*llX'\n", 66, num);
 	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"33 = test_hex12 -*llX : '%-*llX'\n", 66, num);

@@ -36,8 +36,8 @@ void				test_18(void)
 
 	num = 5623;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_RED"Test 18 05o, #*o : '%05o', '%#*o'\n", num, 9, num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_RED"Test 18 05o, #*o : '%05o', '%#*o'\n", num, 9, num);
+	total_chars_p = printf(ANSI_COLOR_CYAN"Test 18   >05o : '%05o' , >#*o : '%#*o'\n", num, 22, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 18   >05o : '%05o' , >#*o : '%#*o'\n", num, 22, num);
 	// assert(total_chars_p == total_chars_ftp);
 	printf(ANSI_COLOR_RED"total_chars_p   = %d \n", total_chars_p);
 	printf(ANSI_COLOR_RED"total_chars_ftp = %d \n", total_chars_ftp);

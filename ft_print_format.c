@@ -76,19 +76,25 @@ void		print_padding(t_format *t_flags, int number_of_digits)
 	if ((((*t_flags).flags & (FLAG_PLUS | FLAG_NEGAT)) > 0) && \
 	(((*t_flags).flags & FLAG_ZERO) == 0))
 		(*t_flags).special_chars_printed++;
-	// if (((*t_flags).flags & FLAG_HT) > 0)
-	// 	(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
-	// if (((*t_flags).flags & FLAG_HT) > 0)
-	// 	(*t_flags).special_chars_printed++;
+	if ((((*t_flags).flags & FLAG_HT) > 0) && (((*t_flags).argtype == 'x') || \
+	((*t_flags).argtype == 'X')))
+		(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
+	if ((((*t_flags).flags & FLAG_HT) > 0) && ((*t_flags).argtype == 'o'))
+		(*t_flags).special_chars_printed++;
 	pad_len = (*t_flags).minfw - (*t_flags).special_chars_printed - number_of_digits;
 	// printf("padding = minfw %d - special_chars %d - digits %d", (*t_flags).minfw, (*t_flags).special_chars_printed, number_of_digits);
 	// printf("\npad_len = %d\n", pad_len);
+	// printf("\nprecision = %d\n", (*t_flags).precision);
 	while (i < pad_len)
 	{
-		if (((*t_flags).flags & FLAG_ZERO) || ((*t_flags).flags & FLAG_PRECIS))
+		if (((*t_flags).flags & FLAG_ZERO)) //|| ((*t_flags).flags & FLAG_PRECIS))
 			c = '0';
 		else
 			c = ' ';
+		// printf("\n i = %d, pad_len = %d - precision = %d - number_of_digits = %d \n", i, pad_len, (*t_flags).precision, number_of_digits);
+		if (((*t_flags).flags & FLAG_PRECIS) && \
+		(i >= (pad_len - (*t_flags).precision) + number_of_digits))
+			c = '0';
 		ft_putchar(c);
 		(*t_flags).total_chars_printed++;
 		i++;
@@ -120,18 +126,39 @@ void		print_sign(t_format *t_flags)
 	}
 }
 
-void		check_modifier(va_list argptr, long long *arg, t_format *t_flags)
+//void		check_modifier(va_list argptr, long long *arg, t_format *t_flags)
+void		check_modifier(long long *arg, t_format *t_flags)
 {
+	// if ((*t_flags).modifier == N)
+	// {
+	// 	printf(ANSI_COLOR_GREEN"\n before typecast : %lld \n", *arg);
+	// 	*arg = va_arg(argptr, int);
+	// 	printf(ANSI_COLOR_CYAN"\n after typecast = %lld \n", *arg);
+	// }
+	// if ((*t_flags).modifier == H)
+	// 	*arg = (short)va_arg(argptr, int);
+	// if ((*t_flags).modifier == HH)
+	// 	*arg = (signed char)va_arg(argptr, int);
+	// if ((*t_flags).modifier == L)
+	// 	*arg = va_arg(argptr, long);
+	// if ((*t_flags).modifier == LL)
+	// 	*arg = va_arg(argptr, long long);
+	// if (*arg < 0)
+	// 	(*t_flags).flags |= FLAG_NEGAT;
 	if ((*t_flags).modifier == N)
-		*arg = va_arg(argptr, int);
+	{
+		// printf(ANSI_COLOR_GREEN"\n before typecast : %lld \n", *arg);
+		*arg = (int)(*arg);
+		// printf(ANSI_COLOR_CYAN"\n after typecast = %lld \n", *arg);
+	}
 	if ((*t_flags).modifier == H)
-		*arg = (short)va_arg(argptr, int);
+		*arg = (short)(*arg);
 	if ((*t_flags).modifier == HH)
-		*arg = (signed char)va_arg(argptr, int);
+		*arg = (signed char)(*arg);
 	if ((*t_flags).modifier == L)
-		*arg = va_arg(argptr, long);
+		*arg = (long)(*arg);
 	if ((*t_flags).modifier == LL)
-		*arg = va_arg(argptr, long long);
+		*arg = (long long)(*arg);
 	if (*arg < 0)
 		(*t_flags).flags |= FLAG_NEGAT;
 }
