@@ -52,6 +52,7 @@ typedef struct	s_format
 	char		argtype;
 	int			special_chars_printed;
 	int			total_chars_printed;
+	int			float_decpart_len;
 	t_modifier	modifier;
 }				t_format;
 
@@ -68,7 +69,7 @@ int				number_of_digits(long long num);
 int				number_of_digits_un(unsigned long long num, t_format t_flags);
 void			clear_formatstruct(t_format *t_flags);
 void			print_binary(uint16_t flag_num);
-void			ft_putnbr_int(int n);
+void			ft_putnbr_int(long long n);
 void			ft_putnbr_octal(unsigned long long n);
 void			ft_putnbr_hex(unsigned long long n);
 void			ft_putnbr_hex_capit(unsigned long long n);
@@ -77,5 +78,6 @@ void			print_character(va_list argptr, t_format *t_flags);
 void			print_other(char arg, t_format *t_flags);
 void			print_octal(va_list argptr, t_format *t_flags);
 void			print_hex(va_list argptr, t_format *t_flags);
+long long		return_decimal_part_as_int(double num);
 
 #endif

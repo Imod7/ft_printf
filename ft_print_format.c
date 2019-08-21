@@ -61,6 +61,30 @@ int			number_of_digits_un(unsigned long long num, t_format t_flags)
 	return (digits);
 }
 
+long long		return_decimal_part_as_int(double num)
+{
+	size_t		base;
+	long long 	leftpart;
+	double		rightpart;
+	double 		initialnumber;
+	double		check_if_decimals_retrieved;
+
+	check_if_decimals_retrieved = 1;
+	base = 10;
+	initialnumber = num;
+	rightpart = 1;
+	// printf(ANSI_COLOR_CYAN"\ninside number_of_digits_float : initial number  = %.11f \n", num);
+	while (check_if_decimals_retrieved > (float)0)
+	{
+		leftpart = (long long)(initialnumber * base);
+		rightpart = ((initialnumber * base) - leftpart);
+		// printf("initialnumber = %.11f , leftpart = %lld, rightpart = %.11f , check = %f\n", initialnumber, leftpart, rightpart, check_if_decimals_retrieved);
+		check_if_decimals_retrieved = ((int)(rightpart * 100 + .5) / 100.0);
+		base = base * 10;
+	}
+	return (leftpart);
+}
+
 /*
 ** If FLAG_PLUS or FLAG_NEGAT is set AND FLAG_ZERO is not set
 ** then we need to increase the special_chars_printed
@@ -81,6 +105,8 @@ void		print_padding(t_format *t_flags, int number_of_digits)
 		(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
 	if ((((*t_flags).flags & FLAG_HT) > 0) && ((*t_flags).argtype == 'o'))
 		(*t_flags).special_chars_printed++;
+	// if (((*t_flags).argtype == 'f') && ((*t_flags).float_decpart_len < 6))
+		// (*t_flags).minfw = 6;
 	pad_len = (*t_flags).minfw - (*t_flags).special_chars_printed - number_of_digits;
 	// printf("padding = minfw %d - special_chars %d - digits %d", (*t_flags).minfw, (*t_flags).special_chars_printed, number_of_digits);
 	// printf("\npad_len = %d\n", pad_len);

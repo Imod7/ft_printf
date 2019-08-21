@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_putnbr_int(int n)
+void	ft_putnbr_int(long long n)
 {
 	if (n == -2147483648)
 	{

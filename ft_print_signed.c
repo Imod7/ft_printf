@@ -22,6 +22,7 @@ void					int_with_zero(long long arg, t_format *t_flags, int len)
 	}
 	else
 	{
+		// printf("\n number in int_with_minus = %lld", arg);
 		print_padding(t_flags, len);
 		print_sign(t_flags);
 	}
@@ -82,42 +83,31 @@ void					print_float(va_list argptr, t_format *t_flags)
 {
 	long long			intpart;
 	double				decpart;
+	long long			decpart_int;
 	double				wholenumber;
 	int					len;
-	int					hundrends;
-	int					i;
 
 	wholenumber = va_arg(argptr, double);
 	intpart = (long long)wholenumber;
 	check_modifier(&intpart, t_flags);
-	printf("\n --- whole number = %f , intpart = %lld \n", wholenumber, intpart);
+	// printf("\nWHOLE NUMBER = %.11f , intpart = %lld \n", wholenumber, intpart);
 	len = number_of_digits(intpart);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 		int_with_minus(intpart, t_flags, len);
 	else
 		int_with_zero(intpart, t_flags, len);
-	// printf("\n BEFORE CALC : whole number = %f , intpart = %lld , decpart = \n", wholenumber, intpart);
 	decpart = wholenumber - intpart;
-	len = number_of_digits(decpart);
-	i = 0;
-	hundrends = 0;
-	printf("\n len = %d \n ", len);
-	while (i < len - 2)
-	{
-		hundrends = 10 * 10;
-		i++;
-	}
-	decpart = decpart * hundrends;
-	printf("\n AFTER CALC : whole number = %f , intpart = %lld , decpart = %f , hundrends = %d\n", wholenumber, intpart, decpart, hundrends);
-	// check_modifier(argptr, &decpart, t_flags);
-	// len = number_of_digits(decpart);
-	// decpart = (decpart - 2) * 100 * len;
-	// (*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+	decpart_int = return_decimal_part_as_int(decpart);
+	write(1, ".", 1);
+	(*t_flags).float_decpart_len = number_of_digits(decpart_int);
+	// printf("\nBEFORE CALC : whole number = %f , intpart = %lld , decpart_int = %lld, len = %d", wholenumber, intpart, decpart_int, len);
+	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
 	// if (((*t_flags).flags & FLAG_MINUS) > 0)
-	// 	int_with_minus(decpart, t_flags, len);
+	// 	int_with_minus(decpart_int, t_flags, len);
 	// else
-	// 	int_with_zero(intpart, t_flags, len);
+	print_padding(t_flags, len);
+	ft_putnbr_int(decpart_int);
 }
 
 void					print_int_unsigned(va_list argptr, t_format *t_flags)

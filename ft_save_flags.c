@@ -125,4 +125,5 @@ void				clear_formatstruct(t_format *t_flags)
 	(*t_flags).argtype = 0;
 	(*t_flags).special_chars_printed = 0;
 	(*t_flags).modifier = N;
+	(*t_flags).float_decpart_len = 0;
 }
