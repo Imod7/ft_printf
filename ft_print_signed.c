@@ -12,8 +12,9 @@
 
 #include "ft_printf.h"
 
-void					int_with_zero(long long arg, t_format *t_flags, int len)
+void					int_with_other_flags(long long arg, t_format *t_flags, int len)
 {
+	// printf("\n ===== int_with_zero AUTO TREXEI ====== \n");
 	if ((((*t_flags).flags & FLAG_ZERO) > 0) || \
 	(((*t_flags).flags & FLAG_PRECIS) > 0))
 	{
@@ -22,11 +23,12 @@ void					int_with_zero(long long arg, t_format *t_flags, int len)
 	}
 	else
 	{
-		// printf("\n number in int_with_minus = %lld", arg);
+		// printf(" INT with other flags = %lld", arg);
 		print_padding(t_flags, len);
 		print_sign(t_flags);
 	}
 	ft_putnbr_int(arg);
+	// printf("\nLast printed char = %lld - Total characters = %d\n", arg, (*t_flags).total_chars_printed);
 }
 
 void					int_with_minus(long long arg, t_format *t_flags, int len)
@@ -48,6 +50,7 @@ void					int_with_minus(long long arg, t_format *t_flags, int len)
 	}
 	else
 	{
+		// printf("\n ===== MINUS ====== \n");
 		print_sign(t_flags);
 		ft_putnbr_int(arg);
 		print_padding(t_flags, len);
@@ -76,7 +79,7 @@ void					print_integer(va_list argptr, t_format *t_flags)
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 		int_with_minus(arg, t_flags, len);
 	else
-		int_with_zero(arg, t_flags, len);
+		int_with_other_flags(arg, t_flags, len);
 }
 
 void					print_float(va_list argptr, t_format *t_flags)
@@ -96,18 +99,18 @@ void					print_float(va_list argptr, t_format *t_flags)
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 		int_with_minus(intpart, t_flags, len);
 	else
-		int_with_zero(intpart, t_flags, len);
+		int_with_other_flags(intpart, t_flags, len);
 	decpart = wholenumber - intpart;
 	decpart_int = return_decimal_part_as_int(decpart);
 	write(1, ".", 1);
+	(*t_flags).total_chars_printed++;
+	clear_forfloat(t_flags);
 	(*t_flags).float_decpart_len = number_of_digits(decpart_int);
-	// printf("\nBEFORE CALC : whole number = %f , intpart = %lld , decpart_int = %lld, len = %d", wholenumber, intpart, decpart_int, len);
-	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
-	// if (((*t_flags).flags & FLAG_MINUS) > 0)
-	// 	int_with_minus(decpart_int, t_flags, len);
-	// else
-	print_padding(t_flags, len);
+	// printf("\nIn function PRINT_FLOAT : whole number = %f , intpart = %lld , decpart_int = %lld, len = %d\n", wholenumber, intpart, decpart_int, len);
+	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + (*t_flags).float_decpart_len;
+	// printf("\ntotal_chars_printed increased by len [%d] = %d\n", len, (*t_flags).total_chars_printed);
 	ft_putnbr_int(decpart_int);
+	print_padding(t_flags, len);
 }
 
 void					print_int_unsigned(va_list argptr, t_format *t_flags)

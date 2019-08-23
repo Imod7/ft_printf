@@ -15,6 +15,7 @@ LIBFT = libft/libft.a
 CC = gcc -Wall -Wextra -Werror -g
 SRC =	\
 		ft_printf.c \
+		ft_printf_allversions.c \
 		ft_save_flags.c \
 		ft_error_check.c \
 		ft_print_signed.c \

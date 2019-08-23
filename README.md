@@ -79,3 +79,14 @@ When **ft_printf** function is called :
 	- **int_with_minus** function is called
 - else
 	- **int_with_zero** function is called
+
+##### when print_float function is called :
+- for the integer part of the float 
+	- if MINUS is present, the function **int_with_minus** is called
+	- if MINUS is not present, the function **int_with_zero** is called
+- for the decimal part, the function **return_decimal_part_as_int** is called
+- a dot is printed
+- the function **number_of_digits** is called and updates the member **float_decpart_len**
+- the member **total_chars_printed** is increased by the length
+- function **print_padding** is called
+- function **ft_putnbr_int** is called

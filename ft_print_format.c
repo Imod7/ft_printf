@@ -97,23 +97,44 @@ void		print_padding(t_format *t_flags, int number_of_digits)
 	int		c;
 
 	i = 0;
-	if ((((*t_flags).flags & (FLAG_PLUS | FLAG_NEGAT)) > 0) && \
+	if ((((*t_flags).flags & (FLAG_PLUS)) > 0) && 
 	(((*t_flags).flags & FLAG_ZERO) == 0))
+	{
+		// printf("\nFlag plus AND NO flag zero\n");
 		(*t_flags).special_chars_printed++;
+	}
+	if ((((*t_flags).flags & (FLAG_NEGAT)) > 0) && 
+	(((*t_flags).flags & FLAG_ZERO) == 0))
+	{
+		// printf("\nFlag negative AND NO flag zero\n");
+		(*t_flags).special_chars_printed++;
+	}
 	if ((((*t_flags).flags & FLAG_HT) > 0) && (((*t_flags).argtype == 'x') || \
 	((*t_flags).argtype == 'X')))
+	{
+		// printf("\nFlag ht AND hexad \n");
 		(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
+	}
 	if ((((*t_flags).flags & FLAG_HT) > 0) && ((*t_flags).argtype == 'o'))
+	{
+		// printf("\nFlag ht AND octal \n");
 		(*t_flags).special_chars_printed++;
-	// if (((*t_flags).argtype == 'f') && ((*t_flags).float_decpart_len < 6))
-		// (*t_flags).minfw = 6;
+	}
+	if (((*t_flags).argtype == 'f') && ((*t_flags).float_decpart_len < 6) && \
+	((*t_flags).float_decpart_len != 0))
+	{
+		(*t_flags).minfw = 6;
+		// printf("\n Setting minfw = %d \n", (*t_flags).minfw);
+	}
+	// printf("\n decpart_len = %d \n", (*t_flags).float_decpart_len);
 	pad_len = (*t_flags).minfw - (*t_flags).special_chars_printed - number_of_digits;
-	// printf("padding = minfw %d - special_chars %d - digits %d", (*t_flags).minfw, (*t_flags).special_chars_printed, number_of_digits);
+	// printf(ANSI_COLOR_CYAN" ====== PADDING ======= \n argtype = %c \n ", (*t_flags).argtype);
+	// printf("minfw = %d \n special_chars = %d \n digits = %d\n",(*t_flags).minfw, (*t_flags).special_chars_printed, number_of_digits);
 	// printf("\npad_len = %d\n", pad_len);
-	// printf("\nprecision = %d\n", (*t_flags).precision);
+	// printf("precision = %d\n", (*t_flags).precision);
 	while (i < pad_len)
 	{
-		if (((*t_flags).flags & FLAG_ZERO)) //|| ((*t_flags).flags & FLAG_PRECIS))
+		if (((*t_flags).flags & FLAG_ZERO) || ((*t_flags).argtype == 'f'))
 			c = '0';
 		else
 			c = ' ';

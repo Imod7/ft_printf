@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		error_check(t_format t_flags, char *str)
+int		error_check(t_format t_flags, const char *str)
 {
 	clear_formatstruct(&t_flags);
 	while (*str != '\0')

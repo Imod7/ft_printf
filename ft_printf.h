@@ -56,9 +56,10 @@ typedef struct	s_format
 	t_modifier	modifier;
 }				t_format;
 
-int				ft_printf(char *str, ...);
-void			save_flags(t_format *t_flags, char **str);
-int				error_check(t_format t_flags, char *str);
+int             ft_printf_allversions(int fd, const char *str, va_list	argptr);
+int				ft_printf(const char *str, ...);
+void			save_flags(t_format *t_flags, const char **str);
+int				error_check(t_format t_flags, const char *str);
 void			print_arg(va_list argptr, t_format *t_flags);
 void			print_sign(t_format *t_flags);
 // void			check_modifier(va_list argptr, long long *arg, t_format *t_flags);
@@ -79,5 +80,6 @@ void			print_other(char arg, t_format *t_flags);
 void			print_octal(va_list argptr, t_format *t_flags);
 void			print_hex(va_list argptr, t_format *t_flags);
 long long		return_decimal_part_as_int(double num);
+void			clear_forfloat(t_format *t_flags);
 
 #endif

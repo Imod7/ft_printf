@@ -25,3 +25,16 @@ void		test_float1(void)
 	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 }
+
+void		test_float2(void)
+{
+	int		total_chars_p;
+	int		total_chars_ftp;
+
+	write(1, "\n", 1);
+	total_chars_p = printf(ANSI_COLOR_RED"Test_43 : >.2f  '%.2f' , >.0f  '%.0f' , >.0f   %.0f\n", 2.5, 2.5, 3.5);
+	total_chars_ftp = printf(ANSI_COLOR_RED"Test_43 : >.2f  '%.2f' , >.0f  '%.0f' , >.0f   %.0f\n", 2.5, 2.5, 3.5);
+	// assert(total_chars_p == total_chars_ftp);
+	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+}

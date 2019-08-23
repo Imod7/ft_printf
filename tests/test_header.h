@@ -60,5 +60,6 @@ void	test_exceptions1(void);
 void	test_i4(void);
 void	test_exceptions2(void);
 void	test_float1(void);
+void	test_string1(void);
 
 # endif

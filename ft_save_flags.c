@@ -46,7 +46,7 @@ int					all_flags_retrieved(char str)
 	return (1);
 }
 
-int					save_modifier(char *str, t_format *t_flags)
+int					save_modifier(const char *str, t_format *t_flags)
 {
 	if ((str[0] == 'h') && (str[1] != 'h'))
 		(*t_flags).modifier = H;
@@ -59,7 +59,7 @@ int					save_modifier(char *str, t_format *t_flags)
 	return (0);
 }
 
-void				save_flags(t_format *t_flags, char **str)
+void				save_flags(t_format *t_flags, const char **str)
 {
 	int				digits;
 
@@ -126,4 +126,11 @@ void				clear_formatstruct(t_format *t_flags)
 	(*t_flags).special_chars_printed = 0;
 	(*t_flags).modifier = N;
 	(*t_flags).float_decpart_len = 0;
+}
+
+void				clear_forfloat(t_format *t_flags)
+{
+	(*t_flags).flags = 0;
+	(*t_flags).minfw = 0;
+	(*t_flags).special_chars_printed = 0;
 }
