@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int             ft_printf_allversions(int fd, const char *str, va_list	argptr)
+int				ft_printf_allversions(int fd, const char *str, va_list argptr)
 {
     t_format	t_flags;
 
@@ -34,12 +34,15 @@ int             ft_printf_allversions(int fd, const char *str, va_list	argptr)
 			{
 				clear_formatstruct(&t_flags);
 				save_flags(&t_flags, &str);
+				t_flags.fd = fd;
+				printf("arg type = %c", (t_flags).argtype);
 				print_arg(argptr, &t_flags);
 			}
 		}
 		else
 		{
-			ft_putchar(*str);
+			// ft_putchar(*str);
+			write(fd, str, 1);
 			t_flags.total_chars_printed++;
 			// printf("char = %c \n", *str);
 			// printf("number_of_chars = %d \n", t_flags.total_chars_printed);

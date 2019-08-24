@@ -12,9 +12,8 @@
 
 #include "ft_printf.h"
 
-void					int_with_other_flags(long long arg, t_format *t_flags, int len)
+void					int_otherflag(long long arg, t_format *t_flags, int len)
 {
-	// printf("\n ===== int_with_zero AUTO TREXEI ====== \n");
 	if ((((*t_flags).flags & FLAG_ZERO) > 0) || \
 	(((*t_flags).flags & FLAG_PRECIS) > 0))
 	{
@@ -23,20 +22,18 @@ void					int_with_other_flags(long long arg, t_format *t_flags, int len)
 	}
 	else
 	{
-		// printf(" INT with other flags = %lld", arg);
 		print_padding(t_flags, len);
 		print_sign(t_flags);
 	}
-	ft_putnbr_int(arg);
-	// printf("\nLast printed char = %lld - Total characters = %d\n", arg, (*t_flags).total_chars_printed);
+	ft_putnbr_int(arg, (*t_flags).fd);
 }
 
-void					int_with_minus(long long arg, t_format *t_flags, int len)
+void					intwithminus(long long arg, t_format *t_flags, int len)
 {
 	if ((((*t_flags).flags & FLAG_NEGAT) == 0) && \
 	(((*t_flags).flags & FLAG_SPACE) == 0))
 	{
-		ft_putnbr_int(arg);
+		ft_putnbr_int(arg, (*t_flags).fd);
 		print_sign(t_flags);
 		print_padding(t_flags, len);
 	}
@@ -45,14 +42,13 @@ void					int_with_minus(long long arg, t_format *t_flags, int len)
 	{
 		(*t_flags).flags &= ~FLAG_SPACE;
 		print_sign(t_flags);
-		ft_putnbr_int(arg);
+		ft_putnbr_int(arg, (*t_flags).fd);
 		print_padding(t_flags, len);
 	}
 	else
 	{
-		// printf("\n ===== MINUS ====== \n");
 		print_sign(t_flags);
-		ft_putnbr_int(arg);
+		ft_putnbr_int(arg, (*t_flags).fd);
 		print_padding(t_flags, len);
 	}
 }
@@ -77,9 +73,9 @@ void					print_integer(va_list argptr, t_format *t_flags)
 	len = number_of_digits(arg);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
-		int_with_minus(arg, t_flags, len);
+		intwithminus(arg, t_flags, len);
 	else
-		int_with_other_flags(arg, t_flags, len);
+		int_otherflag(arg, t_flags, len);
 }
 
 void					print_float(va_list argptr, t_format *t_flags)
@@ -97,9 +93,9 @@ void					print_float(va_list argptr, t_format *t_flags)
 	len = number_of_digits(intpart);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
-		int_with_minus(intpart, t_flags, len);
+		intwithminus(intpart, t_flags, len);
 	else
-		int_with_other_flags(intpart, t_flags, len);
+		int_otherflag(intpart, t_flags, len);
 	decpart = wholenumber - intpart;
 	decpart_int = return_decimal_part_as_int(decpart);
 	write(1, ".", 1);
@@ -109,7 +105,7 @@ void					print_float(va_list argptr, t_format *t_flags)
 	// printf("\nIn function PRINT_FLOAT : whole number = %f , intpart = %lld , decpart_int = %lld, len = %d\n", wholenumber, intpart, decpart_int, len);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + (*t_flags).float_decpart_len;
 	// printf("\ntotal_chars_printed increased by len [%d] = %d\n", len, (*t_flags).total_chars_printed);
-	ft_putnbr_int(decpart_int);
+	ft_putnbr_int(decpart_int, (*t_flags).fd);
 	print_padding(t_flags, len);
 }
 
@@ -153,7 +149,7 @@ void					print_int_unsigned(va_list argptr, t_format *t_flags)
 
 void					print_arg(va_list argptr, t_format *t_flags)
 {
-	// printf(" \n the arg is %c !\n", (*t_flags).argtype);
+	// printf(" \n the arg_type is '%c' !\n", (*t_flags).argtype);
 	if (((*t_flags).flags & FLAG_ASTER) > 0)
 		(*t_flags).minfw = va_arg(argptr, int);
 	if (((*t_flags).argtype == 'd') || ((*t_flags).argtype == 'i'))
@@ -161,12 +157,12 @@ void					print_arg(va_list argptr, t_format *t_flags)
 	else if ((*t_flags).argtype == 's')
 		print_string(argptr, t_flags);
 	else if ((*t_flags).argtype == 'c')
-		print_character(argptr, t_flags);
-	else if ((*t_flags).argtype == 'o')
 	{
-		// printf(" \n print octal is called !\n");
-		print_octal(argptr, t_flags);
+		printf("EDWWWWWWW ");
+		print_character(argptr, t_flags);
 	}
+	else if ((*t_flags).argtype == 'o')
+		print_octal(argptr, t_flags);
 	else if (((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'X') || \
 	((*t_flags).argtype == 'p'))
 		print_hex(argptr, t_flags);

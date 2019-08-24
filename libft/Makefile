@@ -13,6 +13,10 @@
 PROG = prog
 NAME = libft.a
 CC = gcc -Wall -Wextra -Werror
+
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
 SRC = ft_memset.c \
 	  ft_bzero.c \
 	  ft_memcpy.c \
@@ -95,7 +99,8 @@ $(NAME): $(OBJ)
 .PHONY: clean
 
 clean:
-	rm -f $(OBJ)
+	echo "${RED}Cleaning all object files of libft${NC}"
+	@rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)

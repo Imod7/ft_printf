@@ -12,13 +12,17 @@
 
 #include "ft_printf.h"
 
-void	ft_putnbr_int(long long n)
+void	ft_putnbr_int(long long n, int fd)
 {
+	int num;
+
 	if (n == -2147483648)
 	{
 		// ft_putchar(45);
-		ft_putchar('2');
-		ft_putnbr_int(147483648);
+		// ft_putchar('2');
+		num = 2;
+		write(fd, &num, 1);
+		ft_putnbr_int(147483648, fd);
 	}
 	else if (n < 0)
 	{
@@ -26,11 +30,15 @@ void	ft_putnbr_int(long long n)
 		n = n * (-1);
 	}
 	if (n >= 0 && n <= 9)
-		ft_putchar(n + 48);
+	{
+		// ft_putchar(n + 48);
+		num = n + 48;
+		write(fd, &num, 1);
+	}
 	if (n > 9)
 	{
-		ft_putnbr_int(n / 10);
-		ft_putnbr_int(n % 10);
+		ft_putnbr_int(n / 10, fd);
+		ft_putnbr_int(n % 10, fd);
 	}
 }
 

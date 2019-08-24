@@ -10,38 +10,23 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
-LIBFT = libft/libft.a
+NAME = ft_printf
+LIBFTPRINTF = ../libftprintf.a
 CC = gcc -Wall -Wextra -Werror -g
-
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
-
 SRC =	\
-		ft_printf.c \
-		ft_printf_allversions.c \
-		ft_save_flags.c \
-		ft_error_check.c \
-		ft_print_signed.c \
-		ft_print_unsigned.c \
-		ft_print_other.c \
-		ft_print_format.c \
-		ft_putnbr_base.c \
+		$(wildcard *.c) \
 
 OBJ = $(SRC:%.c=%.o)
 
-INCL = libft/includes/
+INCL = -I../ft_printf.h -I../libft/includes/
 
 all: $(NAME)
 
-$(LIBFT):
-	$(MAKE) -C libft
+$(LIBFTPRINTF):
+	@$(MAKE) -C libftprintf
 
-$(NAME): $(OBJ) $(LIBFT)
-	echo "${GREEN}Making libftprintf.a${NC}"
-	cp libft/libft.a $(NAME)
-	ar crs $(NAME) $(OBJ)
+$(NAME): $(OBJ) $(LIBFTPRINTF) 
+	@$(CC) -o $(NAME) -I$(INCL) -L.. -lftprintf $(OBJ)
 
 %.o: %.c $(INCL)
 	@$(CC) -o $@ -c $< 
@@ -49,18 +34,15 @@ $(NAME): $(OBJ) $(LIBFT)
 .PHONY: clean
 
 clean:
-	@rm -f $(OBJ)
-	echo "${RED}Cleaning all object files of printf${NC}"
-	$(MAKE) clean -C libft
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) fclean -C libft
 
 re: fclean all
 
 lldb: re
-	gcc -g main.c -L. -lft
+	gcc -g main.c -L. -lftprintf
 
 norm:
 	norminette $(SRC) $(INCL) | grep -e "Error" -e "Warning" -B 1

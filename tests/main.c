@@ -43,9 +43,9 @@ int				main(void)
 	test_array[3] = test_int4;
 	test_array[4] = test_int5;
 	test_array[5] = test_six;
-	test_array[6] = test_seven;
-	test_array[7] = test_eight;
-	test_array[8] = test_nine;
+	test_array[6] = test_int7;
+	test_array[7] = test_int8;
+	test_array[8] = test_int9;
 	test_array[9] = test_ten;
 	test_array[10] = test_eleven;
 	test_array[11] = test_twelve;

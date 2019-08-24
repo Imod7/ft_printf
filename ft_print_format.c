@@ -142,7 +142,8 @@ void		print_padding(t_format *t_flags, int number_of_digits)
 		if (((*t_flags).flags & FLAG_PRECIS) && \
 		(i >= (pad_len - (*t_flags).precision) + number_of_digits))
 			c = '0';
-		ft_putchar(c);
+		// ft_putchar(c);
+		write((*t_flags).fd, &c, 1);
 		(*t_flags).total_chars_printed++;
 		i++;
 	}
@@ -150,25 +151,31 @@ void		print_padding(t_format *t_flags, int number_of_digits)
 
 void		print_sign(t_format *t_flags)
 {
-	// printf("this is printed");
+	char	c;
+
 	// print_binary((*t_flags).flags);
 	// printf("\n");
 	if (((*t_flags).flags & FLAG_PLUS) > 0)
 	{
-		ft_putchar('+');
+		// ft_putchar('+');
+		c = '+';
+		write((*t_flags).fd, &c, 1);
 		(*t_flags).special_chars_printed++;
 		(*t_flags).total_chars_printed++;
 	}
 	if (((*t_flags).flags & FLAG_SPACE) > 0)
 	{
-		ft_putchar(' ');
+		// ft_putchar(' ');
+		c = ' ';
+		write((*t_flags).fd, &c, 1);
 		(*t_flags).special_chars_printed++;
 		(*t_flags).total_chars_printed++;
 	}
 	if (((*t_flags).flags & FLAG_NEGAT) > 0)
 	{
-		ft_putchar('-');
-		//(*t_flags).special_chars_printed++;
+		// ft_putchar('-');
+		c = '-';
+		write((*t_flags).fd, &c, 1);
 		(*t_flags).total_chars_printed++;
 	}
 }

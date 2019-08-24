@@ -12,19 +12,6 @@
 
 #include "ft_printf.h"
 
-// int					found_conversion(char str)
-// {
-// 	if (str == 'c' || str == 's' || str == 'p')
-// 		return (1);
-// 	if (str == 'd' || str == 'i' || str == 'o')
-// 		return (1);
-// 	if (str == 'u' || str == 'x' || str == 'X')
-// 		return (1);
-// 	if (str == 'f' || str == '%')
-// 		return (1);
-// 	return (0);
-// }
-
 int					all_flags_retrieved(char str)
 {
 	if (str == '*' || str == '-' || str == '+')
@@ -63,7 +50,6 @@ void				save_flags(t_format *t_flags, const char **str)
 {
 	int				digits;
 
-	// printf("\n save_flags called ! \n");
 	while (**str != '\0' && all_flags_retrieved(**str) == 0)
 	{
 		if (**str == '*')
@@ -126,6 +112,7 @@ void				clear_formatstruct(t_format *t_flags)
 	(*t_flags).special_chars_printed = 0;
 	(*t_flags).modifier = N;
 	(*t_flags).float_decpart_len = 0;
+	(*t_flags).fd = 0;
 }
 
 void				clear_forfloat(t_format *t_flags)

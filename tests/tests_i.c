@@ -12,18 +12,31 @@
 
 #include "../ft_printf.h"
 #include "test_header.h"
+#include <fcntl.h>
 
 void			test_i1(void)
 {
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
 	int			num;
 	int			total_chars_p;
 	int			total_chars_ftp;
+	int			fd;
+	int			i;
 
 	num = -2147483648;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"34 = test_i1 0.22i : '%0.22i'\n", num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"34 = test_i1 0.22i : '%0.22i'\n", num);
+	fd = open("dprintf_result.txt", O_RDWR);
+	// if (fd < 0)
+	// 	return (0);
+	total_chars_p = dprintf(fd, ANSI_COLOR_CYAN"34 = test_i1 0.22i : '%0.22i'\n", num);
+	i = get_next_line(fd, &returned_line_dprintf);
+	fd = open("ft_dprintf_result.txt", O_RDWR);
+	// if (fd < 0)
+	// 	return (0);
+	total_chars_ftp = ft_dprintf(fd, ANSI_COLOR_YELLOW"34 = test_i1 0.22i : '%0.22i'\n", num);
 	assert(total_chars_p == total_chars_ftp);
+	i = get_next_line(fd, &returned_line_ft_dprintf);
 }
 
 void			test_i2(void)

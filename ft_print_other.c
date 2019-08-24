@@ -33,7 +33,8 @@ void					print_character(va_list argptr, t_format *t_flags)
 	(*t_flags).total_chars_printed++;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{
-		ft_putchar(arg);
+		// ft_putchar(arg);
+		write((*t_flags).fd, &arg, 1);
 		print_sign(t_flags);
 		print_padding(t_flags, len);
 	}
@@ -41,7 +42,8 @@ void					print_character(va_list argptr, t_format *t_flags)
 	{
 		print_sign(t_flags);
 		print_padding(t_flags, len);
-		ft_putchar(arg);
+		// ft_putchar(arg);
+		write((*t_flags).fd, &arg, 1);
 	}
 }
 
@@ -53,7 +55,8 @@ void					print_other(char arg, t_format *t_flags)
 	(*t_flags).total_chars_printed++;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{
-		ft_putchar(arg);
+		// ft_putchar(arg);
+		write((*t_flags).fd, &arg, 1);
 		print_sign(t_flags);
 		print_padding(t_flags, len);
 	}
@@ -61,6 +64,7 @@ void					print_other(char arg, t_format *t_flags)
 	{
 		print_sign(t_flags);
 		print_padding(t_flags, len);
-		ft_putchar(arg);
+		// ft_putchar(arg);
+		write((*t_flags).fd, &arg, 1);
 	}
 }
