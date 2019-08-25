@@ -14,15 +14,14 @@ NAME = libftprintf.a
 LIBFT = libft/libft.a
 CC = gcc -Wall -Wextra -Werror -g
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+RED=\033[0;31m
+GREEN=\033[0;32m
+NC=\033[0m # No Color
 
 SRC =	\
 		ft_printf.c \
 		ft_printf_allversions.c \
 		ft_save_flags.c \
-		ft_error_check.c \
 		ft_print_signed.c \
 		ft_print_unsigned.c \
 		ft_print_other.c \
@@ -39,9 +38,9 @@ $(LIBFT):
 	$(MAKE) -C libft
 
 $(NAME): $(OBJ) $(LIBFT)
-	echo "${GREEN}Making libftprintf.a${NC}"
-	cp libft/libft.a $(NAME)
-	ar crs $(NAME) $(OBJ)
+	@echo "${GREEN}Making libftprintf.a${NC}"
+	@cp libft/libft.a $(NAME)
+	@ar crs $(NAME) $(OBJ)
 
 %.o: %.c $(INCL)
 	@$(CC) -o $@ -c $< 
@@ -50,12 +49,12 @@ $(NAME): $(OBJ) $(LIBFT)
 
 clean:
 	@rm -f $(OBJ)
-	echo "${RED}Cleaning all object files of printf${NC}"
-	$(MAKE) clean -C libft
+	@echo "${RED}Cleaning all object files of printf${NC}"
+	@$(MAKE) clean -C libft
 
 fclean: clean
-	rm -f $(NAME)
-	$(MAKE) fclean -C libft
+	@rm -f $(NAME)
+	@$(MAKE) fclean -C libft
 
 re: fclean all
 

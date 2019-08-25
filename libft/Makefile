@@ -14,8 +14,8 @@ PROG = prog
 NAME = libft.a
 CC = gcc -Wall -Wextra -Werror
 
-RED='\033[0;31m'
-NC='\033[0m' # No Color
+RED=\033[0;31m
+NC=\033[0m # No Color
 
 SRC = ft_memset.c \
 	  ft_bzero.c \
@@ -91,7 +91,7 @@ INCL = includes/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar crs $(NAME) $(OBJ)
+	@ar crs $(NAME) $(OBJ)
 
 %.o: %.c $(INCL)
 	@$(CC) -c $<
@@ -99,19 +99,19 @@ $(NAME): $(OBJ)
 .PHONY: clean
 
 clean:
-	echo "${RED}Cleaning all object files of libft${NC}"
+	@echo "${RED}Cleaning all object files of libft${NC}"
 	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
 test:
-	$(CC) main.c -L. -lft -o test.exe
+	@$(CC) main.c -L. -lft -o test.exe
 
 lldb: re
-	gcc -g main.c -L. -lft
+	@gcc -g main.c -L. -lft
 
 $(PROG): $(NAME)
 	$(CC) -o $(PROG) main.c -L. -lft

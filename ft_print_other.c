@@ -20,7 +20,8 @@ void					print_string(va_list argptr, t_format *t_flags)
 	arg = va_arg(argptr, char *);
 	len = ft_strlen(arg);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
-	ft_putstr(arg);
+	// ft_putstr(arg);
+	write((*t_flags).fd, &arg, len);
 }
 
 void					print_character(va_list argptr, t_format *t_flags)

@@ -157,10 +157,7 @@ void					print_arg(va_list argptr, t_format *t_flags)
 	else if ((*t_flags).argtype == 's')
 		print_string(argptr, t_flags);
 	else if ((*t_flags).argtype == 'c')
-	{
-		printf("EDWWWWWWW ");
 		print_character(argptr, t_flags);
-	}
 	else if ((*t_flags).argtype == 'o')
 		print_octal(argptr, t_flags);
 	else if (((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'X') || \

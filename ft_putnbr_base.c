@@ -42,39 +42,65 @@ void	ft_putnbr_int(long long n, int fd)
 	}
 }
 
-void	ft_putnbr_octal(unsigned long long n)
+void					ft_putnbr_octal(unsigned long long n, int fd)
 {
+	unsigned long long	num;
+
 	if (n <= 8)
-		ft_putchar(n + 48);
+	{
+		num = n + 48;
+		write(fd, &num, 1);
+		// ft_putchar(n + 48);
+	}
 	if (n > 8)
 	{
-		ft_putnbr_octal(n / 8);
-		ft_putnbr_octal(n % 8);
+		ft_putnbr_octal(n / 8, fd);
+		ft_putnbr_octal(n % 8, fd);
 	}
 }
 
-void	ft_putnbr_hex(unsigned long long n)
+void	ft_putnbr_hex(unsigned long long n, int fd)
 {
+	unsigned long long	num;
+
 	if (n <= 9)
-		ft_putchar(n + 48);
+	{
+		num = n + 48;
+		write(fd, &num, 1);
+		// ft_putchar(n + 48);
+	}
 	if (n > 9 && n <= 16)
-		ft_putchar(n + 87);
+	{
+		num = n + 87;
+		write(fd, &num, 1);
+		// ft_putchar(n + 87);
+	}
 	if (n > 16)
 	{
-		ft_putnbr_hex(n / 16);
-		ft_putnbr_hex(n % 16);
+		ft_putnbr_hex(n / 16, fd);
+		ft_putnbr_hex(n % 16, fd);
 	}
 }
 
-void	ft_putnbr_hex_capit(unsigned long long n)
+void	ft_putnbr_hex_capit(unsigned long long n, int fd)
 {
+	unsigned long long	num;
+
 	if (n <= 9)
-		ft_putchar(n + 48);
+	{
+		num = n + 48;
+		write(fd, &num, 1);
+		// ft_putchar(n + 48);
+	}
 	if (n > 9 && n <= 16)
-		ft_putchar(n + 55);
+	{
+		num = n + 55;
+		write(fd, &num, 1);
+		// ft_putchar(n + 87);
+	}
 	if (n > 16)
 	{
-		ft_putnbr_hex_capit(n / 16);
-		ft_putnbr_hex_capit(n % 16);
+		ft_putnbr_hex(n / 16, fd);
+		ft_putnbr_hex(n % 16, fd);
 	}
 }

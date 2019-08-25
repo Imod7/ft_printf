@@ -14,13 +14,17 @@
 
 void					check_ht(t_format *t_flags, unsigned long long arg)
 {
+	char				c;
+
+	c = '0';
 	if (((*t_flags).flags & FLAG_HT) > 0)
 	{
-		ft_putchar('0');
+		// ft_putchar('0');
+		write((*t_flags).fd, &c, 1);
 		(*t_flags).special_chars_printed++;
 		(*t_flags).total_chars_printed++;
 	}
-	ft_putnbr_octal(arg);
+	ft_putnbr_octal(arg, (*t_flags).fd);
 }
 
 void					print_octal(va_list argptr, t_format *t_flags)
@@ -28,7 +32,6 @@ void					print_octal(va_list argptr, t_format *t_flags)
 	unsigned long long	arg;
 	int					len;
 
-	// printf("\n OCTALS \n");
 	arg = va_arg(argptr, long long);
 	check_modif_un(&arg, t_flags);
 	len = number_of_digits_un(arg, *t_flags);
@@ -67,19 +70,19 @@ void					print_hex_ch(unsigned long long *arg, t_format *t_flags)
 {
 	if (((*t_flags).flags & FLAG_HT) > 0)
 	{
-		write(1, "0x", 2);
+		write((*t_flags).fd, "0x", 2);
 		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
 		(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
 	}
 	if ((*t_flags).argtype == 'p')
 	{
-		write(1, "0x", 2);
+		write((*t_flags).fd, "0x", 2);
 		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
 	}
 	if ((*t_flags).argtype == 'X')
-		ft_putnbr_hex_capit(*arg);
+		ft_putnbr_hex_capit(*arg, (*t_flags).fd);
 	else
-		ft_putnbr_hex(*arg);
+		ft_putnbr_hex(*arg, (*t_flags).fd);
 }
 
 void					print_flagzero_on(t_format *t_flags, int len)

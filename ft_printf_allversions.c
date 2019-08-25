@@ -17,8 +17,8 @@ int				ft_printf_allversions(int fd, const char *str, va_list argptr)
     t_format	t_flags;
 
 	clear_formatstruct(&t_flags);
-	if (error_check(t_flags, str) == 1)
-		return (0);
+	// if (error_check(t_flags, str) == 1)
+	// 	return (0);
 	t_flags.total_chars_printed = 0;
 	while (*str != '\0')
 	{
@@ -35,7 +35,6 @@ int				ft_printf_allversions(int fd, const char *str, va_list argptr)
 				clear_formatstruct(&t_flags);
 				save_flags(&t_flags, &str);
 				t_flags.fd = fd;
-				printf("arg type = %c", (t_flags).argtype);
 				print_arg(argptr, &t_flags);
 			}
 		}
