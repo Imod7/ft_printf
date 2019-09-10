@@ -13,6 +13,9 @@
 NAME = ft_printf
 LIBFTPRINTF = ../libftprintf.a
 CC = gcc -Wall -Wextra -Werror -g
+
+GREEN=\033[0;32m
+
 SRC =	\
 		$(wildcard *.c) \
 
@@ -23,9 +26,10 @@ INCL = -I../ft_printf.h -I../libft/includes/
 all: $(NAME)
 
 $(LIBFTPRINTF):
-	@$(MAKE) -C libftprintf
+	MAKE -C ../
 
-$(NAME): $(OBJ) $(LIBFTPRINTF) 
+$(NAME): $(OBJ) $(LIBFTPRINTF)
+	@echo "${GREEN}Making ft_printf${NC}"
 	@$(CC) -o $(NAME) -I$(INCL) -L.. -lftprintf $(OBJ)
 
 %.o: %.c $(INCL)
@@ -34,10 +38,13 @@ $(NAME): $(OBJ) $(LIBFTPRINTF)
 .PHONY: clean
 
 clean:
+	@echo "${RED}Cleaning all object test files${NC}"
 	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
+	@echo "${RED}Cleaning all object files of printf${NC}"	
+	@$(MAKE) fclean -C ../
 
 re: fclean all
 

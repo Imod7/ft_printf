@@ -84,5 +84,8 @@ void			print_octal(va_list argptr, t_format *t_flags);
 void			print_hex(va_list argptr, t_format *t_flags);
 long long		return_decimal_part_as_int(double num);
 void			clear_forfloat(t_format *t_flags);
+void			print_float(va_list argptr, t_format *t_flags);
+void			intwithminus(long long arg, t_format *t_flags, int len);
+void			int_otherflag(long long arg, t_format *t_flags, int len);
 
 #endif

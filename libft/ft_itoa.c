@@ -39,9 +39,9 @@ static void	make_str(char *str, long n, int len)
 	}
 }
 
-static int	count_len(long n)
+static int		count_len(long n)
 {
-	int		len;
+	int			len;
 
 	len = 0;
 	if (n < 0)
@@ -59,11 +59,11 @@ static int	count_len(long n)
 	return (len);
 }
 
-char		*ft_itoa(int n)
+char			*ft_itoa(int n)
 {
-	int		len;
-	char	*str;
-	long	n1;
+	int			len;
+	char		*str;
+	long 		n1;
 
 	n1 = 1 * (long)n;
 	len = count_len(n);

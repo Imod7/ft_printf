@@ -78,37 +78,6 @@ void					print_integer(va_list argptr, t_format *t_flags)
 		int_otherflag(arg, t_flags, len);
 }
 
-void					print_float(va_list argptr, t_format *t_flags)
-{
-	long long			intpart;
-	double				decpart;
-	long long			decpart_int;
-	double				wholenumber;
-	int					len;
-
-	wholenumber = va_arg(argptr, double);
-	intpart = (long long)wholenumber;
-	check_modifier(&intpart, t_flags);
-	// printf("\nWHOLE NUMBER = %.11f , intpart = %lld \n", wholenumber, intpart);
-	len = number_of_digits(intpart);
-	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
-	if (((*t_flags).flags & FLAG_MINUS) > 0)
-		intwithminus(intpart, t_flags, len);
-	else
-		int_otherflag(intpart, t_flags, len);
-	decpart = wholenumber - intpart;
-	decpart_int = return_decimal_part_as_int(decpart);
-	write(1, ".", 1);
-	(*t_flags).total_chars_printed++;
-	clear_forfloat(t_flags);
-	(*t_flags).float_decpart_len = number_of_digits(decpart_int);
-	// printf("\nIn function PRINT_FLOAT : whole number = %f , intpart = %lld , decpart_int = %lld, len = %d\n", wholenumber, intpart, decpart_int, len);
-	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + (*t_flags).float_decpart_len;
-	// printf("\ntotal_chars_printed increased by len [%d] = %d\n", len, (*t_flags).total_chars_printed);
-	ft_putnbr_int(decpart_int, (*t_flags).fd);
-	print_padding(t_flags, len);
-}
-
 void					print_int_unsigned(va_list argptr, t_format *t_flags)
 {
 	unsigned long long	arg;

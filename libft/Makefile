@@ -15,6 +15,7 @@ NAME = libft.a
 CC = gcc -Wall -Wextra -Werror
 
 RED=\033[0;31m
+GREEN=\033[0;32m
 NC=\033[0m # No Color
 
 SRC = ft_memset.c \
@@ -91,6 +92,7 @@ INCL = includes/
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@echo "${GREEN}Making libft.a${NC}"
 	@ar crs $(NAME) $(OBJ)
 
 %.o: %.c $(INCL)

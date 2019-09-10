@@ -16,6 +16,7 @@ CC = gcc -Wall -Wextra -Werror -g
 
 RED=\033[0;31m
 GREEN=\033[0;32m
+CYAN=\033[0;36m
 NC=\033[0m # No Color
 
 SRC =	\
@@ -27,6 +28,7 @@ SRC =	\
 		ft_print_other.c \
 		ft_print_format.c \
 		ft_putnbr_base.c \
+		ft_print_float.c \
 
 OBJ = $(SRC:%.c=%.o)
 
@@ -35,7 +37,8 @@ INCL = libft/includes/
 all: $(NAME)
 
 $(LIBFT):
-	$(MAKE) -C libft
+	@echo "${CYAN}Calling libft makefile${NC}"
+	@$(MAKE) -C libft
 
 $(NAME): $(OBJ) $(LIBFT)
 	@echo "${GREEN}Making libftprintf.a${NC}"
@@ -48,12 +51,12 @@ $(NAME): $(OBJ) $(LIBFT)
 .PHONY: clean
 
 clean:
-	@rm -f $(OBJ)
 	@echo "${RED}Cleaning all object files of printf${NC}"
-	@$(MAKE) clean -C libft
+	@rm -f $(OBJ)
 
 fclean: clean
 	@rm -f $(NAME)
+	@echo "${RED}Calling fclean of libft${NC}"	
 	@$(MAKE) fclean -C libft
 
 re: fclean all

@@ -308,12 +308,30 @@ void					test_hex12(void)
 	unsigned long long	num;
 	int					total_chars_p;
 	int					total_chars_ftp;
+	int					fd;
+	char				*returned_line_dprintf;
+	char				*returned_line_ft_dprintf;
 
 	num = 123789555845795653;
 	write(1, "\n", 1);
-	total_chars_p = printf(ANSI_COLOR_CYAN"33 = test_hex12 -*llX : '%-*llX'\n", 66, num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"33 = test_hex12 -*llX : '%-*llX'\n", 66, num);
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Test_33 = test_hex12 %%-*llX : '%-*llX'\n", 66, num);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Test_33 = test_hex12 %%-*llX : '%-*llX'\n", 66, num);
 	assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+
+	if (strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
+		printf(ANSI_COLOR_GREEN"Test 33 with %%-*llX : Correct!\n");
+	else
+		printf(ANSI_COLOR_RED"Test 33 with %%-*llX : Wrong!\n");
 }

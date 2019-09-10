@@ -124,7 +124,7 @@ void		print_padding(t_format *t_flags, int number_of_digits)
 	((*t_flags).float_decpart_len != 0))
 	{
 		(*t_flags).minfw = 6;
-		// printf("\n Setting minfw = %d \n", (*t_flags).minfw);
+		printf("\n Setting minfw = %d \n", (*t_flags).minfw);
 	}
 	// printf("\n decpart_len = %d \n", (*t_flags).float_decpart_len);
 	pad_len = (*t_flags).minfw - (*t_flags).special_chars_printed - number_of_digits;

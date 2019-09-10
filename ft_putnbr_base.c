@@ -20,7 +20,7 @@ void	ft_putnbr_int(long long n, int fd)
 	{
 		// ft_putchar(45);
 		// ft_putchar('2');
-		num = 2;
+		num = 50;
 		write(fd, &num, 1);
 		ft_putnbr_int(147483648, fd);
 	}
@@ -100,7 +100,7 @@ void	ft_putnbr_hex_capit(unsigned long long n, int fd)
 	}
 	if (n > 16)
 	{
-		ft_putnbr_hex(n / 16, fd);
-		ft_putnbr_hex(n % 16, fd);
+		ft_putnbr_hex_capit(n / 16, fd);
+		ft_putnbr_hex_capit(n % 16, fd);
 	}
 }

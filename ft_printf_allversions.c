@@ -15,6 +15,7 @@
 int				ft_printf_allversions(int fd, const char *str, va_list argptr)
 {
     t_format	t_flags;
+	char		c;
 
 	clear_formatstruct(&t_flags);
 	// if (error_check(t_flags, str) == 1)
@@ -27,7 +28,8 @@ int				ft_printf_allversions(int fd, const char *str, va_list argptr)
 			str++;
 			if (*str == '%')
 			{
-				ft_putchar('%');
+				c = '%';
+				write(fd, &c, 1);
 				t_flags.total_chars_printed++;
 			}
 			else
@@ -40,7 +42,6 @@ int				ft_printf_allversions(int fd, const char *str, va_list argptr)
 		}
 		else
 		{
-			// ft_putchar(*str);
 			write(fd, str, 1);
 			t_flags.total_chars_printed++;
 			// printf("char = %c \n", *str);
