@@ -35,7 +35,7 @@ int				main(void)
 {
 	int			option;
 	int			i;
-	test_func	*test_array[46];
+	test_func	*test_array[47];
 
 	test_array[0] = test_one;
 	test_array[1] = test_two;
@@ -83,6 +83,7 @@ int				main(void)
 	test_array[43] = test_float2;
 	test_array[44] = test_float3;
 	test_array[45] = test_float4;
+	test_array[46] = test_float5;
 	i = 1;
 	printf("Which Test do you want to run ? (0 to run All) \n");
 	scanf("%d", &option);

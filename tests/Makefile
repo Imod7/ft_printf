@@ -12,9 +12,11 @@
 
 NAME = ft_printf
 LIBFTPRINTF = ../libftprintf.a
-CC = gcc -Wall -Wextra -Werror -g
+CC = gcc -Wall -Wextra -Werror
 
 GREEN=\033[0;32m
+RED=\033[0;31m
+CYAN=\033[0;36m
 
 SRC =	\
 		$(wildcard *.c) \
@@ -26,11 +28,11 @@ INCL = -I../ft_printf.h -I../libft/includes/
 all: $(NAME)
 
 $(LIBFTPRINTF):
-	MAKE -C ../
+	@MAKE -C ../
 
 $(NAME): $(OBJ) $(LIBFTPRINTF)
 	@echo "${GREEN}Making ft_printf${NC}"
-	@$(CC) -o $(NAME) -I$(INCL) -L.. -lftprintf $(OBJ)
+	$(CC) -o $(NAME) -I$(INCL) -L.. -lftprintf $(OBJ)
 
 %.o: %.c $(INCL)
 	@$(CC) -o $@ -c $< 
@@ -39,17 +41,18 @@ $(NAME): $(OBJ) $(LIBFTPRINTF)
 
 clean:
 	@echo "${RED}Cleaning all object test files${NC}"
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
-	@echo "${RED}Cleaning all object files of printf${NC}"	
+	@echo "${RED}Deleting the executable printf${NC}"
+	@rm -f $(NAME)
+	@echo "${CYAN}Calling fclean of printf${NC}"	
 	@$(MAKE) fclean -C ../
 
 re: fclean all
 
 lldb: re
-	gcc -g main.c -L. -lftprintf
+	$(CC) -g -o $(NAME) -I$(INCL) -L.. -lftprintf $(OBJ)
 
 norm:
 	norminette $(SRC) $(INCL) | grep -e "Error" -e "Warning" -B 1

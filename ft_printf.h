@@ -87,5 +87,6 @@ void			clear_forfloat(t_format *t_flags);
 void			print_float(va_list argptr, t_format *t_flags);
 void			intwithminus(long long arg, t_format *t_flags, int len);
 void			int_otherflag(long long arg, t_format *t_flags, int len);
+char			*ft_itoa_float(float n);
 
 #endif

@@ -29,6 +29,7 @@ SRC =	\
 		ft_print_format.c \
 		ft_putnbr_base.c \
 		ft_print_float.c \
+		ft_itoa_float.c \
 
 OBJ = $(SRC:%.c=%.o)
 
@@ -56,7 +57,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "${RED}Calling fclean of libft${NC}"	
+	@echo "${CYAN}Calling fclean of libft${NC}"	
 	@$(MAKE) fclean -C libft
 
 re: fclean all

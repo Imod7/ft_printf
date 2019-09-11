@@ -44,7 +44,6 @@ int				ft_printf_allversions(int fd, const char *str, va_list argptr)
 		{
 			write(fd, str, 1);
 			t_flags.total_chars_printed++;
-			// printf("char = %c \n", *str);
 			// printf("number_of_chars = %d \n", t_flags.total_chars_printed);
 		}
 		str++;

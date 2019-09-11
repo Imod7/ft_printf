@@ -71,6 +71,7 @@ void	test_float1(void);
 void	test_float2(void);
 void	test_float3(void);
 void	test_float4(void);
+void	test_float5(void);
 void	test_string1(void);
 
 # endif

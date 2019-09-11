@@ -355,16 +355,6 @@ void			test_ten(void)
 
 void			test_eleven(void)
 {
-	// char		c;
-	// int			total_chars_p;
-	// int			total_chars_ftp;
-
-	// c = 'G';
-	// total_chars_p = printf(ANSI_COLOR_CYAN"Test 11 -8c : '%-8c'\n", c);
-	// total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 11 -8c : '%-8c'\n", c);
-	// assert(total_chars_p == total_chars_ftp);
-	// // printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// // printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	char		c;
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;

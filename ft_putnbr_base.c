@@ -50,7 +50,6 @@ void					ft_putnbr_octal(unsigned long long n, int fd)
 	{
 		num = n + 48;
 		write(fd, &num, 1);
-		// ft_putchar(n + 48);
 	}
 	if (n > 8)
 	{
@@ -67,13 +66,11 @@ void	ft_putnbr_hex(unsigned long long n, int fd)
 	{
 		num = n + 48;
 		write(fd, &num, 1);
-		// ft_putchar(n + 48);
 	}
 	if (n > 9 && n <= 16)
 	{
 		num = n + 87;
 		write(fd, &num, 1);
-		// ft_putchar(n + 87);
 	}
 	if (n > 16)
 	{
@@ -90,13 +87,11 @@ void	ft_putnbr_hex_capit(unsigned long long n, int fd)
 	{
 		num = n + 48;
 		write(fd, &num, 1);
-		// ft_putchar(n + 48);
 	}
 	if (n > 9 && n <= 16)
 	{
 		num = n + 55;
 		write(fd, &num, 1);
-		// ft_putchar(n + 87);
 	}
 	if (n > 16)
 	{

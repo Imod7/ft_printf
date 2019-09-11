@@ -97,13 +97,11 @@ void					print_hex(va_list argptr, t_format *t_flags)
 	int					len;
 
 	arg = va_arg(argptr, long long);
-	// printf("\n number  = %lld \n", arg);
 	(*t_flags).flags &= ~FLAG_PLUS;
 	check_modif_un(&arg, t_flags);
 	len = number_of_digits_un(arg, *t_flags);
 	if ((*t_flags).argtype == 'p')
 		(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
-	// printf("\n number of digits = %d \n", len);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{

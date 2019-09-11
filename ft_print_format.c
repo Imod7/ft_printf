@@ -28,8 +28,6 @@ int			number_of_digits(long long num)
 		num = num * (-1);
 		// digits--;
 	}
-	// printf("\n >>> digits = %lld <<< \n", num);
-	// printf("\n signed ll = %lld \n ", num);
 	while (num > 0)
 	{
 		num = num / base;
@@ -45,7 +43,6 @@ int			number_of_digits_un(unsigned long long num, t_format t_flags)
 
 	digits = 0;
 	base = 10;
-	// printf("\n num = '%llx' \n", num);
 	if (t_flags.argtype == 'o')
 		base = 8;
 	if ((t_flags.argtype == 'x') || (t_flags.argtype == 'X') || \
@@ -53,36 +50,10 @@ int			number_of_digits_un(unsigned long long num, t_format t_flags)
 		base = 16;
 	while (num > 0)
 	{
-		// printf("\n num = '%llx' \n", num);
 		num = num / base;
 		digits++;
 	}
-	// printf("\n num = %zu \n", digits);
 	return (digits);
-}
-
-long long		return_decimal_part_as_int(double num)
-{
-	size_t		base;
-	long long 	leftpart;
-	double		rightpart;
-	double 		initialnumber;
-	double		check_if_decimals_retrieved;
-
-	check_if_decimals_retrieved = 1;
-	base = 10;
-	initialnumber = num;
-	rightpart = 1;
-	// printf(ANSI_COLOR_CYAN"\ninside number_of_digits_float : initial number  = %.11f \n", num);
-	while (check_if_decimals_retrieved > (float)0)
-	{
-		leftpart = (long long)(initialnumber * base);
-		rightpart = ((initialnumber * base) - leftpart);
-		// printf("initialnumber = %.11f , leftpart = %lld, rightpart = %.11f , check = %f\n", initialnumber, leftpart, rightpart, check_if_decimals_retrieved);
-		check_if_decimals_retrieved = ((int)(rightpart * 100 + .5) / 100.0);
-		base = base * 10;
-	}
-	return (leftpart);
 }
 
 /*
@@ -130,7 +101,6 @@ void		print_padding(t_format *t_flags, int number_of_digits)
 	pad_len = (*t_flags).minfw - (*t_flags).special_chars_printed - number_of_digits;
 	// printf(ANSI_COLOR_CYAN" ====== PADDING ======= \n argtype = %c \n ", (*t_flags).argtype);
 	// printf("minfw = %d \n special_chars = %d \n digits = %d\n",(*t_flags).minfw, (*t_flags).special_chars_printed, number_of_digits);
-	// printf("\npad_len = %d\n", pad_len);
 	// printf("precision = %d\n", (*t_flags).precision);
 	while (i < pad_len)
 	{
@@ -138,7 +108,7 @@ void		print_padding(t_format *t_flags, int number_of_digits)
 			c = '0';
 		else
 			c = ' ';
-		// printf("\n i = %d, pad_len = %d - precision = %d - number_of_digits = %d \n", i, pad_len, (*t_flags).precision, number_of_digits);
+		// printf("\n precision = %d\n", (*t_flags).precision);
 		if (((*t_flags).flags & FLAG_PRECIS) && \
 		(i >= (pad_len - (*t_flags).precision) + number_of_digits))
 			c = '0';
