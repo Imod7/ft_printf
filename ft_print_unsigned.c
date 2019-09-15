@@ -16,10 +16,9 @@ void					check_ht(t_format *t_flags, unsigned long long arg)
 {
 	char				c;
 
-	c = '0';
 	if (((*t_flags).flags & FLAG_HT) > 0)
 	{
-		// ft_putchar('0');
+		c = '0';
 		write((*t_flags).fd, &c, 1);
 		(*t_flags).special_chars_printed++;
 		(*t_flags).total_chars_printed++;
@@ -63,29 +62,46 @@ void					print_octal(va_list argptr, t_format *t_flags)
 ** but not the member special_chars_printed
 ** Then we print the argument in hexadecimal form
 ** The member special_chars_printed we need to increase it for the padding
-**
 */
 
 void					print_hex_ch(unsigned long long *arg, t_format *t_flags)
 {
-	if (((*t_flags).flags & FLAG_HT) > 0)
+	// print_binary((*t_flags).flags);
+	if ((((*t_flags).flags & FLAG_HT) > 0) && (*arg != 0))
 	{
-		write((*t_flags).fd, "0x", 2);
+		if (((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'p'))
+			write((*t_flags).fd, "0x", 2);
+		else
+			write((*t_flags).fd, "0X", 2);
 		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
-		(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
+		// (*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
 	}
-	if ((*t_flags).argtype == 'p')
-	{
-		write((*t_flags).fd, "0x", 2);
-		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
-	}
+	// if ((*t_flags).argtype == 'p')
+	// {
+	// 	write((*t_flags).fd, "0x", 2);
+	// 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
+	// }
+	// if ((*t_flags).argtype == 'X')
+	// 	ft_putnbr_hex_capit(*arg, (*t_flags).fd);
+	// else
+	// 	ft_putnbr_hex(*arg, (*t_flags).fd);
+}
+
+void					print_hex_nbr(unsigned long long *arg, t_format *t_flags)
+{
 	if ((*t_flags).argtype == 'X')
 		ft_putnbr_hex_capit(*arg, (*t_flags).fd);
 	else
 		ft_putnbr_hex(*arg, (*t_flags).fd);
 }
 
-void					print_flagzero_on(t_format *t_flags, int len)
+void					print_order(t_format *t_flags, int len)
+{
+	print_padding(t_flags, len);
+	print_sign(t_flags);
+}
+
+void					print_inverse(t_format *t_flags, int len)
 {
 	print_sign(t_flags);
 	print_padding(t_flags, len);
@@ -96,7 +112,8 @@ void					print_hex(va_list argptr, t_format *t_flags)
 	unsigned long long	arg;
 	int					len;
 
-	arg = va_arg(argptr, long long);
+	arg = va_arg(argptr, unsigned long long);
+	// printf("\nargument extracted = %llu\n", arg);
 	(*t_flags).flags &= ~FLAG_PLUS;
 	check_modif_un(&arg, t_flags);
 	len = number_of_digits_un(arg, *t_flags);
@@ -106,18 +123,19 @@ void					print_hex(va_list argptr, t_format *t_flags)
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{
 		print_hex_ch(&arg, t_flags);
-		print_sign(t_flags);
-		print_padding(t_flags, len);
+		print_hex_nbr(&arg, t_flags);
+		print_inverse(t_flags, len);
+	}
+	if (((*t_flags).flags & FLAG_ZERO) > 0)
+	{
+		print_hex_ch(&arg, t_flags);
+		print_inverse(t_flags, len);
+		print_hex_nbr(&arg, t_flags);
 	}
 	else
 	{
-		if (((*t_flags).flags & FLAG_ZERO) > 0)
-			print_flagzero_on(t_flags, len);
-		else
-		{
-			print_padding(t_flags, len);
-			print_sign(t_flags);
-		}
+		print_order(t_flags, len);
 		print_hex_ch(&arg, t_flags);
+		print_hex_nbr(&arg, t_flags);
 	}
 }

@@ -90,3 +90,11 @@ When **ft_printf** function is called :
 - the member **total_chars_printed** is increased by the length
 - function **print_padding** is called
 - function **ft_putnbr_int** is called
+
+##### print_padding function :
+- variable 'arg_digits_len' -> the number of digits that our argument has, eg. for int argument 234, variable arg_digits_len should be 3
+- in print_string : the print_padding function is called only if (len != 0 && t_flags.minfw != 0)
+
+##### variable (*t_flags).minfw affected in functions :
+1. function save_flags
+2. function print_arg

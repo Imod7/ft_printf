@@ -67,12 +67,12 @@ void	ft_putnbr_hex(unsigned long long n, int fd)
 		num = n + 48;
 		write(fd, &num, 1);
 	}
-	if (n > 9 && n <= 16)
+	if (n > 9 && n < 16)
 	{
 		num = n + 87;
 		write(fd, &num, 1);
 	}
-	if (n > 16)
+	if (n >= 16)
 	{
 		ft_putnbr_hex(n / 16, fd);
 		ft_putnbr_hex(n % 16, fd);
@@ -88,12 +88,12 @@ void	ft_putnbr_hex_capit(unsigned long long n, int fd)
 		num = n + 48;
 		write(fd, &num, 1);
 	}
-	if (n > 9 && n <= 16)
+	if (n > 9 && n < 16)
 	{
 		num = n + 55;
 		write(fd, &num, 1);
 	}
-	if (n > 16)
+	if (n >= 16)
 	{
 		ft_putnbr_hex_capit(n / 16, fd);
 		ft_putnbr_hex_capit(n % 16, fd);

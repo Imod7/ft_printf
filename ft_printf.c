@@ -20,7 +20,7 @@ int					ft_printf(const char *str, ...)
 
 	fd = 1;
 	va_start(argptr, str);
-	result = ft_printf_allversions(fd, str, argptr);
+	result = ft_printf_genericfunc(fd, str, argptr);
 	va_end(argptr);
 	return (result);
 }
@@ -31,7 +31,7 @@ int					ft_dprintf(int fd, const char *str, ...)
 	int			result;
 
 	va_start(argptr, str);
-	result = ft_printf_allversions(fd, str, argptr);
+	result = ft_printf_genericfunc(fd, str, argptr);
 	va_end(argptr);
 	return (result);
 }

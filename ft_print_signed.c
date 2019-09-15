@@ -83,7 +83,6 @@ void					print_int_unsigned(va_list argptr, t_format *t_flags)
 	unsigned long long	arg;
 	int					len;
 
-	// printf(" \n \n >> %lld <<\n \n ", va_arg(argptr, long long));
 	arg = va_arg(argptr, unsigned long long);
 	check_modif_un(&arg, t_flags);
 	len = number_of_digits_un(arg, *t_flags);
@@ -118,9 +117,14 @@ void					print_int_unsigned(va_list argptr, t_format *t_flags)
 
 void					print_arg(va_list argptr, t_format *t_flags)
 {
-	// printf(" \n the arg_type is '%c' !\n", (*t_flags).argtype);
+	int					aster_arg;
+
 	if (((*t_flags).flags & FLAG_ASTER) > 0)
-		(*t_flags).minfw = va_arg(argptr, int);
+	{
+		aster_arg = va_arg(argptr, int);
+		if (aster_arg > (*t_flags).precision)
+			(*t_flags).minfw = aster_arg;
+	}
 	if (((*t_flags).argtype == 'd') || ((*t_flags).argtype == 'i'))
 		print_integer(argptr, t_flags);
 	else if ((*t_flags).argtype == 's')

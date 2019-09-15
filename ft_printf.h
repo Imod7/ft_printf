@@ -58,7 +58,7 @@ typedef struct	s_format
 	t_modifier	modifier;
 }				t_format;
 
-int             ft_printf_allversions(int fd, const char *str, va_list	argptr);
+int             ft_printf_genericfunc(int fd, const char *str, va_list	argptr);
 int				ft_printf(const char *str, ...);
 int				ft_dprintf(int fd, const char *str, ...);
 void			save_flags(t_format *t_flags, const char **str);
@@ -82,11 +82,12 @@ void			print_character(va_list argptr, t_format *t_flags);
 void			print_other(char arg, t_format *t_flags);
 void			print_octal(va_list argptr, t_format *t_flags);
 void			print_hex(va_list argptr, t_format *t_flags);
-long long		return_decimal_part_as_int(double num);
+// long long		return_decimal_part_as_int(double num);
 void			clear_forfloat(t_format *t_flags);
 void			print_float(va_list argptr, t_format *t_flags);
 void			intwithminus(long long arg, t_format *t_flags, int len);
 void			int_otherflag(long long arg, t_format *t_flags, int len);
 char			*ft_itoa_float(float n);
+void			add_to_buffer(int fd, const char **str, t_format *t_flags);
 
 #endif

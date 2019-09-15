@@ -21,7 +21,7 @@ NC=\033[0m # No Color
 
 SRC =	\
 		ft_printf.c \
-		ft_printf_allversions.c \
+		ft_printf_genericfunc.c \
 		ft_save_flags.c \
 		ft_print_signed.c \
 		ft_print_unsigned.c \
@@ -30,6 +30,7 @@ SRC =	\
 		ft_putnbr_base.c \
 		ft_print_float.c \
 		ft_itoa_float.c \
+		ft_addtobuffer.c \
 
 OBJ = $(SRC:%.c=%.o)
 
@@ -54,6 +55,7 @@ $(NAME): $(OBJ) $(LIBFT)
 clean:
 	@echo "${RED}Cleaning all object files of printf${NC}"
 	@rm -f $(OBJ)
+	@$(MAKE) clean -C libft
 
 fclean: clean
 	@rm -f $(NAME)

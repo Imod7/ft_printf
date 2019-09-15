@@ -18,11 +18,34 @@ void					print_string(va_list argptr, t_format *t_flags)
 	int					len;
 
 	arg = va_arg(argptr, char *);
-	len = ft_strlen(arg);
-	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
-	print_sign(t_flags);
-	print_padding(t_flags, len);
-	write((*t_flags).fd, arg, len);
+	if (arg == NULL)
+	{
+		write((*t_flags).fd, "(null)", 6);
+		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 6;
+	}
+	else
+	{
+		len = ft_strlen(arg);
+		print_sign(t_flags);
+		if (((*t_flags).precision < len) && ((*t_flags).precision != 0) \
+		&& (len != 0))
+			len = (*t_flags).precision;
+		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+		if (((*t_flags).flags & FLAG_MINUS) > 0)
+		{
+			write((*t_flags).fd, arg, len);
+			if (((*t_flags).minfw != 0) && \
+			((*t_flags).minfw != (*t_flags).precision))
+				print_padding(t_flags, len);
+		}
+		else
+		{
+			if (((*t_flags).minfw != 0) && \
+			((*t_flags).minfw != (*t_flags).precision))
+				print_padding(t_flags, len);
+			write((*t_flags).fd, arg, len);
+		}
+	}
 }
 
 void					print_character(va_list argptr, t_format *t_flags)

@@ -20,8 +20,7 @@ void			test_exceptions1(void)
 	// int			total_chars_ftp;
 
 	num = 74;
-	write(1, "\n", 1);
-	ft_printf(ANSI_COLOR_MAGENTA"Test 39 Undefined Behaviour \n");
+	ft_printf(ANSI_COLOR_MAGENTA"Test 39 Undefined Behaviour\n");
 	// total_chars_p = printf(ANSI_COLOR_CYAN"Test_39   >percentpercent   : '%%'     >k   : '%kjjj'  ,  > -9k   '% -9k'\n", num);
 	// total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_39   >percentpercent   : '%%'     >k   : '%kjjj'  ,  > -9k   '% -9k'\n", num);
 	// assert(total_chars_p == total_chars_ftp);
@@ -36,8 +35,7 @@ void			test_exceptions2(void)
 	// int			total_chars_ftp;
 
 	num = 74;
-	write(1, "\n", 1);
-	ft_printf(ANSI_COLOR_MAGENTA"Test 41 Undefined Behaviour \n");
+	ft_printf(ANSI_COLOR_MAGENTA"Test 41 Undefined Behaviour\n");
 	// total_chars_p = printf(ANSI_COLOR_RED"Test_41   >percentpercent   : '%%'     >15-mk   : '%15-mkjjj'  ,  >space9-v: '% 9-v'\n", num);
 	// total_chars_ftp = ft_printf(ANSI_COLOR_RED"Test_41   >percentpercent   : '%%'     >15-mk   : '%15-mkjjj'  ,  >space9-v: '% 9-v'\n", num);
 	// assert(total_chars_p == total_chars_ftp);

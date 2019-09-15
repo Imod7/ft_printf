@@ -12,14 +12,12 @@
 
 #include "ft_printf.h"
 
-int				ft_printf_allversions(int fd, const char *str, va_list argptr)
+int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 {
-    t_format	t_flags;
+	t_format	t_flags;
 	char		c;
 
 	clear_formatstruct(&t_flags);
-	// if (error_check(t_flags, str) == 1)
-	// 	return (0);
 	t_flags.total_chars_printed = 0;
 	while (*str != '\0')
 	{
@@ -42,9 +40,12 @@ int				ft_printf_allversions(int fd, const char *str, va_list argptr)
 		}
 		else
 		{
-			write(fd, str, 1);
-			t_flags.total_chars_printed++;
-			// printf("number_of_chars = %d \n", t_flags.total_chars_printed);
+			// printf("Printing string = %c \n", *str);
+			while ((*str != '\0') && (*str != '%'))
+				add_to_buffer(fd, &str, &t_flags);
+			str--;
+			// write(fd, str, 1);
+			// t_flags.total_chars_printed++;
 		}
 		str++;
 	}

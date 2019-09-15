@@ -33,7 +33,7 @@ static void	make_str(char *str, float n, int len)
 		}
 		if (n > 9)
 		{
-			str[len] = (n % 10) + 48;
+			// str[len] = (n % 10) + 48;
 			n = n / 10;
 		}
 		len--;

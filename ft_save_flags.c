@@ -75,16 +75,16 @@ void				save_flags(t_format *t_flags, const char **str)
 		{
 			(*t_flags).flags |= FLAG_PRECIS;
 			(*str)++;
-			// printf("OUTSIDE >>>> str = %c, precision=%d, minfw=%d, special_chars=%d\n", **str, (*t_flags).precision, (*t_flags).minfw, (*t_flags).special_chars_printed);
 			if ((ft_isdigit(**str) == 1) && (**str != '0') && \
 			((*t_flags).precision == 0))
 			{
 				(*t_flags).precision = ft_atoi(*str);
 				digits = number_of_digits((*t_flags).precision);
 				(*str) = (*str) + digits - 1;
-				// printf("INSIDE >>>> precision=%d, minfw=%d, special_chars=%d\n", (*t_flags).precision, (*t_flags).minfw, (*t_flags).special_chars_printed);
 			}
-			if ((*t_flags).minfw == 0)
+			// printf(ANSI_COLOR_MAGENTA"\nBEFminfw=%d\nprecision=%d\n"ANSI_COLOR_RESET, (*t_flags).minfw, (*t_flags).precision);
+			if (((*t_flags).minfw == 0) && \
+			((*t_flags).minfw < (*t_flags).precision))
 				(*t_flags).minfw = (*t_flags).precision;
 		}
 		if ((**str == 'h' || **str == 'l') && ((*t_flags).modifier == 0))
@@ -92,9 +92,11 @@ void				save_flags(t_format *t_flags, const char **str)
 		(*str)++;
 	}
 	(*t_flags).argtype = **str;
+	// printf(ANSI_COLOR_GREEN"\nAFTERminfw=%d\nprecision=%d\n"ANSI_COLOR_RESET, (*t_flags).minfw, (*t_flags).precision);
 	// printf("\n --> flag modifier = %i \n", (*t_flags).modifier);
 	// printf("\n --> str = %c ,flags = %u \n", **str, (*t_flags).flags);
 	// print_binary((*t_flags).flags);
+	// printf(ANSI_COLOR_MAGENTA"\n=SAVE FLAG=\nstr='%s'\nprecision=%d\n"ANSI_COLOR_RESET, *str, (*t_flags).precision);
 }
 
 /*

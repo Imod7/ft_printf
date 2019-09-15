@@ -19,7 +19,7 @@ void			print_binary(uint16_t flag_num)
 	int			pos;
 
 	pos = 16;
-	printf("\n the num is : %d \n", flag_num);
+	printf("\nthe num is : %d\n", flag_num);
 	while (pos >= 0)
 	{
 		bit = flag_num >> pos;
@@ -35,29 +35,29 @@ int				main(void)
 {
 	int			option;
 	int			i;
-	test_func	*test_array[47];
+	test_func	*test_array[49];
 
-	test_array[0] = test_one;
-	test_array[1] = test_two;
-	test_array[2] = test_three;
+	test_array[0] = test_int1;
+	test_array[1] = test_int2;
+	test_array[2] = test_int3;
 	test_array[3] = test_int4;
 	test_array[4] = test_int5;
-	test_array[5] = test_six;
+	test_array[5] = test_int6;
 	test_array[6] = test_int7;
 	test_array[7] = test_int8;
 	test_array[8] = test_int9;
-	test_array[9] = test_ten;
-	test_array[10] = test_eleven;
-	test_array[11] = test_twelve;
-	test_array[12] = test_thirteen;
-	test_array[13] = test_fourteen;
-	test_array[14] = test_fifteen;
-	test_array[15] = test_16;
-	test_array[16] = test_17;
-	test_array[17] = test_18;
-	test_array[18] = test_19;
-	test_array[19] = test_20;
-	test_array[20] = test_21;
+	test_array[9] = test_char1;
+	test_array[10] = test_char2;
+	test_array[11] = test_char3;
+	test_array[12] = test_char4;
+	test_array[13] = test_char5;
+	test_array[14] = test_char6;
+	test_array[15] = test_char7;
+	test_array[16] = test_octal1;
+	test_array[17] = test_octal2;
+	test_array[18] = test_octal3;
+	test_array[19] = test_int10;
+	test_array[20] = test_int11;
 	test_array[21] = test_hex1;
 	test_array[22] = test_hex2;
 	test_array[23] = test_hex3;
@@ -84,6 +84,8 @@ int				main(void)
 	test_array[44] = test_float3;
 	test_array[45] = test_float4;
 	test_array[46] = test_float5;
+	test_array[47] = test_string2;
+	test_array[48] = test_string3;
 	i = 1;
 	printf("Which Test do you want to run ? (0 to run All) \n");
 	scanf("%d", &option);
