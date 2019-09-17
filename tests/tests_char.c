@@ -35,9 +35,9 @@ void			test_char2(void)
 	c = 'G';
 	write(1, "\n", 1);
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 11 (char2) : '%-8c' '%.2c'\n", c, c);
+	total_chars_p = dprintf(fd, "Test 11 (char2) : '%-8c'\n", c);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 11 (char2) : '%-8c' '%.2c'\n", c, c);
+	total_chars_ftp = ft_dprintf(fd, "Test 11 (char2) : '%-8c'\n", c);
 	assert(total_chars_p == total_chars_ftp);
 
 	close(fd);

@@ -29,7 +29,7 @@ size_t		len_until_arg(const char *s, char *str_result)
 void		add_to_buffer(int fd, const char **str, t_format *t_flags)
 {
 	// char	*buffer;
-	char	str_result[10000];
+	char	str_result[1000];
 	// size_t	len;
 	size_t	length;
 

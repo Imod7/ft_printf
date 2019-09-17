@@ -13,29 +13,11 @@
 #include "../ft_printf.h"
 #include "test_header.h"
 
-void			print_binary(uint16_t flag_num)
-{
-	int			bit;
-	int			pos;
-
-	pos = 16;
-	printf("\nthe num is : %d\n", flag_num);
-	while (pos >= 0)
-	{
-		bit = flag_num >> pos;
-		if (bit & 1)
-			printf("1 ");
-		else
-			printf("0 ");
-		pos--;
-	}
-}
-
 int				main(void)
 {
 	int			option;
 	int			i;
-	test_func	*test_array[49];
+	test_func	*test_array[50];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -86,6 +68,7 @@ int				main(void)
 	test_array[46] = test_float5;
 	test_array[47] = test_string2;
 	test_array[48] = test_string3;
+	test_array[49] = test_octal4;
 	i = 1;
 	printf("Which Test do you want to run ? (0 to run All) \n");
 	scanf("%d", &option);

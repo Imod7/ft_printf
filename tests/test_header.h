@@ -75,5 +75,6 @@ void	test_float5(void);
 void	test_string1(void);
 void	test_string2(void);
 void	test_string3(void);
+void	test_octal4(void);
 
 # endif

@@ -52,9 +52,9 @@ void		test_int2(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 02 : +08d : '%+08d' blabla  '%6d' glopglop '%s' '%X'\n", 45, 899, "teleia", 44);
+	total_chars_p = dprintf(fd, "Test 02 : +08d : '%+08d' blabla  '%6d' glopglop '%s' '%d'\n", 45, 899, "teleia", -42);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 02 : +08d : '%+08d' blabla  '%6d' glopglop '%s' '%X'\n", 45, 899, "teleia", 44);
+	total_chars_ftp = ft_dprintf(fd, "Test 02 : +08d : '%+08d' blabla  '%6d' glopglop '%s' '%d'\n", 45, 899, "teleia", -42);
 	assert(total_chars_p == total_chars_ftp);
 
 	close(fd);

@@ -65,14 +65,12 @@ void			save_flags(t_format *t_flags, const char **str);
 int				error_check(t_format t_flags, const char *str);
 void			print_arg(va_list argptr, t_format *t_flags);
 void			print_sign(t_format *t_flags);
-// void			check_modifier(va_list argptr, long long *arg, t_format *t_flags);
 void			check_modifier(long long *arg, t_format *t_flags);
 void			check_modif_un(unsigned long long *arg, t_format *t_flags);
 void			print_padding(t_format *t_flags, int no_digits);
 int				number_of_digits(long long num);
 int				number_of_digits_un(unsigned long long num, t_format t_flags);
 void			clear_formatstruct(t_format *t_flags);
-void			print_binary(uint16_t flag_num);
 void			ft_putnbr_int(long long n, int fd);
 void			ft_putnbr_octal(unsigned long long n, int fd);
 void			ft_putnbr_hex(unsigned long long n, int fd);
@@ -89,5 +87,8 @@ void			intwithminus(long long arg, t_format *t_flags, int len);
 void			int_otherflag(long long arg, t_format *t_flags, int len);
 char			*ft_itoa_float(float n);
 void			add_to_buffer(int fd, const char **str, t_format *t_flags);
+void			print_binary(long long flag_num);
+long long		invert_allbits(long long num);
+long long		binary_addone(long long num);
 
 #endif

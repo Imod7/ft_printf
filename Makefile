@@ -31,6 +31,7 @@ SRC =	\
 		ft_print_float.c \
 		ft_itoa_float.c \
 		ft_addtobuffer.c \
+		ft_bitwise.c \
 
 OBJ = $(SRC:%.c=%.o)
 

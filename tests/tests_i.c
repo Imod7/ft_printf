@@ -85,19 +85,55 @@ void			test_i3(void)
 	long		num;
 	int			total_chars_p;
 	int			total_chars_ftp;
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
+	int			fd;
 
 	num = -2147483648;
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test_36 : %%-17.4li and argum is the limit of long='%-17.4li' , %%.i='%.li'\n", num, num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_36 : %%-17.4li and argum is the limit of long='%-17.4li' , %%.i='%.li'\n", num, num);
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, ANSI_COLOR_CYAN"Test 36 (test_i3) : %%-17.4li and argum is the limit of long='%-17.4li' , %%.i='%.li'\n", num, num);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, ANSI_COLOR_CYAN"Test 36 (test_i3) : %%-17.4li and argum is the limit of long='%-17.4li' , %%.i='%.li'\n", num, num);
 	assert(total_chars_p == total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+		printf(ANSI_COLOR_GREEN"Test 36 (test_i3) : Correct!\n");
+	else
+		printf(ANSI_COLOR_RED"Test 36 (test_i3) : Wrong!\n");
 }
 
 void		test_i4(void)
 {
-	int		total_chars_p;
-	int		total_chars_ftp;
+	int			total_chars_p;
+	int			total_chars_ftp;
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
+	int			fd;
 
-	total_chars_p = printf(ANSI_COLOR_CYAN"Test_40 : %%010i='%010i' , %%space-9.4i='% -9.4i' , %%space-9i negat value='% -9i' \n", 1256, 596, -99);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_40 : %%010i='%010i' , %%space-9.4i='% -9.4i' , %%space-9i negat value='% -9i' \n", 1256, 596, -99);
-	assert(total_chars_p == total_chars_ftp);
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, ANSI_COLOR_CYAN"Test_40 (test_i4) : %%010i='%010i' , %%space-9.4i='% -9.4i' , %%space-9i negat value='% -9i' \n", 1256, 596, -99);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, ANSI_COLOR_CYAN"Test 40 (test_i4) : %%010i='%010i' , %%space-9.4i='% -9.4i' , %%space-9i negat value='% -9i' \n", 1256, 596, -99);
+	// assert(total_chars_p == total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+		printf(ANSI_COLOR_GREEN"Test 40 (test_i4) : Correct!\n");
+	else
+		printf(ANSI_COLOR_RED"Test 40 (test_i4) : Wrong!\n");
 }

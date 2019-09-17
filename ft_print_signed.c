@@ -68,6 +68,8 @@ void					print_integer(va_list argptr, t_format *t_flags)
 	int					len;
 
 	arg = va_arg(argptr, long long);
+	// printf(ANSI_COLOR_YELLOW"\nargument extracted = %d"ANSI_COLOR_RESET, (int)arg);
+	// print_binary(arg);
 	//check_modifier(argptr, &arg, t_flags);
 	check_modifier(&arg, t_flags);
 	len = number_of_digits(arg);
@@ -83,7 +85,7 @@ void					print_int_unsigned(va_list argptr, t_format *t_flags)
 	unsigned long long	arg;
 	int					len;
 
-	arg = va_arg(argptr, unsigned long long);
+	arg = va_arg(argptr, long long);
 	check_modif_un(&arg, t_flags);
 	len = number_of_digits_un(arg, *t_flags);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;

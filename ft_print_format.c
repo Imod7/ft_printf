@@ -173,10 +173,12 @@ void		check_modif_un(unsigned long long *arg, t_format *t_flags)
 {
 	if ((*t_flags).modifier == H)
 		*arg = (unsigned short)(*arg);
-	if ((*t_flags).modifier == HH)
+	else if ((*t_flags).modifier == HH)
 		*arg = (unsigned char)(*arg);
-	if ((*t_flags).modifier == L)
+	else if ((*t_flags).modifier == L)
 		*arg = (unsigned long)(*arg);
-	if ((*t_flags).modifier == LL)
+	else if ((*t_flags).modifier == LL)
 		*arg = (unsigned long long)(*arg);
+	else
+		*arg = (unsigned int)(*arg);
 }
