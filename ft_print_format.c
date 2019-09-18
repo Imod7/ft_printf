@@ -94,9 +94,11 @@ void		print_padding(t_format *t_flags, int arg_digits_len)
 		// printf("\nFlag ht AND hexad \n");
 		(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
 	}
-	if ((((*t_flags).flags & FLAG_HT) > 0) && ((*t_flags).argtype == 'o'))
+	if (((((*t_flags).flags & FLAG_HT) > 0) || \
+	(((*t_flags).flags & FLAG_PRECIS) > 0)) &&
+	((*t_flags).argtype == 'o'))
 	{
-		// printf("\nFlag ht AND octal \n");
+		// printf(ANSI_COLOR_YELLOW"\nFlag_HT=TRUE AND argtype=OCTAL\n");
 		(*t_flags).special_chars_printed++;
 	}
 	if (((*t_flags).argtype == 'f') && ((*t_flags).float_decpart_len < 6) && \

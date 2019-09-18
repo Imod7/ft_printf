@@ -278,16 +278,6 @@ void					test_hex8(void)
 
 void					test_hex9(void)
 {
-	// unsigned char 		num;
-	// int					total_chars_p;
-	// int					total_chars_ftp;
-
-	// num = 255;
-	// total_chars_p = printf(ANSI_COLOR_CYAN"Test_30:   >09hhX : '%09hhX'   >#09hhX:  '%#09hhX'\n", num, num);
-	// total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_30:   -09hhX : '%09hhX'   -#09hhX:  '%#09hhX'\n", num, num);
-	// assert(total_chars_p == total_chars_ftp);
-	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	unsigned char	num;
 	char			*returned_line_dprintf;
 	char			*returned_line_ft_dprintf;
@@ -365,7 +355,7 @@ void					test_hex11(void)
 	num = 18446744073709551615U;
 	ft_printf(ANSI_COLOR_MAGENTA"Test_32 Error (w flags in gcc) / Warning (wo flags) >> ");
 	// total_chars_p = printf(ANSI_COLOR_CYAN"32=test_hex11 space*llX : '% *llX'\n", 28, num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_32: space*llX : '% *llX'\n", 28, num);
+	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"\nTest_32: space*llX : '% *llX'\n", 28, num);
 	// assert(total_chars_p == total_chars_ftp);
 }
 

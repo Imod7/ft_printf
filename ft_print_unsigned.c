@@ -12,104 +12,95 @@
 
 #include "ft_printf.h"
 
-void					print_order(t_format *t_flags, int len)
+void	print_order(t_format *t_flags, int len)
 {
 	print_padding(t_flags, len);
 	print_sign(t_flags);
 }
 
-void					print_inverse(t_format *t_flags, int len)
+void	print_inverse(t_format *t_flags, int len)
 {
 	print_sign(t_flags);
 	print_padding(t_flags, len);
 }
 
-void					check_ht(t_format *t_flags)
+void					print_number(unsigned long long arg, t_format *t_flags)
+{
+	if ((*t_flags).argtype == 'o')
+		ft_putnbr_octal(arg, (*t_flags).fd);
+	else if ((*t_flags).argtype == 'X')
+		ft_putnbr_hex_capit(arg, (*t_flags).fd);
+	else
+		ft_putnbr_hex(arg, (*t_flags).fd);
+}
+
+void					pr_withminus(unsigned long long arg, t_format *t_flags, int len)
+{
+	// printf(ANSI_COLOR_YELLOW"\nFlag_MINUS=TRUE AND");
+	if (((*t_flags).flags & FLAG_PRECIS) > 0)
+	{
+		// printf(ANSI_COLOR_YELLOW"\nFlag_PREC=TRUE\n");
+		print_inverse(t_flags, len);
+		print_number(arg, t_flags);
+	}
+	else if ((((*t_flags).flags & FLAG_NEGAT) == 0) && \
+	(((*t_flags).flags & FLAG_SPACE) == 0) && \
+	(((*t_flags).flags & FLAG_PRECIS) == 0))
+	{
+		// printf(ANSI_COLOR_YELLOW"\nFlag_Negat=FALSE && Flag_Space=FALSE\n");
+		print_number(arg, t_flags);
+		print_inverse(t_flags, len);
+	}
+	else if ((((*t_flags).flags & FLAG_NEGAT) > 0) && \
+	(((*t_flags).flags & FLAG_SPACE) > 0))
+	{
+		// printf(ANSI_COLOR_YELLOW"\nFlag_Negat=TRUE && Flag_Space=TRUE\n");
+		(*t_flags).flags &= ~FLAG_SPACE;
+		print_sign(t_flags);
+		print_number(arg, t_flags);
+		print_padding(t_flags, len);
+	}
+	else
+	{
+		// printf(ANSI_COLOR_YELLOW"\nOther Cases\n");
+		print_inverse(t_flags, len);
+		print_number(arg, t_flags);
+	}
+}
+
+void					check_ht(unsigned long long arg, t_format *t_flags)
 {
 	char				c;
 
-	if (((*t_flags).flags & FLAG_HT) > 0)
+	// printf("\n%d\n", (*t_flags).argtype);
+	// print_binary((*t_flags).flags);
+	if ((((*t_flags).argtype == 'o') > 0) && \
+	((((*t_flags).flags & FLAG_PRECIS) > 0) || \
+	(((*t_flags).flags & FLAG_HT) > 0)))
 	{
 		c = '0';
+		// printf("check HT flag\n");
 		write((*t_flags).fd, &c, 1);
-		(*t_flags).special_chars_printed++;
+		// (*t_flags).special_chars_printed++;
 		(*t_flags).total_chars_printed++;
+		// printf("\nspecial chars = %d\n", (*t_flags).special_chars_printed);
 	}
-}
-
-void					print_octal(va_list argptr, t_format *t_flags)
-{
-	unsigned long long	arg;
-	int					len;
-
-	arg = va_arg(argptr, unsigned long long);
-	check_modif_un(&arg, t_flags);
-	len = number_of_digits_un(arg, *t_flags);
-	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
-	if ((*t_flags).minfw < (*t_flags).precision)
-		(*t_flags).minfw = (*t_flags).precision;
-	if (((*t_flags).flags & FLAG_MINUS) > 0)
-	{
-		(*t_flags).flags &= ~FLAG_ZERO;
-		check_ht(t_flags);
-		print_inverse(t_flags, len);
-		ft_putnbr_octal(arg, (*t_flags).fd);
-	}
-	else if (((*t_flags).flags & FLAG_ZERO) > 0)
-	{
-		// print_hex_ch(&arg, t_flags);
-		print_inverse(t_flags, len);
-		ft_putnbr_octal(arg, (*t_flags).fd);
-	}
-	else if ((((*t_flags).flags & FLAG_MINUS) == 0) && \
-	(((*t_flags).flags & FLAG_ZERO) == 0))
-	{
-		print_order(t_flags, len);
-		// print_hex_ch(&arg, t_flags);
-		ft_putnbr_octal(arg, (*t_flags).fd);
-	}
-}
-
-/*
-** In function print_hex_ch we increase only the member total_chars_printed
-** but not the member special_chars_printed
-** Then we print the argument in hexadecimal form
-** The member special_chars_printed we need to increase it for the padding
-*/
-
-void					print_hex_ch(unsigned long long *arg, t_format *t_flags)
-{
-	if ((((*t_flags).flags & FLAG_HT) > 0) && (*arg != 0))
-	{
-		if (((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'p'))
-			write((*t_flags).fd, "0x", 2);
-		else
-			write((*t_flags).fd, "0X", 2);
-		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
-		// (*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
-	}
-	// if ((*t_flags).argtype == 'p')
-	// {
-	// 	write((*t_flags).fd, "0x", 2);
-	// 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
-	// }
-	// if ((*t_flags).argtype == 'X')
-	// 	ft_putnbr_hex_capit(*arg, (*t_flags).fd);
-	// else
-	// 	ft_putnbr_hex(*arg, (*t_flags).fd);
-}
-
-void					print_hex_nbr(unsigned long long *arg, t_format *t_flags)
-{
-	if ((*t_flags).argtype == 'X')
-		ft_putnbr_hex_capit(*arg, (*t_flags).fd);
 	else
-		ft_putnbr_hex(*arg, (*t_flags).fd);
+	{
+		if ((((*t_flags).flags & FLAG_HT) > 0) && (arg != 0))
+		{
+			if (((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'p'))
+				write((*t_flags).fd, "0x", 2);
+			else
+				write((*t_flags).fd, "0X", 2);
+			(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
+		// (*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
+		}
+	}
 }
 
-void					print_hex(va_list argptr, t_format *t_flags)
+void					print_hex_octal(va_list argptr, t_format *t_flags)
 {
-	// in hex should i extract unsigned long long? or long long?
 	unsigned long long	arg;
 	int					len;
 
@@ -124,36 +115,30 @@ void					print_hex(va_list argptr, t_format *t_flags)
 		arg = va_arg(argptr, unsigned long long);
 		check_modif_un(&arg, t_flags);
 	}
+	check_plusflag(t_flags);
 	(*t_flags).flags &= ~FLAG_PLUS;
-	// if (arg < 0)
-	// {
-	// 	arg = (arg * (-1));
-		// printf(ANSI_COLOR_YELLOW"\nargument extracted = %lld"ANSI_COLOR_RESET, arg);
-	// 	print_binary(arg);
-	// 	arg = invert_allbits(arg);
-	// 	arg = binary_addone(arg);
-	// 	print_binary(arg);
-	// }
 	len = number_of_digits_un(arg, *t_flags);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+	if ((*t_flags).minfw < (*t_flags).precision)
+		(*t_flags).minfw = (*t_flags).precision;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{
 		(*t_flags).flags &= ~FLAG_ZERO;
-		print_hex_ch(&arg, t_flags);
-		print_hex_nbr(&arg, t_flags);
-		print_inverse(t_flags, len);
+		check_ht(arg, t_flags);
+		pr_withminus(arg, t_flags, len);
 	}
 	else if (((*t_flags).flags & FLAG_ZERO) > 0)
 	{
-		print_hex_ch(&arg, t_flags);
+		check_ht(arg, t_flags);
 		print_inverse(t_flags, len);
-		print_hex_nbr(&arg, t_flags);
+		print_number(arg, t_flags);
 	}
 	else if ((((*t_flags).flags & FLAG_MINUS) == 0) && \
 	(((*t_flags).flags & FLAG_ZERO) == 0))
 	{
+		// printf(ANSI_COLOR_MAGENTA"\nFlag_Minus=FALSE AND Flag_Zero=FALSE");
 		print_order(t_flags, len);
-		print_hex_ch(&arg, t_flags);
-		print_hex_nbr(&arg, t_flags);
+		check_ht(arg, t_flags);
+		print_number(arg, t_flags);
 	}
 }

@@ -98,3 +98,9 @@ When **ft_printf** function is called :
 ##### variable (*t_flags).minfw affected in functions :
 1. function save_flags
 2. function print_arg
+3. function print_hex_octal
+
+##### variable (*t_flags).special_chars_printed affected in functions :
+1. function check_ht
+2. function print_hex_octal
+3. function print_padding

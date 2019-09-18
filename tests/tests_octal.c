@@ -53,13 +53,11 @@ void				test_octal2(void)
 	int			total_chars_p;
 	int			total_chars_ftp;
 	int			fd;
-	int		    num;
 
-	num = 74;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 18 (octal2) : %%05o='%05o', %%#*o='%#*o', %%-#6o='%-#6o'\n", num, 22, num, 2500);
+	total_chars_p = dprintf(fd, "Test 18 (octal2) : %%05o='%05o', %%#*o(with 22)='%#*o', %%-#6o='%-#6o', %%-10.5o='%-10.5o'\n", 74, 22, 74, 2500, 2500);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 18 (octal2) : %%05o='%05o', %%#*o='%#*o', %%-#6o='%-#6o'\n", num, 22, num, 2500);
+	total_chars_ftp = ft_dprintf(fd, "Test 18 (octal2) : %%05o='%05o', %%#*o(with 22)='%#*o', %%-#6o='%-#6o', %%-10.5o='%-10.5o'\n", 74, 22, 74, 2500, 2500);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -103,9 +101,9 @@ void				test_octal4(void)
 
 	num = 74;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 50 (octal4) : %%-5.10o='%-5.10o'\n", 2500);
+	total_chars_p = dprintf(fd, "Test 50 (octal4) : %%-5.10o='%-5.10o', %%-5o='%-5o', %%-5.10x='%-5.10x', %%-5x='%-5x', %%-5.10d='%-5.10d', %%-5d='%-5d', %%-5.10o='%-5.10o'\n", 2500, 2500, 2500, 2500, 2500, 2500, -55);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 50 (octal4) : %%-5.10o='%-5.10o'\n", 2500);
+	total_chars_ftp = ft_dprintf(fd, "Test 50 (octal4) : %%-5.10o='%-5.10o', %%-5o='%-5o', %%-5.10x='%-5.10x', %%-5x='%-5x', %%-5.10d='%-5.10d', %%-5d='%-5d', %%-5.10o='%-5.10o'\n", 2500, 2500, 2500, 2500, 2500, 2500, -55);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);

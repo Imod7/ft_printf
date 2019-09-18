@@ -12,7 +12,7 @@
 
 NAME = libftprintf.a
 LIBFT = libft/libft.a
-CC = gcc -Wall -Wextra -Werror -g
+CC = gcc 
 
 RED=\033[0;31m
 GREEN=\033[0;32m
@@ -32,6 +32,7 @@ SRC =	\
 		ft_itoa_float.c \
 		ft_addtobuffer.c \
 		ft_bitwise.c \
+		ft_commonchecks.c \
 
 OBJ = $(SRC:%.c=%.o)
 

@@ -91,10 +91,10 @@ void			test_i3(void)
 
 	num = -2147483648;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, ANSI_COLOR_CYAN"Test 36 (test_i3) : %%-17.4li and argum is the limit of long='%-17.4li' , %%.i='%.li'\n", num, num);
+	total_chars_p = dprintf(fd, ANSI_COLOR_CYAN"Test 36 (test_i3) : %%-17.4li='%-17.4li' , %%.li='%.li'\n", num, num);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, ANSI_COLOR_CYAN"Test 36 (test_i3) : %%-17.4li and argum is the limit of long='%-17.4li' , %%.i='%.li'\n", num, num);
-	assert(total_chars_p == total_chars_ftp);
+	total_chars_ftp = ft_dprintf(fd, ANSI_COLOR_CYAN"Test 36 (test_i3) : %%-17.4li='%-17.4li' , %%.li='%.li'\n", num, num);
+	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -102,7 +102,7 @@ void			test_i3(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 		printf(ANSI_COLOR_GREEN"Test 36 (test_i3) : Correct!\n");

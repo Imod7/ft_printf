@@ -32,6 +32,7 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 			}
 			else
 			{
+				// printf(ANSI_COLOR_GREEN"\nNEXT CALL OF PRINTF\n");
 				clear_formatstruct(&t_flags);
 				save_flags(&t_flags, &str);
 				t_flags.fd = fd;
@@ -40,7 +41,6 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 		}
 		else
 		{
-			// printf("Printing string = %c \n", *str);
 			while ((*str != '\0') && (*str != '%'))
 				add_to_buffer(fd, &str, &t_flags);
 			str--;
