@@ -82,6 +82,8 @@ void				save_flags(t_format *t_flags, const char **str)
 				digits = number_of_digits((*t_flags).precision);
 				(*str) = (*str) + digits - 1;
 			}
+			else
+				(*str)--;
 			// printf(ANSI_COLOR_MAGENTA"\nBEFminfw=%d\nprecision=%d\n"ANSI_COLOR_RESET, (*t_flags).minfw, (*t_flags).precision);
 			if (((*t_flags).minfw == 0) && \
 			((*t_flags).minfw < (*t_flags).precision))

@@ -52,9 +52,9 @@ void		test_int2(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 02 : +08d : '%+08d' blabla  '%6d' glopglop '%s' '%d'\n", 45, 899, "teleia", -42);
+	total_chars_p = dprintf(fd, "Test 02 (int2) : %%+08d='%+08d', %%6d='%6d', %%s='%s' %% d='% d', %%+d='%+d'\n", 45, 899, "teleia", -42, -42);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 02 : +08d : '%+08d' blabla  '%6d' glopglop '%s' '%d'\n", 45, 899, "teleia", -42);
+	total_chars_ftp = ft_dprintf(fd, "Test 02 (int2) : %%+08d='%+08d', %%6d='%6d', %%s='%s' %% d='% d', %%+d='%+d'\n", 45, 899, "teleia", -42, -42);
 	assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -143,10 +143,9 @@ void		test_int5(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 5 '%-10d'\n", 199);
-
+	total_chars_p = dprintf(fd, "Test 5 (int5) : %%-10d='%-10d', %%05d='%05d', %%0+5d='%0+5d'\n", 199, -42, -42);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 5 '%-10d'\n", 199);
+	total_chars_ftp = ft_dprintf(fd, "Test 5 (int5) : %%-10d='%-10d', %%05d='%05d', %%0+5d='%0+5d'\n", 199, -42, -42);
 	assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -176,11 +175,11 @@ void		test_int6(void)
 	a = 32761;
 	b = (short)a;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 6  '%hd'  \n", b);
+	total_chars_p = dprintf(fd, "Test 6 (int6) : %%hd='%hd', %%5d='%5d'\n", b, -42);
 	get_next_line(fd, &returned_line_dprintf);
 
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 6  '%hd'  \n", b);
+	total_chars_ftp = ft_dprintf(fd, "Test 6 (int6) : %%hd='%hd', %%5d='%5d'\n", b, -42);
 	assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -410,28 +409,28 @@ void			test_int11(void)
 
 void			test_int12(void)
 {
-	char		*returned_line_dprintf;
-	char		*returned_line_ft_dprintf;
-	int			total_chars_p;
-	int			total_chars_ftp;
-	int			fd;
+	// char		*returned_line_dprintf;
+	// char		*returned_line_ft_dprintf;
+	// int			total_chars_p;
+	// int			total_chars_ftp;
+	// int			fd;
 
-	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 51 (int12) : %% +d='% +d', %% +x='% +x', %% +o='% +o', %% +d='% +d'\n", 42, 42, 42, -42);
-	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 51 (int12) : %% +d='% +d', %% +x='% +x', %% +o='% +o', %% +d='% +d'\n", 42, 42, 42, -42);
-	// assert(total_chars_p == total_chars_ftp);
+	// fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	// total_chars_p = dprintf(fd, "Test 51 (int12) : %% +d='% +d', %% +x='% +x', %% +o='% +o', %% +d='% +d'\n", 42, 42, 42, -42);
+	// fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	// total_chars_ftp = ft_dprintf(fd, "Test 51 (int12) : %% +d='% +d', %% +x='% +x', %% +o='% +o', %% +d='% +d'\n", 42, 42, 42, -42);
+	// // assert(total_chars_p == total_chars_ftp);
 
-	close(fd);
-	fd = open("result_dprintf.txt", O_RDONLY);
-	get_next_line(fd, &returned_line_dprintf);
-	close(fd);
-	fd = open("result_ftdprintf.txt", O_RDONLY);
-	get_next_line(fd, &returned_line_ft_dprintf);
-	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
-	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 51 (int12): Correct!\n");
-	else
+	// close(fd);
+	// fd = open("result_dprintf.txt", O_RDONLY);
+	// get_next_line(fd, &returned_line_dprintf);
+	// close(fd);
+	// fd = open("result_ftdprintf.txt", O_RDONLY);
+	// get_next_line(fd, &returned_line_ft_dprintf);
+	// // assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	// if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	// (total_chars_p == total_chars_ftp))
+	// 	printf(ANSI_COLOR_GREEN"Test 51 (int12): Correct!\n");
+	// else
 		printf(ANSI_COLOR_RED"Test 51 (int12): Wrong!\n");
 }

@@ -55,7 +55,7 @@ void				test_hex2(void)
 	total_chars_p = dprintf(fd, "Test_23 (hex2) : %%x='%x' , %%#x='%#x',  %%x='%x', %%#*x='%#*x', '%x'\n", 0, num, 32, 17, num, -42);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "Test_23 (hex2) : %%x='%x' , %%#x='%#x',  %%x='%x', %%#*x='%#*x', '%x'\n", 0, num, 32, 17, num, -42);
-	assert(total_chars_p == total_chars_ftp);
+	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
@@ -65,15 +65,14 @@ void				test_hex2(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
 		printf(ANSI_COLOR_GREEN"Test 23 (hex2) : with %%#x and %%#*x : Correct!\n");
 	else
 	{
 		printf(ANSI_COLOR_RED"Test 23 (hex2) : with %%#x and %%#*x : Wrong!\n");
-		printf("It works correctly if I run it alone but if I run all tests then it has error\n");
-		printf("After the 3rd argument when it va_arg it gets another value (like the double) not the one that want\n");
+		printf("Before there was an error that after the 3rd argument it rinted garbage because of wrong typecasting\n");
 	}
 }
 
@@ -90,10 +89,14 @@ void				test_hex3(void)
 	num1 = -42;
 	num = 4000;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 24 (hex3) : %%0.11='%0.11x' , %%*.15x='%x' , %%X='%X', %%.13='%.13x'\n", num, 0, num1, num);
+	// total_chars_p = dprintf(fd, "Test 24 (hex3) : %%0.11='%0.11x' , %%*.15x='%x' , %%X='%X', %%.13='%.13x'\n", num, 0, num1, num);
+	total_chars_p = dprintf(fd, "'%x'\n", 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 24 (hex3) : %%0.11='%0.11x' , %%*.15x='%x' , %%X='%X', %%.13='%.13x'\n", num, 0, num1, num);
+	// total_chars_ftp = ft_dprintf(fd, "Test 24 (hex3) : %%0.11='%0.11x' , %%*.15x='%x' , %%X='%X', %%.13='%.13x'\n", num, 0, num1, num);
+	total_chars_ftp = ft_dprintf(fd, "'%x'\n", 0);
 	// assert(total_chars_p == total_chars_ftp);
+	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -370,10 +373,12 @@ void					test_hex12(void)
 
 	num = 123789555845795653;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test_33 = test_hex12 %%-*llX : '%-*llX'\n", 66, num);
+	total_chars_p = dprintf(fd, "Test 33 (hex12) : %%-*llX='%-*llX', %%#.x='%#.x', %%#.0x='%#.0x', %%.x='%.x', %%.0x='%.0x'\n", 66, num, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test_33 = test_hex12 %%-*llX : '%-*llX'\n", 66, num);
-	assert(total_chars_p == total_chars_ftp);
+	total_chars_ftp = ft_dprintf(fd, "Test 33 (hex12) : %%-*llX='%-*llX', %%#.x='%#.x', %%#.0x='%#.0x', %%.x='%.x', %%.0x='%.0x'\n", 66, num, 0, 0, 0, 0);
+	// assert(total_chars_p == total_chars_ftp);
+	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -381,11 +386,10 @@ void					test_hex12(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 33 with %%-*llX : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 33 (hex12) ZEROS : Correct!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 33 with %%-*llX : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 33 (hex12) ZEROS : Wrong!\n");
 }

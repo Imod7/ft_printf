@@ -12,28 +12,6 @@
 
 #include "ft_printf.h"
 
-void	print_order(t_format *t_flags, int len)
-{
-	print_padding(t_flags, len);
-	print_sign(t_flags);
-}
-
-void	print_inverse(t_format *t_flags, int len)
-{
-	print_sign(t_flags);
-	print_padding(t_flags, len);
-}
-
-void					print_number(unsigned long long arg, t_format *t_flags)
-{
-	if ((*t_flags).argtype == 'o')
-		ft_putnbr_octal(arg, (*t_flags).fd);
-	else if ((*t_flags).argtype == 'X')
-		ft_putnbr_hex_capit(arg, (*t_flags).fd);
-	else
-		ft_putnbr_hex(arg, (*t_flags).fd);
-}
-
 void					pr_withminus(unsigned long long arg, t_format *t_flags, int len)
 {
 	// printf(ANSI_COLOR_YELLOW"\nFlag_MINUS=TRUE AND");
@@ -76,7 +54,7 @@ void					check_ht(unsigned long long arg, t_format *t_flags)
 	// print_binary((*t_flags).flags);
 	if ((((*t_flags).argtype == 'o') > 0) && \
 	((((*t_flags).flags & FLAG_PRECIS) > 0) || \
-	(((*t_flags).flags & FLAG_HT) > 0)))
+	((arg != 0) && (((*t_flags).flags & FLAG_HT) > 0))))
 	{
 		c = '0';
 		// printf("check HT flag\n");
@@ -115,10 +93,12 @@ void					print_hex_octal(va_list argptr, t_format *t_flags)
 		arg = va_arg(argptr, unsigned long long);
 		check_modif_un(&arg, t_flags);
 	}
+	len = number_of_digits_un(arg, *t_flags);
+	if (arg == 0)
+		check_arg_zero(&arg, t_flags);
+	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
 	check_plusflag(t_flags);
 	(*t_flags).flags &= ~FLAG_PLUS;
-	len = number_of_digits_un(arg, *t_flags);
-	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
 	if ((*t_flags).minfw < (*t_flags).precision)
 		(*t_flags).minfw = (*t_flags).precision;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)

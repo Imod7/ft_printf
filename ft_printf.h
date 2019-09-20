@@ -75,6 +75,7 @@ void			ft_putnbr_int(long long n, int fd);
 void			ft_putnbr_octal(unsigned long long n, int fd);
 void			ft_putnbr_hex(unsigned long long n, int fd);
 void			ft_putnbr_hex_capit(unsigned long long n, int fd);
+void			ft_putnbr_un_int(unsigned long long n, int fd);
 void			print_string(va_list argptr, t_format *t_flags);
 void			print_character(va_list argptr, t_format *t_flags);
 void			print_other(char arg, t_format *t_flags);
@@ -90,6 +91,11 @@ void			add_to_buffer(int fd, const char **str, t_format *t_flags);
 void			print_binary(long long flag_num);
 long long		invert_allbits(long long num);
 long long		binary_addone(long long num);
+/* Common functions */
 void			check_plusflag(t_format *t_flags);
+void			check_arg_zero(unsigned long long *arg, t_format *t_flags);
+void			print_order(t_format *t_flags, int len);
+void			print_inverse(t_format *t_flags, int len);
+void			print_number(unsigned long long arg, t_format *t_flags);
 
 #endif

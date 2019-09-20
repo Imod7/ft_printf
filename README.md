@@ -104,3 +104,9 @@ When **ft_printf** function is called :
 1. function check_ht
 2. function print_hex_octal
 3. function print_padding
+4. function print_sign
+5. function check_modifier
+
+##### a ZERO is printed in functions :
+1. function check_ht (if criteria are met)
+2. function print_number (if criteria are met)

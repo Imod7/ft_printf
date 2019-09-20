@@ -40,9 +40,11 @@ int			number_of_digits_un(unsigned long long num, t_format t_flags)
 	base = 10;
 	if (t_flags.argtype == 'o')
 		base = 8;
-	if ((t_flags.argtype == 'x') || (t_flags.argtype == 'X') || \
+	else if ((t_flags.argtype == 'x') || (t_flags.argtype == 'X') || \
 	(t_flags.argtype == 'p'))
 		base = 16;
+	else
+		base = 10;
 	if (num == 0)
 		digits++;
 	else
@@ -82,12 +84,12 @@ void		print_padding(t_format *t_flags, int arg_digits_len)
 		// printf("\nflag PLUS=yes AND\nflag PRECIS=no AND\nflag ZERO=no\n");
 		(*t_flags).special_chars_printed++;
 	}
-	if ((((*t_flags).flags & (FLAG_NEGAT)) > 0) &&
-	(((*t_flags).flags & FLAG_ZERO) == 0))
-	{
-		// printf("\nFlag negative AND NO flag zero\n");
-		(*t_flags).special_chars_printed++;
-	}
+	// if ((((*t_flags).flags & (FLAG_NEGAT)) > 0) &&
+	// (((*t_flags).flags & FLAG_ZERO) == 0))
+	// {
+	// 	// printf("\nFlag negative AND NO flag zero\n");
+	// 	(*t_flags).special_chars_printed++;
+	// }
 	if ((((*t_flags).flags & FLAG_HT) > 0) && (((*t_flags).argtype == 'x') || \
 	((*t_flags).argtype == 'X')))
 	{
@@ -133,6 +135,14 @@ void		print_sign(t_format *t_flags)
 {
 	char	c;
 
+	if (((*t_flags).flags & FLAG_NEGAT) > 0)
+	{
+		(*t_flags).flags &= ~FLAG_SPACE;
+		(*t_flags).flags &= ~FLAG_PLUS;
+		c = '-';
+		write((*t_flags).fd, &c, 1);
+		(*t_flags).total_chars_printed++;
+	}
 	if (((*t_flags).flags & FLAG_PLUS) > 0)
 	{
 		c = '+';
@@ -147,28 +157,25 @@ void		print_sign(t_format *t_flags)
 		(*t_flags).special_chars_printed++;
 		(*t_flags).total_chars_printed++;
 	}
-	if (((*t_flags).flags & FLAG_NEGAT) > 0)
-	{
-		c = '-';
-		write((*t_flags).fd, &c, 1);
-		(*t_flags).total_chars_printed++;
-	}
 }
 
 void		check_modifier(long long *arg, t_format *t_flags)
 {
 	if ((*t_flags).modifier == N)
 		*arg = (int)(*arg);
-	if ((*t_flags).modifier == H)
+	else if ((*t_flags).modifier == H)
 		*arg = (short)(*arg);
-	if ((*t_flags).modifier == HH)
+	else if ((*t_flags).modifier == HH)
 		*arg = (signed char)(*arg);
-	if ((*t_flags).modifier == L)
+	else if ((*t_flags).modifier == L)
 		*arg = (long)(*arg);
-	if ((*t_flags).modifier == LL)
+	else if ((*t_flags).modifier == LL)
 		*arg = (long long)(*arg);
 	if (*arg < 0)
+	{
 		(*t_flags).flags |= FLAG_NEGAT;
+		(*t_flags).special_chars_printed++;
+	}
 }
 
 void		check_modif_un(unsigned long long *arg, t_format *t_flags)

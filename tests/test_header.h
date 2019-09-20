@@ -47,6 +47,9 @@ void    test_char7(void);
 void	test_octal1(void);
 void	test_octal2(void);
 void	test_octal3(void);
+void	test_octal4(void);
+void	test_octal5(void);
+void	test_octal6(void);
 void	test_hex1(void);
 void	test_hex2(void);
 void	test_hex3(void);
@@ -76,6 +79,6 @@ void	test_float5(void);
 void	test_string1(void);
 void	test_string2(void);
 void	test_string3(void);
-void	test_octal4(void);
+void	test_u1(void);
 
 # endif

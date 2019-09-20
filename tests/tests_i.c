@@ -28,7 +28,7 @@ void			test_i1(void)
 	total_chars_p = dprintf(fd, "Test_34, test_i1 %%0.22i : '%0.22i', '%i', '%+.10i'\n", num, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "Test_34, test_i1 %%0.22i : '%0.22i', '%i', '%+.10i'\n", num, 0, 0);
-	assert(total_chars_p == total_chars_ftp);
+	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
@@ -38,8 +38,7 @@ void			test_i1(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 		printf(ANSI_COLOR_GREEN"Test 34 with %%0.22i and 0 : Correct!\n");
