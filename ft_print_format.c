@@ -96,13 +96,13 @@ void		print_padding(t_format *t_flags, int arg_digits_len)
 		// printf("\nFlag ht AND hexad \n");
 		(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
 	}
-	if (((((*t_flags).flags & FLAG_HT) > 0) || \
-	(((*t_flags).flags & FLAG_PRECIS) > 0)) &&
-	((*t_flags).argtype == 'o'))
-	{
-		// printf(ANSI_COLOR_YELLOW"\nFlag_HT=TRUE AND argtype=OCTAL\n");
-		(*t_flags).special_chars_printed++;
-	}
+	// if (((((*t_flags).flags & FLAG_HT) > 0) || \
+	// (((*t_flags).flags & FLAG_PRECIS) > 0)) &&
+	// ((*t_flags).argtype == 'o'))
+	// {
+	// 	printf(ANSI_COLOR_YELLOW"\nFlag_HT=TRUE AND argtype=OCTAL\n");
+	// 	(*t_flags).special_chars_printed++;
+	// }
 	if (((*t_flags).argtype == 'f') && ((*t_flags).float_decpart_len < 6) && \
 	((*t_flags).float_decpart_len != 0))
 	{
@@ -111,10 +111,11 @@ void		print_padding(t_format *t_flags, int arg_digits_len)
 	}
 	// printf("\ndecpart_len = %d\n", (*t_flags).float_decpart_len);
 	pad_len = (*t_flags).minfw - (*t_flags).special_chars_printed - arg_digits_len;
-	// printf(ANSI_COLOR_CYAN"===PADDING===\nargtype = %c\n", (*t_flags).argtype);
-	// printf("minfw=%d\nprecision=%d\n", (*t_flags).minfw, (*t_flags).precision);
-	// printf("special_chars=%d\n", (*t_flags).special_chars_printed);
-	// printf("pad_len=%d\narg_digits_len=%d\n", pad_len, arg_digits_len);
+	printf(ANSI_COLOR_CYAN"\n===PADDING===\nargtype = %c\n", (*t_flags).argtype);
+	printf("minfw=%d\nprecision=%d\n", (*t_flags).minfw, (*t_flags).precision);
+	printf("special_chars=%d\n", (*t_flags).special_chars_printed);
+	printf("pad_len=%d\narg_digits_len=%d\n", pad_len, arg_digits_len);
+	print_binary((*t_flags).flags);
 	while (i < pad_len)
 	{
 		if (((*t_flags).flags & FLAG_ZERO) || ((*t_flags).argtype == 'f'))
@@ -122,7 +123,7 @@ void		print_padding(t_format *t_flags, int arg_digits_len)
 		else
 			c = ' ';
 		if (((*t_flags).flags & FLAG_PRECIS) && \
-		((*t_flags).argtype != 's') &&
+		(((*t_flags).argtype != 's') || ((*t_flags).argtype != 'c')) &&
 		(i >= (pad_len - (*t_flags).precision) + arg_digits_len))
 			c = '0';
 		write((*t_flags).fd, &c, 1);
@@ -159,6 +160,17 @@ void		print_sign(t_format *t_flags)
 	}
 }
 
+void		check_negative_num(long long *arg, t_format *t_flags)
+{
+	if (*arg < 0)
+	{
+		// printf("num is negative");
+		(*t_flags).flags |= FLAG_NEGAT;
+	}
+	if ((*arg < 0) && ((*t_flags).flags & FLAG_PRECIS) == 0)
+		(*t_flags).special_chars_printed++;
+}
+
 void		check_modifier(long long *arg, t_format *t_flags)
 {
 	if ((*t_flags).modifier == N)
@@ -171,11 +183,11 @@ void		check_modifier(long long *arg, t_format *t_flags)
 		*arg = (long)(*arg);
 	else if ((*t_flags).modifier == LL)
 		*arg = (long long)(*arg);
-	if (*arg < 0)
-	{
-		(*t_flags).flags |= FLAG_NEGAT;
-		(*t_flags).special_chars_printed++;
-	}
+	// if (*arg < 0)
+	// {
+	// 	(*t_flags).flags |= FLAG_NEGAT;
+	// 	(*t_flags).special_chars_printed++;
+	// }
 }
 
 void		check_modif_un(unsigned long long *arg, t_format *t_flags)

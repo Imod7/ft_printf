@@ -19,14 +19,14 @@ void					pr_withminus(unsigned long long arg, t_format *t_flags, int len)
 	{
 		// printf(ANSI_COLOR_YELLOW"\nFlag_PREC=TRUE\n");
 		print_inverse(t_flags, len);
-		print_number(arg, t_flags);
+		print_number(arg, t_flags, len);
 	}
 	else if ((((*t_flags).flags & FLAG_NEGAT) == 0) && \
 	(((*t_flags).flags & FLAG_SPACE) == 0) && \
 	(((*t_flags).flags & FLAG_PRECIS) == 0))
 	{
 		// printf(ANSI_COLOR_YELLOW"\nFlag_Negat=FALSE && Flag_Space=FALSE\n");
-		print_number(arg, t_flags);
+		print_number(arg, t_flags, len);
 		print_inverse(t_flags, len);
 	}
 	else if ((((*t_flags).flags & FLAG_NEGAT) > 0) && \
@@ -35,46 +35,47 @@ void					pr_withminus(unsigned long long arg, t_format *t_flags, int len)
 		// printf(ANSI_COLOR_YELLOW"\nFlag_Negat=TRUE && Flag_Space=TRUE\n");
 		(*t_flags).flags &= ~FLAG_SPACE;
 		print_sign(t_flags);
-		print_number(arg, t_flags);
+		print_number(arg, t_flags, len);
 		print_padding(t_flags, len);
 	}
 	else
 	{
 		// printf(ANSI_COLOR_YELLOW"\nOther Cases\n");
 		print_inverse(t_flags, len);
-		print_number(arg, t_flags);
+		print_number(arg, t_flags, len);
 	}
 }
 
 void					check_ht(unsigned long long arg, t_format *t_flags)
 {
-	char				c;
+	// char				c;
 
 	// printf("\n%d\n", (*t_flags).argtype);
 	// print_binary((*t_flags).flags);
-	if ((((*t_flags).argtype == 'o') > 0) && \
-	((((*t_flags).flags & FLAG_PRECIS) > 0) || \
-	((arg != 0) && (((*t_flags).flags & FLAG_HT) > 0))))
+	// if ((((*t_flags).argtype == 'o') > 0) && \
+	// ((((*t_flags).flags & FLAG_PRECIS) > 0) || \
+	// ((arg != 0) && (((*t_flags).flags & FLAG_HT) > 0))))
+	// {
+	// 	c = '0';
+	// 	// printf("check HT flag\n");
+	// 	write((*t_flags).fd, &c, 1);
+	// 	// (*t_flags).special_chars_printed++;
+	// 	(*t_flags).total_chars_printed++;
+	// 	// printf("\nspecial chars = %d\n", (*t_flags).special_chars_printed);
+	// }
+	// else
+	// {
+	if ((((*t_flags).flags & FLAG_HT) > 0) && (arg != 0) && \
+	((*t_flags).argtype != 'o'))
 	{
-		c = '0';
-		// printf("check HT flag\n");
-		write((*t_flags).fd, &c, 1);
-		// (*t_flags).special_chars_printed++;
-		(*t_flags).total_chars_printed++;
-		// printf("\nspecial chars = %d\n", (*t_flags).special_chars_printed);
-	}
-	else
-	{
-		if ((((*t_flags).flags & FLAG_HT) > 0) && (arg != 0))
-		{
-			if (((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'p'))
-				write((*t_flags).fd, "0x", 2);
-			else
-				write((*t_flags).fd, "0X", 2);
-			(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
+		if (((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'p'))
+			write((*t_flags).fd, "0x", 2);
+		else
+			write((*t_flags).fd, "0X", 2);
+		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
 		// (*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
-		}
 	}
+	// }
 }
 
 void					print_hex_octal(va_list argptr, t_format *t_flags)
@@ -95,8 +96,12 @@ void					print_hex_octal(va_list argptr, t_format *t_flags)
 	}
 	len = number_of_digits_un(arg, *t_flags);
 	if (arg == 0)
+	{
+		// len = 0;
 		check_arg_zero(&arg, t_flags);
-	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+	}
+	// (*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+	minfw_vs_precision(t_flags);
 	check_plusflag(t_flags);
 	(*t_flags).flags &= ~FLAG_PLUS;
 	if ((*t_flags).minfw < (*t_flags).precision)
@@ -111,7 +116,7 @@ void					print_hex_octal(va_list argptr, t_format *t_flags)
 	{
 		check_ht(arg, t_flags);
 		print_inverse(t_flags, len);
-		print_number(arg, t_flags);
+		print_number(arg, t_flags, len);
 	}
 	else if ((((*t_flags).flags & FLAG_MINUS) == 0) && \
 	(((*t_flags).flags & FLAG_ZERO) == 0))
@@ -119,6 +124,44 @@ void					print_hex_octal(va_list argptr, t_format *t_flags)
 		// printf(ANSI_COLOR_MAGENTA"\nFlag_Minus=FALSE AND Flag_Zero=FALSE");
 		print_order(t_flags, len);
 		check_ht(arg, t_flags);
-		print_number(arg, t_flags);
+		print_number(arg, t_flags, len);
+	}
+	// printf("\ntotal chars = %d\n", (*t_flags).total_chars_printed);
+}
+
+void					print_int_unsigned(va_list argptr, t_format *t_flags)
+{
+	unsigned long long	arg;
+	int					len;
+
+	arg = va_arg(argptr, unsigned long long);
+	minfw_vs_precision(t_flags);
+	check_modif_un(&arg, t_flags);
+	len = number_of_digits_un(arg, *t_flags);
+	// if (arg == 0)
+	// 	check_arg_zero(&arg, t_flags);
+	check_plusflag(t_flags);
+	if ((*t_flags).minfw < (*t_flags).precision)
+		(*t_flags).minfw = (*t_flags).precision;
+	if (((*t_flags).flags & FLAG_MINUS) > 0)
+	{
+		print_number(arg, t_flags, len);
+		print_sign(t_flags);
+		print_padding(t_flags, len);
+	}
+	else
+	{
+		if ((((*t_flags).flags & FLAG_ZERO) > 0) || \
+		(((*t_flags).flags & FLAG_PRECIS) > 0))
+		{
+			print_sign(t_flags);
+			print_padding(t_flags, len);
+		}
+		else
+		{
+			print_padding(t_flags, len);
+			print_sign(t_flags);
+		}
+		print_number(arg, t_flags, len);
 	}
 }

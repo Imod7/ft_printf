@@ -35,10 +35,12 @@ void			test_char2(void)
 	c = 'G';
 	write(1, "\n", 1);
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 11 (char2) : '%-8c'\n", c);
+	total_chars_p = dprintf(fd, "Test 11 (char2) : %%-8c='%-8c', %%.2c='%.2c', %% c='% c', %%2c='%2c'\n", c, NULL, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 11 (char2) : '%-8c'\n", c);
-	assert(total_chars_p == total_chars_ftp);
+	total_chars_ftp = ft_dprintf(fd, "Test 11 (char2) : %%-8c='%-8c', %%.2c='%.2c', %% c='% c', %%2c='%2c'\n", c, NULL, 0, 0);
+	// assert(total_chars_p == total_chars_ftp);
+	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -46,12 +48,12 @@ void			test_char2(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 11 : with %%-8c : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 11 (char2) NULL : Correct!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 11 : with %%-8c : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 11 (char2) NULL : Wrong!\n");
 	// printf(ANSI_COLOR_RED"\n'%s'\n", returned_line_dprintf);
 	// printf("'%s'\n", returned_line_ft_dprintf);
 }

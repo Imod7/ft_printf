@@ -79,6 +79,7 @@ void			ft_putnbr_un_int(unsigned long long n, int fd);
 void			print_string(va_list argptr, t_format *t_flags);
 void			print_character(va_list argptr, t_format *t_flags);
 void			print_other(char arg, t_format *t_flags);
+void			print_int_unsigned(va_list argptr, t_format *t_flags);
 // void			print_octal(va_list argptr, t_format *t_flags);
 void			print_hex_octal(va_list argptr, t_format *t_flags);
 // long long		return_decimal_part_as_int(double num);
@@ -96,6 +97,8 @@ void			check_plusflag(t_format *t_flags);
 void			check_arg_zero(unsigned long long *arg, t_format *t_flags);
 void			print_order(t_format *t_flags, int len);
 void			print_inverse(t_format *t_flags, int len);
-void			print_number(unsigned long long arg, t_format *t_flags);
+void			print_number(unsigned long long arg, t_format *t_flags, int len);
+void			print_number_int(long long arg, t_format *t_flags, int len);
+void			check_negative_num(long long *arg, t_format *t_flags);
 
 #endif

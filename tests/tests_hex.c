@@ -95,8 +95,8 @@ void				test_hex3(void)
 	// total_chars_ftp = ft_dprintf(fd, "Test 24 (hex3) : %%0.11='%0.11x' , %%*.15x='%x' , %%X='%X', %%.13='%.13x'\n", num, 0, num1, num);
 	total_chars_ftp = ft_dprintf(fd, "'%x'\n", 0);
 	// assert(total_chars_p == total_chars_ftp);
-	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -121,11 +121,11 @@ void				test_hex4(void)
 	int				total_chars_ftp;
 	int				fd;
 
-	num = 65535;
+	num = 4294967296;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 25 >hx : '%hx' ,   >-*hx  : '%-*.2hx'   > -5x : undefined behaviour\n", num, 9, num);
+	total_chars_p = dprintf(fd, "Test 25 (hex4) : %%hx='%hx', %%-*hx='%-*hx', %%-*.2hx='%-*.2hx', %%-5x='-5x' : undefined behaviour\n", num, 9, num, 9, num);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 25 >hx : '%hx' ,   >-*hx  : '%-*.2hx'   > -5x : undefined behaviour\n", num, 9, num);
+	total_chars_ftp = ft_dprintf(fd, "Test 25 (hex4) : %%hx='%hx', %%-*hx='%-*hx', %%-*.2hx='%-*.2hx', %%-5x='-5x' : undefined behaviour\n", num, 9, num, 9, num);
 	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -135,7 +135,6 @@ void				test_hex4(void)
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 		printf(ANSI_COLOR_GREEN"Test 25 with %%hx , %%-*.2hx ,  > -5x : undefined behaviour : Correct!\n");
@@ -377,8 +376,8 @@ void					test_hex12(void)
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "Test 33 (hex12) : %%-*llX='%-*llX', %%#.x='%#.x', %%#.0x='%#.0x', %%.x='%.x', %%.0x='%.0x'\n", 66, num, 0, 0, 0, 0);
 	// assert(total_chars_p == total_chars_ftp);
-	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);

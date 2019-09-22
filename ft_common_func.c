@@ -53,22 +53,63 @@ void	print_inverse(t_format *t_flags, int len)
 	print_padding(t_flags, len);
 }
 
-void	print_number(unsigned long long arg, t_format *t_flags)
+void	print_number(unsigned long long arg, t_format *t_flags, int len)
 {
-	if ((arg != 0) ||
-	((arg == 0) && (((*t_flags).flags & FLAG_HT) > 0)))
+	if ((*t_flags).argtype == 'u')
 	{
-		if ((*t_flags).argtype == 'o')
-			ft_putnbr_octal(arg, (*t_flags).fd);
+		if ((arg != 0) || \
+		((arg == 0) && (((*t_flags).flags & FLAG_PRECIS) > 0) && \
+		((*t_flags).precision > 0)) || \
+		((arg == 0) && (((*t_flags).flags & FLAG_PRECIS) == 0)))
+		{
+			(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+			ft_putnbr_un_int(arg, (*t_flags).fd);
+		}
 	}
-	if ((*t_flags).argtype == 'X')
-		ft_putnbr_hex_capit(arg, (*t_flags).fd);
-	else if (((*t_flags).argtype == 'x') || \
-	((*t_flags).argtype == 'p'))
-		ft_putnbr_hex(arg, (*t_flags).fd);
-	else if ((*t_flags).argtype == 'u')
-		ft_putnbr_un_int(arg, (*t_flags).fd);
-	else if (((*t_flags).argtype == 'd') || \
-	((*t_flags).argtype == 'i'))
-		ft_putnbr_int(arg, (*t_flags).fd);
+	else if ((*t_flags).argtype == 'o')
+	{
+		if ((arg != 0) ||
+		((arg == 0) && (((*t_flags).flags & FLAG_HT) > 0)))
+		{
+			(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+			if ((*t_flags).argtype == 'o')
+				ft_putnbr_octal(arg, (*t_flags).fd);
+		}
+	}
+	else
+	{
+		// if ((arg != 0) || \
+		// ((arg == 0) && (((*t_flags).flags & FLAG_PRECIS) > 0) && \
+		// ((*t_flags).precision > 0)))
+		// {
+			(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+			if ((*t_flags).argtype == 'X')
+				ft_putnbr_hex_capit(arg, (*t_flags).fd);
+			if (((*t_flags).argtype == 'x') || \
+			((*t_flags).argtype == 'p'))
+				ft_putnbr_hex(arg, (*t_flags).fd);
+		// }
+	}
+	
+}
+
+void	print_number_int(long long arg, t_format *t_flags, int len)
+{
+	// if ((arg != 0) ||
+	// ((arg == 0) && (((*t_flags).flags & FLAG_HT) > 0)))
+	// {
+		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+		if (((*t_flags).argtype == 'd') || \
+		((*t_flags).argtype == 'i'))
+			ft_putnbr_int(arg, (*t_flags).fd);
+	// }
+}
+
+void		minfw_vs_precision(t_format *t_flags)
+{
+	if (((*t_flags).minfw == 0) && \
+	((*t_flags).minfw < (*t_flags).precision))
+	{
+		(*t_flags).minfw = (*t_flags).precision;
+	}
 }

@@ -22,10 +22,10 @@ void		test_int1(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "'Test 01 : with the number '%+08d' and the string '%s' and the char '%c' '%x'\n", 45, "coding", 'K', 18);
+	total_chars_p = dprintf(fd, "Test 01 : %%+08d='%+08d' , %%s='%s', %%c='%c' '%x'\n", 45, "coding", 'K', 18);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "'Test 01 : with the number '%+08d' and the string '%s' and the char '%c' '%x'\n", 45, "coding", 'K', 18);
-	assert(total_chars_p == total_chars_ftp);
+	total_chars_ftp = ft_dprintf(fd, "Test 01 : %%+08d='%+08d' , %%s='%s', %%c='%c' '%x'\n", 45, "coding", 'K', 18);
+	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
@@ -35,7 +35,7 @@ void		test_int1(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 		printf(ANSI_COLOR_GREEN"Test 1 : Correct!\n");
@@ -64,7 +64,8 @@ void		test_int2(void)
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-	if (strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
 		printf(ANSI_COLOR_GREEN"Test 2  %%+08d , %%6d , %%s' : Correct!\n");
 	else
 		printf(ANSI_COLOR_RED"Test 2  %%+08d , %%6d , %%s' : Wrong!\n");
@@ -175,22 +176,20 @@ void		test_int6(void)
 	a = 32761;
 	b = (short)a;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 6 (int6) : %%hd='%hd', %%5d='%5d'\n", b, -42);
-	get_next_line(fd, &returned_line_dprintf);
-
+	total_chars_p = dprintf(fd, "Test 6 (int6) : %%hd='%hd', %%5d='%5d', %%.10d='%.10d'\n", b, -42, -42);
+	// total_chars_p = dprintf(fd, "%%.10d='%.10d'\n", -42);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 6 (int6) : %%hd='%hd', %%5d='%5d'\n", b, -42);
-	assert(total_chars_p == total_chars_ftp);
+	total_chars_ftp = ft_dprintf(fd, "Test 6 (int6) : %%hd='%hd', %%5d='%5d', %%.10d='%.10d'\n", b, -42, -42);
+	// total_chars_ftp = ft_dprintf(fd, "%%.10d='%.10d'\n", -42);
+	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
-
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 		printf(ANSI_COLOR_GREEN"Test 6 with %%hd : Correct!\n");
@@ -316,10 +315,10 @@ void			test_int9(void)
 	a = 2788999;
 	b = (long long)a;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 9 : '%lld'\n", b);
+	total_chars_p = dprintf(fd, "Test 9 : '%lld',  %%.d='%.d', %%.0d='%.0d', %%5.d='%5.d', %%5.0d='%5.0d'\n", b, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 9 : '%lld'\n", b);
-	assert(total_chars_p == total_chars_ftp);
+	total_chars_ftp = ft_dprintf(fd, "Test 9 : '%lld',  %%.d='%.d', %%.0d='%.0d', %%5.d='%5.d', %%5.0d='%5.0d'\n", b, 0, 0, 0, 0);
+	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -327,12 +326,12 @@ void			test_int9(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-
-	if (strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
-		printf(ANSI_COLOR_GREEN"Test 9 : with %%lld : Correct!\n");
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+		printf(ANSI_COLOR_GREEN"Test 9 (int9) : with %%lld (ZEROS) : Correct!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 9 : with %%lld : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 9 (int9) : with %%lld (ZEROS) : Wrong!\n");
 }
 
 void			test_int10(void)
@@ -349,7 +348,7 @@ void			test_int10(void)
 	total_chars_p = dprintf(fd, ANSI_COLOR_CYAN"Test 20   >.11d : '%.11d'   >*.18d: '%*.18d'   >0.14d   '%0.14d'\n", num, 33, num, num);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, ANSI_COLOR_CYAN"Test 20   >.11d : '%.11d'   >*.18d: '%*.18d'   >0.14d   '%0.14d'\n", num, 33, num, num);
-	assert(total_chars_p == total_chars_ftp);
+	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
@@ -359,7 +358,7 @@ void			test_int10(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 		printf(ANSI_COLOR_GREEN"Test 20 : Correct!\n");
@@ -387,9 +386,9 @@ void			test_int11(void)
 
 	num = 88;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 21 (int11) : %%.15d='%.15d', %%24.5d='%24.5d'\n", num, num);
+	total_chars_p = dprintf(fd, "Test 21 (int11) : %%.15d='%.15d', %%24.5d='%24.5d', %%+d='%+d'\n", num, num, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 21 (int11) : %%.15d='%.15d', %%24.5d='%24.5d'\n", num, num);
+	total_chars_ftp = ft_dprintf(fd, "Test 21 (int11) : %%.15d='%.15d', %%24.5d='%24.5d', %%+d='%+d'\n", num, num, 0);
 	assert(total_chars_p == total_chars_ftp);
 
 	close(fd);

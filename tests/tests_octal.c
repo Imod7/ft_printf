@@ -135,12 +135,12 @@ void				test_octal5(void)
 
 	num = 74;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 53 (octal5 with ZEROS) : %%.o='%.o', %%.0o='%.0o', %%.0d='%.0d', %%.0x='%.0x', %%.0u='%.0u'\n", 0, 0, 0, 0, 0);
+	total_chars_p = dprintf(fd, "Test 53 (octal5 with ZEROS) : %%.o='%.o', %%.0o='%.0o', %%.0d='%.0d', %%.0x='%.0x', %%.0u='%.0u', %%.0X='%.0X', %%.0i='%.0i'\n", 0, 0, 0, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 53 (octal5 with ZEROS) : %%.o='%.o', %%.0o='%.0o', %%.0d='%.0d', %%.0x='%.0x', %%.0u='%.0u'\n", 0, 0, 0, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "Test 53 (octal5 with ZEROS) : %%.o='%.o', %%.0o='%.0o', %%.0d='%.0d', %%.0x='%.0x', %%.0u='%.0u', %%.0X='%.0X', %%.0i='%.0i'\n", 0, 0, 0, 0, 0, 0, 0);
 	// assert(total_chars_p == total_chars_ftp);
-	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -169,12 +169,14 @@ void				test_octal6(void)
 
 	num = 74;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 54 (octal6) : %%5.o='%5.o', %%5.0o='%5.0o', %%#.o='%#.o', %%#.0o='%#.0o'\n", 0, 0, 0, 0);
+	total_chars_p = dprintf(fd, "Test 54 (octal6) : %%5.o='%5.o', %%5.0o='%5.0o', %%#.o='%#.o', %%#.0o='%#.0o', %%#.0x='%#.0x'\n", 0, 0, 0, 0, 0);
+	// total_chars_p = dprintf(fd, "'%#.o'\n", 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 54 (octal6) : %%5.o='%5.o', %%5.0o='%5.0o', %%#.o='%#.o', %%#.0o='%#.0o'\n", 0, 0, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "Test 54 (octal6) : %%5.o='%5.o', %%5.0o='%5.0o', %%#.o='%#.o', %%#.0o='%#.0o', %%#.0x='%#.0x'\n", 0, 0, 0, 0, 0);
+	// total_chars_ftp = ft_dprintf(fd, "'%#.o'\n", 0);
 	// assert(total_chars_p == total_chars_ftp);
-	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
