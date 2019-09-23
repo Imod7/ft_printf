@@ -94,11 +94,12 @@ long long		invert_allbits(long long num);
 long long		binary_addone(long long num);
 /* Common functions */
 void			check_plusflag(t_format *t_flags);
-void			check_arg_zero(unsigned long long *arg, t_format *t_flags);
+void			check_arg_zero(t_format *t_flags, int *len);
 void			print_order(t_format *t_flags, int len);
 void			print_inverse(t_format *t_flags, int len);
 void			print_number(unsigned long long arg, t_format *t_flags, int len);
 void			print_number_int(long long arg, t_format *t_flags, int len);
 void			check_negative_num(long long *arg, t_format *t_flags);
+void			minfw_vs_precision(t_format *t_flags);
 
 #endif

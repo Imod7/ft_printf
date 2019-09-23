@@ -81,5 +81,6 @@ void	test_string2(void);
 void	test_string3(void);
 void	test_u1(void);
 void	test_u2(void);
+void	test_hex13(void);
 
 # endif

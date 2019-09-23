@@ -22,9 +22,9 @@ void				test_hex1(void)
 	int				fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 22 >x : '%x'  ,  >+x: undefined behaviour but works \n", -2000);
+	total_chars_p = dprintf(fd, "Test 22 (hex1) : %%x='%x', %%+x: undefined behaviour but works \n", -2000);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 22 >x : '%x'  ,  >+x: undefined behaviour but works \n", -2000);
+	total_chars_ftp = ft_dprintf(fd, "Test 22 (hex1) : %%x='%x', %%+x: undefined behaviour but works \n", -2000);
 	assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -36,9 +36,9 @@ void				test_hex1(void)
 	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 22 with %%x ,  %%+x: undefined behaviour but works : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 22 (hex1) with %%x ,  %%+x: undefined behaviour but works : Correct!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 22 with %%x ,  %%+x: undefined behaviour : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 22 (hex1) with %%x ,  %%+x: undefined behaviour : Wrong!\n");
 }
 
 void				test_hex2(void)
@@ -52,9 +52,9 @@ void				test_hex2(void)
 
 	num = 4294967295;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test_23 (hex2) : %%x='%x' , %%#x='%#x',  %%x='%x', %%#*x='%#*x', '%x'\n", 0, num, 32, 17, num, -42);
+	total_chars_p = dprintf(fd, "Test 23 (hex2) : %%#x='%#x',  %%x='%x', %%#*x='%#*x', '%x'\n", num, 32, 17, num, -42);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test_23 (hex2) : %%x='%x' , %%#x='%#x',  %%x='%x', %%#*x='%#*x', '%x'\n", 0, num, 32, 17, num, -42);
+	total_chars_ftp = ft_dprintf(fd, "Test 23 (hex2) : %%#x='%#x',  %%x='%x', %%#*x='%#*x', '%x'\n", num, 32, 17, num, -42);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -90,10 +90,10 @@ void				test_hex3(void)
 	num = 4000;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
 	// total_chars_p = dprintf(fd, "Test 24 (hex3) : %%0.11='%0.11x' , %%*.15x='%x' , %%X='%X', %%.13='%.13x'\n", num, 0, num1, num);
-	total_chars_p = dprintf(fd, "'%x'\n", 0);
+	total_chars_p = dprintf(fd, "Test 24 (hex3) : %%.3x='%.3x', %%0.4x='%0.4x'\n", 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	// total_chars_ftp = ft_dprintf(fd, "Test 24 (hex3) : %%0.11='%0.11x' , %%*.15x='%x' , %%X='%X', %%.13='%.13x'\n", num, 0, num1, num);
-	total_chars_ftp = ft_dprintf(fd, "'%x'\n", 0);
+	total_chars_ftp = ft_dprintf(fd, "Test 24 (hex3) : %%.3x='%.3x', %%0.4x='%0.4x'\n", 0, 0);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -114,7 +114,7 @@ void				test_hex3(void)
 
 void				test_hex4(void)
 {
-	unsigned short	num;
+	unsigned long	num;
 	char			*returned_line_dprintf;
 	char			*returned_line_ft_dprintf;
 	int				total_chars_p;
@@ -123,9 +123,11 @@ void				test_hex4(void)
 
 	num = 4294967296;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 25 (hex4) : %%hx='%hx', %%-*hx='%-*hx', %%-*.2hx='%-*.2hx', %%-5x='-5x' : undefined behaviour\n", num, 9, num, 9, num);
+	// total_chars_p = dprintf(fd, "Test 25 (hex4) : %%hx='%hx', %%-*hx='%-*hx', %%-*.2hx='%-*.2hx', %%-5x='-5x' : undefined behaviour\n", num, 9, num, 9, num);
+	total_chars_p = dprintf(fd, "Test 25 (hex4) : undefined behaviour\n");
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 25 (hex4) : %%hx='%hx', %%-*hx='%-*hx', %%-*.2hx='%-*.2hx', %%-5x='-5x' : undefined behaviour\n", num, 9, num, 9, num);
+	// total_chars_ftp = ft_dprintf(fd, "Test 25 (hex4) : %%hx='%hx', %%-*hx='%-*hx', %%-*.2hx='%-*.2hx', %%-5x='-5x' : undefined behaviour\n", num, 9, num, 9, num);
+	total_chars_ftp = ft_dprintf(fd, "Test 25 (hex4) : undefined behaviour\n");
 	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -372,9 +374,9 @@ void					test_hex12(void)
 
 	num = 123789555845795653;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 33 (hex12) : %%-*llX='%-*llX', %%#.x='%#.x', %%#.0x='%#.0x', %%.x='%.x', %%.0x='%.0x'\n", 66, num, 0, 0, 0, 0);
+	total_chars_p = dprintf(fd, "Test 33 (hex12) : %%-*llX='%-*llX', %%#.x='%#.x', %%#.0x='%#.0x', %%.x='%.x', %%.0x='%.0x', %%#x='%#x'\n", 66, num, 0, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 33 (hex12) : %%-*llX='%-*llX', %%#.x='%#.x', %%#.0x='%#.0x', %%.x='%.x', %%.0x='%.0x'\n", 66, num, 0, 0, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "Test 33 (hex12) : %%-*llX='%-*llX', %%#.x='%#.x', %%#.0x='%#.0x', %%.x='%.x', %%.0x='%.0x', %%#x='%#x'\n", 66, num, 0, 0, 0, 0, 0);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -391,4 +393,34 @@ void					test_hex12(void)
 		printf(ANSI_COLOR_GREEN"Test 33 (hex12) ZEROS : Correct!\n");
 	else
 		printf(ANSI_COLOR_RED"Test 33 (hex12) ZEROS : Wrong!\n");
+}
+
+void					test_hex13(void)
+{
+	int					total_chars_p;
+	int					total_chars_ftp;
+	int					fd;
+	char				*returned_line_dprintf;
+	char				*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Test 56 (hex13) : %%5.x='%5.x', %%5.0x='%5.0x', %%x='%x', %%X='%X'\n", 0, 0, 0, 0);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Test 56 (hex13) : %%5.x='%5.x', %%5.0x='%5.0x', %%x='%x', %%X='%X'\n", 0, 0, 0, 0);
+	// assert(total_chars_p == total_chars_ftp);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+		printf(ANSI_COLOR_GREEN"Test 56 (hex13) ZEROS : Correct!\n");
+	else
+		printf(ANSI_COLOR_RED"Test 56 (hex13) ZEROS : Wrong!\n");
 }

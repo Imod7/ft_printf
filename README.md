@@ -2,7 +2,7 @@
 1. make
 2. ./ft_printf
 3. give 0 to run all the tests or
-4. give a number from 1 to 38 to run the corresponding test
+4. give a number from 1 to 56 to run the corresponding test
 
 #### Modifiers are saved in the enum modifier (emiflake's suggestion)
 - the first character is N for Null
@@ -106,7 +106,21 @@ When **ft_printf** function is called :
 3. function print_padding
 4. function print_sign
 5. function check_modifier
+6. function print_order
 
 ##### a ZERO is printed in functions :
 1. function check_ht (if criteria are met)
 2. function print_number (if criteria are met)
+
+##### Deal with the ZERO argument in Octal :
+1. function check_arg_zero
+2. function print_number
+
+##### Deal with the ZERO argument in Integer :
+1. function print_integer
+2. function check_arg_zero
+3. function print_number
+
+##### Deal with negative argument :
+1. function check_negative_num
+2. function print_sign

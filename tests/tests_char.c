@@ -35,12 +35,14 @@ void			test_char2(void)
 	c = 'G';
 	write(1, "\n", 1);
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 11 (char2) : %%-8c='%-8c', %%.2c='%.2c', %% c='% c', %%2c='%2c'\n", c, NULL, 0, 0);
+	// total_chars_p = dprintf(fd, "Test 11 (char2) : %%-8c='%-8c', %%.2c='%.2c', %% c='% c', %%2c='%2c'\n", c, NULL, 0, 0);
+	total_chars_p = dprintf(fd, "Test 11 (char2) : %%-8c='%-8c'\n", c);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 11 (char2) : %%-8c='%-8c', %%.2c='%.2c', %% c='% c', %%2c='%2c'\n", c, NULL, 0, 0);
+	// total_chars_ftp = ft_dprintf(fd, "Test 11 (char2) : %%-8c='%-8c', %%.2c='%.2c', %% c='% c', %%2c='%2c'\n", c, NULL, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "Test 11 (char2) : %%-8c='%-8c'\n", c);
 	// assert(total_chars_p == total_chars_ftp);
-	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);

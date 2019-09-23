@@ -12,7 +12,7 @@
 
 PROG = prog
 NAME = libft.a
-CC = gcc 
+CC = gcc -Wall -Wextra -Werror -g
 
 RED=\033[0;31m
 GREEN=\033[0;32m

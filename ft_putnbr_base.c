@@ -16,11 +16,15 @@ void	ft_putnbr_int(long long n, int fd)
 {
 	int num;
 
+	if (n < -9223372036854775807)
+	{
+		num = '9';
+		write(fd, &num, 1);
+		ft_putnbr_int(223372036854775808, fd);
+	}
 	if (n == -2147483648)
 	{
-		// ft_putchar(45);
-		// ft_putchar('2');
-		num = 50;
+		num = '2';
 		write(fd, &num, 1);
 		ft_putnbr_int(147483648, fd);
 	}

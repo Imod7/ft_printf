@@ -17,12 +17,18 @@ int			number_of_digits(long long num)
 	size_t	digits;
 	size_t	base;
 
+	// printf("\nnum = %lld\n", num);
 	digits = 0;
 	base = 10;
 	if (num == 0)
 		digits++;
 	else if (num < 0)
-		num = num * (-1);
+	{
+		if (num < -9223372036854775807)
+			num = 9223372036854775807;
+		else
+			num = num * (-1);
+	}
 	while (num > 0)
 	{
 		num = num / base;
@@ -111,11 +117,11 @@ void		print_padding(t_format *t_flags, int arg_digits_len)
 	}
 	// printf("\ndecpart_len = %d\n", (*t_flags).float_decpart_len);
 	pad_len = (*t_flags).minfw - (*t_flags).special_chars_printed - arg_digits_len;
-	printf(ANSI_COLOR_CYAN"\n===PADDING===\nargtype = %c\n", (*t_flags).argtype);
-	printf("minfw=%d\nprecision=%d\n", (*t_flags).minfw, (*t_flags).precision);
-	printf("special_chars=%d\n", (*t_flags).special_chars_printed);
-	printf("pad_len=%d\narg_digits_len=%d\n", pad_len, arg_digits_len);
-	print_binary((*t_flags).flags);
+	// printf(ANSI_COLOR_CYAN"\n===PADDING===\nargtype = %c\n", (*t_flags).argtype);
+	// printf("minfw=%d\nprecision=%d\n", (*t_flags).minfw, (*t_flags).precision);
+	// printf("special_chars=%d\n", (*t_flags).special_chars_printed);
+	// printf("pad_len=%d\narg_digits_len=%d\n", pad_len, arg_digits_len);
+	// print_binary((*t_flags).flags);
 	while (i < pad_len)
 	{
 		if (((*t_flags).flags & FLAG_ZERO) || ((*t_flags).argtype == 'f'))
@@ -143,6 +149,9 @@ void		print_sign(t_format *t_flags)
 		c = '-';
 		write((*t_flags).fd, &c, 1);
 		(*t_flags).total_chars_printed++;
+		if (((*t_flags).minfw > (*t_flags).precision) && \
+		(((*t_flags).flags & FLAG_PRECIS) > 0))
+			(*t_flags).special_chars_printed++;
 	}
 	if (((*t_flags).flags & FLAG_PLUS) > 0)
 	{

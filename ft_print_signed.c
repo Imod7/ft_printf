@@ -32,6 +32,7 @@ void					intwithminus(long long arg, t_format *t_flags, int len)
 {
 	// printf(ANSI_COLOR_YELLOW"\nFlag MINUS AND\n");
 	if ((((*t_flags).flags & FLAG_PRECIS) > 0) && \
+	// // ((*t_flags).minfw < (*t_flags).precision) && 
 	(((*t_flags).flags & FLAG_NEGAT) == 0))
 	{
 		// printf(ANSI_COLOR_YELLOW"\nFlag_PREC=TRUE AND Flag_NEGAT=FALSE\n");
@@ -40,31 +41,31 @@ void					intwithminus(long long arg, t_format *t_flags, int len)
 		// print_number(arg, t_flags, len);
 		print_number_int(arg, t_flags, len);
 	}
-	else if ((((*t_flags).flags & FLAG_PRECIS) > 0) && \
-	(((*t_flags).flags & FLAG_NEGAT) > 0))
-	{
-		// printf(ANSI_COLOR_YELLOW"\nFlag_PREC=TRUE AND Flag_NEGAT=TRUE\n");
-		print_sign(t_flags);
-		print_number_int(arg, t_flags, len);
-		print_padding(t_flags, len);
-	}
-	else if ((((*t_flags).flags & FLAG_NEGAT) == 0) && \
-	(((*t_flags).flags & FLAG_SPACE) == 0))
-	{
-		// printf(ANSI_COLOR_YELLOW"\nFlag Negat = FALSE && Flag Space = FALSE\n");
-		print_sign(t_flags);
-		print_number_int(arg, t_flags, len);
-		print_padding(t_flags, len);
-	}
-	else if ((((*t_flags).flags & FLAG_NEGAT) > 0) && \
-	(((*t_flags).flags & FLAG_SPACE) > 0))
-	{
-		// printf(ANSI_COLOR_YELLOW"\nFlag Negat = TRUE && Flag Space = TRUE\n");
-		(*t_flags).flags &= ~FLAG_SPACE;
-		print_sign(t_flags);
-		print_number_int(arg, t_flags, len);
-		print_padding(t_flags, len);
-	}
+	// else if ((((*t_flags).flags & FLAG_PRECIS) > 0) && \
+	// (((*t_flags).flags & FLAG_NEGAT) > 0))
+	// {
+	// 	printf(ANSI_COLOR_YELLOW"\nFlag_PREC=TRUE AND Flag_NEGAT=TRUE\n");
+	// 	print_sign(t_flags);
+	// 	print_number_int(arg, t_flags, len);
+	// 	print_padding(t_flags, len);
+	// }
+	// else if ((((*t_flags).flags & FLAG_NEGAT) == 0) && \
+	// (((*t_flags).flags & FLAG_SPACE) == 0))
+	// {
+	// 	printf(ANSI_COLOR_YELLOW"\nFlag Negat = FALSE && Flag Space = FALSE\n");
+	// 	print_sign(t_flags);
+	// 	print_number_int(arg, t_flags, len);
+	// 	print_padding(t_flags, len);
+	// }
+	// else if ((((*t_flags).flags & FLAG_NEGAT) > 0) && \
+	// (((*t_flags).flags & FLAG_SPACE) > 0))
+	// {
+	// 	printf(ANSI_COLOR_YELLOW"\nFlag Negat = TRUE && Flag Space = TRUE\n");
+	// 	(*t_flags).flags &= ~FLAG_SPACE;
+	// 	print_sign(t_flags);
+	// 	print_number_int(arg, t_flags, len);
+	// 	print_padding(t_flags, len);
+	// }
 	else
 	{
 		// printf(ANSI_COLOR_YELLOW"\nOther Cases\n");
@@ -94,12 +95,13 @@ void					print_integer(va_list argptr, t_format *t_flags)
 	check_modifier(&arg, t_flags);
 	check_negative_num(&arg, t_flags);
 	len = number_of_digits(arg);
-	// if (arg == 0)
-		// len = 0;
+	if (arg == 0)
+		check_arg_zero(t_flags, &len);
 	if ((*t_flags).minfw < (*t_flags).precision)
 		(*t_flags).minfw = (*t_flags).precision;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{
+		// printf(ANSI_COLOR_MAGENTA"\nFlag_Minus=TRUE");
 		(*t_flags).flags &= ~FLAG_ZERO;
 		intwithminus(arg, t_flags, len);
 	}

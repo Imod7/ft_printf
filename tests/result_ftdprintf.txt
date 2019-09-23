@@ -1,1 +1,1 @@
-Test 11 (char2) : %-8c='G       ', %.2c='^@', % c='^@', %2c='^@'
+Test 39 (exceptions) : '%', %kjjj='kjjj',  % -9k='-9k'  exc='%     ', ex1='% '
