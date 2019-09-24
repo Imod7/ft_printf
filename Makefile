@@ -33,6 +33,7 @@ SRC =	\
 		ft_addtobuffer.c \
 		ft_bitwise.c \
 		ft_common_func.c \
+		ft_float.c \
 
 OBJ = $(SRC:%.c=%.o)
 

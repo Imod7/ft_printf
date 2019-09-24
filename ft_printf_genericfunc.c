@@ -36,7 +36,7 @@ void			find_percent(int fd, const char *str, t_format *t_flags)
 int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 {
 	t_format	t_flags;
-	// char		c;
+	char		c;
 
 	clear_formatstruct(&t_flags);
 	t_flags.total_chars_printed = 0;
@@ -45,14 +45,14 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 		if (*str == '%')
 		{
 			str++;
-			if ((*str == '%') || (*str == ' '))
-				find_percent(fd, str, &t_flags);
-			// if (*str == '%')
-			// {
-			// 	c = '%';
-			// 	write(fd, &c, 1);
-			// 	t_flags.total_chars_printed++;
-			// }
+			// if ((*str == '%') || (*str == ' '))
+			// 	find_percent(fd, str, &t_flags);
+			if (*str == '%')
+			{
+				c = '%';
+				write(fd, &c, 1);
+				t_flags.total_chars_printed++;
+			}
 			else
 			{
 				// printf(ANSI_COLOR_GREEN"\nNEXT CALL OF PRINTF\n");

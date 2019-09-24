@@ -1,1 +1,1 @@
-Test 39 (exceptions) : '%', %kjjj='kjjj',  % -9k='-9k'  exc='%     ', ex1='% '
+Test 42 : %f=''

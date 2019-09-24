@@ -62,8 +62,6 @@ typedef struct	s_format
 typedef union	u_float
 {
 	long double	f_num;
-	char		fraction[10];
-	short		product[5];
 	uint64_t	mantissa;
 }				t_float;
 
@@ -110,5 +108,7 @@ void			print_number(unsigned long long arg, t_format *t_flags, int len);
 void			print_number_int(long long arg, t_format *t_flags, int len);
 void			check_negative_num(long long *arg, t_format *t_flags);
 void			minfw_vs_precision(t_format *t_flags);
+/* floats */
+void            ft_ftoa(va_list argptr, t_format *t_flags);
 
 #endif
