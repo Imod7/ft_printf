@@ -37,7 +37,8 @@
 # define FLAG_ASTER (1 << 7)
 # define FLAG_NEGAT (1 << 8)
 
-typedef enum	e_modifier {
+typedef enum	e_modifier
+{
 	N,
 	H,
 	HH,
@@ -57,6 +58,14 @@ typedef struct	s_format
 	int			fd;
 	t_modifier	modifier;
 }				t_format;
+
+typedef union	u_float
+{
+	long double	f_num;
+	char		fraction[10];
+	short		product[5];
+	uint64_t	mantissa;
+}				t_float;
 
 int             ft_printf_genericfunc(int fd, const char *str, va_list	argptr);
 int				ft_printf(const char *str, ...);
