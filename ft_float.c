@@ -29,20 +29,71 @@ void			print_bin(uint64_t mant)
 	}
 }
 
-void			str_half(char *fr)
+// void			initialize_fraction(char *fr)
+// {
+// 	int			index;
+
+// 	index = 2;
+// 	fr[0] = '1';
+// 	fr[1] = '.';
+// 	while (index < 400)
+// 	{
+// 		fr[index] = '0';
+// 		index++;
+// 	}
+// }
+
+void			print_fraction(char *fr)
+{
+	int			len;
+	int			index;
+
+	len = ft_strlen(fr);
+	index = 2;
+	printf(ANSI_COLOR_CYAN"%c%c"ANSI_COLOR_RESET, fr[0], fr[1]);
+	while (index < len)
+	{
+		printf(ANSI_COLOR_CYAN"%c"ANSI_COLOR_RESET, fr[index]);
+		index++;
+	}
+}
+
+void			str_divide_by_two(char *fr)
 {
 	int			temp;
 	int			len;
+	int			index;
+	int			carry;
 
+	index = 2;
+	carry = 0;
 	len = ft_strlen(fr);
-	printf("len = %d\n", len);
-	if (len == 3)
-		temp = 10;
+	// printf("len = %d\n", len);
+	// if (len == 3)
+	// 	temp = 10;
 	if (fr[0] == '1')
+	{
 		fr[0] = '0';
-	temp = (temp * 10) / 2;
-	printf("temp = %d\n", temp);
-	fr[2] = temp;
+		carry = 1;
+	}
+	while (index <= len)
+	{
+		// printf("fr[%d] = %c\n", index, fr[index]);
+		if (fr[index] != 0)
+			temp = fr[index] - '0';
+		else
+			temp = 0;
+		// printf(ANSI_COLOR_CYAN"temp = %d\n"ANSI_COLOR_RESET, temp);
+		temp = ((carry * 10) + temp) / 2;
+		// printf(ANSI_COLOR_YELLOW"temp = %d\n"ANSI_COLOR_RESET, temp);
+		carry = fr[index] % 2;
+		// printf("carry = %d\n", carry);
+		fr[index] = temp + '0';
+		// printf(ANSI_COLOR_CYAN"fr[%d] = %d\n\n"ANSI_COLOR_RESET, index, temp);
+		index++;
+	}
+	// printf("temp = %d\n", temp);
+	// fr[2] = temp;
 }
 
 void			str_add(short *pr, char *fr)
@@ -59,6 +110,7 @@ void			ft_ftoa(va_list argptr, t_format *t_flags)
 	int			temp;
 
 	printf("\nflag = %d\n", (*t_flags).flags);
+	// initialize_fraction(fraction);
 	fraction[0] = '1';
 	fraction[1] = '.';
 	fraction[2] = '0';
@@ -68,15 +120,16 @@ void			ft_ftoa(va_list argptr, t_format *t_flags)
 	fl_num.f_num = va_arg(argptr, long double);
 	// while (fl_num.mantissa > 0)
 	temp = 0;
-	while (temp < 3)
+	while (temp < 10)
 	{
 		printf("\nmantissa = %llu\n", fl_num.mantissa);
 		print_bin(fl_num.mantissa);
 		if (fl_num.mantissa & 1)
 			str_add(product, fraction);
-		printf("\nfraction = %c%c%c\n", fraction[0], fraction[1], fraction[2]);
-		str_half(fraction);
-		printf("fraction = %c%c%c\n", fraction[0], fraction[1], fraction[2]);
+		printf("\nfraction : ");
+		print_fraction(fraction);
+		printf("\n");
+		str_divide_by_two(fraction);
 		fl_num.mantissa = fl_num.mantissa << 1;
 		temp++;
 	}
