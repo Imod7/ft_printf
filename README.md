@@ -124,3 +124,12 @@ When **ft_printf** function is called :
 ##### Deal with negative argument :
 1. function check_negative_num
 2. function print_sign
+
+##### Floats
+1. Function "str_add_prod_frac"
+   - length of product is always going to be equal or smaller than length of fraction
+   - So I need to fill with zeros the extra positions that the fraction might have before starting the addition
+   - Then I start from the end of both strings (that now are of equal size) and start adding the digits
+   - I move the carry on to the next loop/addition
+   - When I iterated all the decimal part of the strings, I check if my carry is bigger than zero
+   - If it is, I add a 1 before my dot

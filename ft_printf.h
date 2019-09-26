@@ -63,6 +63,7 @@ typedef union	u_float
 {
 	long double	f_num;
 	uint64_t	mantissa;
+	short		exponent[5];
 }				t_float;
 
 int             ft_printf_genericfunc(int fd, const char *str, va_list	argptr);
@@ -110,5 +111,10 @@ void			check_negative_num(long long *arg, t_format *t_flags);
 void			minfw_vs_precision(t_format *t_flags);
 /* floats */
 void            ft_ftoa(va_list argptr, t_format *t_flags);
+void			str_add_prod_frac(short *pr, char *fr);
+/* floats aux functions */
+void			print_bin(uint64_t mant);
+void			print_fraction(char *fr);
+void			print_product(short *pr);
 
 #endif
