@@ -34,7 +34,7 @@ SRC =	\
 		ft_bitwise.c \
 		ft_common_func.c \
 		ft_float.c \
-		ft_float_addition.c \
+		ft_float_strmaths.c \
 		ft_float_auxprint.c \
 
 OBJ = $(SRC:%.c=%.o)

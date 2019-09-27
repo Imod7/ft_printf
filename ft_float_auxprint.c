@@ -12,15 +12,49 @@
 
 #include "ft_printf.h"
 
-void			print_bin(uint64_t mant)
+void			print_mantissa_inorder(uint64_t mant)
 {
 	int			bit;
 	int			pos;
 
-	pos = 64;
+	pos = 0;
+	while (pos <= 63)
+	{
+		bit = mant >> pos;
+		if (bit & 1)
+			printf(ANSI_COLOR_CYAN"1 "ANSI_COLOR_RESET);
+		else
+			printf(ANSI_COLOR_YELLOW"0 "ANSI_COLOR_RESET);
+		pos++;
+	}
+}
+
+void			print_mantissa_inreverse(uint64_t mant)
+{
+	int			bit;
+	int			pos;
+
+	pos = 63;
 	while (pos >= 0)
 	{
 		bit = mant >> pos;
+		if (bit & 1)
+			printf(ANSI_COLOR_CYAN"1 "ANSI_COLOR_RESET);
+		else
+			printf(ANSI_COLOR_YELLOW"0 "ANSI_COLOR_RESET);
+		pos--;
+	}
+}
+
+void			print_exponent_binary(short exp)
+{
+	int			bit;
+	int			pos;
+
+	pos = 15;
+	while (pos >= 0)
+	{
+		bit = exp >> pos;
 		if (bit & 1)
 			printf(ANSI_COLOR_CYAN"1 "ANSI_COLOR_RESET);
 		else
@@ -49,11 +83,13 @@ void			print_product(short *pr)
 	int			index;
 
 	index = 0;
-	printf(ANSI_COLOR_CYAN"%c%c"ANSI_COLOR_RESET, pr[5000], pr[5001]);
+	while (pr[index] == 0)
+		index++;
+	// printf(ANSI_COLOR_CYAN"%c%c"ANSI_COLOR_RESET, pr[5000], pr[5001]);
 	// printf("\nproduct len = %d, index = %d\n", len, index);
-	while (pr[5002 + index] != 0)
+	while (pr[index] != 0)
 	{
-		printf(ANSI_COLOR_CYAN"%c"ANSI_COLOR_RESET, pr[5002 + index]);
+		printf(ANSI_COLOR_CYAN"%c"ANSI_COLOR_RESET, pr[index]);
 		index++;
 	}
 }

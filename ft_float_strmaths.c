@@ -19,10 +19,6 @@ int				length_fraction(char *fr)
 
 	index = 0;
 	len = 0;
-	// while (fr[index] != '.')
-	// 	index++;
-	// if (fr[index] == '.')
-	// 	index++;
 	while (fr[index] != 0)
 	{
 		index++;
@@ -38,10 +34,6 @@ int				length_product(short *pr)
 
 	index = 5000;
 	len = 0;
-	// while (pr[index] != '.')
-	// 	index++;
-	// if (pr[index] == '.')
-	// 	index++;
 	while (pr[index] != 0)
 	{
 		index++;
@@ -50,21 +42,52 @@ int				length_product(short *pr)
 	return (len);
 }
 
+void			str_divide_by_two(char *fr)
+{
+	int			temp;
+	int			len;
+	int			index;
+	int			carry;
+
+	index = 2;
+	carry = 0;
+	len = ft_strlen(fr);
+	if (fr[0] == '1')
+	{
+		fr[0] = '0';
+		carry = 1;
+	}
+	while (index <= len)
+	{
+		// printf("fr[%d] = %c\n", index, fr[index]);
+		if (fr[index] != 0)
+			temp = fr[index] - '0';
+		else
+			temp = 0;
+		// printf(ANSI_COLOR_CYAN"temp = %d\n"ANSI_COLOR_RESET, temp);
+		temp = ((carry * 10) + temp) / 2;
+		// printf(ANSI_COLOR_YELLOW"temp = %d\n"ANSI_COLOR_RESET, temp);
+		carry = fr[index] % 2;
+		// printf("carry = %d\n", carry);
+		fr[index] = temp + '0';
+		// printf(ANSI_COLOR_CYAN"fr[%d] = %d\n\n"ANSI_COLOR_RESET, index, temp);
+		index++;
+	}
+}
+
 void			str_add_prod_frac(short *pr, char *fr)
 {
 	int			len_pr;
 	int			len_fr;
-	// int			len;
 	int			index;
 	int			sum;
 	int			carry;
 
 	len_pr = length_product(pr);
 	len_fr = length_fraction(fr);
-	printf(ANSI_COLOR_MAGENTA"\nLength of Fraction = %d\n"ANSI_COLOR_RESET, len_fr);
-	printf(ANSI_COLOR_MAGENTA"Length of Product  = %d\n"ANSI_COLOR_RESET, len_pr);
+	printf(ANSI_COLOR_MAGENTA"\nLength of Fraction=%d\n", len_fr);
+	printf("Length of Product =%d"ANSI_COLOR_RESET, len_pr);
 	index = len_pr;
-	// len = len_fr;
 	while (index < len_fr)
 	{
 		pr[5000 + index] = '0';
@@ -94,6 +117,51 @@ void			str_add_prod_frac(short *pr, char *fr)
 		sum++;
 		pr[5000] = sum + '0';
 	}
+	sum = (pr[5000] - '0') + (fr[0] - '0');
+	pr[5000] = sum + '0';
 	printf(ANSI_COLOR_GREEN"\nProduct  : ");
 	print_product(pr);
 }
+
+void			str_double(short *pr)
+{
+	int			len;
+	int			index;
+	int			carry;
+	int			sum;
+
+	index = 2;
+	carry = 0;
+	len = length_product(pr);
+	printf("\nProduct  : ");
+	print_product(pr);
+	printf("\nLength  : %d", len);
+	index = 5000 + len - 1;
+	carry = 0;
+	while (index > 5001)
+	{
+		sum = ((pr[index] - '0') * 2) + carry;
+		// printf(ANSI_COLOR_MAGENTA"\nCurrent Sum : ");
+		// printf("%d "ANSI_COLOR_RESET, sum);
+		pr[index] = (sum % 10) + '0';
+		// printf(ANSI_COLOR_MAGENTA"\npr[%d] = %d ", 5000 + index - 1, pr[5000 + index - 1]);
+		// printf("%d "ANSI_COLOR_RESET, sum);
+		carry = sum / 10;
+		index--;
+	}
+	sum = ((pr[5000] - '0') * 2) + carry;
+	pr[5000] = sum + '0';
+	index = 5000 - 1;
+	while (carry > 0)
+	{
+		sum = ((pr[index] - '0') * 2) + carry;
+		// printf(ANSI_COLOR_MAGENTA"\nCurrent Sum : ");
+		// printf("%d "ANSI_COLOR_RESET, sum);
+		pr[index] = (sum % 10) + '0';
+		// printf(ANSI_COLOR_MAGENTA"\npr[%d] = %d ", 5000 + index - 1, pr[5000 + index - 1]);
+		// printf("%d "ANSI_COLOR_RESET, sum);
+		carry = sum / 10;
+		index--;
+	}
+}
+

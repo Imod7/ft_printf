@@ -43,7 +43,8 @@ typedef enum	e_modifier
 	H,
 	HH,
 	L,
-	LL
+	LL,
+	l
 }				t_modifier;
 
 typedef struct	s_format
@@ -109,12 +110,16 @@ void			print_number(unsigned long long arg, t_format *t_flags, int len);
 void			print_number_int(long long arg, t_format *t_flags, int len);
 void			check_negative_num(long long *arg, t_format *t_flags);
 void			minfw_vs_precision(t_format *t_flags);
-/* floats */
+/* floats maths */
 void            ft_ftoa(va_list argptr, t_format *t_flags);
 void			str_add_prod_frac(short *pr, char *fr);
+void			str_divide_by_two(char *fr);
+void			str_double(short *pr);
 /* floats aux functions */
-void			print_bin(uint64_t mant);
+void			print_mantissa_inorder(uint64_t mant);
+void			print_mantissa_inreverse(uint64_t mant);
 void			print_fraction(char *fr);
 void			print_product(short *pr);
+void			print_exponent_binary(short exp);
 
 #endif

@@ -27,8 +27,8 @@ void			initialization(char *fr, short *pr)
 	}
 	pr[5000] = '0';
 	pr[5001] = '.';
-	pr[5002] = '9';
-	pr[5003] = '5';
+	pr[5002] = '0';
+	// pr[5003] = '5';
 	index = 0;
 	while (index < 5000)
 	{
@@ -71,66 +71,53 @@ void			initialization(char *fr, short *pr)
 // 	}
 // }
 
-void			str_divide_by_two(char *fr)
+void		check_modifier_float(va_list argptr, t_float *fl, t_format *t_flags)
 {
-	int			temp;
-	int			len;
-	int			index;
-	int			carry;
-
-	index = 2;
-	carry = 0;
-	len = ft_strlen(fr);
-	if (fr[0] == '1')
-	{
-		fr[0] = '0';
-		carry = 1;
-	}
-	while (index <= len)
-	{
-		// printf("fr[%d] = %c\n", index, fr[index]);
-		if (fr[index] != 0)
-			temp = fr[index] - '0';
-		else
-			temp = 0;
-		// printf(ANSI_COLOR_CYAN"temp = %d\n"ANSI_COLOR_RESET, temp);
-		temp = ((carry * 10) + temp) / 2;
-		// printf(ANSI_COLOR_YELLOW"temp = %d\n"ANSI_COLOR_RESET, temp);
-		carry = fr[index] % 2;
-		// printf("carry = %d\n", carry);
-		fr[index] = temp + '0';
-		// printf(ANSI_COLOR_CYAN"fr[%d] = %d\n\n"ANSI_COLOR_RESET, index, temp);
-		index++;
-	}
-	// printf("temp = %d\n", temp);
-	// fr[2] = temp;
+	if ((*t_flags).modifier == N)
+		(*fl).f_num = va_arg(argptr, double);
+		// (*fl).f_num = (double)((*fl).f_num);
+	if ((*t_flags).modifier == l)
+		(*fl).f_num = va_arg(argptr, double);
+		// (*fl).f_num = (double)((*fl).f_num);
+	else if ((*t_flags).modifier == L)
+		(*fl).f_num = va_arg(argptr, long double);
+		// (*fl).f_num = (long double)((*fl).f_num);
 }
 
-void			ft_ftoa(va_list argptr, t_format *t_flags)
+void				ft_ftoa(va_list argptr, t_format *t_flags)
 {
-	t_float		fl_num;
-	char		fraction[400];
-	short		product[10000];
-	int			pos;
+	t_float			fl_num;
+	char			fraction[400];
+	short			product[10000];
+	int				pos;
+	unsigned long	bit;
 
 	printf("\nflag = %d\n", (*t_flags).flags);
-	fl_num.f_num = va_arg(argptr, long double);
+	// fl_num.f_num = va_arg(argptr, long double);
+	check_modifier_float(argptr, &fl_num, t_flags);
 	// while (fl_num.mantissa > 0)
 	initialization(fraction, product);
-	printf(ANSI_COLOR_YELLOW"--- MANTISSA START ---"ANSI_COLOR_RESET);
-	printf("\nmantissa in hex = %llx\n", fl_num.mantissa);
-	printf("mantissa in binary = %llx\n", fl_num.mantissa);
-	print_bin(fl_num.mantissa);
-	pos = 40;
+	printf(ANSI_COLOR_CYAN"\nOriginal Float Number = %Lf\n", fl_num.f_num);
+	printf(ANSI_COLOR_YELLOW"\nmantissa in hex = %llx\n", fl_num.mantissa);
+	printf(ANSI_COLOR_MAGENTA"mantissa in binary IN ORDER (from bit 0 to bit 63) \n");
+	print_mantissa_inorder(fl_num.mantissa);
+	printf(ANSI_COLOR_MAGENTA"\nmantissa in binary IN REVERSE (from bit 63 to bit 0) \n");
+	print_mantissa_inreverse(fl_num.mantissa);
+	printf(ANSI_COLOR_CYAN"\nexponent in hex = %x\n", fl_num.exponent[0]);
+	printf(ANSI_COLOR_YELLOW"exponent in binary \n");
+	print_exponent_binary(fl_num.exponent[4]);
+	pos = 63;
 	while (pos >= 0)
-	// while (fl_num.mantissa > 0)
 	{
-		printf("\nmantissa in hex = %llx\n", fl_num.mantissa);
-		printf("mantissa in binary = %llx\n", fl_num.mantissa);
-		print_bin(fl_num.mantissa);
-		if (fl_num.mantissa & 1)
+		bit = 1UL << pos;
+		if (fl_num.mantissa & bit)
 		{
-			printf("\n--- Mantissa Found Bit equal to 1 ---");
+			printf("\n\n--- Mantissa Found Bit equal to 1 ---");
+			printf("\nmantissa in hex = %llx\n", fl_num.mantissa);
+			printf("mantissa in binary\n");
+			print_mantissa_inreverse(fl_num.mantissa);
+			printf("\none shifted in binary\n");
+			print_mantissa_inreverse(bit);
 			printf("\nFraction : ");
 			print_fraction(fraction);
 			printf("\nProduct  : ");
@@ -138,9 +125,25 @@ void			ft_ftoa(va_list argptr, t_format *t_flags)
 			str_add_prod_frac(product, fraction);
 		}
 		str_divide_by_two(fraction);
-		// I should shift to the left but then if 
-		// fl_num.mantissa = fl_num.mantissa << 1;
-		fl_num.mantissa = fl_num.mantissa >> 1;
+		pos--;
+	}	
+	pos = 14;
+	while (pos >= 0)
+	{
+		bit = 1 << pos;
+		if (fl_num.exponent[4] & bit)
+		{
+			printf("\n\n--- Exponent Found Bit equal to 1 ---");
+			printf(ANSI_COLOR_CYAN"\nexponent in hex = %x\n", fl_num.exponent[0]);
+			printf(ANSI_COLOR_YELLOW"exponent in binary \n");
+			print_exponent_binary(fl_num.exponent[4]);
+			printf("\none shifted in binary\n");
+			print_exponent_binary(bit);
+			str_double(product);
+		}
 		pos--;
 	}
+	printf(ANSI_COLOR_GREEN"\n\nFINAL FLOAT  : ");
+	print_product(product);
+	printf("\n\n");
 }
