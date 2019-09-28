@@ -23,9 +23,9 @@ void		test_float1(void)
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
 	// total_chars_p = dprintf(fd, "Test 42 : %%.11f='%.11f', %%+f='%+f'\n", 45.34512345678, 876.643);
-	total_chars_p = dprintf(fd, "Test 42 : %%f='%.88f'\n", 1.25);
+	total_chars_p = dprintf(fd, "Test 42 : %%f='%.125f'\n", 89797545645642312.89789454557894565615612);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 42 : %%f='%f'\n", 1.25);
+	total_chars_ftp = ft_dprintf(fd, "Test 42 : %%f='%f'\n", 89797545645642312.89789454557894565615612);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);

@@ -85,8 +85,6 @@ void			print_product(short *pr)
 	index = 0;
 	while (pr[index] == 0)
 		index++;
-	// printf(ANSI_COLOR_CYAN"%c%c"ANSI_COLOR_RESET, pr[5000], pr[5001]);
-	// printf("\nproduct len = %d, index = %d\n", len, index);
 	while (pr[index] != 0)
 	{
 		printf(ANSI_COLOR_CYAN"%c"ANSI_COLOR_RESET, pr[index]);

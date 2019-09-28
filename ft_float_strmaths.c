@@ -133,9 +133,9 @@ void			str_double(short *pr)
 	index = 2;
 	carry = 0;
 	len = length_product(pr);
-	printf("\nProduct  : ");
+	printf(ANSI_COLOR_YELLOW"\n----STr_double Start---\nProduct before dbl : ");
 	print_product(pr);
-	printf("\nLength  : %d", len);
+	printf(ANSI_COLOR_YELLOW"\nLength  : %d", len);
 	index = 5000 + len - 1;
 	carry = 0;
 	while (index > 5001)
@@ -150,10 +150,18 @@ void			str_double(short *pr)
 		index--;
 	}
 	sum = ((pr[5000] - '0') * 2) + carry;
-	pr[5000] = sum + '0';
+	// printf(ANSI_COLOR_MAGENTA"\nCurrent Sum : ");
+	// printf("%d "ANSI_COLOR_RESET, sum);
+	pr[5000] = (sum % 10) + '0';
+	carry = sum / 10;
+	printf(ANSI_COLOR_YELLOW"\npr[5000] = %c", pr[5000]);
+	// printf("%d "ANSI_COLOR_RESET, sum);
 	index = 5000 - 1;
-	while (carry > 0)
+	while (carry > 0 || (pr[index] != 0))
 	{
+		printf(ANSI_COLOR_YELLOW"\nindex= %d , carry %d", index, carry);
+		if (pr[index] == 0)
+			pr[index] = '0';
 		sum = ((pr[index] - '0') * 2) + carry;
 		// printf(ANSI_COLOR_MAGENTA"\nCurrent Sum : ");
 		// printf("%d "ANSI_COLOR_RESET, sum);
@@ -163,5 +171,8 @@ void			str_double(short *pr)
 		carry = sum / 10;
 		index--;
 	}
+	printf(ANSI_COLOR_YELLOW"\nProduct after dbl :    ");
+	print_product(pr);
+	printf("\n");
 }
 
