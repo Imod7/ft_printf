@@ -95,9 +95,12 @@ void				ft_ftoa(va_list argptr, t_format *t_flags)
 		str_divide_by_two(fraction);
 		index--;
 	}
+	if ((fl_num.exponent[4] & (1<<15)) > 0)
+		(*t_flags).flags |= FLAG_NEGAT;
+	fl_num.exponent[4] &= ~(1<<15);
+	fl_num.exponent[4] = fl_num.exponent[4] - 16383;
 	printf(ANSI_COLOR_CYAN"\nExponent in binary\n");
 	print_exponent_binary(fl_num.exponent[4]);
-	fl_num.exponent[4] = fl_num.exponent[4] - 16383;
 	printf(ANSI_COLOR_CYAN"\nexponent WO the bias = %d", fl_num.exponent[4]);
 	index = 0;
 	while (index < fl_num.exponent[4])
@@ -108,6 +111,8 @@ void				ft_ftoa(va_list argptr, t_format *t_flags)
 		index++;
 	}
 	printf(ANSI_COLOR_GREEN"\n\nFINAL FLOAT  : ");
+	if (((*t_flags).flags & FLAG_NEGAT) > 0)
+		printf("-");
 	print_product(product);
 	printf("\n\n");
 }

@@ -159,7 +159,7 @@ void			str_double(short *pr)
 	index = 5000 - 1;
 	while (carry > 0 || (pr[index] != 0))
 	{
-		printf(ANSI_COLOR_YELLOW"\nindex= %d , carry %d", index, carry);
+		// printf(ANSI_COLOR_YELLOW"\nindex= %d , carry %d", index, carry);
 		if (pr[index] == 0)
 			pr[index] = '0';
 		sum = ((pr[index] - '0') * 2) + carry;
