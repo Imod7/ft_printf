@@ -17,7 +17,7 @@ int				main(void)
 {
 	int			option;
 	int			i;
-	test_func	*test_array[56];
+	test_func	*test_array[60];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -75,6 +75,10 @@ int				main(void)
 	test_array[53] = test_octal6;
 	test_array[54] = test_u2;
 	test_array[55] = test_hex13;
+	test_array[56] = test_float6;
+	test_array[57] = test_float7;
+	test_array[58] = test_float8;
+	test_array[59] = test_float9;
 	i = 1;
 	printf("Which Test do you want to run ? (0 to run All) \n");
 	scanf("%d", &option);

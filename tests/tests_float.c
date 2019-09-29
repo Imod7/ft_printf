@@ -23,7 +23,7 @@ void		test_float1(void)
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
 	// total_chars_p = dprintf(fd, "Test 42 : %%.11f='%.11f', %%+f='%+f'\n", 45.34512345678, 876.643);
-	total_chars_p = dprintf(fd, "Test 42 : %%f='%.125f'\n", -125.33);
+	total_chars_p = dprintf(fd, "Test 42 : %%f='%.20f'\n", -125.33);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "Test 42 : %%f='%f'\n", -125.33);
 	// assert(total_chars_p == total_chars_ftp);
@@ -126,8 +126,122 @@ void		test_float5(void)
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && (total_chars_p == total_chars_ftp))
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
+	&& (total_chars_p == total_chars_ftp))
 		printf(ANSI_COLOR_GREEN"Test 47 with %%.0f %%.1f %%.2f %%.6f %%f %%.7f with DBL_EPSILON : Correct!\n");
 	else
 		printf(ANSI_COLOR_RED"Test 47 with %%.0f %%.1f %%.2f %%.6f %%f %%.7f with DBL_EPSILON : Wrong!\n");
+}
+
+void		test_float6(void)
+{
+	int		total_chars_p;
+	int		total_chars_ftp;
+	double	num;
+	int		fd;
+	char	*returned_line_dprintf;
+	char	*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Test 57 : rounding(197.5)='%.0f', round(196.5)='%.0f', round(195.5)='%.0f'\n", 197.5, 196.5, 195.5);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Test 57 : rounding(197.5)='%.0f', round(196.5)='%.0f', round(195.5)='%.0f'\n", 197.5, 196.5, 195.5);
+	// assert(total_chars_p == total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
+	&& (total_chars_p == total_chars_ftp))
+		printf(ANSI_COLOR_GREEN"Test 57 FLOAT ROUNDING : Correct!\n");
+	else
+		printf(ANSI_COLOR_RED"Test 57 FLOAT ROUNDING : Wrong!\n");
+}
+
+void		test_float7(void)
+{
+	int		total_chars_p;
+	int		total_chars_ftp;
+	int		fd;
+	char	*returned_line_dprintf;
+	char	*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Test 58 : round(108.765625)='%9.5f', round(108.046875)='%9.5f'\n", 108.765625, 108.046875);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Test 58 : round(108.765625)='%9.5f', round(108.046875)='%9.5f'\n", 108.765625, 108.046875);
+	// assert(total_chars_p == total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
+	&& (total_chars_p == total_chars_ftp))
+		printf(ANSI_COLOR_GREEN"Test 58 FLOAT ROUNDING : Correct!\n");
+	else
+		printf(ANSI_COLOR_RED"Test 58 FLOAT ROUNDING : Wrong!\n");
+}
+
+void		test_float8(void)
+{
+	int		total_chars_p;
+	int		total_chars_ftp;
+	int		fd;
+	char	*returned_line_dprintf;
+	char	*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Test 59 : %%.64(0.15)='%.64f'\n", 0.15);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Test 59 : %%.64(0.15)='%.64f'\n", 0.15);
+	// assert(total_chars_p == total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
+	&& (total_chars_p == total_chars_ftp))
+		printf(ANSI_COLOR_GREEN"Test 59 FLOAT ROUNDING : Correct!\n");
+	else
+		printf(ANSI_COLOR_RED"Test 59 FLOAT ROUNDING : Wrong!\n");
+}
+
+void		test_float9(void)
+{
+	int		total_chars_p;
+	int		total_chars_ftp;
+	int		fd;
+	char	*returned_line_dprintf;
+	char	*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Test 60 : %%.64(1.25)='%.64f', %%.2(1.25)='%.2f', %%.1(1.25)='%.1f'\n", 1.25, 1.25, 1.25);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Test 60 : %%.64(1.25)='%.64f', %%.2(1.25)='%.2f', %%.1(1.25)='%.1f'\n", 1.25, 1.25, 1.25);
+	// assert(total_chars_p == total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
+	&& (total_chars_p == total_chars_ftp))
+		printf(ANSI_COLOR_GREEN"Test 60 FLOAT ROUNDING : Correct!\n");
+	else
+		printf(ANSI_COLOR_RED"Test 60 FLOAT ROUNDING : Wrong!\n");
 }

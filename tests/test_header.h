@@ -82,5 +82,9 @@ void	test_string3(void);
 void	test_u1(void);
 void	test_u2(void);
 void	test_hex13(void);
+void	test_float6(void);
+void	test_float7(void);
+void	test_float8(void);
+void	test_float9(void);
 
 # endif
