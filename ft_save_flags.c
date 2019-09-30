@@ -116,9 +116,16 @@ void				clear_formatstruct(t_format *t_flags)
 	(*t_flags).fd = 0;
 }
 
-void				clear_forfloat(t_format *t_flags)
+void				clear_forfloat(t_float *fl_num)
 {
-	(*t_flags).flags = 0;
-	(*t_flags).minfw = 0;
-	(*t_flags).special_chars_printed = 0;
+	int				index;
+
+	(*fl_num).f_num = 0;
+	(*fl_num).mantissa = 0;
+	index = 0;
+	while (index < 5)
+	{
+		(*fl_num).exponent[index] = 0;
+		index++;
+	}
 }

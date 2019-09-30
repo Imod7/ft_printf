@@ -91,3 +91,18 @@ void			print_product(short *pr)
 		index++;
 	}
 }
+
+void			print_final_float(short *pr, t_format *t_flags)
+{
+	int			index;
+
+	index = 0;
+	while (pr[index] == 0)
+		index++;
+	while (pr[index] != 0)
+	{
+		// printf(ANSI_COLOR_CYAN"%c"ANSI_COLOR_RESET, pr[index]);
+		write((*t_flags).fd, &pr[index], 1);
+		index++;
+	}
+}

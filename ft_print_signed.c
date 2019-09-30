@@ -138,8 +138,7 @@ void					print_arg(va_list argptr, t_format *t_flags)
 	else if ((*t_flags).argtype == 'u')
 		print_int_unsigned(argptr, t_flags);
 	else if ((*t_flags).argtype == 'f')
-		ft_ftoa(argptr, t_flags);
-		// print_float(argptr, t_flags);
+		print_float(argptr, t_flags);
 	else
 		print_other((*t_flags).argtype, t_flags);
 }

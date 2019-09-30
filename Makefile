@@ -36,6 +36,7 @@ SRC =	\
 		ft_float.c \
 		ft_float_strmaths.c \
 		ft_float_auxprint.c \
+		ft_float_round.c \
 
 OBJ = $(SRC:%.c=%.o)
 

@@ -133,3 +133,19 @@ When **ft_printf** function is called :
    - I move the carry on to the next loop/addition
    - When I iterated all the decimal part of the strings, I check if my carry is bigger than zero
    - If it is, I add a 1 before my dot
+
+##### Floats Precision 
+1. If precision == 0 then precision is set to 6
+
+##### Floats Rounding
+1. If the precision is not specified, we set precision equal to 6. Otherwise, we take the precision specified.
+2. Check cases :
+	- If next_digit (one digit after precision) is bigger than 5 and precision is not ZERO
+		- Then keep increment the digits that are before the precision until the remainder is different is zero and the index of precision is zero.
+	- If next_digit (one digit after precision) is bigger than 5 and precision is ZERO
+		- Then function 'zero_prec_rounding' is called which increments the digit before the dot of the float
+	- If next_digit (one digit after precision) is bigger than 5 and precision is ZERO
+		- Then function 'zero_prec_rounding' is called which increments the digit before the dot of the float
+- Check if the current_digit after incrementing results to 10 then set it to 0
+- If next_digit (one after precision) is equal to 5
+- If next_digit (one after precision) is less than 5 then we leave the current_digit (that equals to precision) as it is

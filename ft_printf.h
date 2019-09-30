@@ -93,7 +93,7 @@ void			print_int_unsigned(va_list argptr, t_format *t_flags);
 // void			print_octal(va_list argptr, t_format *t_flags);
 void			print_hex_octal(va_list argptr, t_format *t_flags);
 // long long		return_decimal_part_as_int(double num);
-void			clear_forfloat(t_format *t_flags);
+void			clear_forfloat(t_float *fl_num);
 void			print_float(va_list argptr, t_format *t_flags);
 void			intwithminus(long long arg, t_format *t_flags, int len);
 void			int_otherflag(long long arg, t_format *t_flags, int len);
@@ -116,11 +116,14 @@ void            ft_ftoa(va_list argptr, t_format *t_flags);
 void			str_add_prod_frac(short *pr, char *fr);
 void			str_divide_by_two(char *fr);
 void			str_double(short *pr);
+int				length_product(short *pr);
 /* floats aux functions */
 void			print_mantissa_inorder(uint64_t mant);
 void			print_mantissa_inreverse(uint64_t mant);
 void			print_fraction(char *fr);
 void			print_product(short *pr);
 void			print_exponent_binary(short exp);
+void			print_final_float(short *pr, t_format *t_flags);
+void			check_precision(short *pr, t_format *t_flags);
 
 #endif

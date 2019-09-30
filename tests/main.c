@@ -84,7 +84,7 @@ int				main(void)
 	scanf("%d", &option);
 	if (option != 0)
 		test_array[option - 1]();
-	else
+	else 
 	{
 		while (i <= (int)(sizeof(test_array) / sizeof(test_array[0])))
 		{
