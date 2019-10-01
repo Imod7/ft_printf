@@ -52,7 +52,7 @@ int				length_product(short *pr)
 	return (len);
 }
 
-void			str_divide_by_two(char *fr)
+void			frac_divide_by_two(char *fr)
 {
 	int			temp;
 	int			len;
@@ -143,9 +143,6 @@ void			str_double(short *pr)
 	index = 2;
 	carry = 0;
 	len = length_product(pr);
-	// printf(ANSI_COLOR_YELLOW"\n----STR_double Start---\nProduct before dbl : ");
-	// print_product(pr);
-	// printf(ANSI_COLOR_YELLOW"\nLength  : %d", len);
 	index = 5000 + len - 1;
 	carry = 0;
 	while (index > 5001)
@@ -185,3 +182,41 @@ void			str_double(short *pr)
 	// print_product(pr);
 }
 
+void			prod_divide_by_two(short *pr)
+{
+	int			temp;
+	int			len;
+	int			index;
+	int			carry;
+
+	index = 2;
+	carry = 0;
+	len = 5000 + length_product(pr);
+	index = 5002;
+	// printf(ANSI_COLOR_YELLOW"\n----PROD_DIVIDE_BY_2 Start---\nProduct before dividing : ");
+	// print_product(pr);
+	// printf(ANSI_COLOR_YELLOW"\nLength  : %d", len);
+	if (pr[5000] == '1')
+	{
+		pr[5000] = '0';
+		carry = 1;
+	}
+	while (index <= len)
+	{
+		// printf("pr[%d] = %c\n", index, pr[index]);
+		if (pr[index] != 0)
+			temp = pr[index] - '0';
+		else
+			temp = 0;
+		// printf(ANSI_COLOR_CYAN"temp = %d\n"ANSI_COLOR_RESET, temp);
+		temp = ((carry * 10) + temp) / 2;
+		// printf(ANSI_COLOR_YELLOW"temp = %d\n"ANSI_COLOR_RESET, temp);
+		carry = pr[index] % 2;
+		// printf("carry = %d\n", carry);
+		pr[index] = temp + '0';
+		// printf(ANSI_COLOR_CYAN"fr[%d] = %d\n\n"ANSI_COLOR_RESET, index, temp);
+		index++;
+	}
+	// printf(ANSI_COLOR_YELLOW"\nProduct after dividing : ");
+	// print_product(pr);
+}

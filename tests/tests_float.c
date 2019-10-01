@@ -39,9 +39,9 @@ void		test_float1(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 42 (float1) negative arg : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 42 (float1) : Correct!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 42 (float1) negative arg : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 42 (float1) : Wrong!\n");
 }
 
 void		test_float2(void)
@@ -85,9 +85,9 @@ void		test_float3(void)
 
 	num = 1.192092896e-07F;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 45 : %%.2f='%.2f', %%.0f='%.0f', %%.0f='%.0f'\n", num, num, num);
+	total_chars_p = dprintf(fd, "Test 45 : %%.0f='%.0f', %%.1f='%.0f', %%.2f='%.2f', %%.2f='%.2f'\n", num, num, num, 0.00001);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 45 : %%.2f='%.2f', %%.0f='%.0f', %%.0f='%.0f'\n", num, num, num);
+	total_chars_ftp = ft_dprintf(fd, "Test 45 : %%.0f='%.0f', %%.1f='%.0f', %%.2f='%.2f', %%.2f='%.2f'\n", num, num, num, 0.00001);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -141,18 +141,19 @@ void		test_float5(void)
 	int		total_chars_p;
 	int		total_chars_ftp;
 	double	num;
+	double	num1;
 	int		fd;
 	char	*returned_line_dprintf;
 	char	*returned_line_ft_dprintf;
 
 	// num = 2.2204460492503131e-016;
-	num = 2.01234567890155;
-// 3756446352456454545615151.18934765781367137389565646848445137;
+	num = 1.24e-23;
+	// num1 = 2.01234567890155;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	// total_chars_p = dprintf(fd, "Test_47\n%.0f\n%.1f\n%.2f\n%.6f\n%f\n%.7f\nf\n%lf\n%.30f\n", num, num , num, num, num, num, num, num);
-	total_chars_p = dprintf(fd, "Test_47 : %%.12f='%.12f'\n", num);
+	total_chars_p = dprintf(fd, "Test_47 : %%.0f='%.0f', %%.1f='%.1f', %%.2f='%.2f', %%.6f='%.6f', %%f='%f', %%.7f='%.7f', %%f='%f', %%.30f='%.30f'\n", num, num , num, num, num1, num1, num1, num1);
+	// total_chars_p = dprintf(fd, "Test_47 : %%.12f='%.12f'\n", num);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test_47 : %%.12f='%.12f'\n", num);
+	total_chars_ftp = ft_dprintf(fd, "Test_47 : %%.0f='%.0f', %%.1f='%.1f', %%.2f='%.2f', %%.6f='%.6f', %%f='%f', %%.7f='%.7f', %%f='%f', %%.30f='%.30f'\n", num, num , num, num, num1, num1, num1, num1);
 	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -164,9 +165,9 @@ void		test_float5(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 47  : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 47 (float5) : Correct!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 47 : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 47 (float5) : Wrong!\n");
 }
 
 void		test_float6(void)
@@ -207,9 +208,9 @@ void		test_float7(void)
 	char	*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 58 : round(108.765625)='%9.5f', round(108.046875)='%9.5f'\n", 108.765625, 108.046875);
+	total_chars_p = dprintf(fd, "Test 58 : %%9.5f='%9.5f', %%9.5f='%9.5f', %%6.3f='%6.3f', %%4.8f='%4.8f'\n", 108.765625, 108.046875, 1.31072, 0.0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 58 : round(108.765625)='%9.5f', round(108.046875)='%9.5f'\n", 108.765625, 108.046875);
+	total_chars_ftp = ft_dprintf(fd, "Test 58 : %%9.5f='%9.5f', %%9.5f='%9.5f', %%6.3f='%6.3f', %%4.8f='%4.8f'\n", 108.765625, 108.046875, 1.31072, 0.0);
 	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);

@@ -114,8 +114,9 @@ void			minfw_vs_precision(t_format *t_flags);
 /* floats maths */
 void            ft_ftoa(va_list argptr, t_format *t_flags);
 void			str_add_prod_frac(short *pr, char *fr);
-void			str_divide_by_two(char *fr);
+void			frac_divide_by_two(char *fr);
 void			str_double(short *pr);
+void			prod_divide_by_two(short *pr);
 int				length_product(short *pr);
 /* floats aux functions */
 void			print_mantissa_inorder(uint64_t mant);

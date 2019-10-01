@@ -124,12 +124,13 @@ void		print_padding(t_format *t_flags, int arg_digits_len)
 	// print_binary((*t_flags).flags);
 	while (i < pad_len)
 	{
-		if (((*t_flags).flags & FLAG_ZERO) || ((*t_flags).argtype == 'f'))
+		if ((*t_flags).flags & FLAG_ZERO) //|| ((*t_flags).argtype == 'f'))
 			c = '0';
 		else
 			c = ' ';
 		if (((*t_flags).flags & FLAG_PRECIS) && \
-		(((*t_flags).argtype != 's') || ((*t_flags).argtype != 'c')) &&
+		(((*t_flags).argtype != 's') || ((*t_flags).argtype != 'c')) && \
+		//((*t_flags).argtype != 'f')) &&
 		(i >= (pad_len - (*t_flags).precision) + arg_digits_len))
 			c = '0';
 		write((*t_flags).fd, &c, 1);

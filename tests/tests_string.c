@@ -39,9 +39,9 @@ void		test_string1(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 43 with %%.5s : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 43 (string1) : Correct!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 43 with %%.5s : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 43 (string1) : Wrong!\n");
 }
 
 void		test_string2(void)
@@ -68,9 +68,9 @@ void		test_string2(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 48 with %%.5s : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 48 (string2) : Correct!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 48 with %%.5s : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 48 (string2) : Wrong!\n");
 }
 
 void		test_string3(void)
