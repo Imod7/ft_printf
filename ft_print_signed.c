@@ -14,61 +14,56 @@
 
 void					int_otherflag(long long arg, t_format *t_flags, int len)
 {
-	if ((((*t_flags).flags & FLAG_ZERO) > 0) || \
-	(((*t_flags).flags & FLAG_PRECIS) > 0))
+	if (((((*t_flags).flags & FLAG_ZERO) > 0) || \
+	(((*t_flags).flags & FLAG_PRECIS) > 0)) && \
+	(((*t_flags).flags & FLAG_PLUS) == 0))
 	{
+		// printf("\n1. zero + prec + not plus");
 		print_sign(t_flags);
 		print_padding(t_flags, len);
+		print_number_int(arg, t_flags, len);
+	}
+	else if ((((*t_flags).flags & FLAG_PLUS) > 0) &&
+	(((*t_flags).flags & FLAG_ZERO) > 0))
+	{
+		// printf("\n3. plus + zero\n");
+		print_sign(t_flags);
+		print_padding(t_flags, len);
+		print_number_int(arg, t_flags, len);
 	}
 	else
 	{
+		// printf("\n4. other\n");
 		print_padding(t_flags, len);
 		print_sign(t_flags);
+		if (len < (*t_flags).precision)
+			length_precision_diff(t_flags, len);
+		print_number_int(arg, t_flags, len);
 	}
-	print_number_int(arg, t_flags, len);
 }
 
 void					intwithminus(long long arg, t_format *t_flags, int len)
 {
-	// printf(ANSI_COLOR_YELLOW"\nFlag MINUS AND\n");
 	if ((((*t_flags).flags & FLAG_PRECIS) > 0) && \
-	// // ((*t_flags).minfw < (*t_flags).precision) && 
+	(((*t_flags).precision) < len) && \
 	(((*t_flags).flags & FLAG_NEGAT) == 0))
 	{
-		// printf(ANSI_COLOR_YELLOW"\nFlag_PREC=TRUE AND Flag_NEGAT=FALSE\n");
 		print_sign(t_flags);
 		print_padding(t_flags, len);
-		// print_number(arg, t_flags, len);
 		print_number_int(arg, t_flags, len);
 	}
-	// else if ((((*t_flags).flags & FLAG_PRECIS) > 0) && \
-	// (((*t_flags).flags & FLAG_NEGAT) > 0))
-	// {
-	// 	printf(ANSI_COLOR_YELLOW"\nFlag_PREC=TRUE AND Flag_NEGAT=TRUE\n");
-	// 	print_sign(t_flags);
-	// 	print_number_int(arg, t_flags, len);
-	// 	print_padding(t_flags, len);
-	// }
-	// else if ((((*t_flags).flags & FLAG_NEGAT) == 0) && \
-	// (((*t_flags).flags & FLAG_SPACE) == 0))
-	// {
-	// 	printf(ANSI_COLOR_YELLOW"\nFlag Negat = FALSE && Flag Space = FALSE\n");
-	// 	print_sign(t_flags);
-	// 	print_number_int(arg, t_flags, len);
-	// 	print_padding(t_flags, len);
-	// }
-	// else if ((((*t_flags).flags & FLAG_NEGAT) > 0) && \
-	// (((*t_flags).flags & FLAG_SPACE) > 0))
-	// {
-	// 	printf(ANSI_COLOR_YELLOW"\nFlag Negat = TRUE && Flag Space = TRUE\n");
-	// 	(*t_flags).flags &= ~FLAG_SPACE;
-	// 	print_sign(t_flags);
-	// 	print_number_int(arg, t_flags, len);
-	// 	print_padding(t_flags, len);
-	// }
+	else if ((((*t_flags).flags & FLAG_PRECIS) > 0) && \
+	(((*t_flags).precision) > len) && \
+	(((*t_flags).flags & FLAG_NEGAT) == 0))
+	{
+		print_sign(t_flags);
+		if (len < (*t_flags).precision)
+			length_precision_diff(t_flags, len);
+		print_number_int(arg, t_flags, len);
+		print_padding(t_flags, len);
+	}
 	else
 	{
-		// printf(ANSI_COLOR_YELLOW"\nOther Cases\n");
 		print_sign(t_flags);
 		print_number_int(arg, t_flags, len);
 		print_padding(t_flags, len);
@@ -101,7 +96,6 @@ void					print_integer(va_list argptr, t_format *t_flags)
 		(*t_flags).minfw = (*t_flags).precision;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{
-		// printf(ANSI_COLOR_MAGENTA"\nFlag_Minus=TRUE");
 		(*t_flags).flags &= ~FLAG_ZERO;
 		intwithminus(arg, t_flags, len);
 	}
@@ -130,10 +124,8 @@ void					print_arg(va_list argptr, t_format *t_flags)
 		print_string(argptr, t_flags);
 	else if ((*t_flags).argtype == 'c')
 		print_character(argptr, t_flags);
-	else if ((*t_flags).argtype == 'o')
-		print_hex_octal(argptr, t_flags);
 	else if (((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'X') || \
-	((*t_flags).argtype == 'p'))
+	((*t_flags).argtype == 'p') || ((*t_flags).argtype == 'o'))
 		print_hex_octal(argptr, t_flags);
 	else if ((*t_flags).argtype == 'u')
 		print_int_unsigned(argptr, t_flags);

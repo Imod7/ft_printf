@@ -36,7 +36,6 @@ long long		invert_allbits(long long num)
 {
 	int			bit;
 	int			pos;
-	// long long	num_result;
 
 	printf(ANSI_COLOR_MAGENTA"\nthe num is : %d\n", (int)num);
 	if (num < 0)
@@ -46,10 +45,6 @@ long long		invert_allbits(long long num)
 	{
 		num = (num ^ (1 << pos));
 		bit = num >> pos;
-		// if (bit & 1)
-		// 	printf("1 ");
-		// else
-		// 	printf("0 ");
 		pos--;
 	}
 	return (num);
@@ -58,7 +53,6 @@ long long		invert_allbits(long long num)
 long long		binary_addone(long long num)
 {
 	int			bit;
-	// long long	num_result;
 
 	printf(ANSI_COLOR_MAGENTA"\nthe num is : %d\n", (int)num);
 	if (num < 0)

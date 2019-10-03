@@ -56,7 +56,8 @@ void					print_character(va_list argptr, t_format *t_flags)
 	arg = va_arg(argptr, int);
 	len = 1;
 	(*t_flags).total_chars_printed++;
-	// printf("arg = %d", arg);
+	(*t_flags).flags &= ~FLAG_PLUS;
+	(*t_flags).flags &= ~FLAG_SPACE;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{
 		if (arg != 0)
@@ -68,12 +69,10 @@ void					print_character(va_list argptr, t_format *t_flags)
 	}
 	else
 	{
+		print_sign(t_flags);
+		print_padding(t_flags, len);
 		if (arg != 0)
-		{
-			print_sign(t_flags);
-			print_padding(t_flags, len);
 			write((*t_flags).fd, &arg, 1);
-		}
 		else
 			write((*t_flags).fd, "^@", 2);
 	}
@@ -84,6 +83,7 @@ void					print_other(char arg, t_format *t_flags)
 	int					len;
 
 	len = 1;
+	(*t_flags).flags &= ~FLAG_SPACE;
 	(*t_flags).total_chars_printed++;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{

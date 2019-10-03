@@ -86,5 +86,7 @@ void	test_float6(void);
 void	test_float7(void);
 void	test_float8(void);
 void	test_float9(void);
+void	test_string4(void);
+void	test_octal7(void);
 
 # endif

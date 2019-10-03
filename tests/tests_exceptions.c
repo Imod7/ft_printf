@@ -22,9 +22,9 @@ void			test_exceptions1(void)
 	char				*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 39 (exceptions) : '%%', %%kjjj='%kjjj',  %% -9k='% -9k'  exc='%      %', ex1='%  %'\n", 74);
+	total_chars_p = dprintf(fd, "Test 39 (exceptions) : '%%', %%kjjj='%kjjj',  %% -9k='% -9k'  exc='%      %', ex1='%  %'\n", 74, "test");
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 39 (exceptions) : '%%', %%kjjj='%kjjj',  %% -9k='% -9k'  exc='%      %', ex1='%  %'\n", 74);
+	total_chars_ftp = ft_dprintf(fd, "Test 39 (exceptions) : '%%', %%kjjj='%kjjj',  %% -9k='% -9k'  exc='%      %', ex1='%  %'\n", 74, "test");
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);

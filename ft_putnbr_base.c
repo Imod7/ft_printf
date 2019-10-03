@@ -12,30 +12,24 @@
 
 #include "ft_printf.h"
 
-void	ft_putnbr_int(long long n, int fd)
+void					ft_putnbr_int(long long n, int fd)
 {
-	int num;
+	int					num;
 
 	if (n < -9223372036854775807)
 	{
-		num = '9';
-		write(fd, &num, 1);
+		write(fd, &"9", 1);
 		ft_putnbr_int(223372036854775808, fd);
 	}
 	if (n == -2147483648)
 	{
-		num = '2';
-		write(fd, &num, 1);
+		write(fd, &"2", 1);
 		ft_putnbr_int(147483648, fd);
 	}
 	else if (n < 0)
-	{
-		// ft_putchar(45);
 		n = n * (-1);
-	}
 	if (n >= 0 && n <= 9)
 	{
-		// ft_putchar(n + 48);
 		num = n + 48;
 		write(fd, &num, 1);
 	}
@@ -46,26 +40,12 @@ void	ft_putnbr_int(long long n, int fd)
 	}
 }
 
-void	ft_putnbr_un_int(unsigned long long n, int fd)
+void					ft_putnbr_un_int(unsigned long long n, int fd)
 {
-	int num;
+	int					num;
 
-	// if (n == -2147483648)
-	// {
-	// 	// ft_putchar(45);
-	// 	// ft_putchar('2');
-	// 	num = 50;
-	// 	write(fd, &num, 1);
-	// 	ft_putnbr_un_int(147483648, fd);
-	// }
-	// else if (n < 0)
-	// {
-	// 	// ft_putchar(45);
-	// 	n = n * (-1);
-	// }
 	if (n <= 9)
 	{
-		// ft_putchar(n + 48);
 		num = n + 48;
 		write(fd, &num, 1);
 	}
@@ -92,7 +72,7 @@ void					ft_putnbr_octal(unsigned long long n, int fd)
 	}
 }
 
-void	ft_putnbr_hex(unsigned long long n, int fd)
+void					ft_putnbr_hex(unsigned long long n, int fd)
 {
 	unsigned long long	num;
 
@@ -113,7 +93,7 @@ void	ft_putnbr_hex(unsigned long long n, int fd)
 	}
 }
 
-void	ft_putnbr_hex_capit(unsigned long long n, int fd)
+void					ft_putnbr_hex_capit(unsigned long long n, int fd)
 {
 	unsigned long long	num;
 

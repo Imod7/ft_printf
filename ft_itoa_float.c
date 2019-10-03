@@ -53,10 +53,7 @@ static int		count_len(float n)
 	if (n >= 0 && n <= 9)
 		len++;
 	else if (n > 9)
-	{
 		len = len + count_len(n / 10);
-		// len = len + count_len(n % 10);
-	}
 	return (len);
 }
 
@@ -64,9 +61,8 @@ char			*ft_itoa_float(float n)
 {
 	int			len;
 	char		*str;
-	float 		n1;
+	float		n1;
 
-    printf("\nnum inside itoa float = %.40f\n", n);
 	n1 = 1 * (float)n;
 	len = count_len(n);
 	str = (char *)malloc(sizeof(char) * (len + 1));

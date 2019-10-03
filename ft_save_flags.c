@@ -46,10 +46,35 @@ int					save_modifier(const char *str, t_format *t_flags)
 	return (0);
 }
 
-void				save_flags(t_format *t_flags, const char **str)
+void				minfw_precision_flags(t_format *t_flags, const char **str)
 {
 	int				digits;
 
+	if ((ft_isdigit(**str) == 1) &&
+	((*t_flags).minfw == 0))
+	{
+		(*t_flags).minfw = ft_atoi(*str);
+		digits = number_of_digits((*t_flags).minfw);
+		(*str) = (*str) + digits - 1;
+	}
+	else if (**str == '.')
+	{
+		(*t_flags).flags |= FLAG_PRECIS;
+		(*str)++;
+		if ((ft_isdigit(**str) == 1) && \
+		((*t_flags).precision == 0))
+		{
+			(*t_flags).precision = ft_atoi(*str);
+			digits = number_of_digits((*t_flags).precision);
+			(*str) = (*str) + digits - 1;
+		}
+		else
+			(*str)--;
+	}
+}
+
+void				save_flags(t_format *t_flags, const char **str)
+{
 	while (**str != '\0' && all_flags_retrieved(**str) == 0)
 	{
 		if (**str == '*')
@@ -64,38 +89,18 @@ void				save_flags(t_format *t_flags, const char **str)
 			(*t_flags).flags |= FLAG_ZERO;
 		else if (**str == '#')
 			(*t_flags).flags |= FLAG_HT;
-		else if ((ft_isdigit(**str) == 1) &&
-		((*t_flags).minfw == 0))
-		{
-			(*t_flags).minfw = ft_atoi(*str);
-			digits = number_of_digits((*t_flags).minfw);
-			(*str) = (*str) + digits - 1;
-		}
-		else if (**str == '.')
-		{
-			(*t_flags).flags |= FLAG_PRECIS;
-			(*str)++;
-			if ((ft_isdigit(**str) == 1) && \
-			((*t_flags).precision == 0))
-			// (**str != '0')
-			{
-				(*t_flags).precision = ft_atoi(*str);
-				digits = number_of_digits((*t_flags).precision);
-				(*str) = (*str) + digits - 1;
-			}
-			else
-				(*str)--;
-			// printf(ANSI_COLOR_MAGENTA"\nBEFminfw=%d\nprecision=%d\n"ANSI_COLOR_RESET, (*t_flags).minfw, (*t_flags).precision);
-		}
+		else if (((ft_isdigit(**str) == 1) &&
+		((*t_flags).minfw == 0)) || (**str == '.'))
+			minfw_precision_flags(t_flags, str);
 		else if ((**str == 'h' || **str == 'l') && ((*t_flags).modifier == 0))
 			save_modifier(*str, t_flags);
 		(*str)++;
 	}
 	(*t_flags).argtype = **str;
-	// printf("\n --> flag modifier = %i \n", (*t_flags).modifier);
-	// printf("\n --> str = %c ,flags = %u \n", **str, (*t_flags).flags);
-	// printf(ANSI_COLOR_GREEN"\nAFTERminfw=%d\nprecision=%d\n"ANSI_COLOR_RESET, (*t_flags).minfw, (*t_flags).precision);
-	// printf(ANSI_COLOR_MAGENTA"\n=SAVE FLAG=\nstr='%s'\nprecision=%d\n"ANSI_COLOR_RESET, *str, (*t_flags).precision);
+	// printf("\nflag modifier= %i \n", (*t_flags).modifier);
+	// printf("\nstr= %c,flags= %u \n", **str, (*t_flags).flags);
+	// printf("\nminfw=%d,pr=%d\n", (*t_flags).minfw, (*t_flags).precision);
+	// printf("\nstr='%s'\nprecision=%d\n", *str, (*t_flags).precision);
 }
 
 /*
@@ -112,7 +117,6 @@ void				clear_formatstruct(t_format *t_flags)
 	(*t_flags).argtype = 0;
 	(*t_flags).special_chars_printed = 0;
 	(*t_flags).modifier = N;
-	(*t_flags).float_decpart_len = 0;
 	(*t_flags).fd = 0;
 }
 

@@ -24,9 +24,9 @@ void			test_octal1(void)
 
 	num = 74;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 17 (octal1) : %%6o='%6o', %%6o='%6lo', %%-05o='%-05o'\n", num, 4294967296, 2500);
+	total_chars_p = dprintf(fd, "Test 17 (octal1) : %%6o='%6o', %%6o='%6lo', %%+-05o='%-05o'\n", num, 4294967296, 2500);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 17 (octal1) : %%6o='%6o', %%6o='%6lo', %%-05o='%-05o'\n", num, 4294967296, 2500);
+	total_chars_ftp = ft_dprintf(fd, "Test 17 (octal1) : %%6o='%6o', %%6o='%6lo', %%+-05o='%-05o'\n", num, 4294967296, 2500);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -211,4 +211,38 @@ void				test_octal6(void)
 		printf(ANSI_COLOR_GREEN"Test 54 (octal6) ZEROS : Correct!\n");
 	else
 		printf(ANSI_COLOR_RED"Test 54 (octal6) ZEROS : Wrong!\n");
+}
+
+void				test_octal7(void)
+{
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
+	int			total_chars_p;
+	int			total_chars_ftp;
+	int			fd;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Test 62 (octal7) : %%-5.10o='%-5.10o'\n", 2500);
+	// total_chars_p = dprintf(fd, "'%#.o'\n", 0);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Test 62 (octal7) : %%-5.10o='%-5.10o'\n", 2500);
+	// total_chars_ftp = ft_dprintf(fd, "'%#.o'\n", 0);
+	// assert(total_chars_p == total_chars_ftp);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	// printf("\n'%s'\n", returned_line_dprintf);
+	// printf("'%s'\n", returned_line_ft_dprintf);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+		printf(ANSI_COLOR_GREEN"Test 62 (octal7) : Correct!\n");
+	else
+		printf(ANSI_COLOR_RED"Test 62 (octal7) : Wrong!\n");
 }

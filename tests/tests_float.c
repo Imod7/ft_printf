@@ -208,9 +208,9 @@ void		test_float7(void)
 	char	*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 58 : %%9.5f='%9.5f', %%9.5f='%9.5f', %%6.3f='%6.3f', %%4.8f='%4.8f'\n", 108.765625, 108.046875, 1.31072, 0.0);
+	total_chars_p = dprintf(fd, "Test 58 : %%9.5f='%9.5f', %%9.5f='%9.5f', %%6.3f='%6.3f', %%4.8f='%4.8f'\n", 108.765975, 108.048895, 1.31072, 0.0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 58 : %%9.5f='%9.5f', %%9.5f='%9.5f', %%6.3f='%6.3f', %%4.8f='%4.8f'\n", 108.765625, 108.046875, 1.31072, 0.0);
+	total_chars_ftp = ft_dprintf(fd, "Test 58 : %%9.5f='%9.5f', %%9.5f='%9.5f', %%6.3f='%6.3f', %%4.8f='%4.8f'\n", 108.765975, 108.048895, 1.31072, 0.0);
 	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -264,9 +264,9 @@ void		test_float9(void)
 	char	*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 60 : %%.64(1.25)='%.64f', %%.2(1.25)='%.2f', %%.1(1.25)='%.1f'\n", 1.25, 1.25, 1.25);
+	total_chars_p = dprintf(fd, "Test 60 : %%.64='%.64f', %%.2='%.2f', %%.1='%.1f'\n", 1.25, 1.25, 1.25);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 60 : %%.64(1.25)='%.64f', %%.2(1.25)='%.2f', %%.1(1.25)='%.1f'\n", 1.25, 1.25, 1.25);
+	total_chars_ftp = ft_dprintf(fd, "Test 60 : %%.64='%.64f', %%.2='%.2f', %%.1='%.1f'\n", 1.25, 1.25, 1.25);
 	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);

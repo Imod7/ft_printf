@@ -101,3 +101,32 @@ void		test_string3(void)
 	else
 		printf(ANSI_COLOR_RED"Test 49 (string3) : with NULL : Wrong!\n");
 }
+
+void		test_string4(void)
+{
+	int			total_chars_p;
+	int			total_chars_ftp;
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
+	int			fd;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Test 61 (string4) : %%5.2='%5.2s', %%-5.2s='%-5.2s'\n", "", "");
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Test 61 (string4) : %%5.2='%5.2s', %%-5.2s='%-5.2s'\n", "", "");
+	// assert(total_chars_p == total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+		printf(ANSI_COLOR_GREEN"Test 61 (string4) : Correct!\n");
+	else
+		printf(ANSI_COLOR_RED"Test 61 (string4) : Wrong!\n");
+}

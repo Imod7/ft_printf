@@ -101,7 +101,6 @@ void			print_final_float(short *pr, t_format *t_flags)
 		index++;
 	while (pr[index] != 0)
 	{
-		// printf(ANSI_COLOR_CYAN"%c"ANSI_COLOR_RESET, pr[index]);
 		write((*t_flags).fd, &pr[index], 1);
 		index++;
 	}

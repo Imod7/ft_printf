@@ -12,7 +12,7 @@
 
 NAME = ft_printf
 LIBFTPRINTF = ../libftprintf.a
-CC = gcc 
+CC = gcc -w
 
 GREEN=\033[0;32m
 RED=\033[0;31m

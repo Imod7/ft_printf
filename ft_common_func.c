@@ -25,29 +25,15 @@ void	check_plusflag(t_format *t_flags)
 
 void	check_arg_zero(t_format *t_flags, int *len)
 {
-	// if ((*t_flags).minfw == 0)
-	// {
-	// 	// (*t_flags).flags &= ~FLAG_PRECIS;
-	// 	// (*t_flags).flags &= ~FLAG_ZERO;
-	// }
 	if (((*t_flags).minfw > 0) || \
 	(((*t_flags).minfw == 0) && \
 	((*t_flags).minfw < (*t_flags).precision)))
 		*len = 0;
-	// if (((*t_flags).flags & FLAG_HT) > 0)
-	// 	(*t_flags).flags |= FLAG_ZERO;
-	// if (((*t_flags).precision == 0) && \
-	// (((*t_flags).flags & FLAG_PRECIS) > 0))
-	// {
-	// 	(*t_flags).flags &= ~FLAG_PRECIS;
-	// 	(*t_flags).flags &= ~FLAG_ZERO;
-	// }
 }
 
 void	print_order(t_format *t_flags, int len)
 {
 	if ((((*t_flags).argtype == 'o') > 0) && \
-	// ((((*t_flags).flags & FLAG_PRECIS) > 0) ||
 	(((*t_flags).flags & FLAG_HT) > 0))
 		(*t_flags).special_chars_printed++;
 	print_padding(t_flags, len);
@@ -123,4 +109,18 @@ void		minfw_vs_precision(t_format *t_flags)
 	if ((((*t_flags).flags & FLAG_PRECIS) > 0) && \
 	(((*t_flags).argtype != 's') || ((*t_flags).argtype != 'c')))
 		(*t_flags).flags &= ~FLAG_ZERO;
+}
+
+void					length_precision_diff(t_format *t_flags, int len)
+{
+	int					diff;
+
+	diff = (*t_flags).precision - len;
+	while (diff > 0)
+	{
+		write((*t_flags).fd, "0", 1);
+		(*t_flags).special_chars_printed++;
+		(*t_flags).total_chars_printed++;
+		diff--;
+	}
 }

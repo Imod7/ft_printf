@@ -56,7 +56,6 @@ typedef struct	s_format
 	char		argtype;
 	int			special_chars_printed;
 	int			total_chars_printed;
-	int			float_decpart_len;
 	int			fd;
 	t_modifier	modifier;
 }				t_format;
@@ -68,7 +67,7 @@ typedef union	u_float
 	short		exponent[5];
 }				t_float;
 
-int             ft_printf_genericfunc(int fd, const char *str, va_list	argptr);
+int				ft_printf_genericfunc(int fd, const char *str, va_list	argptr);
 int				ft_printf(const char *str, ...);
 int				ft_dprintf(int fd, const char *str, ...);
 void			save_flags(t_format *t_flags, const char **str);
@@ -90,9 +89,7 @@ void			print_string(va_list argptr, t_format *t_flags);
 void			print_character(va_list argptr, t_format *t_flags);
 void			print_other(char arg, t_format *t_flags);
 void			print_int_unsigned(va_list argptr, t_format *t_flags);
-// void			print_octal(va_list argptr, t_format *t_flags);
 void			print_hex_octal(va_list argptr, t_format *t_flags);
-// long long		return_decimal_part_as_int(double num);
 void			clear_forfloat(t_float *fl_num);
 void			print_float(va_list argptr, t_format *t_flags);
 void			intwithminus(long long arg, t_format *t_flags, int len);
@@ -111,8 +108,11 @@ void			print_number(unsigned long long arg, t_format *t_flags, int len);
 void			print_number_int(long long arg, t_format *t_flags, int len);
 void			check_negative_num(long long *arg, t_format *t_flags);
 void			minfw_vs_precision(t_format *t_flags);
-/* floats maths */
-void            ft_ftoa(va_list argptr, t_format *t_flags);
+void			length_precision_diff(t_format *t_flags, int len);
+/*
+** floats maths
+*/
+void			ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr);
 void			str_add_prod_frac(short *pr, char *fr);
 void			frac_divide_by_two(char *fr);
 void			str_double(short *pr);

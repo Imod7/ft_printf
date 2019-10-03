@@ -41,9 +41,9 @@ void			test_i1(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 34 with %%0.22i and 0 : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 34 (i) : Correct!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 34 with %%0.22i and 0 : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 34 (i) : Wrong!\n");
 }
 
 void			test_i2(void)
@@ -71,10 +71,10 @@ void			test_i2(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 35 with %%*.5i, %%*.6i, %%0.7i : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 35 (i): Correct!\n");
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 35 with %%*.5i, %%*.6i, %%0.7i : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 35 (i) : Wrong!\n");
 		printf("Error when field width is equal to precision \n");
 	}
 }

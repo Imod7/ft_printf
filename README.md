@@ -1,8 +1,10 @@
-#### Run as it is right now
-1. make
+#### To Run the program in its current state
+1. Clone the repo
+2. Go into folder tests
+3. make re 
 2. ./ft_printf
 3. give 0 to run all the tests or
-4. give a number from 1 to 56 to run the corresponding test
+4. give a number from 1 to 60 to run a specific test
 
 #### Modifiers are saved in the enum modifier (emiflake's suggestion)
 - the first character is N for Null
@@ -70,30 +72,17 @@ When **ft_printf** function is called :
 	2. print_sign is called
 	3. print_hex_ch is called
 
-
-##### when print_integer function is called :
-- the function **check_modifier** is called which checks which modifier we have and va_arg accordingly
-- then the function **number_of_digits** is called to get the length of the integer in chars
-- then we increase **total_chars_printed** by the length
-- if FLAG_MINUS is present :
-	- **int_with_minus** function is called
-- else
-	- **int_with_zero** function is called
-
-##### when print_float function is called :
-- for the integer part of the float 
-	- if MINUS is present, the function **int_with_minus** is called
-	- if MINUS is not present, the function **int_with_zero** is called
-- for the decimal part, the function **return_decimal_part_as_int** is called
-- a dot is printed
-- the function **number_of_digits** is called and updates the member **float_decpart_len**
-- the member **total_chars_printed** is increased by the length
-- function **print_padding** is called
-- function **ft_putnbr_int** is called
-
 ##### print_padding function :
 - variable 'arg_digits_len' -> the number of digits that our argument has, eg. for int argument 234, variable arg_digits_len should be 3
 - in print_string : the print_padding function is called only if (len != 0 && t_flags.minfw != 0)
+
+##### when print_string function is called :
+- if arg is NULL then we write (null) and increase the total_chars_printed
+- else :
+	- calculate the length of string
+	- call the print_sign function
+	- check if len > precision
+	- if FLAG_MINUS is ON
 
 ##### variable (*t_flags).minfw affected in functions :
 1. function save_flags
@@ -125,7 +114,7 @@ When **ft_printf** function is called :
 1. function check_negative_num
 2. function print_sign
 
-##### Floats
+### Floats
 1. Function "str_add_prod_frac"
    - length of product is always going to be equal or smaller than length of fraction
    - So I need to fill with zeros the extra positions that the fraction might have before starting the addition
@@ -136,16 +125,38 @@ When **ft_printf** function is called :
 
 ##### Floats Precision 
 1. If precision == 0 then precision is set to 6
+2. If precision != 0, we take the precision specified
 
 ##### Floats Rounding
-1. If the precision is not specified, we set precision equal to 6. Otherwise, we take the precision specified.
-2. Check cases :
+1. Check cases :
 	- If next_digit (one digit after precision) is bigger than 5 and precision is not ZERO
-		- Then keep increment the digits that are before the precision until the remainder is different is zero and the index of precision is zero.
-	- If next_digit (one digit after precision) is bigger than 5 and precision is ZERO
+		- function 'dec_part_rounding' is called
+	- If next_digit (one after precision) is less than 5 and precision is not ZERO
+		- then we leave the current_digit (that equals to precision) as it is
+	- If next_digit (one digit after precision) is equal to 5 and precision is not ZERO
+		- Then function 'equal_five' is called
+	- If precision is ZERO
 		- Then function 'zero_prec_rounding' is called which increments the digit before the dot of the float
-	- If next_digit (one digit after precision) is bigger than 5 and precision is ZERO
-		- Then function 'zero_prec_rounding' is called which increments the digit before the dot of the float
+
+##### Floats Rounding - function 'dec_part_rounding'
+- Then keep increment the digits that are before the precision until the remainder is different is zero and the index of precision is zero.
 - Check if the current_digit after incrementing results to 10 then set it to 0
-- If next_digit (one after precision) is equal to 5
-- If next_digit (one after precision) is less than 5 then we leave the current_digit (that equals to precision) as it is
+
+##### Floats Rounding - function 'equal_five'
+This function is called when the next_digit (one digit after precision) of the float equals five.
+In that case, we use a temp variable to store the current_digit (that equals to our precision) incremented by one and check :
+- If variable temp is even and different than 10 -> we just increment the current_digit 
+- If variable temp is 10 -> we keep setting the current_digit equal to 0 (or the result of temp % 10) and checking also the previous digits until we find one that doesnt result to 10 or the index is equal to zero
+- If variable temp is odd -> we are not doing anything
+- At the end we check if we have something leftover (the carry) from our previous additions. If yes, we save the save the increase in the corresponding digit (we already performed the increase in the while loop and the index is in the correct digit so we only need to save it)
+
+##### when print_float function is called :
+- for the integer part of the float 
+	- if MINUS is present, the function **int_with_minus** is called
+	- if MINUS is not present, the function **int_with_zero** is called
+- for the decimal part, the function **return_decimal_part_as_int** is called
+- a dot is printed
+- the function **number_of_digits** is called and updates the member **float_decpart_len**
+- the member **total_chars_printed** is increased by the length
+- function **print_padding** is called
+- function **ft_putnbr_int** is called

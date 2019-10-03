@@ -12,9 +12,9 @@
 
 #include "includes/libft.h"
 
-static void	make_str(char *str, long n, int len)
+static void		make_str(char *str, long n, int len)
 {
-	int		i;
+	int			i;
 
 	str[len + 1] = '\0';
 	i = 0;
@@ -63,7 +63,7 @@ char			*ft_itoa(int n)
 {
 	int			len;
 	char		*str;
-	long 		n1;
+	long		n1;
 
 	n1 = 1 * (long)n;
 	len = count_len(n);
