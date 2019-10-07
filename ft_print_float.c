@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "includes/ft_printf.h"
 
 void				print_float(va_list argptr, t_format *t_flags)
 {
@@ -19,8 +19,18 @@ void				print_float(va_list argptr, t_format *t_flags)
 
 	ft_ftoa(argptr, t_flags, &float_num, product);
 	check_precision(product, t_flags);
-	print_padding(t_flags, length_product(product));
-	print_final_float(product, t_flags);
+	if (((*t_flags).flags & FLAG_MINUS) > 0)
+	{
+		print_sign(t_flags);
+		print_final_float(product, t_flags);
+		print_padding(t_flags, length_product(product));
+	}
+	else
+	{
+		print_sign(t_flags);
+		print_padding(t_flags, length_product(product));
+		print_final_float(product, t_flags);
+	}
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + \
 	length_product(product);
 	clear_forfloat(&float_num);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "includes/ft_printf.h"
 
 void			print_mantissa_inorder(uint64_t mant)
 {
@@ -83,13 +83,16 @@ void			print_product(short *pr)
 	int			index;
 
 	index = 0;
-	while (pr[index] == 0)
+	while (pr[index] == 0 && index < 10000)
 		index++;
-	while (pr[index] != 0)
+	while (pr[index] != 0 && index < 10000)
 	{
-		printf(ANSI_COLOR_CYAN"%c"ANSI_COLOR_RESET, pr[index]);
+		printf(ANSI_COLOR_CYAN"product[%d] = ", index);
+		printf(ANSI_COLOR_CYAN"%c\n"ANSI_COLOR_RESET, pr[index]);
 		index++;
 	}
+	while (pr[index] == 0 && index < 10000)
+		index++;
 }
 
 void			print_final_float(short *pr, t_format *t_flags)

@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printf.c                                        :+:    :+:            */
+/*   ft_float_padding.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/07/16 13:33:53 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/07/16 13:45:05 by dsaripap      ########   odam.nl         */
+/*   Created: 2019/10/04 12:59:36 by dsaripap      #+#    #+#                 */
+/*   Updated: 2019/10/04 12:59:38 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-int					ft_printf(const char *str, ...)
+void		float_padding(t_format *t_flags, int arg_digits_len)
 {
-	va_list		argptr;
-	int			result;
-	int			fd;
-
-	fd = 1;
-	va_start(argptr, str);
-	result = ft_printf_genericfunc(fd, str, argptr);
-	va_end(argptr);
-	return (result);
-}
-
-int					ft_dprintf(int fd, const char *str, ...)
-{
-	va_list		argptr;
-	int			result;
-
-	va_start(argptr, str);
-	result = ft_printf_genericfunc(fd, str, argptr);
-	va_end(argptr);
-	return (result);
+	
 }

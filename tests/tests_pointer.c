@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
 #include "test_header.h"
 
-void			test_pointer1(void)
+int				test_pointer1(void)
 {
 	int			num;
 	void		*ptr;
@@ -43,12 +42,12 @@ void			test_pointer1(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 37 (pointer1) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 37 (pointer1)	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 37 (pointer1) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 37 (pointer1)	-> FAIL!\n");
 }
 
-void			test_pointer2(void)
+int				test_pointer2(void)
 {
 	long long	num;
 	void		*ptr;
@@ -76,7 +75,7 @@ void			test_pointer2(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 38 (pointer2) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 38 (pointer2)	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 38 (pointer2) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 38 (pointer2)	-> FAIL!\n");
 }

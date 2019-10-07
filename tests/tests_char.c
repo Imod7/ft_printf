@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
 #include "test_header.h"
 
-void			test_char1(void)
+int				test_char1(void)
 {
 	char		c;
 	char		*returned_line_dprintf;
@@ -40,12 +39,18 @@ void			test_char1(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 10 (char1) : Correct!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 10 (char1) : SUCCESS!\n");
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_MAGENTA"Test 10 (char1) : Wrong from strcmp but Correct in 42 Filehecker!\n");
+	{
+		printf(ANSI_COLOR_MAGENTA"Test 10 (char1) : FAIL from strcmp but SUCCESS in 42 Filehecker!\n");
+		return (-1);
+	}
 }
 
-void			test_char2(void)
+int				test_char2(void)
 {
 	char		c;
 	char		*returned_line_dprintf;
@@ -74,14 +79,18 @@ void			test_char2(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 11 (char2) NULL : Correct!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 11 (char2) NULL : SUCCESS!\n");
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 11 (char2) NULL : Wrong!\n");
-	// printf(ANSI_COLOR_RED"\n'%s'\n", returned_line_dprintf);
-	// printf("'%s'\n", returned_line_ft_dprintf);
+	{
+		printf(ANSI_COLOR_RED"Test 11 (char2) NULL : FAIL!\n");
+		return (-1);
+	}
 }
 
-void			test_char3(void)
+int				test_char3(void)
 {
 	char		c;
 
@@ -90,7 +99,7 @@ void			test_char3(void)
 	// printf(ANSI_COLOR_CYAN"Test 12 -0c THE PRINTF : '%-0c'\n", c);
 }
 
-void			test_char4(void)
+int				test_char4(void)
 {
 	char		c;
 
@@ -100,7 +109,7 @@ void			test_char4(void)
 	// ft_printf(ANSI_COLOR_YELLOW"Test 13 hc MY  PRINTF : '%hc'\n\n", c);
 }
 
-void			test_char5(void)
+int				test_char5(void)
 {
 	char		c;
 
@@ -110,7 +119,7 @@ void			test_char5(void)
 	// ft_printf(ANSI_COLOR_YELLOW"Test 14 hhc MY  PRINTF : '%hhc'\n\n", c);
 }
 
-void			test_char6(void)
+int				test_char6(void)
 {
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
@@ -139,12 +148,12 @@ void			test_char6(void)
 	// printf("\n'%s'\n", returned_line_dprintf);
 	// printf("'%s'\n", returned_line_ft_dprintf);
 	if (strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
-		printf(ANSI_COLOR_GREEN"Test_15 (char6) %%9lc : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test_15 (char6) %%9lc : SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test_15 (char6) %%9lc : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test_15 (char6) %%9lc : FAIL!\n");
 }
 
-void			test_char7(void)
+int				test_char7(void)
 {
 	char		c;
 

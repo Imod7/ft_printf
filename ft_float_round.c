@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "includes/ft_printf.h"
 
 void		zero_prec_rounding(short *pr, int prec_index)
 {
 	int		current_digit;
 	int		next_digit;
+	int		carry;
 
 	current_digit = pr[5001 - prec_index - 1] - '0';
 	next_digit = pr[5001 + prec_index + 1] - '0';
@@ -27,6 +28,17 @@ void		zero_prec_rounding(short *pr, int prec_index)
 			current_digit++;
 	}
 	pr[5001 - prec_index - 1] = (current_digit % 10) + '0';
+	carry = current_digit / 10;
+	if (current_digit % 10 == 0)
+	{
+		prec_index--;
+		if (pr[5001 + prec_index - 1] == 0)
+			pr[5001 + prec_index - 1] = '0';
+		printf("\ncurrent=%c\n", pr[5001 + prec_index - 1]);
+		printf("\ncarry=%d\n", carry);
+		current_digit = pr[5001 + prec_index - 1] - '0';
+		pr[5001 + prec_index - 1] = (current_digit % 10) + '0' + carry;
+	}
 	pr[5001] = 0;
 }
 
@@ -35,11 +47,9 @@ void		dec_part_rounding(short *pr, int prec_index)
 	int		current_digit;
 
 	current_digit = (pr[5001 + prec_index] - '0') + 1;
-	// printf("\n >>>>> pr[5001 + %d] = %d\n", prec_index, current_digit);
 	while ((current_digit % 10 == 0) && (prec_index > 0))
 	{
 		pr[5001 + prec_index] = (current_digit % 10) + '0';
-		// printf("\n >> prec_index = %d\n", prec_index);
 		// printf("\n   >> pr[5001 + %d] = %c\n", prec_index, pr[5001 + prec_index]);
 		prec_index--;
 		current_digit = (pr[5001 + prec_index] - '0') + 1;
@@ -101,10 +111,13 @@ void		check_precision(short *pr, t_format *t_flags)
 	current_digit = 0;
 	if (((*t_flags).flags & FLAG_PRECIS) == 0)
 		(*t_flags).precision = 6;
+	// printf("\nproduct in check precision\n");
+	// print_product(pr);
 	temp = 5002;
 	while (pr[temp] != 0)
 		temp++;
 	len = temp - 5002;
+	// printf(ANSI_COLOR_CYAN"prec[%d] = %d, len=%d, prec=%d", temp, pr[temp], len, (*t_flags).precision);
 	if (len < (*t_flags).precision)
 	{
 		prec_index = 1;

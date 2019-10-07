@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "includes/ft_printf.h"
 
 int				length_fraction(char *fr)
 {
@@ -36,6 +36,21 @@ int				length_product(short *pr)
 	len = 0;
 	while (pr[index] == 0)
 		index++;
+	while (pr[index] != 0)
+	{
+		index++;
+		len++;
+	}
+	return (len);
+}
+
+int				length_product_decpart(short *pr)
+{
+	size_t		index;
+	int			len;
+
+	index = 5002;
+	len = 0;
 	while (pr[index] != 0)
 	{
 		index++;
@@ -109,15 +124,14 @@ void			str_add_prod_frac(short *pr, char *fr)
 
 void			str_double(short *pr)
 {
-	int			len;
+	// int			len;
 	int			index;
 	int			carry;
 	int			sum;
 
-	len = length_product(pr);
-	index = 5000 + len - 1;
+	index = 5000 + length_product_decpart(pr);
 	carry = 0;
-	while (index > 5001)
+	while (index >= 5002)
 	{
 		sum = ((pr[index] - '0') * 2) + carry;
 		pr[index] = (sum % 10) + '0';

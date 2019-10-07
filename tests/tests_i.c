@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
 #include "test_header.h"
-#include <fcntl.h>
 
-void			test_i1(void)
+int				test_i1(void)
 {
 	int			num;
 	int			total_chars_p;
@@ -41,12 +39,18 @@ void			test_i1(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 34 (i) : Correct!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 34 (i)	-> SUCCESS!\n");
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 34 (i) : Wrong!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 34 (i)		-> FAIL!\n");
+		return (-1);
+	}
 }
 
-void			test_i2(void)
+int				test_i2(void)
 {
 	int			num;
 	int			total_chars_p;
@@ -71,15 +75,15 @@ void			test_i2(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 35 (i): Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 35 (i)	-> SUCCESS!\n");
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 35 (i) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 35 (i)		-> FAIL!\n");
 		printf("Error when field width is equal to precision \n");
 	}
 }
 
-void			test_i3(void)
+int				test_i3(void)
 {
 	long		num;
 	int			total_chars_p;
@@ -104,12 +108,12 @@ void			test_i3(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 36 (test_i3) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 36 (test_i3)	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 36 (test_i3) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 36 (test_i3)	-> FAIL!\n");
 }
 
-void		test_i4(void)
+int				test_i4(void)
 {
 	int			total_chars_p;
 	int			total_chars_ftp;
@@ -132,7 +136,13 @@ void		test_i4(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 40 (test_i4) : Correct!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 40 (test_i4)	-> SUCCESS!\n");
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 40 (test_i4) : Wrong!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 40 (test_i4)	-> FAIL!\n");
+		return (-1);
+	}
 }

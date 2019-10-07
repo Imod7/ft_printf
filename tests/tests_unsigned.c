@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
 #include "test_header.h"
 
-void		test_u1(void)
+int		test_u1(void)
 {
 	// char		*returned_line_dprintf;
 	// char		*returned_line_ft_dprintf;
@@ -38,13 +37,13 @@ void		test_u1(void)
 	// // assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	// if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	// (total_chars_p == total_chars_ftp))
-		// printf(ANSI_COLOR_GREEN"Test 52 : Correct!\n");
+		// printf(ANSI_COLOR_GREEN"Test 52 : SUCCESS!\n");
 	// else
-		// printf(ANSI_COLOR_RED"Test 52 : Wrong!\n");
-	printf(ANSI_COLOR_MAGENTA"Test 52 : Correct with no flags!\n");
+		// printf(ANSI_COLOR_RED"Test 52 : FAIL!\n");
+	printf(ANSI_COLOR_MAGENTA"Test 52 : SUCCESS with no flags!\n");
 }
 
-void		test_u2(void)
+int				test_u2(void)
 {
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
@@ -69,7 +68,7 @@ void		test_u2(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 55 (u2) ZEROS : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 55 (u2)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 55 (u2) ZEROS : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 55 (u2)	-> FAIL!\n");
 }

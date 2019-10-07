@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
 #include "test_header.h"
 
-void		test_float1(void)
+int				test_float1(void)
 {
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
@@ -39,12 +38,12 @@ void		test_float1(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 42 (float1) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 42 (float1)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 42 (float1) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 42 (float1)		: FAIL!\n");
 }
 
-void		test_float2(void)
+int			test_float2(void)
 {
 	int		total_chars_p;
 	int		total_chars_ftp;
@@ -69,12 +68,12 @@ void		test_float2(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 44 (float2) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 44 (float2)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 44 (float2) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 44 (float2)		: FAIL!\n");
 }
 
-void		test_float3(void)
+int			test_float3(void)
 {
 	int		total_chars_p;
 	int		total_chars_ftp;
@@ -101,12 +100,12 @@ void		test_float3(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 45 (float3) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 45 (float3)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 45 (float3) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 45 (float3)		: FAIL!\n");
 }
 
-void		test_float4(void)
+int			test_float4(void)
 {
 	int		total_chars_p;
 	int		total_chars_ftp;
@@ -131,12 +130,12 @@ void		test_float4(void)
 	get_next_line(fd, &returned_line_ft_dprintf);
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 46 (float4) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 46 (float4)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 46 (float4) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 46 (float4)		: FAIL!\n");
 }
 
-void		test_float5(void)
+int			test_float5(void)
 {
 	int		total_chars_p;
 	int		total_chars_ftp;
@@ -165,12 +164,12 @@ void		test_float5(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 47 (float5) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 47 (float5)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 47 (float5) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 47 (float5)		: FAIL!\n");
 }
 
-void		test_float6(void)
+int			test_float6(void)
 {
 	int		total_chars_p;
 	int		total_chars_ftp;
@@ -194,12 +193,12 @@ void		test_float6(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 57 (float6) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 57 (float6)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 57 (float6) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 57 (float6)		: FAIL!\n");
 }
 
-void		test_float7(void)
+int			test_float7(void)
 {
 	int		total_chars_p;
 	int		total_chars_ftp;
@@ -222,12 +221,12 @@ void		test_float7(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 58 (float7) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 58 (float7)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 58 (float7) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 58 (float7)		: FAIL!\n");
 }
 
-void		test_float8(void)
+int			test_float8(void)
 {
 	int		total_chars_p;
 	int		total_chars_ftp;
@@ -250,12 +249,12 @@ void		test_float8(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 59 (float8) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 59 (float8)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 59 (float8) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 59 (float8)		: FAIL!\n");
 }
 
-void		test_float9(void)
+int			test_float9(void)
 {
 	int		total_chars_p;
 	int		total_chars_ftp;
@@ -278,7 +277,75 @@ void		test_float9(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 60 (float9) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 60 (float9)	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 60 (float9) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 60 (float9)		-> FAIL!\n");
+}
+
+int			test_float10(void)
+{
+	int		total_chars_p;
+	int		total_chars_ftp;
+	int		fd;
+	char	*returned_line_dprintf;
+	char	*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Test 63 : %%-f='%-f', %%- .0f='%%- .0f', %%- .0f='%- .0f'\n", (double)42, (double)9.5, (double)-989.5);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Test 63 : %%-f='%-f', %%- .0f='%%- .0f', %%- .0f='%- .0f'\n", (double)42, (double)9.5, (double)-989.5);
+	// assert(total_chars_p == total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
+	&& (total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 63 (float10)	-> SUCCESS!\n");
+		return (0);
+	}
+	else
+	{
+		printf(ANSI_COLOR_RED"Test 63 (float10)	-> FAIL!\n");
+		return (-1);
+	}
+}
+
+int			test_float11(void)
+{
+	int		total_chars_p;
+	int		total_chars_ftp;
+	int		fd;
+	char	*returned_line_dprintf;
+	char	*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Test 64 : %%- .0f='%- .0f'\n",  (double)-989.5);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Test 64 : %%- .0f='%- .0f'\n",  (double)-989.5);
+	// assert(total_chars_p == total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
+	&& (total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 64 (float11)	-> SUCCESS!\n");
+		return (0);
+	}
+	else
+	{
+		printf(ANSI_COLOR_RED"Test 64 (float11)	-> FAIL!\n");
+		return (-1);
+	}
 }

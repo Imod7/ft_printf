@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
 #include "test_header.h"
 
-void				test_hex1(void)
+int					test_hex1(void)
 {
 	char			*returned_line_dprintf;
 	char			*returned_line_ft_dprintf;
@@ -36,12 +35,12 @@ void				test_hex1(void)
 	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 22 (hex1) with %%x ,  %%+x: undefined behaviour but works : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 22 (hex1) undefined behaviour but works : SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 22 (hex1) with %%x ,  %%+x: undefined behaviour : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 22 (hex1) undefined behaviour : FAIL!\n");
 }
 
-void				test_hex2(void)
+int					test_hex2(void)
 {
 	unsigned int	num;
 	char			*returned_line_dprintf;
@@ -68,15 +67,15 @@ void				test_hex2(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 23 (hex2) : with %%#x and %%#*x : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 23 (hex2)		-> SUCCESS!\n");
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 23 (hex2) : with %%#x and %%#*x : Wrong!\n");
-		printf("Before there was an error that after the 3rd argument it rinted garbage because of wrong typecasting\n");
+		printf(ANSI_COLOR_RED"Test 23 (hex2)		-> FAIL!\n");
+		printf("Before there was an error that after the 3rd argument it rinted garbage because of FAIL typecasting\n");
 	}
 }
 
-void				test_hex3(void)
+int					test_hex3(void)
 {
 	int				num1;
 	int				num;
@@ -107,12 +106,12 @@ void				test_hex3(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 24 (hex3) :  %%0.11x , %%*.15x , %%.13x : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 24 (hex3)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 24 (hex3) :  %%0.11x , %%*.15x , %%.13x : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 24 (hex3)		-> FAIL!\n");
 }
 
-void				test_hex4(void)
+int					test_hex4(void)
 {
 	unsigned long	num;
 	char			*returned_line_dprintf;
@@ -139,12 +138,12 @@ void				test_hex4(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 25 with %%hx , %%-*.2hx ,  > -5x : undefined behaviour : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 25 (hex4) undefined behaviour	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 25 with %%hx , %%-*.2hx ,  > -5x : undefined behaviour : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 25 (hex4) undefined behaviour -> FAIL!\n");
 }
 
-void				test_hex5(void)
+int					test_hex5(void)
 {
 	unsigned char	num;
 	char			*returned_line_dprintf;
@@ -170,12 +169,12 @@ void				test_hex5(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 26 with %%020hhx and %%015hhx : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 26	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 26 with %%020hhx and %%015hhx : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 26 (hex5)		-> FAIL!\n");
 }
 
-void				test_hex6(void)
+int						test_hex6(void)
 {
 	unsigned long long	num;
 	unsigned long		num1;
@@ -203,12 +202,12 @@ void				test_hex6(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 27 : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 27 : SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 27 : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 27 : FAIL!\n");
 }
 
-void					test_hex7(void)
+int						test_hex7(void)
 {
 	// unsigned long long	num;
 	// int					total_chars_p;
@@ -233,14 +232,14 @@ void					test_hex7(void)
 	// // assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	// if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	// (total_chars_p == total_chars_ftp))
-	// 	printf(ANSI_COLOR_GREEN"Test 28 (hex7) : Correct!\n");
+	// 	printf(ANSI_COLOR_GREEN"Test 28 (hex7) : SUCCESS!\n");
 	// else
-	// 	printf(ANSI_COLOR_RED"Test 28 (hex7) : Wrong!\n");
+	// 	printf(ANSI_COLOR_RED"Test 28 (hex7) : FAIL!\n");
 
 	ft_printf(ANSI_COLOR_MAGENTA"Test 28 (hex7) : With all flags it doesnt compile so Undefined Behaviour? for %%#-08x but it works\n");
 }
 
-void					test_hex8(void)
+int					test_hex8(void)
 {
 	unsigned short	num;
 	char			*returned_line_dprintf;
@@ -265,12 +264,18 @@ void					test_hex8(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 29 (hex8) : Correct!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 29 (hex8) : SUCCESS!\n");
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 29 (hex8) : Wrong!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 29 (hex8) : FAIL!\n");
+		return (-1);
+	}
 }
 
-void					test_hex9(void)
+int					test_hex9(void)
 {
 	unsigned char	num;
 	char			*returned_line_dprintf;
@@ -295,23 +300,13 @@ void					test_hex9(void)
 	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 30 (hex9) : %%020hhx and %%015hhx : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 30 (hex9)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 30 (hex9) : %%020hhx and %%015hhx : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 30 (hex9)		-> FAIL!\n");
 }
 
-void					test_hex10(void)
+int					test_hex10(void)
 {
-	// unsigned long 		num;
-	// int					total_chars_p;
-	// int					total_chars_ftp;
-
-	// num = 4294967295;
-	// total_chars_p = printf(ANSI_COLOR_CYAN"Test_31:  0*lX : '%0*lX'\n", 15, num);
-	// total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test_31:  0*lX : '%0*lX'\n", 15, num);
-	// assert(total_chars_p == total_chars_ftp);
-	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	unsigned long	num;
 	char			*returned_line_dprintf;
 	char			*returned_line_ft_dprintf;
@@ -321,9 +316,9 @@ void					test_hex10(void)
 
 	num = 4294967295;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 31 (hex10) :  0*lX : '%0*lX'\n", 15, num);
+	total_chars_p = dprintf(fd, "Test 31 (hex10) : %%0*lX='%0*lX'\n", 15, num);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 31 (hex10) :  0*lX : '%0*lX'\n", 15, num);
+	total_chars_ftp = ft_dprintf(fd, "Test 31 (hex10) : %%0*lX='%0*lX'\n", 15, num);
 	assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -335,12 +330,12 @@ void					test_hex10(void)
 	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 31 (hex10) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 31 (hex10) 	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 31 (hex10) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 31 (hex10)	-> FAIL!\n");
 }
 
-void					test_hex11(void)
+int						test_hex11(void)
 {
 	unsigned long long	num;
 	// int					total_chars_p;
@@ -353,7 +348,7 @@ void					test_hex11(void)
 	// assert(total_chars_p == total_chars_ftp);
 }
 
-void					test_hex12(void)
+int						test_hex12(void)
 {
 	unsigned long long	num;
 	int					total_chars_p;
@@ -367,7 +362,7 @@ void					test_hex12(void)
 	total_chars_p = dprintf(fd, "Test 33 (hex12) : %%-*llX='%-*llX', %%#.x='%#.x', %%#.0x='%#.0x', %%.x='%.x', %%.0x='%.0x', %%#x='%#x'\n", 66, num, 0, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "Test 33 (hex12) : %%-*llX='%-*llX', %%#.x='%#.x', %%#.0x='%#.0x', %%.x='%.x', %%.0x='%.0x', %%#x='%#x'\n", 66, num, 0, 0, 0, 0, 0);
-	// assert(total_chars_p == total_chars_ftp);
+	assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
@@ -377,15 +372,21 @@ void					test_hex12(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 33 (hex12) ZEROS : Correct!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 33 (hex12)		-> SUCCESS!\n");
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 33 (hex12) ZEROS : Wrong!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 33 (hex12)		-> FAIL!\n");
+		return (-1);
+	}
 }
 
-void					test_hex13(void)
+int						test_hex13(void)
 {
 	int					total_chars_p;
 	int					total_chars_ftp;
@@ -410,7 +411,7 @@ void					test_hex13(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 56 (hex13) ZEROS : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 56 (hex13)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 56 (hex13) ZEROS : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 56 (hex13)		-> FAIL!\n");
 }

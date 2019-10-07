@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
 #include "test_header.h"
 
 int				main(void)
 {
 	int			option;
 	int			i;
-	test_func	*test_array[62];
+	int			test_result;
+	int			test_passed;
+	test_func	*test_array[64];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -81,7 +82,10 @@ int				main(void)
 	test_array[59] = test_float9;
 	test_array[60] = test_string4;
 	test_array[61] = test_octal7;
+	test_array[62] = test_float10;
+	test_array[63] = test_float11;
 	i = 1;
+	test_passed = 0;
 	printf("Which Test do you want to run ? (0 to run All) \n");
 	scanf("%d", &option);
 	if (option != 0)
@@ -90,9 +94,14 @@ int				main(void)
 	{
 		while (i <= (int)(sizeof(test_array) / sizeof(test_array[0])))
 		{
-			test_array[i - 1]();
+			test_result = test_array[i - 1]();
+			if (test_result == 0)
+				test_passed++;
 			i++;
 		}
 	}
+	printf(ANSI_COLOR_CYAN"\n-------------------------------");
+	printf("\nTests that Passed	-> %d / %d", test_passed, i);
+	printf("\n-------------------------------\n");
 	return (0);
 }

@@ -17,8 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "libft/includes/libft.h"
-# include "libft/includes/get_next_line.h"
+# include "../libft/includes/libft.h"
+# include "../libft/includes/get_next_line.h"
 
 # define ANSI_COLOR_RESET   "\x1b[0m"
 # define ANSI_COLOR_RED     "\x1b[31m"

@@ -10,16 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
 #include "test_header.h"
 
-void			test_exceptions1(void)
+int				test_exceptions1(void)
 {
-	int					total_chars_p;
-	int					total_chars_ftp;
-	int					fd;
-	char				*returned_line_dprintf;
-	char				*returned_line_ft_dprintf;
+	int			total_chars_p;
+	int			total_chars_ftp;
+	int			fd;
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_p = dprintf(fd, "Test 39 (exceptions) : '%%', %%kjjj='%kjjj',  %% -9k='% -9k'  exc='%      %', ex1='%  %'\n", 74, "test");
@@ -38,16 +37,14 @@ void			test_exceptions1(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 39 (exceptions) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 39 (exceptions)	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 39 (exceptions) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 39 (exceptions)	-> FAIL!\n");
 }
 
-void			test_exceptions2(void)
+int				test_exceptions2(void)
 {
 	int		    num;
-	// int			total_chars_p;
-	// int			total_chars_ftp;
 
 	num = 74;
 	ft_printf(ANSI_COLOR_MAGENTA"Test 41 Undefined Behaviour\n");

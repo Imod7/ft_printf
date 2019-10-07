@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
 #include "test_header.h"
 
-void		test_string1(void)
+int				test_string1(void)
 {
 	int			total_chars_p;
 	int			total_chars_ftp;
@@ -39,12 +38,18 @@ void		test_string1(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 43 (string1) : Correct!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 43 (string1)	-> SUCCESS!\n");
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 43 (string1) : Wrong!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 43 (string1)	-> FAIL!\n");
+		return (-1);
+	}
 }
 
-void		test_string2(void)
+int				test_string2(void)
 {
 	int			total_chars_p;
 	int			total_chars_ftp;
@@ -68,12 +73,12 @@ void		test_string2(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 48 (string2) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 48 (string2)	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 48 (string2) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 48 (string2)	-> FAIL!\n");
 }
 
-void		test_string3(void)
+int				test_string3(void)
 {
 	int			total_chars_p;
 	int			total_chars_ftp;
@@ -97,12 +102,12 @@ void		test_string3(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 49 (string3) : with NULL : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 49 (string3)	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 49 (string3) : with NULL : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 49 (string3)	-> FAIL!\n");
 }
 
-void		test_string4(void)
+int				test_string4(void)
 {
 	int			total_chars_p;
 	int			total_chars_ftp;
@@ -126,7 +131,7 @@ void		test_string4(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 61 (string4) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 61 (string4)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 61 (string4) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 61 (string4)		: FAIL!\n");
 }

@@ -10,36 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "includes/ft_printf.h"
 
 void				initialization(char *fr, short *pr)
 {
 	size_t			index;
 
-	fr[0] = '1';
-	fr[1] = '.';
-	fr[2] = '0';
-	index = 3;
+	index = 0;
 	while (index < 400)
 	{
 		fr[index] = 0;
 		index++;
 	}
-	pr[5000] = '0';
-	pr[5001] = '.';
-	pr[5002] = '0';
+	fr[0] = '1';
+	fr[1] = '.';
+	fr[2] = '0';
 	index = 0;
-	while (index < 5000)
-	{
-		pr[index] = 0;
-		index++;
-	}
-	index = 5003;
 	while (index < 10000)
 	{
 		pr[index] = 0;
 		index++;
 	}
+	pr[5000] = '0';
+	pr[5001] = '.';
+	pr[5002] = '0';
 }
 
 void				check_modifier_float(va_list argptr, t_float *fl, t_format *t_flags)
@@ -84,6 +78,11 @@ void				ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr)
 	check_modifier_float(argptr, fl, t_flags);
 	initialization(fraction, pr);
 	index = 63;
+	// printf(ANSI_COLOR_YELLOW"\nproduct BEFORE str_double\n");
+	// print_product(pr);
+	// printf("\n>>index=%d, pr=%c", 5000, pr[5000]);
+	// printf("\n>>index=%d, pr=%c", 5001, pr[5001]);
+	// printf("\n>>index=%d, pr=%c", 5002, pr[5002]);
 	while (index >= 0)
 	{
 		bit = 1UL << index;
@@ -92,6 +91,8 @@ void				ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr)
 		frac_divide_by_two(fraction);
 		index--;
 	}
+	// printf("\nproduct after mantissa\n");
+	// print_product(pr);
 	if ((*fl).exponent[4] != 0)
 	{
 		if (((*fl).exponent[4] & (1 << 15)) > 0)
@@ -102,9 +103,4 @@ void				ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr)
 	}
 	else if ((*fl).exponent[4] == 0)
 		pr[5003] = 0;
-	if (((*t_flags).flags & FLAG_NEGAT) > 0)
-	{
-		(*t_flags).total_chars_printed++;
-		write((*t_flags).fd, "-", 1);
-	}
 }

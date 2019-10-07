@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
 #include "test_header.h"
 
-void			test_octal1(void)
+int				test_octal1(void)
 {
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
@@ -40,12 +39,12 @@ void			test_octal1(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 17 (octal1) : %%6o : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 17 (octal1)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 17 (octal1) : %%6o : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 17 (octal1)		-> FAIL!\n");
 }
 
-void			test_octal2(void)
+int				test_octal2(void)
 {
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
@@ -72,12 +71,12 @@ void			test_octal2(void)
 	// printf("'%s'\n", returned_line_ft_dprintf);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 18 (octal2) : %%05o , %%#*o : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 18 (octal2)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 18 (octal2) : %%05o , %%#*o : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 18 (octal2)		-> FAIL!\n");
 }
 
-void				test_octal3(void)
+int				test_octal3(void)
 {
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
@@ -104,12 +103,12 @@ void				test_octal3(void)
 	// printf("'%s'\n", returned_line_ft_dprintf);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 19 (octal3) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 19 (octal3)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 19 (octal3) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 19 (octal3)		-> FAIL!\n");
 }
 
-void			test_octal4(void)
+int				test_octal4(void)
 {
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
@@ -138,12 +137,12 @@ void			test_octal4(void)
 	// printf("'%s'\n", returned_line_ft_dprintf);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 50 (octal4) : %%-5.10o : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 50 (octal4)	-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 50 (octal4) :%%-5.10o : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 50 (octal4)	-> FAIL!\n");
 }
 
-void				test_octal5(void)
+int				test_octal5(void)
 {
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
@@ -172,12 +171,12 @@ void				test_octal5(void)
 	// printf("'%s'\n", returned_line_ft_dprintf);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 53 (octal5) ZEROS : %%o, %%.0o with 0 : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 53 (octal5)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 53 (octal5) ZEROS : %%o, %%.0o with 0 : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 53 (octal5)	: FAIL!\n");
 }
 
-void				test_octal6(void)
+int				test_octal6(void)
 {
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
@@ -208,12 +207,12 @@ void				test_octal6(void)
 	// printf("'%s'\n", returned_line_ft_dprintf);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 54 (octal6) ZEROS : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 54 (octal6)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 54 (octal6) ZEROS : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 54 (octal6)	: FAIL!\n");
 }
 
-void				test_octal7(void)
+int				test_octal7(void)
 {
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
@@ -242,7 +241,7 @@ void				test_octal7(void)
 	// printf("'%s'\n", returned_line_ft_dprintf);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 62 (octal7) : Correct!\n");
+		printf(ANSI_COLOR_GREEN"Test 62 (octal7)	: SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 62 (octal7) : Wrong!\n");
+		printf(ANSI_COLOR_RED"Test 62 (octal7)		: FAIL!\n");
 }
