@@ -99,7 +99,9 @@ void			add_to_buffer(int fd, const char **str, t_format *t_flags);
 void			print_binary(long long flag_num);
 long long		invert_allbits(long long num);
 long long		binary_addone(long long num);
-/* Common functions */
+/*
+** Common functions
+*/
 void			check_plusflag(t_format *t_flags);
 void			check_arg_zero(t_format *t_flags, int *len);
 void			print_order(t_format *t_flags, int len);
@@ -112,13 +114,16 @@ void			length_precision_diff(t_format *t_flags, int len);
 /*
 ** floats maths
 */
-void			ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr);
+int				ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr);
 void			str_add_prod_frac(short *pr, char *fr);
 void			frac_divide_by_two(char *fr);
 void			str_double(short *pr);
 void			prod_divide_by_two(short *pr);
 int				length_product(short *pr);
-/* floats aux functions */
+int				check_inf_nan(t_float *fl, short *product);
+/*
+** floats aux functions
+*/
 void			print_mantissa_inorder(uint64_t mant);
 void			print_mantissa_inreverse(uint64_t mant);
 void			print_fraction(char *fr);

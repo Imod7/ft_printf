@@ -69,20 +69,16 @@ void				exponent_calculation(short *pr, short exp)
 	}
 }
 
-void				ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr)
+int					ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr)
 {
 	char			fraction[400];
 	int				index;
 	unsigned long	bit;
+	int				inf_nan;
 
 	check_modifier_float(argptr, fl, t_flags);
 	initialization(fraction, pr);
 	index = 63;
-	// printf(ANSI_COLOR_YELLOW"\nproduct BEFORE str_double\n");
-	// print_product(pr);
-	// printf("\n>>index=%d, pr=%c", 5000, pr[5000]);
-	// printf("\n>>index=%d, pr=%c", 5001, pr[5001]);
-	// printf("\n>>index=%d, pr=%c", 5002, pr[5002]);
 	while (index >= 0)
 	{
 		bit = 1UL << index;
@@ -91,8 +87,9 @@ void				ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr)
 		frac_divide_by_two(fraction);
 		index--;
 	}
-	// printf("\nproduct after mantissa\n");
-	// print_product(pr);
+	inf_nan = check_inf_nan(fl, pr);
+	if ((inf_nan == -1) || (inf_nan == 1))
+		return (inf_nan);
 	if ((*fl).exponent[4] != 0)
 	{
 		if (((*fl).exponent[4] & (1 << 15)) > 0)
@@ -103,4 +100,5 @@ void				ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr)
 	}
 	else if ((*fl).exponent[4] == 0)
 		pr[5003] = 0;
+	return (0);
 }

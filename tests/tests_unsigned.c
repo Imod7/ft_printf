@@ -40,7 +40,7 @@ int		test_u1(void)
 		// printf(ANSI_COLOR_GREEN"Test 52 : SUCCESS!\n");
 	// else
 		// printf(ANSI_COLOR_RED"Test 52 : FAIL!\n");
-	printf(ANSI_COLOR_MAGENTA"Test 52 : SUCCESS with no flags!\n");
+	printf(ANSI_COLOR_MAGENTA"Test 52 		-> SUCCESS with no flags!\n");
 }
 
 int				test_u2(void)

@@ -17,7 +17,6 @@ int			number_of_digits(long long num)
 	size_t	digits;
 	size_t	base;
 
-	// printf("\nnum = %lld\n", num);
 	digits = 0;
 	base = 10;
 	if (num == 0)
@@ -74,6 +73,7 @@ void		print_padding(t_format *t_flags, int arg_digits_len)
 	int		i;
 	int		pad_len;
 	int		c;
+	int		temp;
 
 	i = 0;
 	if ((((*t_flags).flags & (FLAG_PLUS)) > 0) &&
@@ -106,6 +106,7 @@ void		print_padding(t_format *t_flags, int arg_digits_len)
 		(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
 	}
 	pad_len = (*t_flags).minfw - (*t_flags).special_chars_printed - arg_digits_len;
+	temp = (pad_len - (*t_flags).precision) + arg_digits_len;
 	// printf(ANSI_COLOR_GREEN"\n===PADDING===\nargtype=%c\n", (*t_flags).argtype);
 	// printf("minfw=%d\nprecision=%d\n", (*t_flags).minfw, (*t_flags).precision);
 	// printf("special_chars=%d\n", (*t_flags).special_chars_printed);
@@ -117,11 +118,9 @@ void		print_padding(t_format *t_flags, int arg_digits_len)
 			c = '0';
 		else
 			c = ' ';
-		if (((*t_flags).flags & FLAG_PRECIS) && \
-		((*t_flags).argtype != 's') && ((*t_flags).argtype != 'c') && \
-		(i >= (pad_len - (*t_flags).precision) + arg_digits_len) && \
-		(((*t_flags).flags & FLAG_MINUS) == 0) && \
-		(((*t_flags).flags & FLAG_PLUS) == 0))
+		if (((*t_flags).flags & FLAG_PRECIS) && ((*t_flags).argtype != 's') &&
+		((*t_flags).argtype != 'c') && (i >= temp) &&
+		(((*t_flags).flags & FLAG_MINUS) == 0) && (((*t_flags).flags & FLAG_PLUS) == 0))
 			c = '0';
 		write((*t_flags).fd, &c, 1);
 		(*t_flags).total_chars_printed++;

@@ -97,10 +97,6 @@ void				save_flags(t_format *t_flags, const char **str)
 		(*str)++;
 	}
 	(*t_flags).argtype = **str;
-	// printf("\nflag modifier= %i \n", (*t_flags).modifier);
-	// printf("\nstr= %c,flags= %u \n", **str, (*t_flags).flags);
-	// printf("\nminfw=%d,pr=%d\n", (*t_flags).minfw, (*t_flags).precision);
-	// printf("\nstr='%s'\nprecision=%d\n", *str, (*t_flags).precision);
 }
 
 /*

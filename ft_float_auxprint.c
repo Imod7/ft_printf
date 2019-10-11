@@ -100,11 +100,16 @@ void			print_final_float(short *pr, t_format *t_flags)
 	int			index;
 
 	index = 0;
-	while (pr[index] == 0)
-		index++;
-	while (pr[index] != 0)
+	if ((pr[4999] == '0') && (pr[5000] == '0'))
+		write((*t_flags).fd, &"0", 1);
+	else
 	{
-		write((*t_flags).fd, &pr[index], 1);
-		index++;
+		while (pr[index] == 0)
+			index++;
+		while (pr[index] != 0)
+		{
+			write((*t_flags).fd, &pr[index], 1);
+			index++;
+		}
 	}
 }

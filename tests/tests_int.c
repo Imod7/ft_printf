@@ -37,9 +37,9 @@ int				test_int1(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 1 : SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 1 			-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 1 : FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 1 -> FAIL!\n");
 }
 
 int				test_int2(void)
@@ -65,9 +65,15 @@ int				test_int2(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 2  %%+08d , %%6d , %%s' : SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 2  		-> SUCCESS!\n");
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 2  %%+08d , %%6d , %%s' : FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 2  -> FAIL!\n");
+		return (-1);
+	}
 }
 
 int				test_int3(void)
@@ -96,9 +102,9 @@ int				test_int3(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 3 (int3) : SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 3 (int3) 		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 3 (int3) : FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 3 (int3) 	-> FAIL!\n");
 }
 
 int				test_int4(void)
@@ -129,9 +135,9 @@ int				test_int4(void)
 	// printf("'%s'\n", returned_line_ft_dprintf);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 4 (int4) : SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 4 (int4) 		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 4 (int4) : FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 4 (int4) 		-> FAIL!\n");
 }
 
 int				test_int5(void)
@@ -158,12 +164,12 @@ int				test_int5(void)
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 5 (int5) : SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 5 (int5) 		-> SUCCESS!\n");
 		return (0);
 	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 5 (int5) : FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 5 (int5) 		-> FAIL!\n");
 		return (-1);
 	}
 }
@@ -198,7 +204,7 @@ int				test_int6(void)
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 6 (int6) : SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 6 (int6) 		-> SUCCESS!\n");
 		return (0);
 	}
 	else
@@ -238,9 +244,9 @@ int					test_int7(void)
 	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 
 	if (strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
-		printf(ANSI_COLOR_GREEN"Test 7 with %%hhd and %%-15hhd : SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 7 			-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 7 with %%hhd and %%-15hhd : FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 7 		-> FAIL!\n");
 }
 
 int				test_int8(void)
@@ -273,9 +279,9 @@ int				test_int8(void)
 	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 
 	if (strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
-		printf(ANSI_COLOR_GREEN"Test 8 (int8)	: SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 8 (int8)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 8 (int8)		: FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 8 (int8)		-> FAIL!\n");
 }
 
 int				test_int9(void)
@@ -305,9 +311,9 @@ int				test_int9(void)
 	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 9 (int9)	: SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 9 (int9)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 9 (int9)		: FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 9 (int9)		-> FAIL!\n");
 }
 
 int				test_int10(void)
@@ -337,9 +343,15 @@ int				test_int10(void)
 	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 20 (int10)		: SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 20 (int10)		-> SUCCESS!\n");
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 20 (int10)		: FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 20 (int10)		-> FAIL!\n");
+		return (-1);
+	}
 }
 
 int			test_int11(void)
@@ -377,9 +389,9 @@ int			test_int11(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 21 (int11)		: SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 21 (int11)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 21 (int11)		: FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 21 (int11)		-> FAIL!\n");
 }
 
 int				test_int12(void)
@@ -407,7 +419,7 @@ int				test_int12(void)
 	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 51 (int12)		: SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 51 (int12)		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 51 (int12)		: FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 51 (int12)		-> FAIL!\n");
 }

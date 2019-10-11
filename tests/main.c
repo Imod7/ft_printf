@@ -18,7 +18,7 @@ int				main(void)
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[64];
+	test_func	*test_array[70];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -84,6 +84,12 @@ int				main(void)
 	test_array[61] = test_octal7;
 	test_array[62] = test_float10;
 	test_array[63] = test_float11;
+	test_array[64] = test_float12;
+	test_array[65] = test_float13;
+	test_array[66] = test_float14;
+	test_array[67] = test_float15;
+	test_array[68] = test_float16;
+	test_array[69] = test_float17;
 	i = 1;
 	test_passed = 0;
 	printf("Which Test do you want to run ? (0 to run All) \n");
@@ -100,8 +106,8 @@ int				main(void)
 			i++;
 		}
 	}
-	printf(ANSI_COLOR_CYAN"\n-------------------------------");
+	printf(ANSI_COLOR_CYAN"\n--------------------------------------------");
 	printf("\nTests that Passed	-> %d / %d", test_passed, i);
-	printf("\n-------------------------------\n");
+	printf("\n--------------------------------------------\n");
 	return (0);
 }

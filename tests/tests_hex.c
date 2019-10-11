@@ -35,7 +35,10 @@ int					test_hex1(void)
 	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 22 (hex1) undefined behaviour but works : SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_MAGENTA"Test 22 (hex1)		-> SUCCESS! UNDEFINED BEHAVIOUR\n");
+		return (0);
+	}
 	else
 		printf(ANSI_COLOR_RED"Test 22 (hex1) undefined behaviour : FAIL!\n");
 }
@@ -138,7 +141,7 @@ int					test_hex4(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 25 (hex4) undefined behaviour	-> SUCCESS!\n");
+		printf(ANSI_COLOR_MAGENTA"Test 25 (hex4) 		-> SUCCESS! UNDEFINED BEHAVIOUR\n");
 	else
 		printf(ANSI_COLOR_RED"Test 25 (hex4) undefined behaviour -> FAIL!\n");
 }
@@ -169,7 +172,7 @@ int					test_hex5(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 26	-> SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 26			-> SUCCESS!\n");
 	else
 		printf(ANSI_COLOR_RED"Test 26 (hex5)		-> FAIL!\n");
 }
@@ -202,9 +205,9 @@ int						test_hex6(void)
 
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 27 : SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 27 		-> SUCCESS!\n");
 	else
-		printf(ANSI_COLOR_RED"Test 27 : FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 27 	-> FAIL!\n");
 }
 
 int						test_hex7(void)
@@ -236,7 +239,7 @@ int						test_hex7(void)
 	// else
 	// 	printf(ANSI_COLOR_RED"Test 28 (hex7) : FAIL!\n");
 
-	ft_printf(ANSI_COLOR_MAGENTA"Test 28 (hex7) : With all flags it doesnt compile so Undefined Behaviour? for %%#-08x but it works\n");
+	ft_printf(ANSI_COLOR_MAGENTA"Test 28 (hex7) 		-> UNDEFINED BEHAVIOUR\n");
 }
 
 int					test_hex8(void)
@@ -265,12 +268,12 @@ int					test_hex8(void)
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 29 (hex8) : SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 29 (hex8) 		-> SUCCESS!\n");
 		return (0);
 	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 29 (hex8) : FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 29 (hex8) 		-> FAIL!\n");
 		return (-1);
 	}
 }
@@ -342,9 +345,9 @@ int						test_hex11(void)
 	int					total_chars_ftp;
 
 	num = 18446744073709551615U;
-	ft_printf(ANSI_COLOR_MAGENTA"Test_32 Error (w flags in gcc) / Warning (wo flags) >> ");
+	ft_printf(ANSI_COLOR_MAGENTA"Test 32 (hex11)		-> UNDEFINED BEHAVIOUR??? \n");
 	// total_chars_p = printf(ANSI_COLOR_CYAN"32=test_hex11 space*llX : '% *llX'\n", 28, num);
-	total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"\nTest_32: space*llX : '% *llX'\n", 28, num);
+	// total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"\nTest_32: space*llX : '% *llX'\n", 28, num);
 	// assert(total_chars_p == total_chars_ftp);
 }
 

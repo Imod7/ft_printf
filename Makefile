@@ -32,11 +32,12 @@ SRC =	\
 		ft_itoa_float.c \
 		ft_addtobuffer.c \
 		ft_bitwise.c \
-		ft_common_func.c \
+		ft_common_functions.c \
 		ft_float.c \
 		ft_float_strmaths.c \
 		ft_float_auxprint.c \
 		ft_float_round.c \
+		ft_float_inf_nan.c \
 
 OBJ = $(SRC:%.c=%.o)
 

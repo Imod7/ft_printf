@@ -124,7 +124,6 @@ void			str_add_prod_frac(short *pr, char *fr)
 
 void			str_double(short *pr)
 {
-	// int			len;
 	int			index;
 	int			carry;
 	int			sum;
@@ -164,9 +163,6 @@ void			prod_divide_by_two(short *pr)
 	carry = 0;
 	len = 5000 + length_product(pr);
 	index = 5002;
-	// printf(ANSI_COLOR_YELLOW"\n----PROD_DIVIDE_BY_2 Start---\nProduct before dividing : ");
-	// print_product(pr);
-	// printf(ANSI_COLOR_YELLOW"\nLength  : %d", len);
 	if (pr[5000] == '1')
 	{
 		pr[5000] = '0';
@@ -174,17 +170,13 @@ void			prod_divide_by_two(short *pr)
 	}
 	while (index <= len)
 	{
-		// printf("pr[%d] = %c\n", index, pr[index]);
 		if (pr[index] != 0)
 			temp = pr[index] - '0';
 		else
 			temp = 0;
-		// printf(ANSI_COLOR_CYAN"temp = %d\n"ANSI_COLOR_RESET, temp);
 		temp = ((carry * 10) + temp) / 2;
 		carry = pr[index] % 2;
-		// printf("carry = %d\n", carry);
 		pr[index] = temp + '0';
-		// printf(ANSI_COLOR_CYAN"fr[%d] = %d\n\n"ANSI_COLOR_RESET, index, temp);
 		index++;
 	}
 }

@@ -38,13 +38,6 @@ void		add_to_buffer(int fd, const char **str, t_format *t_flags)
 		length++;
 		(*str)++;
 	}
-	// len = len_until_arg(*str, &str_result);
-	// printf("string BEFORE in add to buffer = %s, len = %lu\n", *str, len);
-	// str_result = (char *)malloc(sizeof(char) * len);
-	// str_result = ft_strncpy(str_result, *str, len);
-	// printf("\nstr result COPIED = '%s' , fd = %d, len = %zu\n", str_result, fd, length);
 	write(fd, str_result, length);
-	// (*str) = (*str) + length;
-	// printf("string AFTER in add to buffer = %s, \n", *str);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + length;
 }

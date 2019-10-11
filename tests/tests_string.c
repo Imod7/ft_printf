@@ -70,12 +70,21 @@ int				test_string2(void)
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 48 (string2)	-> SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 48 (string2)	-> SUCCESS!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 48 (string2)	-> FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 48 (string2)	-> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }
 
 int				test_string3(void)
@@ -87,9 +96,9 @@ int				test_string3(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 49(string3): '%s' '%s'\n", NULL, "super");
+	total_chars_p = dprintf(fd, "'%s', '%s', %%20.*s='%20.*s'\n", NULL, "super", 5, "Dit is een test");
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 49(string3): '%s' '%s'\n", NULL, "super");
+	total_chars_ftp = ft_dprintf(fd, "'%s', '%s', %%20.*s='%20.*s'\n", NULL, "super", 5, "Dit is een test");
 	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -99,12 +108,21 @@ int				test_string3(void)
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 49 (string3)	-> SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 49 (string3)	-> SUCCESS!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 49 (string3)	-> FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 49 (string3)	-> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }
 
 int				test_string4(void)
@@ -128,10 +146,19 @@ int				test_string4(void)
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 61 (string4)	: SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 61 (string4)	-> SUCCESS!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 61 (string4)		: FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 61 (string4)		-> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }

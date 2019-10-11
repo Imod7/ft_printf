@@ -47,7 +47,7 @@ int				test_exceptions2(void)
 	int		    num;
 
 	num = 74;
-	ft_printf(ANSI_COLOR_MAGENTA"Test 41 Undefined Behaviour\n");
+	ft_printf(ANSI_COLOR_MAGENTA"Test 41 		-> UNDEFINED BEHAVIOUR\n");
 	// total_chars_p = printf(ANSI_COLOR_RED"Test_41   >percentpercent   : '%%'     >15-mk   : '%15-mkjjj'  ,  >space9-v: '% 9-v'\n", num);
 	// total_chars_ftp = ft_printf(ANSI_COLOR_RED"Test_41   >percentpercent   : '%%'     >15-mk   : '%15-mkjjj'  ,  >space9-v: '% 9-v'\n", num);
 	// assert(total_chars_p == total_chars_ftp);

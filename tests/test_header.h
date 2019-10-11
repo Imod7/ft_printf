@@ -91,5 +91,11 @@ int		test_string4(void);
 int		test_octal7(void);
 int		test_float10(void);
 int		test_float11(void);
+int		test_float12(void);
+int		test_float13(void);
+int		test_float14(void);
+int		test_float15(void);
+int		test_float16(void);
+int		test_float17(void);
 
 # endif

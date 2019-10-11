@@ -18,7 +18,6 @@ void					int_otherflag(long long arg, t_format *t_flags, int len)
 	(((*t_flags).flags & FLAG_PRECIS) > 0)) && \
 	(((*t_flags).flags & FLAG_PLUS) == 0))
 	{
-		// printf("\n1. zero + prec + not plus");
 		print_sign(t_flags);
 		print_padding(t_flags, len);
 		print_number_int(arg, t_flags, len);
@@ -26,14 +25,12 @@ void					int_otherflag(long long arg, t_format *t_flags, int len)
 	else if ((((*t_flags).flags & FLAG_PLUS) > 0) &&
 	(((*t_flags).flags & FLAG_ZERO) > 0))
 	{
-		// printf("\n3. plus + zero\n");
 		print_sign(t_flags);
 		print_padding(t_flags, len);
 		print_number_int(arg, t_flags, len);
 	}
 	else
 	{
-		// printf("\n4. other\n");
 		print_padding(t_flags, len);
 		print_sign(t_flags);
 		if (len < (*t_flags).precision)
@@ -112,9 +109,17 @@ void					print_arg(va_list argptr, t_format *t_flags)
 {
 	int					aster_arg;
 
+	// printf("\n-- PRINT FLAG --\n");
+	// print_binary((*t_flags).flags);
 	if (((*t_flags).flags & FLAG_ASTER) > 0)
 	{
 		aster_arg = va_arg(argptr, int);
+		// printf("\n-- FLAG ASTER --> %d\n", aster_arg);
+		if (aster_arg < 0)
+		{
+			aster_arg = aster_arg * (-1);
+			(*t_flags).flags |= FLAG_MINUS;
+		}
 		if (aster_arg > (*t_flags).precision)
 			(*t_flags).minfw = aster_arg;
 	}

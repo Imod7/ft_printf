@@ -73,13 +73,16 @@ int				test_i2(void)
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-
-	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && (total_chars_p == total_chars_ftp))
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+	{
 		printf(ANSI_COLOR_GREEN"Test 35 (i)	-> SUCCESS!\n");
+		return (0);
+	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 35 (i)		-> FAIL!\n");
-		printf("Error when field width is equal to precision \n");
+		printf(ANSI_COLOR_RED"Test 35 (i)		-> FAIL! Error field width == precision\n");
+		return (-1);
 	}
 }
 

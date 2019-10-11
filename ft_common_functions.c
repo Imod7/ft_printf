@@ -55,7 +55,7 @@ void	print_number(unsigned long long arg, t_format *t_flags, int len)
 		((*t_flags).precision > 0)) || \
 		((arg == 0) && (((*t_flags).flags & FLAG_PRECIS) == 0)))
 		{
-			(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+			(*t_flags).total_chars_printed += len;
 			ft_putnbr_un_int(arg, (*t_flags).fd);
 		}
 	}
@@ -65,7 +65,7 @@ void	print_number(unsigned long long arg, t_format *t_flags, int len)
 		((arg == 0) && (((*t_flags).flags == 0))) || \
 		((arg == 0) && (((*t_flags).flags & FLAG_HT) > 0)))
 		{
-			(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+			(*t_flags).total_chars_printed += len;
 			ft_putnbr_octal(arg, (*t_flags).fd);
 		}
 	}
@@ -76,7 +76,7 @@ void	print_number(unsigned long long arg, t_format *t_flags, int len)
 		((arg == 0) && (((*t_flags).flags & FLAG_HT) > 0) && \
 		(((*t_flags).flags & FLAG_PRECIS) == 0)))
 		{
-			(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
+			(*t_flags).total_chars_printed += len;
 			if ((*t_flags).argtype == 'X')
 				ft_putnbr_hex_capit(arg, (*t_flags).fd);
 			if (((*t_flags).argtype == 'x') || \
@@ -84,7 +84,6 @@ void	print_number(unsigned long long arg, t_format *t_flags, int len)
 				ft_putnbr_hex(arg, (*t_flags).fd);
 		}
 	}
-	
 }
 
 void	print_number_int(long long arg, t_format *t_flags, int len)
@@ -101,7 +100,7 @@ void	print_number_int(long long arg, t_format *t_flags, int len)
 	}
 }
 
-void		minfw_vs_precision(t_format *t_flags)
+void	minfw_vs_precision(t_format *t_flags)
 {
 	if (((*t_flags).minfw == 0) && \
 	((*t_flags).minfw < (*t_flags).precision))
@@ -111,9 +110,9 @@ void		minfw_vs_precision(t_format *t_flags)
 		(*t_flags).flags &= ~FLAG_ZERO;
 }
 
-void					length_precision_diff(t_format *t_flags, int len)
+void	length_precision_diff(t_format *t_flags, int len)
 {
-	int					diff;
+	int	diff;
 
 	diff = (*t_flags).precision - len;
 	while (diff > 0)
