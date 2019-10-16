@@ -46,10 +46,11 @@ int			check_mant_allzeros(t_float *fl)
 	return (0);
 }
 
-int			check_inf_nan(t_float *fl, short *product)
+int			check_inf_nan(t_float *fl, t_print *t_prnt, short *product)
 {
 	if ((check_exp_allones(fl) == 0) && (check_mant_allzeros(fl) == 0))
 	{
+		(*t_prnt).diff = -1;
 		if (((*fl).exponent[4] >> 15) & 1)
 		{
 			product[0] = '-';
@@ -68,6 +69,7 @@ int			check_inf_nan(t_float *fl, short *product)
 	}
 	else if ((check_exp_allones(fl) == 0) && (check_mant_allzeros(fl) != 0))
 	{
+		(*t_prnt).diff = -1;
 		product[0] = 'n';
 		product[1] = 'a';
 		product[2] = 'n';

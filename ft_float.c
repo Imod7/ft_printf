@@ -69,14 +69,14 @@ void				exponent_calculation(short *pr, short exp)
 	}
 }
 
-int					ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr)
+int					ft_ftoa(va_list arg, t_format *tfl, t_print *tprnt, t_float *fl, short *pr)
 {
 	char			fraction[400];
 	int				index;
 	unsigned long	bit;
 	int				inf_nan;
 
-	check_modifier_float(argptr, fl, t_flags);
+	check_modifier_float(arg, fl, tfl);
 	initialization(fraction, pr);
 	index = 63;
 	while (index >= 0)
@@ -87,13 +87,13 @@ int					ft_ftoa(va_list argptr, t_format *t_flags, t_float *fl, short *pr)
 		frac_divide_by_two(fraction);
 		index--;
 	}
-	inf_nan = check_inf_nan(fl, pr);
+	inf_nan = check_inf_nan(fl, tprnt, pr);
 	if ((inf_nan == -1) || (inf_nan == 1))
 		return (inf_nan);
 	if ((*fl).exponent[4] != 0)
 	{
 		if (((*fl).exponent[4] & (1 << 15)) > 0)
-			(*t_flags).flags |= FLAG_NEGAT;
+			(*tfl).flags |= FLAG_NEGAT;
 		(*fl).exponent[4] &= ~(1 << 15);
 		(*fl).exponent[4] = (*fl).exponent[4] - 16383;
 		exponent_calculation(pr, (*fl).exponent[4]);

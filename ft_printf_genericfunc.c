@@ -15,9 +15,10 @@
 int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 {
 	t_format	t_flags;
+	t_print		t_prnt;
 	char		c;
 
-	clear_formatstruct(&t_flags);
+	clear_formatstruct(&t_flags, &t_prnt);
 	t_flags.total_chars_printed = 0;
 	while (*str != '\0')
 	{
@@ -32,10 +33,10 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 			}
 			else
 			{
-				clear_formatstruct(&t_flags);
+				clear_formatstruct(&t_flags, &t_prnt);
 				save_flags(&t_flags, &str);
 				t_flags.fd = fd;
-				print_arg(argptr, &t_flags);
+				print_arg(argptr, &t_flags, &t_prnt);
 			}
 		}
 		else

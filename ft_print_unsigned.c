@@ -12,137 +12,89 @@
 
 #include "includes/ft_printf.h"
 
-void					minus_flag(unsigned long long ar, t_format *t_fl, int l)
+unsigned long long		check_pointer(va_list arg, t_format *tfl)
 {
-	if ((((*t_fl).argtype == 'o') > 0) && \
-	(((*t_fl).flags & FLAG_HT) > 0))
+	unsigned long long	argum;
+
+	if ((*tfl).argtype == 'p')
 	{
-		(*t_fl).special_chars_printed++;
-	}
-	if (((*t_fl).flags & FLAG_PRECIS) > 0)
-	{
-		print_number(ar, t_fl, l);
-		print_inverse(t_fl, l);
-	}
-	else if ((((*t_fl).flags & FLAG_NEGAT) == 0) && \
-	(((*t_fl).flags & FLAG_SPACE) == 0) && \
-	(((*t_fl).flags & FLAG_PRECIS) == 0))
-	{
-		print_number(ar, t_fl, l);
-		print_inverse(t_fl, l);
-	}
-	else if ((((*t_fl).flags & FLAG_NEGAT) > 0) && \
-	(((*t_fl).flags & FLAG_SPACE) > 0))
-	{
-		(*t_fl).flags &= ~FLAG_SPACE;
-		print_sign(t_fl);
-		print_number(ar, t_fl, l);
-		print_padding(t_fl, l);
+		(*tfl).flags |= FLAG_HT;
+		argum = va_arg(arg, unsigned long);
+		(*tfl).special_chars_printed = (*tfl).special_chars_printed + 2;
 	}
 	else
 	{
-		print_inverse(t_fl, l);
-		print_number(ar, t_fl, l);
+		argum = va_arg(arg, unsigned long long);
+		check_modif_un(&argum, tfl);
 	}
+	return (argum);
 }
 
-void					check_ht(unsigned long long arg, t_format *t_flags)
+void					print_hexoctal(va_list arg, t_format *tfl, t_print *tpr)
 {
-	char				c;
+	unsigned long long	argum;
+	int					len;
 
-	if ((((*t_flags).argtype == 'o') > 0) && \
-	((arg != 0) && (((*t_flags).flags & FLAG_HT) > 0)))
+	argum = check_pointer(arg, tfl);
+	len = number_of_digits_un(argum, *tfl);
+	minfw_vs_precision(tfl, tpr, len);
+	if (argum == 0)
+		check_arg_zero(tfl, &len, tpr);
+	// if (len < (*tfl).precision)
+	// 	length_precision_diff(tfl, len);
+	check_plusflag(tfl);
+	(*tfl).flags &= ~FLAG_PLUS;
+	(*tfl).flags &= ~FLAG_SPACE;
+	// if ((*tfl).minfw < (*tfl).precision)
+	// 	(*tfl).minfw = (*tfl).precision;
+	if (((*tfl).flags & FLAG_MINUS) > 0)
 	{
-		c = '0';
-		write((*t_flags).fd, &c, 1);
-		(*t_flags).total_chars_printed++;
+		(*tfl).flags &= ~FLAG_ZERO;
+		unsign_checkht(argum, tfl);
+		unsig_minus(argum, tfl, tpr, len);
 	}
-	else if ((((*t_flags).flags & FLAG_HT) > 0) && (arg != 0) && \
-	((*t_flags).argtype != 'o'))
+	else if (((*tfl).flags & FLAG_ZERO) > 0)
 	{
-		if (((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'p'))
-			write((*t_flags).fd, "0x", 2);
-		else
-			write((*t_flags).fd, "0X", 2);
-		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
+		unsign_checkht(argum, tfl);
+		print_inverse(tfl, tpr, len);
+		print_number(argum, tfl, tpr, len);
+	}
+	else if ((((*tfl).flags & FLAG_MINUS) == 0) && \
+	(((*tfl).flags & FLAG_ZERO) == 0))
+	{
+		print_order(tfl, tpr, len);
+		unsign_checkht(argum, tfl);
+		print_number(argum, tfl, tpr, len);
 	}
 }
 
-void					print_hex_octal(va_list argptr, t_format *t_flags)
+void					print_int_un(va_list argp, t_format *tfl, t_print *tpr)
 {
 	unsigned long long	arg;
 	int					len;
 
-	if ((*t_flags).argtype == 'p')
-	{
-		(*t_flags).flags |= FLAG_HT;
-		arg = va_arg(argptr, unsigned long);
-		(*t_flags).special_chars_printed = (*t_flags).special_chars_printed + 2;
-	}
-	else
-	{
-		arg = va_arg(argptr, unsigned long long);
-		check_modif_un(&arg, t_flags);
-	}
-	len = number_of_digits_un(arg, *t_flags);
+	arg = va_arg(argp, unsigned long long);
+	check_modif_un(&arg, tfl);
+	len = number_of_digits_un(arg, *tfl);
+	minfw_vs_precision(tfl, tpr, len);
+	check_plusflag(tfl);
 	if (arg == 0)
-		check_arg_zero(t_flags, &len);
-	minfw_vs_precision(t_flags);
-	if (len < (*t_flags).precision)
-		length_precision_diff(t_flags, len);
-	check_plusflag(t_flags);
-	(*t_flags).flags &= ~FLAG_PLUS;
-	(*t_flags).flags &= ~FLAG_SPACE;
-	if ((*t_flags).minfw < (*t_flags).precision)
-		(*t_flags).minfw = (*t_flags).precision;
-	if (((*t_flags).flags & FLAG_MINUS) > 0)
+		check_arg_zero(tfl, &len, tpr);
+	if (((*tfl).flags & FLAG_MINUS) > 0)
 	{
-		(*t_flags).flags &= ~FLAG_ZERO;
-		check_ht(arg, t_flags);
-		minus_flag(arg, t_flags, len);
-	}
-	else if (((*t_flags).flags & FLAG_ZERO) > 0)
-	{
-		check_ht(arg, t_flags);
-		print_inverse(t_flags, len);
-		print_number(arg, t_flags, len);
-	}
-	else if ((((*t_flags).flags & FLAG_MINUS) == 0) && \
-	(((*t_flags).flags & FLAG_ZERO) == 0))
-	{
-		print_order(t_flags, len);
-		check_ht(arg, t_flags);
-		print_number(arg, t_flags, len);
-	}
-}
-
-void					print_int_unsigned(va_list argptr, t_format *t_flags)
-{
-	unsigned long long	arg;
-	int					len;
-
-	arg = va_arg(argptr, unsigned long long);
-	minfw_vs_precision(t_flags);
-	check_modif_un(&arg, t_flags);
-	len = number_of_digits_un(arg, *t_flags);
-	check_plusflag(t_flags);
-	if ((*t_flags).minfw < (*t_flags).precision)
-		(*t_flags).minfw = (*t_flags).precision;
-	if (((*t_flags).flags & FLAG_MINUS) > 0)
-	{
-		print_number(arg, t_flags, len);
-		print_inverse(t_flags, len);
+		print_number(arg, tfl, tpr, len);
+		print_inverse(tfl, tpr, len);
 	}
 	else
 	{
-		if ((((*t_flags).flags & FLAG_ZERO) > 0) || \
-		(((*t_flags).flags & FLAG_PRECIS) > 0))
-			print_inverse(t_flags, len);
+		if ((((*tfl).flags & FLAG_ZERO) > 0) || \
+		(((*tfl).flags & FLAG_PRECIS) > 0))
+			print_inverse(tfl, tpr, len);
 		else
 		{
-			print_padding(t_flags, len);
-			print_sign(t_flags);
+			print_padding(tfl, tpr, len);
+			print_sign(tfl, tpr);
 		}
-		print_number(arg, t_flags, len);
+		print_number(arg, tfl, tpr, len);
 	}
 }

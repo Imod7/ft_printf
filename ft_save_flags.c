@@ -105,7 +105,7 @@ void				save_flags(t_format *t_flags, const char **str)
 ** for more than one arguments
 */
 
-void				clear_formatstruct(t_format *t_flags)
+void				clear_formatstruct(t_format *t_flags, t_print *t_prnt)
 {
 	(*t_flags).flags = 0;
 	(*t_flags).minfw = 0;
@@ -114,6 +114,9 @@ void				clear_formatstruct(t_format *t_flags)
 	(*t_flags).special_chars_printed = 0;
 	(*t_flags).modifier = N;
 	(*t_flags).fd = 0;
+	(*t_prnt).pad_len = 0;
+	(*t_prnt).diff = 0;
+	(*t_prnt).sign_printed = 0;
 }
 
 void				clear_forfloat(t_float *fl_num)

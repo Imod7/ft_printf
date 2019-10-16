@@ -12,7 +12,7 @@
 
 #include "includes/ft_printf.h"
 
-int				length_adjust(short *product, t_format *t_flags)
+int				length_adjust(short *product)
 {
 	int			len;
 
@@ -20,44 +20,40 @@ int				length_adjust(short *product, t_format *t_flags)
 		len = 1;
 	else
 		len = length_product(product);
-	if (((*t_flags).flags & FLAG_NEGAT) &&
-	(!((*t_flags).flags & FLAG_MINUS)) &&
-	(!((*t_flags).flags & FLAG_ZERO)))
-		(*t_flags).special_chars_printed++;
 	return (len);
 }
 
-void				print_float(va_list argptr, t_format *t_flags)
+void				print_float(va_list argptr, t_format *t_flags, t_print *tpr)
 {
 	t_float			float_num;
 	short			product[10000];
 	int				len;
 	int				result;
 
-	result = ft_ftoa(argptr, t_flags, &float_num, product);
+	result = ft_ftoa(argptr, t_flags, tpr, &float_num, product);
 	check_precision(product, t_flags);
-	len = length_adjust(product, t_flags);
+	len = length_adjust(product);
 	if (result == -1)
 		len = 4;
 	else if ((result == 1) || (result == 2))
 		len = 3;
 	if ((*t_flags).flags & FLAG_MINUS)
 	{
-		print_sign(t_flags);
+		print_sign(t_flags, tpr);
 		print_final_float(product, t_flags);
-		print_padding(t_flags, len);
+		print_padding(t_flags, tpr, len);
 	}
 	else if (((*t_flags).flags & FLAG_NEGAT) &&
 	(!((*t_flags).flags & FLAG_ZERO)))
 	{
-		print_padding(t_flags, len);
-		print_sign(t_flags);
+		print_padding(t_flags, tpr, len);
+		print_sign(t_flags, tpr);
 		print_final_float(product, t_flags);
 	}
 	else
 	{
-		print_sign(t_flags);
-		print_padding(t_flags, len);
+		print_sign(t_flags, tpr);
+		print_padding(t_flags, tpr, len);
 		print_final_float(product, t_flags);
 	}
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;

@@ -13,9 +13,9 @@
 #include "libft/includes/libft.h"
 #include <stdio.h>
 
-static void	make_str(char *str, float n, int len)
+static void		make_str(char *str, float n, int len)
 {
-	int		i;
+	int			i;
 
 	str[len + 1] = '\0';
 	i = 0;
@@ -39,7 +39,7 @@ static void	make_str(char *str, float n, int len)
 
 static int		count_len(float n)
 {
-	int		len;
+	int			len;
 
 	len = 0;
 	if (n < 0)
@@ -68,4 +68,3 @@ char			*ft_itoa_float(float n)
 	make_str(str, n1, len - 1);
 	return (str);
 }
-
