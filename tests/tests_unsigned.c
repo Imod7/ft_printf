@@ -52,9 +52,10 @@ int				test_u2(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 55 (u2) : %%u='%u', %%15lu='%15lu', %%.0u='%.0u', %%.2u='%.2u', %%.5u='%.5u', %%5.3u='%5.3u'\n", 0, 4294967295, 0, 0, 0, 0);
+	total_chars_p = dprintf(fd, "%%u='%u', %%15lu='%15lu', %%.0u='%.0u', %%.2u='%.2u', %%.5u='%.5u', %%5.3u='%5.3u'\n", 0, 4294967295, 0, 0, 0, 0);
+	// total_chars_p = dprintf(fd, "%5.3u", 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 55 (u2) : %%u='%u', %%15lu='%15lu', %%.0u='%.0u', %%.2u='%.2u', %%.5u='%.5u', %%5.3u='%5.3u'\n", 0, 4294967295, 0, 0, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%u='%u', %%15lu='%15lu', %%.0u='%.0u', %%.2u='%.2u', %%.5u='%.5u', %%5.3u='%5.3u'\n", 0, 4294967295, 0, 0, 0, 0);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -68,7 +69,17 @@ int				test_u2(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 55 (u2)		-> SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 55 (u2) ZERO ARG	-> SUCCESS!\n");
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 55 (u2)	-> FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 55 (u2) ZERO ARG	-> FAIL!\n");
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }

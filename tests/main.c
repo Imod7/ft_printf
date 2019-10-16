@@ -18,7 +18,7 @@ int				main(void)
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[70];
+	test_func	*test_array[71];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -90,6 +90,7 @@ int				main(void)
 	test_array[67] = test_float15;
 	test_array[68] = test_float16;
 	test_array[69] = test_float17;
+	test_array[70] = test_i5;
 	i = 1;
 	test_passed = 0;
 	printf("Which Test do you want to run ? (0 to run All) \n");

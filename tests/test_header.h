@@ -97,5 +97,6 @@ int		test_float14(void);
 int		test_float15(void);
 int		test_float16(void);
 int		test_float17(void);
+int		test_i5(void);
 
 # endif
