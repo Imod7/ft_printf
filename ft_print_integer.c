@@ -33,8 +33,7 @@ void			int_minus(long long arg, t_format *t_fl, t_print *t_pr, int len)
 {
 	if ((((*t_fl).flags & FLAG_PRECIS) > 0) && \
 	(((*t_fl).precision) > len) && \
-	(((*t_fl).precision) > ((*t_fl).minfw)))
-	// (((*t_fl).flags & FLAG_NEGAT) == 0)
+	(((*t_fl).precision) >= ((*t_fl).minfw)))
 	{
 		print_sign(t_fl, t_pr);
 		print_padding(t_fl, t_pr, len);
@@ -42,7 +41,6 @@ void			int_minus(long long arg, t_format *t_fl, t_print *t_pr, int len)
 	}
 	else
 	{
-		// printf("\nMINUS is PRESENT\n");
 		print_sign(t_fl, t_pr);
 		print_number_int(arg, t_fl, t_pr, len);
 		print_padding(t_fl, t_pr, len);
@@ -66,8 +64,8 @@ void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt)
 	arg = va_arg(argptr, long long);
 	check_plusflag(tflags);
 	check_modifier(&arg, tflags);
-	check_negative_num(&arg, tflags);
 	len = number_of_digits(arg);
+	check_negative_num(&arg, tflags, tprnt, len);
 	minfw_vs_precision(tflags, tprnt, len);
 	// printf("\ntotal = %d\n", (*tflags).total_chars_printed);
 	if (arg == 0)

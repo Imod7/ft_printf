@@ -18,7 +18,7 @@ int				main(void)
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[71];
+	test_func	*test_array[78];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -91,10 +91,24 @@ int				main(void)
 	test_array[68] = test_float16;
 	test_array[69] = test_float17;
 	test_array[70] = test_i5;
+	test_array[71] = test_int13;
+	test_array[72] = test_int14;
+	test_array[73] = test_int15;
+	test_array[74] = test_octal8;
+	test_array[75] = test_hex14;
+	test_array[76] = test_octal9;
+	test_array[77] = test_hex15;
 	i = 1;
 	test_passed = 0;
 	printf("Which Test do you want to run ? (0 to run All) \n");
 	scanf("%d", &option);
+	if (option > (int)(sizeof(test_array) / sizeof(test_array[0])))
+	{
+		printf(ANSI_COLOR_RED"\nThe max option you can give is \
+		%d\n"ANSI_COLOR_RESET, \
+		(int)(sizeof(test_array) / sizeof(test_array[0])));
+		return (0);
+	}
 	if (option != 0)
 		test_array[option - 1]();
 	else

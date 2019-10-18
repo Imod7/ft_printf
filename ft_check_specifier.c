@@ -12,11 +12,24 @@
 
 #include "includes/ft_printf.h"
 
-void		check_aster(va_list argptr, t_format *t_flags)
+void		check_asterisks(va_list argptr, t_format *t_flags)
 {
 	int		aster_arg;
 
-	if ((*t_flags).flags & FLAG_ASTER)
+	if (((*t_flags).flags & FLAG_ASTER) && ((*t_flags).flags & FLAG_ASTER_2))
+	{
+		aster_arg = va_arg(argptr, int);
+		if (aster_arg < 0)
+		{
+			aster_arg = aster_arg * (-1);
+			(*t_flags).flags |= FLAG_MINUS;
+		}
+		(*t_flags).minfw = aster_arg;
+		aster_arg = va_arg(argptr, int);
+		(*t_flags).precision = aster_arg;
+	}
+	else if (((*t_flags).flags & FLAG_ASTER) && \
+	(!((*t_flags).flags & FLAG_ASTER_2)))
 	{
 		aster_arg = va_arg(argptr, int);
 		if (aster_arg < 0)
@@ -39,7 +52,7 @@ void		check_aster(va_list argptr, t_format *t_flags)
 
 void		print_arg(va_list argptr, t_format *t_flags, t_print *t_prnt)
 {
-	check_aster(argptr, t_flags);
+	check_asterisks(argptr, t_flags);
 	if (((*t_flags).argtype == 'd') || ((*t_flags).argtype == 'i'))
 		print_integer(argptr, t_flags, t_prnt);
 	else if ((*t_flags).argtype == 's')

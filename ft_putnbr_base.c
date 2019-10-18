@@ -60,12 +60,12 @@ void					ft_putnbr_octal(unsigned long long n, int fd)
 {
 	unsigned long long	num;
 
-	if (n <= 8)
+	if (n < 8)
 	{
 		num = n + 48;
 		write(fd, &num, 1);
 	}
-	if (n > 8)
+	if (n >= 8)
 	{
 		ft_putnbr_octal(n / 8, fd);
 		ft_putnbr_octal(n % 8, fd);
@@ -76,15 +76,18 @@ void					ft_putnbr_hex(unsigned long long n, int fd)
 {
 	unsigned long long	num;
 
+	// printf("number = %llu\n", n);
 	if (n <= 9)
 	{
 		num = n + 48;
 		write(fd, &num, 1);
+		// printf("num = %llu\n", num);
 	}
 	if (n > 9 && n < 16)
 	{
 		num = n + 87;
 		write(fd, &num, 1);
+		// printf("num = %llu\n", num);
 	}
 	if (n >= 16)
 	{

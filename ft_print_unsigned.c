@@ -40,21 +40,19 @@ void					print_hexoctal(va_list arg, t_format *tfl, t_print *tpr)
 	minfw_vs_precision(tfl, tpr, len);
 	if (argum == 0)
 		check_arg_zero(tfl, &len, tpr);
-	// if (len < (*tfl).precision)
-	// 	length_precision_diff(tfl, len);
 	check_plusflag(tfl);
 	(*tfl).flags &= ~FLAG_PLUS;
 	(*tfl).flags &= ~FLAG_SPACE;
-	// if ((*tfl).minfw < (*tfl).precision)
-	// 	(*tfl).minfw = (*tfl).precision;
 	if (((*tfl).flags & FLAG_MINUS) > 0)
 	{
 		(*tfl).flags &= ~FLAG_ZERO;
 		unsign_checkht(argum, tfl);
 		unsig_minus(argum, tfl, tpr, len);
 	}
-	else if (((*tfl).flags & FLAG_ZERO) > 0)
+	else if (((*tfl).flags & FLAG_ZERO) ||
+	((*tfl).precision > (*tfl).minfw))
 	{
+		// printf(ANSI_COLOR_YELLOW"\n zero and prec > min\n");
 		unsign_checkht(argum, tfl);
 		print_inverse(tfl, tpr, len);
 		print_number(argum, tfl, tpr, len);
@@ -62,6 +60,7 @@ void					print_hexoctal(va_list arg, t_format *tfl, t_print *tpr)
 	else if ((((*tfl).flags & FLAG_MINUS) == 0) && \
 	(((*tfl).flags & FLAG_ZERO) == 0))
 	{
+		// printf(ANSI_COLOR_YELLOW"\n not zero \n");
 		print_order(tfl, tpr, len);
 		unsign_checkht(argum, tfl);
 		print_number(argum, tfl, tpr, len);

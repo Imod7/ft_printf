@@ -37,6 +37,7 @@
 # define FLAG_PRECIS (1 << 6)
 # define FLAG_ASTER (1 << 7)
 # define FLAG_NEGAT (1 << 8)
+# define FLAG_ASTER_2 (1 << 9)
 
 typedef enum	e_modifier
 {
@@ -94,8 +95,8 @@ void			ft_putnbr_hex_capit(unsigned long long n, int fd);
 void			ft_putnbr_un_int(unsigned long long n, int fd);
 void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt);
 void			print_int_un(va_list argpt, t_format *t_flags, t_print *t_prnt);
-void			unsig_minus(unsigned long long ar, t_format *fl, t_print *pn, int l);
-void			unsign_checkht(unsigned long long arg, t_format *t_flags);
+void			unsig_minus(unsigned long long ar, t_format *f, t_print *p, int l);
+void			unsign_checkht(unsigned long long arg, t_format *f);
 void			print_hexoctal(va_list argpt, t_format *tflags, t_print *tprnt);
 void			print_string(va_list argptr, t_format *tflags, t_print *tprnt);
 void			print_char(va_list argpt, t_format *tflags, t_print *tprnt);
@@ -116,23 +117,21 @@ void			check_plusflag(t_format *t_flags);
 void			check_arg_zero(t_format *t_flags, int *len, t_print *tprnt);
 void			print_order(t_format *t_flags, t_print *t_prnt, int len);
 void			print_inverse(t_format *t_flags, t_print *t_prnt, int len);
-void			print_number(unsigned long long arg, t_format *tflgs, t_print *t_pr,int len);
+void			print_number(unsigned long long arg, t_format *f, t_print *p,int l);
 void			print_number_int(long long arg, t_format *fl, t_print *pn, int l);
-void			check_negative_num(long long *arg, t_format *t_flags);
+void			check_negative_num(long long *arg, t_format *t_flags, t_print *pn, int l);
 void			minfw_vs_precision(t_format *t_flags, t_print *t_prnt, int len);
 void			length_precision_diff_zeros(t_format *tflags, t_print *t_pr, int len);
 void			length_precision_diff(t_format *t_flags, int len);
 /*
 ** floats maths
 */
-// int				ft_ftoa(va_list argpt, t_format *tflgs, t_float *fl, short *pr);
-int				ft_ftoa(va_list arg, t_format *tfl, t_print *tprnt, t_float *fl, short *pr);
+int				ft_ftoa(va_list arg, t_format *tfl, t_print *p, t_float *f, short *pr);
 void			str_add_prod_frac(short *pr, char *fr);
 void			frac_divide_by_two(char *fr);
 void			str_double(short *pr);
 void			prod_divide_by_two(short *pr);
 int				length_product(short *pr);
-// int				check_inf_nan(t_float *fl, short *product);
 int				check_inf_nan(t_float *fl, t_print *t_prnt, short *product);
 /*
 ** floats aux functions

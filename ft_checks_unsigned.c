@@ -14,11 +14,11 @@
 
 void		unsig_minus(unsigned long long ar, t_format *fl, t_print *pn, int l)
 {
-	if ((((*fl).argtype == 'o') > 0) && \
-	(((*fl).flags & FLAG_HT) > 0))
-	{
-		(*fl).special_chars_printed++;
-	}
+	// if ((((*fl).argtype == 'o') > 0) && \
+	// (((*fl).flags & FLAG_HT) > 0))
+	// {
+	// 	(*fl).special_chars_printed++;
+	// }
 	if ((((*fl).precision) > l) &&
 	(((*fl).precision) > ((*fl).minfw)))
 	{
@@ -61,20 +61,25 @@ void		unsign_checkht(unsigned long long arg, t_format *t_flags)
 {
 	char	c;
 
-	if ((((*t_flags).argtype == 'o') > 0) && \
-	((arg != 0) && (((*t_flags).flags & FLAG_HT) > 0)))
+	if ((((*t_flags).argtype == 'o') > 0) &&
+	((arg != 0) && (((*t_flags).flags & FLAG_HT) > 0)) &&
+	((*t_flags).minfw > (*t_flags).precision))
 	{
 		c = '0';
 		write((*t_flags).fd, &c, 1);
 		(*t_flags).total_chars_printed++;
+		(*t_flags).special_chars_printed++;
 	}
-	else if ((((*t_flags).flags & FLAG_HT) > 0) && (arg != 0) && \
+	if ((((*t_flags).flags & FLAG_HT) > 0) && (arg != 0) && \
 	((*t_flags).argtype != 'o'))
 	{
 		if (((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'p'))
 			write((*t_flags).fd, "0x", 2);
 		else
 			write((*t_flags).fd, "0X", 2);
-		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 2;
+		(*t_flags).total_chars_printed += 2;
+		if (((*t_flags).minfw > (*t_flags).precision) && \
+		((*t_flags).argtype != 'p'))
+			(*t_flags).special_chars_printed += 2;
 	}
 }

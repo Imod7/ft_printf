@@ -24,17 +24,19 @@ SRC =	\
 		ft_printf_genericfunc.c \
 		ft_save_flags.c \
 		ft_check_specifier.c \
+		ft_checks_unsigned.c \
 		ft_print_integer.c \
 		ft_print_unsigned.c \
-		ft_checks_unsigned.c \
+		ft_print_float.c \
 		ft_print_alpha_other.c \
+		ft_print_number.c \
 		ft_print_format.c \
 		ft_putnbr_base.c \
-		ft_print_float.c \
 		ft_itoa_float.c \
 		ft_addtobuffer.c \
 		ft_bitwise.c \
 		ft_common_functions.c \
+		ft_zero_arg.c \
 		ft_float.c \
 		ft_float_strmaths.c \
 		ft_float_auxprint.c \

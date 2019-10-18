@@ -77,8 +77,10 @@ void				save_flags(t_format *t_flags, const char **str)
 {
 	while (**str != '\0' && all_flags_retrieved(**str) == 0)
 	{
-		if (**str == '*')
+		if ((**str == '*') && (!((*t_flags).flags & FLAG_ASTER)))
 			(*t_flags).flags |= FLAG_ASTER;
+		else if ((**str == '*') && ((*t_flags).flags & FLAG_ASTER))
+			(*t_flags).flags |= FLAG_ASTER_2;
 		else if (**str == '-')
 			(*t_flags).flags |= FLAG_MINUS;
 		else if (**str == '+')

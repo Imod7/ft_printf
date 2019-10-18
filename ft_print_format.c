@@ -72,7 +72,6 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 {
 	int		i;
 	int		c;
-	// int		temp;
 
 	if (((*t_pr).sign_printed == 0) &&
 	(((*t_flags).flags & (FLAG_PLUS)) ||
@@ -82,25 +81,31 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 		// printf("\nSign is not printed yet\n");
 		(*t_flags).special_chars_printed += 1;
 	}
-	if ((((*t_flags).flags & FLAG_HT) > 0) && (((*t_flags).argtype == 'x') || \
-	((*t_flags).argtype == 'X')))
-	{
-		// printf(ANSI_COLOR_CYAN"\nHT=yes + hexad \n");
-		(*t_flags).special_chars_printed += 2;
-	}
+	// if ((((*t_flags).flags & FLAG_HT) > 0) && (((*t_flags).argtype == 'x') || \
+	// ((*t_flags).argtype == 'X')))
+	// {
+	// 	// printf(ANSI_COLOR_CYAN"\nHT=yes + hexad \n");
+	// 	(*t_flags).special_chars_printed += 2;
+	// }
 	if (!((*t_pr).pad_len))
+	{
+		// printf(ANSI_COLOR_YELLOW" >> pad_len IS NOT SET = %d\n", (*t_pr).pad_len);
 		(*t_pr).pad_len = (*t_flags).minfw - \
 		(*t_flags).special_chars_printed - arg_digits_len;
+	}
 	if (!((*t_pr).diff))
 		(*t_pr).diff = ((*t_pr).pad_len - (*t_flags).precision) + \
 		arg_digits_len + (*t_flags).special_chars_printed;
 	if (((*t_pr).diff) && ((*t_pr).sign_printed == 1) && \
-	((*t_flags).precision > (*t_flags).minfw))
+	((*t_flags).precision >= (*t_flags).minfw))
 		(*t_pr).diff -= 1;
-	// printf(ANSI_COLOR_GREEN"\n===PADDING===\nargtype = %c\n", (*t_flags).argtype);
-	// printf("minfw = %d\nspecial_chars = %d\narg_digits_len = %d", (*t_flags).minfw, (*t_flags).special_chars_printed, arg_digits_len);
-	// printf("\nprecision = %d\npad_len = %d\n", (*t_flags).precision, (*t_pr).pad_len);
-	// printf("temp = %d\n", (*t_pr).diff);
+	// printf(ANSI_COLOR_GREEN"\n===PADDING===\nargtype = %c\n", \
+	// (*t_flags).argtype);
+	// printf("minfw = %d\nspecial_chars = %d\narg_digits_len = %d", \
+	// (*t_flags).minfw, (*t_flags).special_chars_printed, arg_digits_len);
+	// printf("\nprecision = %d\npad_len = %d\n", (*t_flags).precision, \
+	// (*t_pr).pad_len);
+	// printf("diff = %d\n", (*t_pr).diff);
 	i = 0;
 	while (i < (*t_pr).pad_len)
 	{
@@ -128,8 +133,6 @@ void		print_sign(t_format *t_flags, t_print *t_prnt)
 		(*t_flags).flags &= ~FLAG_PLUS;
 		write((*t_flags).fd, &"-", 1);
 		(*t_flags).total_chars_printed++;
-		// if (((*t_flags).minfw > (*t_flags).precision) && \
-		// (((*t_flags).flags & FLAG_PRECIS) > 0))
 		(*t_flags).special_chars_printed++;
 	}
 	if (((*t_flags).flags & FLAG_PLUS) > 0)
@@ -147,12 +150,12 @@ void		print_sign(t_format *t_flags, t_print *t_prnt)
 	(*t_prnt).sign_printed = 1;
 }
 
-void		check_negative_num(long long *arg, t_format *t_flags)
+void		check_negative_num(long long *arg, t_format *t_flags, t_print *t_prnt, int l)
 {
 	if (*arg < 0)
 		(*t_flags).flags |= FLAG_NEGAT;
-	// if ((*arg < 0) && ((*t_flags).minfw > (*t_flags).precision))
-	// (*t_flags).special_chars_printed++;
+	if ((*arg < 0) && ((*t_flags).minfw == (*t_flags).precision))
+		(*t_prnt).pad_len = (*t_flags).minfw - l;
 }
 
 void		check_modifier(long long *arg, t_format *t_flags)

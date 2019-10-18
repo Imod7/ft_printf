@@ -179,12 +179,21 @@ int					test_hex5(void)
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 26			-> SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 26			-> SUCCESS!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 26 (hex5)		-> FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 26 (hex5)		-> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }
 
 int						test_hex6(void)
@@ -303,10 +312,12 @@ int					test_hex9(void)
 
 	num = 255;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 30 (hex9) : >09hhX : '%09hhX'   >#09hhX:  '%#09hhX'\n", num, num);
+	total_chars_p = dprintf(fd, "%%09hhX='%09hhX', \
+	%%#09hhX='%#09hhX'\n", num, num);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 30 (hex9) : >09hhX : '%09hhX'   >#09hhX:  '%#09hhX'\n", num, num);
-	assert(total_chars_p == total_chars_ftp);
+	total_chars_ftp = ft_dprintf(fd, "%%09hhX='%09hhX', \
+	%%#09hhX='%#09hhX'\n", num, num);
+	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -314,12 +325,22 @@ int					test_hex9(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
+	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 30 (hex9)		-> SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 30 (hex9)		-> SUCCESS!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 30 (hex9)		-> FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 30 (hex9)		-> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }
 
 int					test_hex10(void)
@@ -416,10 +437,88 @@ int						test_hex13(void)
 	char				*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%5.x='%5.x', %%5.0x='%5.0x', %%x='%x', %%X='%X'\n", 0, 0, 0, 0);
+	total_chars_p = dprintf(fd, "%%5.x='%5.x', %%5.0x='%5.0x', \
+	%%x='%x', %%X='%X'\n", 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%5.x='%5.x', %%5.0x='%5.0x', %%x='%x', %%X='%X'\n", 0, 0, 0, 0);
-	// assert(total_chars_p == total_chars_ftp);
+	total_chars_ftp = ft_dprintf(fd, "%%5.x='%5.x', %%5.0x='%5.0x', \
+	%%x='%x', %%X='%X'\n", 0, 0, 0, 0);
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 56 (hex13)	ZERO ARG -> \
+		SUCCESS!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
+	else
+	{
+		printf(ANSI_COLOR_RED"Test 56 (hex13) ZERO ARG	-> \
+		FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
+}
+
+int						test_hex14(void)
+{
+	int					total_chars_p;
+	int					total_chars_ftp;
+	int					fd;
+	char				*returned_line_dprintf;
+	char				*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "%%#*.*x='%#*.*x'\n", 40, 20, 142424242);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "%%#*.*x='%#*.*x'\n", 40, 20, 142424242);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 76 (hex14)	 -> \
+		SUCCESS!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
+	else
+	{
+		printf(ANSI_COLOR_RED"Test 76 (hex14) 	-> \
+		FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
+}
+
+int						test_hex15(void)
+{
+	int					total_chars_p;
+	int					total_chars_ftp;
+	int					fd;
+	char				*returned_line_dprintf;
+	char				*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "%%#.*x='%#.*x'\n", 20, 142424242);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "%%#.*x='%#.*x'\n", 20, 142424242);
 	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
@@ -429,18 +528,19 @@ int						test_hex13(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 56 (hex13)	ZERO ARG	-> SUCCESS!\n"ANSI_COLOR_RESET);
+		printf(ANSI_COLOR_GREEN"Test 78 (hex15)	 -> \
+		SUCCESS!\n"ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (0);
 	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 56 (hex13) ZERO ARG		-> FAIL!\n"ANSI_COLOR_RESET);
+		printf(ANSI_COLOR_RED"Test 78 (hex15) 	-> \
+		FAIL!\n"ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (-1);
