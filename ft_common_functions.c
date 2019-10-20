@@ -25,14 +25,14 @@ void	check_plusflag(t_format *t_flags)
 
 void	print_order(t_format *t_flags, t_print *t_prnt, int len)
 {
-	// printf("\nthis is run\n");
-	if ((((*t_flags).argtype == 'o') > 0) &&
-	(((*t_flags).flags & FLAG_HT) > 0) &&
-	((*t_flags).minfw > (*t_flags).precision))
+	if (((*t_flags).argtype == 'o') &&
+	((*t_flags).flags & FLAG_HT) &&
+	((*t_flags).minfw >= (*t_flags).precision) &&
+	((*t_flags).precision == 0))
 		(*t_flags).special_chars_printed++;
-	if (((((*t_flags).argtype == 'x') > 0) ||
-	(((*t_flags).argtype == 'X') > 0)) &&
-	(((*t_flags).flags & FLAG_HT) > 0) &&
+	if ((((*t_flags).argtype == 'x') ||
+	((*t_flags).argtype == 'X')) &&
+	((*t_flags).flags & FLAG_HT) &&
 	((*t_flags).minfw > (*t_flags).precision))
 		(*t_flags).special_chars_printed += 2;
 	print_padding(t_flags, t_prnt, len);
@@ -51,8 +51,9 @@ void	length_precision_diff(t_format *t_flags, int len)
 	int	diff;
 
 	diff = (*t_flags).precision - len;
-	// printf(ANSI_COLOR_YELLOW"\nlen_prec_diff -> diff = %d\n", diff);
+	// printf(ANSI_COLOR_YELLOW"len_prec_diff -> diff = %d\n", diff);
 	(*t_flags).total_chars_printed += diff;
+	// (*t_flags).special_chars_printed += diff;
 	while (diff > 0)
 	{
 		write((*t_flags).fd, "0", 1);

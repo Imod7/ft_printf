@@ -21,32 +21,54 @@
 void	check_arg_zero(t_format *t_flags, int *len, t_print *tprnt)
 {
 	if ((*t_flags).precision > (*t_flags).minfw)
-	{
 		(*tprnt).pad_len = -1;
-	}
 	else if (((*t_flags).precision < (*t_flags).minfw) && \
+	(!((*t_flags).flags & (FLAG_HT))) &&
+	((*t_flags).argtype != 'o') &&
 	(!((*t_flags).flags & (FLAG_ZERO))))
+	{
+		// printf(ANSI_COLOR_YELLOW"\nminfw - precision\n");
 		(*tprnt).pad_len = (*t_flags).minfw - (*t_flags).precision;
-	else if (((*t_flags).precision < (*t_flags).minfw) && \
-	((*t_flags).flags & (FLAG_ZERO)))
+	}
+	else if (((*t_flags).precision <= (*t_flags).minfw) && \
+	((((*t_flags).flags & (FLAG_HT))  &&
+	((*t_flags).argtype == 'o')) ||
+	((*t_flags).flags & (FLAG_ZERO))))
+	{
 		(*tprnt).pad_len = (*t_flags).minfw - *len;
-	else if ((*t_flags).precision != 0)
-		(*tprnt).pad_len = (*t_flags).minfw - *len;
+		// printf(ANSI_COLOR_YELLOW"\nminfw - len\n");
+	}
+	// else if (((*t_flags).precision < (*t_flags).minfw) && \
+	// ((*t_flags).flags & (FLAG_ZERO)))
+	// 	(*tprnt).pad_len = (*t_flags).minfw - *len;
+	// else if ((*t_flags).precision != 0)
+	// 	(*tprnt).pad_len = (*t_flags).minfw - *len;
 	else
+	{
+		// printf(ANSI_COLOR_YELLOW"it gets here?\n");
 		(*tprnt).pad_len = (*t_flags).minfw;
+	}
 }
 
 void	length_precision_diff_zeros(t_format *t_flags, t_print *t_pr, int len)
 {
 	int	diff;
 
-	if (((*t_flags).minfw != 0) && ((*t_flags).precision != 0))
+	// if (((*t_flags).minfw != 0) && ((*t_flags).precision != 0))
+	if (((*t_flags).minfw != 0) && ((*t_flags).precision < (*t_flags).minfw) &&
+	(!((*t_flags).flags & (FLAG_HT))))
+	{
+		// printf("\nprecision < minfw , pad  = %d\n", (*t_pr).pad_len);
 		diff = (*t_flags).minfw - (*t_pr).pad_len;
+	}
 	else if (((*t_flags).minfw == 0) && ((*t_flags).precision != 0))
 		diff = (*t_flags).precision;
 	else
+	{
+		// printf("\nother\n");
 		diff = (*t_flags).precision - (*t_pr).pad_len - \
 		(*t_flags).special_chars_printed - len;
+	}
 	if (diff > 0)
 	{
 		(*t_flags).special_chars_printed += diff;

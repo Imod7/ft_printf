@@ -14,42 +14,12 @@
 
 void		unsig_minus(unsigned long long ar, t_format *fl, t_print *pn, int l)
 {
-	// if ((((*fl).argtype == 'o') > 0) && \
-	// (((*fl).flags & FLAG_HT) > 0))
-	// {
-	// 	(*fl).special_chars_printed++;
-	// }
 	if ((((*fl).precision) > l) &&
 	(((*fl).precision) > ((*fl).minfw)))
 	{
-		// printf("\nsign padding number\n");
 		print_inverse(fl, pn, l);
 		print_number(ar, fl, pn, l);
 	}
-	// else if (((*fl).flags & FLAG_MINUS) &&
-	// (((*fl).precision) < ((*fl).minfw)))
-	// {
-	// 	printf("\n  sign padding number\n");
-	// 	print_inverse(fl, pn, l);
-	// 	print_number(ar, fl, l);
-	// }
-	// else if ((((*fl).flags & FLAG_NEGAT) == 0) && \
-	// (((*fl).flags & FLAG_SPACE) == 0) && \
-	// (((*fl).flags & FLAG_PRECIS) == 0))
-	// {
-	// 	printf("\n13edw\n");
-	// 	print_number(ar, fl, l);
-	// 	print_inverse(fl, pn, l);
-	// }
-	// if ((((*fl).flags & FLAG_NEGAT) > 0) && \
-	// (((*fl).flags & FLAG_SPACE) > 0))
-	// {
-	// 	printf("\n14edw\n");
-	// 	(*fl).flags &= ~FLAG_SPACE;
-	// 	print_sign(fl, pn);
-	// 	print_number(ar, fl, l);
-	// 	print_padding(fl, pn, l);
-	// }
 	else
 	{
 		print_number(ar, fl, pn, l);
@@ -57,13 +27,14 @@ void		unsig_minus(unsigned long long ar, t_format *fl, t_print *pn, int l)
 	}
 }
 
-void		unsign_checkht(unsigned long long arg, t_format *t_flags)
+void		unsign_checkht(unsigned long long arg, t_format *t_flags, int len)
 {
 	char	c;
 
 	if ((((*t_flags).argtype == 'o') > 0) &&
-	((arg != 0) && (((*t_flags).flags & FLAG_HT) > 0)) &&
-	((*t_flags).minfw > (*t_flags).precision))
+	(arg != 0) && ((*t_flags).flags & FLAG_HT) &&
+	// ((*t_flags).minfw >= (*t_flags).precision) &&
+	(*t_flags).precision < len)
 	{
 		c = '0';
 		write((*t_flags).fd, &c, 1);

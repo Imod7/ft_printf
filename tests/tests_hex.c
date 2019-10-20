@@ -519,8 +519,8 @@ int						test_hex15(void)
 	total_chars_p = dprintf(fd, "%%#.*x='%#.*x'\n", 20, 142424242);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "%%#.*x='%#.*x'\n", 20, 142424242);
-	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -540,6 +540,46 @@ int						test_hex15(void)
 	else
 	{
 		printf(ANSI_COLOR_RED"Test 78 (hex15) 	-> \
+		FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
+}
+
+int						test_hex16(void)
+{
+	int					total_chars_p;
+	int					total_chars_ftp;
+	int					fd;
+	char				*returned_line_dprintf;
+	char				*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "%%-#*.*x='%-#*.*x'\n", 5, 0, 0);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "%%-#*.*x='%-#*.*x'\n", 5, 0, 0);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 87 (hex16)	ZERO_ARG -> \
+		SUCCESS!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
+	else
+	{
+		printf(ANSI_COLOR_RED"Test 87 (hex16) ZERO_ARG -> \
 		FAIL!\n"ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);

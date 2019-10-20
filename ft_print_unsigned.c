@@ -30,6 +30,8 @@ unsigned long long		check_pointer(va_list arg, t_format *tfl)
 	return (argum);
 }
 
+
+
 void					print_hexoctal(va_list arg, t_format *tfl, t_print *tpr)
 {
 	unsigned long long	argum;
@@ -46,14 +48,14 @@ void					print_hexoctal(va_list arg, t_format *tfl, t_print *tpr)
 	if (((*tfl).flags & FLAG_MINUS) > 0)
 	{
 		(*tfl).flags &= ~FLAG_ZERO;
-		unsign_checkht(argum, tfl);
+		unsign_checkht(argum, tfl, len);
 		unsig_minus(argum, tfl, tpr, len);
 	}
 	else if (((*tfl).flags & FLAG_ZERO) ||
 	((*tfl).precision > (*tfl).minfw))
 	{
 		// printf(ANSI_COLOR_YELLOW"\n zero and prec > min\n");
-		unsign_checkht(argum, tfl);
+		unsign_checkht(argum, tfl, len);
 		print_inverse(tfl, tpr, len);
 		print_number(argum, tfl, tpr, len);
 	}
@@ -62,7 +64,7 @@ void					print_hexoctal(va_list arg, t_format *tfl, t_print *tpr)
 	{
 		// printf(ANSI_COLOR_YELLOW"\n not zero \n");
 		print_order(tfl, tpr, len);
-		unsign_checkht(argum, tfl);
+		unsign_checkht(argum, tfl, len);
 		print_number(argum, tfl, tpr, len);
 	}
 }
@@ -81,6 +83,7 @@ void					print_int_un(va_list argp, t_format *tfl, t_print *tpr)
 		check_arg_zero(tfl, &len, tpr);
 	if (((*tfl).flags & FLAG_MINUS) > 0)
 	{
+		(*tfl).flags &= ~FLAG_ZERO;
 		print_number(arg, tfl, tpr, len);
 		print_inverse(tfl, tpr, len);
 	}

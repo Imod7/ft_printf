@@ -18,7 +18,7 @@ int				main(void)
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[78];
+	test_func	*test_array[90];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -98,6 +98,18 @@ int				main(void)
 	test_array[75] = test_hex14;
 	test_array[76] = test_octal9;
 	test_array[77] = test_hex15;
+	test_array[78] = test_float18;
+	test_array[79] = test_octal10;
+	test_array[80] = test_u3;
+	test_array[81] = test_octal11;
+	test_array[82] = test_octal12;
+	test_array[83] = test_u4;
+	test_array[84] = test_octal13;
+	test_array[85] = test_u5;
+	test_array[86] = test_hex16;
+	test_array[87] = test_octal14;
+	test_array[88] = test_octal15;
+	test_array[89] = test_octal16;
 	i = 1;
 	test_passed = 0;
 	printf("Which Test do you want to run ? (0 to run All) \n");

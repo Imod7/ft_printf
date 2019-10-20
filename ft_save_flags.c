@@ -20,13 +20,17 @@ int					all_flags_retrieved(char str)
 		return (0);
 	if (str == '.')
 		return (0);
-	if ((str == 'h') && (str != 'h'))
+	// if ((str == 'h') && (str != 'h'))
+	// 	return (0);
+	// if ((str == 'h') && (str == 'h'))
+	if (str == 'h')
 		return (0);
-	if ((str == 'h') && (str == 'h'))
+	// if ((str == 'l') && (str != 'l'))
+	// 	return (0);
+	// if ((str == 'l') && (str == 'l'))
+	if (str == 'l')
 		return (0);
-	if ((str == 'l') && (str != 'l'))
-		return (0);
-	if ((str == 'l') && (str == 'l'))
+	if (str == 'L')
 		return (0);
 	if (ft_isdigit(str) == 1)
 		return (0);
@@ -36,13 +40,15 @@ int					all_flags_retrieved(char str)
 int					save_modifier(const char *str, t_format *t_flags)
 {
 	if ((str[0] == 'h') && (str[1] != 'h'))
-		(*t_flags).modifier = H;
+		(*t_flags).modifier = h;
 	if ((str[0] == 'h') && (str[1] == 'h'))
-		(*t_flags).modifier = HH;
+		(*t_flags).modifier = hh;
 	if ((str[0] == 'l') && (str[1] != 'l'))
-		(*t_flags).modifier = L;
+		(*t_flags).modifier = l;
 	if ((str[0] == 'l') && (str[1] == 'l'))
-		(*t_flags).modifier = LL;
+		(*t_flags).modifier = ll;
+	if (str[0] == 'L')
+		(*t_flags).modifier = L;
 	return (0);
 }
 
@@ -94,7 +100,8 @@ void				save_flags(t_format *t_flags, const char **str)
 		else if (((ft_isdigit(**str) == 1) &&
 		((*t_flags).minfw == 0)) || (**str == '.'))
 			minfw_precision_flags(t_flags, str);
-		else if ((**str == 'h' || **str == 'l') && ((*t_flags).modifier == 0))
+		else if ((**str == 'h' || **str == 'l' || **str == 'L')
+		&& ((*t_flags).modifier == 0))
 			save_modifier(*str, t_flags);
 		(*str)++;
 	}

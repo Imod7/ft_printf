@@ -14,13 +14,14 @@
 
 void	print_number(unsigned long long arg, t_format *tfl, t_print *pr,int len)
 {
-	if ((arg != 0) && ((*tfl).precision > len) && \
-	((*tfl).precision < (*tfl).minfw))
+	if ((arg != 0) &&
+	((*tfl).precision > len) &&
+	((*tfl).precision <= (*tfl).minfw))
 		length_precision_diff(tfl, len);
 	if ((*tfl).argtype == 'u')
 	{
 		if ((arg != 0) || \
-		((arg == 0) && ((*tfl).flags & FLAG_MINUS)) ||
+		// ((arg == 0) && ((*tfl).flags & FLAG_MINUS)) ||
 		((arg == 0) && ((*tfl).flags & FLAG_PLUS)) ||
 		((arg == 0) && ((*tfl).flags == 0)))
 		{
@@ -32,7 +33,8 @@ void	print_number(unsigned long long arg, t_format *tfl, t_print *pr,int len)
 	{
 		if ((arg != 0) || \
 		((arg == 0) && (((*tfl).flags == 0))) || \
-		((arg == 0) && (((*tfl).flags & FLAG_HT) > 0)))
+		((arg == 0) && ((*tfl).flags & FLAG_HT) && 
+		((*tfl).precision <= (*tfl).minfw)))
 		{
 			(*tfl).total_chars_printed += len;
 			ft_putnbr_octal(arg, (*tfl).fd);

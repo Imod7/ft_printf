@@ -81,12 +81,6 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 		// printf("\nSign is not printed yet\n");
 		(*t_flags).special_chars_printed += 1;
 	}
-	// if ((((*t_flags).flags & FLAG_HT) > 0) && (((*t_flags).argtype == 'x') || \
-	// ((*t_flags).argtype == 'X')))
-	// {
-	// 	// printf(ANSI_COLOR_CYAN"\nHT=yes + hexad \n");
-	// 	(*t_flags).special_chars_printed += 2;
-	// }
 	if (!((*t_pr).pad_len))
 	{
 		// printf(ANSI_COLOR_YELLOW" >> pad_len IS NOT SET = %d\n", (*t_pr).pad_len);
@@ -162,25 +156,25 @@ void		check_modifier(long long *arg, t_format *t_flags)
 {
 	if ((*t_flags).modifier == N)
 		*arg = (int)(*arg);
-	else if ((*t_flags).modifier == H)
+	else if ((*t_flags).modifier == h)
 		*arg = (short)(*arg);
-	else if ((*t_flags).modifier == HH)
+	else if ((*t_flags).modifier == hh)
 		*arg = (signed char)(*arg);
-	else if ((*t_flags).modifier == L)
+	else if ((*t_flags).modifier == l)
 		*arg = (long)(*arg);
-	else if ((*t_flags).modifier == LL)
+	else if ((*t_flags).modifier == ll)
 		*arg = (long long)(*arg);
 }
 
 void		check_modif_un(unsigned long long *arg, t_format *t_flags)
 {
-	if ((*t_flags).modifier == H)
+	if ((*t_flags).modifier == h)
 		*arg = (unsigned short)(*arg);
-	else if ((*t_flags).modifier == HH)
+	else if ((*t_flags).modifier == hh)
 		*arg = (unsigned char)(*arg);
-	else if ((*t_flags).modifier == L)
+	else if ((*t_flags).modifier == l)
 		*arg = (unsigned long)(*arg);
-	else if ((*t_flags).modifier == LL)
+	else if ((*t_flags).modifier == ll)
 		*arg = (unsigned long long)(*arg);
 	else
 		*arg = (unsigned int)(*arg);
