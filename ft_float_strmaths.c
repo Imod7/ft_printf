@@ -12,38 +12,6 @@
 
 #include "includes/ft_printf.h"
 
-int				length_fraction(char *fr)
-{
-	size_t		index;
-	int			len;
-
-	index = 0;
-	len = 0;
-	while (fr[index] != 0)
-	{
-		index++;
-		len++;
-	}
-	return (len);
-}
-
-int				length_product(short *pr)
-{
-	size_t		index;
-	int			len;
-
-	index = 0;
-	len = 0;
-	while (pr[index] == 0)
-		index++;
-	while (pr[index] != 0)
-	{
-		index++;
-		len++;
-	}
-	return (len);
-}
-
 int				length_product_decpart(short *pr)
 {
 	size_t		index;

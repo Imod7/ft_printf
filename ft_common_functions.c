@@ -41,7 +41,6 @@ void	print_order(t_format *t_flags, t_print *t_prnt, int len)
 
 void	print_inverse(t_format *t_flags, t_print *t_prnt, int len)
 {
-	// printf("\nprint inverse\n");
 	print_sign(t_flags, t_prnt);
 	print_padding(t_flags, t_prnt, len);
 }
@@ -51,9 +50,7 @@ void	length_precision_diff(t_format *t_flags, int len)
 	int	diff;
 
 	diff = (*t_flags).precision - len;
-	// printf(ANSI_COLOR_YELLOW"len_prec_diff -> diff = %d\n", diff);
 	(*t_flags).total_chars_printed += diff;
-	// (*t_flags).special_chars_printed += diff;
 	while (diff > 0)
 	{
 		write((*t_flags).fd, "0", 1);

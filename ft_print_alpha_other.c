@@ -27,13 +27,17 @@ void		print_string(va_list argptr, t_format *t_flags, t_print *t_prnt)
 	{
 		len = ft_strlen(arg);
 		print_sign(t_flags, t_prnt);
-		if (((*t_flags).precision < len) && ((*t_flags).precision != 0) \
-		&& (len != 0))
+		if ((((*t_flags).precision < len) && ((*t_flags).precision != 0) \
+		&& (len != 0)) || (((*t_flags).flags & FLAG_PRECIS) &&
+		((*t_flags).precision == 0)))
 			len = (*t_flags).precision;
 		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
 		if (((*t_flags).flags & FLAG_MINUS) > 0)
 		{
-			write((*t_flags).fd, arg, len);
+			if (((*t_flags).flags & FLAG_PRECIS) && ((*t_flags).precision == 0))
+				;
+			else
+				write((*t_flags).fd, arg, len);
 			if (((*t_flags).minfw != 0) && \
 			((*t_flags).minfw != (*t_flags).precision))
 				print_padding(t_flags, t_prnt, len);
@@ -43,7 +47,10 @@ void		print_string(va_list argptr, t_format *t_flags, t_print *t_prnt)
 			if (((*t_flags).minfw != 0) && \
 			((*t_flags).minfw != (*t_flags).precision))
 				print_padding(t_flags, t_prnt, len);
-			write((*t_flags).fd, arg, len);
+			if (((*t_flags).flags & FLAG_PRECIS) && ((*t_flags).precision == 0))
+				;
+			else
+				write((*t_flags).fd, arg, len);
 		}
 	}
 }
@@ -60,10 +67,7 @@ void		print_char(va_list argptr, t_format *t_flags, t_print *t_prnt)
 	(*t_flags).flags &= ~FLAG_SPACE;
 	if ((*t_flags).flags & FLAG_MINUS)
 	{
-		if (arg != 0)
-			write((*t_flags).fd, &arg, 1);
-		else
-			write((*t_flags).fd, "^@", 2);
+		write((*t_flags).fd, &arg, 1);
 		print_sign(t_flags, t_prnt);
 		print_padding(t_flags, t_prnt, len);
 	}
@@ -71,10 +75,7 @@ void		print_char(va_list argptr, t_format *t_flags, t_print *t_prnt)
 	{
 		print_sign(t_flags, t_prnt);
 		print_padding(t_flags, t_prnt, len);
-		if (arg != 0)
-			write((*t_flags).fd, &arg, 1);
-		else
-			write((*t_flags).fd, "^@", 2);
+		write((*t_flags).fd, &arg, 1);
 	}
 }
 

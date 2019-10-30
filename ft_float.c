@@ -36,7 +36,8 @@ void				initialization(char *fr, short *pr)
 	pr[5002] = '0';
 }
 
-void				check_modifier_float(va_list argptr, t_float *fl, t_format *t_flags)
+void				check_modifier_float(va_list argptr, t_float *fl, \
+t_format *t_flags)
 {
 	if ((*t_flags).modifier == N)
 		(*fl).f_num = va_arg(argptr, double);
@@ -69,7 +70,8 @@ void				exponent_calculation(short *pr, short exp)
 	}
 }
 
-int					ft_ftoa(va_list arg, t_format *tfl, t_print *tprnt, t_float *fl, short *pr)
+int					ft_ftoa(va_list arg, t_format *tfl, t_print *tprnt, \
+t_float *fl, short *pr)
 {
 	char			fraction[400];
 	int				index;

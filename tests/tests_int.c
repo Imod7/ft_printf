@@ -485,14 +485,12 @@ int				test_int12(void)
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
@@ -596,11 +594,9 @@ int				test_int15(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%010d='%010d'\n", 0);
+	total_chars_p = dprintf(fd, "%%010d='%010d', %%+03d='%+03d', %% 03d='% 03d'\n", 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%010d='%010d'\n", 0);
-	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	total_chars_ftp = ft_dprintf(fd, "%%010d='%010d', %%+03d='%+03d', %% 03d='% 03d'\n", 0, 0, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);

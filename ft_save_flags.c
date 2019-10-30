@@ -20,14 +20,8 @@ int					all_flags_retrieved(char str)
 		return (0);
 	if (str == '.')
 		return (0);
-	// if ((str == 'h') && (str != 'h'))
-	// 	return (0);
-	// if ((str == 'h') && (str == 'h'))
 	if (str == 'h')
 		return (0);
-	// if ((str == 'l') && (str != 'l'))
-	// 	return (0);
-	// if ((str == 'l') && (str == 'l'))
 	if (str == 'l')
 		return (0);
 	if (str == 'L')
@@ -106,38 +100,4 @@ void				save_flags(t_format *t_flags, const char **str)
 		(*str)++;
 	}
 	(*t_flags).argtype = **str;
-}
-
-/*
-** The only thing we do not initialize in the function clear_formatstruct
-** is the member total_chars_printed because we need to continue counting
-** for more than one arguments
-*/
-
-void				clear_formatstruct(t_format *t_flags, t_print *t_prnt)
-{
-	(*t_flags).flags = 0;
-	(*t_flags).minfw = 0;
-	(*t_flags).precision = 0;
-	(*t_flags).argtype = 0;
-	(*t_flags).special_chars_printed = 0;
-	(*t_flags).modifier = N;
-	(*t_flags).fd = 0;
-	(*t_prnt).pad_len = 0;
-	(*t_prnt).diff = 0;
-	(*t_prnt).sign_printed = 0;
-}
-
-void				clear_forfloat(t_float *fl_num)
-{
-	int				index;
-
-	(*fl_num).f_num = 0;
-	(*fl_num).mantissa = 0;
-	index = 0;
-	while (index < 5)
-	{
-		(*fl_num).exponent[index] = 0;
-		index++;
-	}
 }

@@ -34,14 +34,16 @@ SRC =	\
 		ft_putnbr_base.c \
 		ft_itoa_float.c \
 		ft_addtobuffer.c \
-		ft_bitwise.c \
 		ft_common_functions.c \
+		ft_number_len.c \
 		ft_zero_arg.c \
 		ft_float.c \
 		ft_float_strmaths.c \
-		ft_float_auxprint.c \
 		ft_float_round.c \
+		ft_float_auxprint.c \
 		ft_float_inf_nan.c \
+		ft_float_len.c \
+		ft_clear_all.c \
 
 OBJ = $(SRC:%.c=%.o)
 

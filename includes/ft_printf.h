@@ -87,7 +87,6 @@ void			check_modifier(long long *arg, t_format *t_flags);
 void			check_modif_un(unsigned long long *arg, t_format *t_flags);
 int				number_of_digits(long long num);
 int				number_of_digits_un(unsigned long long num, t_format t_flags);
-void			clear_formatstruct(t_format *t_flags, t_print *t_prnt);
 void			ft_putnbr_int(long long n, int fd);
 void			ft_putnbr_octal(unsigned long long n, int fd);
 void			ft_putnbr_hex(unsigned long long n, int fd);
@@ -102,7 +101,6 @@ void			print_hexoctal(va_list argpt, t_format *tflags, t_print *tprnt);
 void			print_string(va_list argptr, t_format *tflags, t_print *tprnt);
 void			print_char(va_list argpt, t_format *tflags, t_print *tprnt);
 void			print_other(char arg, t_format *t_flags, t_print *t_prnt);
-void			clear_forfloat(t_float *fl_num);
 void			print_float(va_list argptr, t_format *t_flags, t_print *tpr);
 void			intwithminus(long long arg, t_format *t_flags, int len);
 void			int_otherflag(long long arg, t_format *t_flags, int len);
@@ -141,6 +139,7 @@ void			str_add_prod_frac(short *pr, char *fr);
 void			frac_divide_by_two(char *fr);
 void			str_double(short *pr);
 void			prod_divide_by_two(short *pr);
+int				length_fraction(char *fr);
 int				length_product(short *pr);
 int				check_inf_nan(t_float *fl, t_print *t_prnt, short *product);
 
@@ -152,8 +151,14 @@ void			print_mantissa_inorder(uint64_t mant);
 void			print_mantissa_inreverse(uint64_t mant);
 void			print_fraction(char *fr);
 void			print_product(short *pr);
-void			print_exponent_binary(short exp);
 void			print_final_float(short *pr, t_format *t_flags);
 void			check_precision(short *pr, t_format *t_flags);
+
+/*
+** Clearing up / Reinitializing functions
+*/
+
+void			clear_formatstruct(t_format *t_flags, t_print *t_prnt);
+void			clear_forfloat(t_float *fl_num);
 
 #endif

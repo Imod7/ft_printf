@@ -76,18 +76,15 @@ void					ft_putnbr_hex(unsigned long long n, int fd)
 {
 	unsigned long long	num;
 
-	// printf("number = %llu\n", n);
 	if (n <= 9)
 	{
 		num = n + 48;
 		write(fd, &num, 1);
-		// printf("num = %llu\n", num);
 	}
 	if (n > 9 && n < 16)
 	{
 		num = n + 87;
 		write(fd, &num, 1);
-		// printf("num = %llu\n", num);
 	}
 	if (n >= 16)
 	{

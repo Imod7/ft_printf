@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "test_header.h"
+#include <locale.h>
 
 int				test_char1(void)
 {
@@ -133,23 +134,16 @@ int				test_char6(void)
 	total_chars_p = dprintf(fd, "%%9lc='%9lc', %%*c='%*c'\n", c, -10, 'a');
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "%%9lc='%9lc', %%*c='%*c'\n", c, -10, 'a');
-	// assert(total_chars_p == total_chars_ftp);
-	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
-	// printf("\n'%s'\n", returned_line_dprintf);
-	// printf("'%s'\n", returned_line_ft_dprintf);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
 	&& (total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 15 (char6) 	-> SUCCESS!\n"ANSI_COLOR_RESET);
+		printf(ANSI_COLOR_GREEN"Test 15 (char6) -> SUCCESS!\n"ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (0);
@@ -171,4 +165,46 @@ int				test_char7(void)
 	ft_printf(ANSI_COLOR_MAGENTA"Test 16 		-> Error/Warning >> ");
 	// printf(ANSI_COLOR_CYAN"Test 16 4llc THE PRINTF : '%4llc'\n", c);
 	ft_printf(ANSI_COLOR_YELLOW" 4llc MY  PRINTF : '%4llc'\n", c);
+}
+
+int				test_char8(void)
+{
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
+	int			total_chars_p;
+	int			total_chars_ftp;
+	int			fd;
+	char		c;
+
+	setlocale(LC_ALL, "en_US.UTF-8");
+	c = 'B';
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "😀%%c='%c', %%.2c='%.2c', %%3c='%3c'\n", \
+	0, NULL, 0);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "😀%%c='%c', %%.2c='%.2c', %%3c='%3c'\n", \
+	0, NULL, 0);
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
+	&& (total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 92 (char8) ZERO_ARG -> SUCCESS!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
+	else
+	{
+		printf(ANSI_COLOR_RED"Test 92 (char8) ZERO ARG -> FAIL!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }

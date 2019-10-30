@@ -67,7 +67,6 @@ void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt)
 	len = number_of_digits(arg);
 	check_negative_num(&arg, tflags, tprnt, len);
 	minfw_vs_precision(tflags, tprnt, len);
-	// printf("\ntotal = %d\n", (*tflags).total_chars_printed);
 	if (arg == 0)
 		check_arg_zero(tflags, &len, tprnt);
 	if (((*tflags).flags & FLAG_MINUS) > 0)

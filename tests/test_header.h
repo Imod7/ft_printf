@@ -48,6 +48,7 @@ int		test_char4(void);
 int		test_char5(void);
 int		test_char6(void);
 int		test_char7(void);
+int		test_char8(void);
 int		test_octal1(void);
 int		test_octal2(void);
 int		test_octal3(void);
@@ -88,6 +89,7 @@ int		test_i5(void);
 int		test_double1(void);
 int		test_pointer1(void);
 int		test_pointer2(void);
+int		test_pointer3(void);
 int		test_exceptions1(void);
 int		test_exceptions2(void);
 int		test_float1(void);
@@ -98,6 +100,8 @@ int		test_float5(void);
 int		test_string1(void);
 int		test_string2(void);
 int		test_string3(void);
+int		test_string4(void);
+int     test_string5(void);
 int		test_u1(void);
 int		test_u2(void);
 int		test_u3(void);
@@ -107,7 +111,6 @@ int		test_float6(void);
 int		test_float7(void);
 int		test_float8(void);
 int		test_float9(void);
-int		test_string4(void);
 int		test_float10(void);
 int		test_float11(void);
 int		test_float12(void);
@@ -118,4 +121,4 @@ int		test_float16(void);
 int		test_float17(void);
 int		test_float18(void);
 
-# endif
+#endif

@@ -23,12 +23,12 @@ int				length_adjust(short *product)
 	return (len);
 }
 
-void				print_float(va_list argptr, t_format *t_flags, t_print *tpr)
+void			print_float(va_list argptr, t_format *t_flags, t_print *tpr)
 {
-	t_float			float_num;
-	short			product[10000];
-	int				len;
-	int				result;
+	t_float		float_num;
+	short		product[10000];
+	int			len;
+	int			result;
 
 	result = ft_ftoa(argptr, t_flags, tpr, &float_num, product);
 	check_precision(product, t_flags);

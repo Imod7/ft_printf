@@ -12,6 +12,22 @@
 
 #include "includes/ft_printf.h"
 
+void	print_hex_pointer(unsigned long long arg, t_format *tfl, int len)
+{
+	if ((arg != 0) || \
+	((arg == 0) && (((*tfl).flags == 0))) || \
+	((arg == 0) && (((*tfl).flags & FLAG_HT) > 0) && \
+	(((*tfl).flags & FLAG_PRECIS) == 0)))
+	{
+		(*tfl).total_chars_printed += len;
+		if ((*tfl).argtype == 'X')
+			ft_putnbr_hex_capit(arg, (*tfl).fd);
+		if (((*tfl).argtype == 'x') || \
+		((*tfl).argtype == 'p'))
+			ft_putnbr_hex(arg, (*tfl).fd);
+	}
+}
+
 void	print_number(unsigned long long arg, t_format *tfl, t_print *pr,int len)
 {
 	if ((arg != 0) &&
@@ -21,7 +37,6 @@ void	print_number(unsigned long long arg, t_format *tfl, t_print *pr,int len)
 	if ((*tfl).argtype == 'u')
 	{
 		if ((arg != 0) || \
-		// ((arg == 0) && ((*tfl).flags & FLAG_MINUS)) ||
 		((arg == 0) && ((*tfl).flags & FLAG_PLUS)) ||
 		((arg == 0) && ((*tfl).flags == 0)))
 		{
@@ -33,7 +48,7 @@ void	print_number(unsigned long long arg, t_format *tfl, t_print *pr,int len)
 	{
 		if ((arg != 0) || \
 		((arg == 0) && (((*tfl).flags == 0))) || \
-		((arg == 0) && ((*tfl).flags & FLAG_HT) && 
+		((arg == 0) && ((*tfl).flags & FLAG_HT) &&
 		((*tfl).precision <= (*tfl).minfw)))
 		{
 			(*tfl).total_chars_printed += len;
@@ -41,20 +56,7 @@ void	print_number(unsigned long long arg, t_format *tfl, t_print *pr,int len)
 		}
 	}
 	else
-	{
-		if ((arg != 0) || \
-		((arg == 0) && (((*tfl).flags == 0))) || \
-		((arg == 0) && (((*tfl).flags & FLAG_HT) > 0) && \
-		(((*tfl).flags & FLAG_PRECIS) == 0)))
-		{
-			(*tfl).total_chars_printed += len;
-			if ((*tfl).argtype == 'X')
-				ft_putnbr_hex_capit(arg, (*tfl).fd);
-			if (((*tfl).argtype == 'x') || \
-			((*tfl).argtype == 'p'))
-				ft_putnbr_hex(arg, (*tfl).fd);
-		}
-	}
+		print_hex_pointer(arg, tfl, len);
 	if (arg == 0)
 		length_precision_diff_zeros(tfl, pr, len);
 }
