@@ -43,3 +43,18 @@ int				length_product(short *pr)
 	}
 	return (len);
 }
+
+int				length_product_decpart(short *pr)
+{
+	size_t		index;
+	int			len;
+
+	index = 5002;
+	len = 0;
+	while (pr[index] != 0)
+	{
+		index++;
+		len++;
+	}
+	return (len);
+}

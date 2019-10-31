@@ -38,13 +38,6 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 	if (((*t_pr).diff) && ((*t_pr).sign_printed == 1) && \
 	((*t_flags).precision >= (*t_flags).minfw))
 		(*t_pr).diff -= 1;
-	// printf(ANSI_COLOR_GREEN"\n===PADDING===\nargtype = %c\n", \
-	// (*t_flags).argtype);
-	// printf("minfw = %d\nspecial_chars = %d\narg_digits_len = %d", \
-	// (*t_flags).minfw, (*t_flags).special_chars_printed, arg_digits_len);
-	// printf("\nprecision = %d\npad_len = %d\n", (*t_flags).precision, \
-	// (*t_pr).pad_len);
-	// printf("diff = %d\n", (*t_pr).diff);
 	i = 0;
 	while (i < (*t_pr).pad_len)
 	{

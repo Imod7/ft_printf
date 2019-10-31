@@ -38,7 +38,8 @@ SRC =	\
 		ft_number_len.c \
 		ft_zero_arg.c \
 		ft_float.c \
-		ft_float_strmaths.c \
+		ft_float_str_addmultiply.c \
+		ft_float_str_division.c \
 		ft_float_round.c \
 		ft_float_auxprint.c \
 		ft_float_inf_nan.c \

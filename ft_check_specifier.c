@@ -12,6 +12,23 @@
 
 #include "includes/ft_printf.h"
 
+void		single_asterisk(va_list argptr, t_format *t_flags)
+{
+	int		aster_arg;
+
+	aster_arg = va_arg(argptr, int);
+	if (aster_arg < 0)
+	{
+		aster_arg = aster_arg * (-1);
+		(*t_flags).flags |= FLAG_MINUS;
+	}
+	if (((*t_flags).flags & FLAG_PRECIS) &&
+	((*t_flags).precision == 0))
+		(*t_flags).precision = aster_arg;
+	else if (aster_arg > (*t_flags).precision)
+		(*t_flags).minfw = aster_arg;
+}
+
 void		check_asterisks(va_list argptr, t_format *t_flags)
 {
 	int		aster_arg;
@@ -30,19 +47,7 @@ void		check_asterisks(va_list argptr, t_format *t_flags)
 	}
 	else if (((*t_flags).flags & FLAG_ASTER) && \
 	(!((*t_flags).flags & FLAG_ASTER_2)))
-	{
-		aster_arg = va_arg(argptr, int);
-		if (aster_arg < 0)
-		{
-			aster_arg = aster_arg * (-1);
-			(*t_flags).flags |= FLAG_MINUS;
-		}
-		if (((*t_flags).flags & FLAG_PRECIS) &&
-		((*t_flags).precision == 0))
-			(*t_flags).precision = aster_arg;
-		else if (aster_arg > (*t_flags).precision)
-			(*t_flags).minfw = aster_arg;
-	}
+		single_asterisk(argptr, t_flags);
 }
 
 /*

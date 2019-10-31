@@ -46,6 +46,19 @@ int			check_mant_allzeros(t_float *fl)
 	return (0);
 }
 
+void		fill_product(short *product, char *str)
+{
+	size_t	index;
+
+	index = 0;
+	while (*str != '\0')
+	{
+		product[index] = *str;
+		str++;
+		index++;
+	}
+}
+
 int			check_inf_nan(t_float *fl, t_print *t_prnt, short *product)
 {
 	if ((check_exp_allones(fl) == 0) && (check_mant_allzeros(fl) == 0))
@@ -53,26 +66,19 @@ int			check_inf_nan(t_float *fl, t_print *t_prnt, short *product)
 		(*t_prnt).diff = -1;
 		if (((*fl).exponent[4] >> 15) & 1)
 		{
-			product[0] = '-';
-			product[1] = 'i';
-			product[2] = 'n';
-			product[3] = 'f';
+			fill_product(product, "-inf");
 			return (-1);
 		}
 		else
 		{
-			product[0] = 'i';
-			product[1] = 'n';
-			product[2] = 'f';
+			fill_product(product, "inf");
 			return (1);
 		}
 	}
 	else if ((check_exp_allones(fl) == 0) && (check_mant_allzeros(fl) != 0))
 	{
 		(*t_prnt).diff = -1;
-		product[0] = 'n';
-		product[1] = 'a';
-		product[2] = 'n';
+		fill_product(product, "nan");
 		return (2);
 	}
 	return (0);

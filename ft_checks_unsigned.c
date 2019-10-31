@@ -12,7 +12,8 @@
 
 #include "includes/ft_printf.h"
 
-void		unsig_minus(unsigned long long ar, t_format *fl, t_print *pn, int l)
+void		unsigned_minus(unsigned long long ar, t_format *fl, t_print *pn, \
+			int l)
 {
 	if ((((*fl).precision) > l) &&
 	(((*fl).precision) > ((*fl).minfw)))
@@ -27,7 +28,16 @@ void		unsig_minus(unsigned long long ar, t_format *fl, t_print *pn, int l)
 	}
 }
 
-void		unsign_checkht(unsigned long long arg, t_format *t_flags, int len)
+void		pointer_hashtag(t_format *t_flags)
+{
+	if ((((*t_flags).flags & FLAG_HT) > 0) && ((*t_flags).argtype == 'p'))
+	{
+		write((*t_flags).fd, "0x", 2);
+		(*t_flags).total_chars_printed += 2;
+	}
+}
+
+void		unsigned_hashtag(unsigned long long arg, t_format *t_flags, int len)
 {
 	char	c;
 
@@ -51,9 +61,5 @@ void		unsign_checkht(unsigned long long arg, t_format *t_flags, int len)
 		if ((*t_flags).minfw > (*t_flags).precision)
 			(*t_flags).special_chars_printed += 2;
 	}
-	if ((((*t_flags).flags & FLAG_HT) > 0) && ((*t_flags).argtype == 'p'))
-	{
-		write((*t_flags).fd, "0x", 2);
-		(*t_flags).total_chars_printed += 2;
-	}
+	pointer_hashtag(t_flags);
 }
