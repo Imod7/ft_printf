@@ -12,11 +12,42 @@
 
 #include "includes/ft_printf.h"
 
+int					check_valid_specifier(char str, t_format *t_flags)
+{
+	if (str == '*' || str == '-' || str == '+')
+		return (0);
+	if (str == ' ' || str == '0' || str == '#')
+		return (0);
+	if (str == '.' || str == '%')
+		return (0);
+	if (ft_isalpha(str) == 1)
+		return (0);
+	if (ft_isdigit(str) == 1)
+		return (0);
+	if (str != '\0')
+		(*t_flags).total_chars_printed++;
+	return (1);
+}
+
+int				next_char(int fd, const char *str, t_format *t_flags)
+{
+	if (*str == '%')
+	{
+		write(fd, &"%", 1);
+		(*t_flags).total_chars_printed++;
+		return (1);
+	}
+	else if (check_valid_specifier(*str, t_flags) == 1)
+		return (2);
+	else
+		return (3);
+}
+
 int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 {
 	t_format	t_flags;
 	t_print		t_prnt;
-	char		c;
+	int			result;
 
 	clear_formatstruct(&t_flags, &t_prnt);
 	t_flags.total_chars_printed = 0;
@@ -25,13 +56,10 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 		if (*str == '%')
 		{
 			str++;
-			if (*str == '%')
-			{
-				c = '%';
-				write(fd, &c, 1);
-				t_flags.total_chars_printed++;
-			}
-			else
+			result = next_char(fd, str, &t_flags);
+			if (result == 2)
+				break ;
+			else if (result == 3)
 			{
 				clear_formatstruct(&t_flags, &t_prnt);
 				save_flags(&t_flags, &str);

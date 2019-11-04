@@ -92,6 +92,8 @@ int		test_pointer2(void);
 int		test_pointer3(void);
 int		test_exceptions1(void);
 int		test_exceptions2(void);
+int		test_exceptions3(void);
+int		test_exceptions4(void);
 int		test_float1(void);
 int		test_float2(void);
 int		test_float3(void);
