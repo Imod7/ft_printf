@@ -119,14 +119,52 @@ int				test_exceptions4(void)
 	if ((returned_line_dprintf == 0) && (returned_line_ft_dprintf == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 95 (exceptions)	-> SUCCESS!\n");
+		printf(ANSI_COLOR_GREEN"Test 95 (exceptions4)	-> SUCCESS!\n");
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (0);
 	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 95 (exceptions)	-> FAIL!\n");
+		printf(ANSI_COLOR_RED"Test 95 (exceptions4)	-> FAIL!\n");
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
+}
+
+int				test_exceptions5(void)
+{
+	int			total_chars_p;
+	int			total_chars_ftp;
+	int			fd;
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "%5");
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	// total_chars_ftp = ft_dprintf(fd, "%%5='%5'");
+	total_chars_ftp = ft_dprintf(fd, "%5");
+	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	if ((returned_line_dprintf == 0) && (returned_line_ft_dprintf == 0) && \
+	(total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 97 (exceptions5)	-> SUCCESS!\n");
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
+	else
+	{
+		printf(ANSI_COLOR_RED"Test 97 (exceptions5)	-> FAIL!\n");
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (-1);

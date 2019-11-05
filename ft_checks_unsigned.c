@@ -28,16 +28,20 @@ void		unsigned_minus(unsigned long long ar, t_format *fl, t_print *pn, \
 	}
 }
 
-void		pointer_hashtag(t_format *t_flags)
+void		pointer_hashtag(t_format *t_flags, t_print *t_prnt)
 {
 	if ((((*t_flags).flags & FLAG_HT) > 0) && ((*t_flags).argtype == 'p'))
 	{
 		write((*t_flags).fd, "0x", 2);
 		(*t_flags).total_chars_printed += 2;
 	}
+	if (((*t_flags).argtype == 'p') &&
+	((*t_flags).precision > (*t_flags).minfw))
+		(*t_prnt).diff = 1;
 }
 
-void		unsigned_hashtag(unsigned long long arg, t_format *t_flags, int len)
+void		unsigned_hashtag(unsigned long long arg, t_format *t_flags, \
+							t_print *t_prnt, int len)
 {
 	char	c;
 
@@ -61,5 +65,5 @@ void		unsigned_hashtag(unsigned long long arg, t_format *t_flags, int len)
 		if ((*t_flags).minfw > (*t_flags).precision)
 			(*t_flags).special_chars_printed += 2;
 	}
-	pointer_hashtag(t_flags);
+	pointer_hashtag(t_flags, t_prnt);
 }

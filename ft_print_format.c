@@ -22,6 +22,7 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 	int		i;
 	int		c;
 
+	// printf("START diff = %d\n", (*t_pr).diff);
 	if (((*t_pr).sign_printed == 0) &&
 	(((*t_flags).flags & (FLAG_PLUS)) ||
 	((*t_flags).flags & (FLAG_MINUS)) ||
@@ -35,10 +36,19 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 	if (!((*t_pr).diff))
 		(*t_pr).diff = ((*t_pr).pad_len - (*t_flags).precision) + \
 		arg_digits_len + (*t_flags).special_chars_printed;
+	// printf("MIDDLE diff = %d\n", (*t_pr).diff);
 	if (((*t_pr).diff) && ((*t_pr).sign_printed == 1) && \
 	((*t_flags).precision >= (*t_flags).minfw))
 		(*t_pr).diff -= 1;
+	// printf("END diff = %d\n", (*t_pr).diff);
 	i = 0;
+	// printf(ANSI_COLOR_GREEN"\n===PADDING===\nargtype = %c\n", \
+	// (*t_flags).argtype);
+	// printf("minfw = %d\nspecial_chars = %d\narg_digits_len = %d", \
+	// (*t_flags).minfw, (*t_flags).special_chars_printed, arg_digits_len);
+	// printf("\nprecision = %d\npad_len = %d\n", (*t_flags).precision, \
+	// (*t_pr).pad_len);
+	// printf("diff = %d\n", (*t_pr).diff);
 	while (i < (*t_pr).pad_len)
 	{
 		if ((*t_flags).flags & FLAG_ZERO)

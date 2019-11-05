@@ -46,13 +46,13 @@ void					print_hexoctal(va_list arg, t_format *tfl, t_print *tpr)
 	if (((*tfl).flags & FLAG_MINUS) > 0)
 	{
 		(*tfl).flags &= ~FLAG_ZERO;
-		unsigned_hashtag(argum, tfl, len);
+		unsigned_hashtag(argum, tfl, tpr, len);
 		unsigned_minus(argum, tfl, tpr, len);
 	}
 	else if (((*tfl).flags & FLAG_ZERO) ||
 	((*tfl).precision > (*tfl).minfw))
 	{
-		unsigned_hashtag(argum, tfl, len);
+		unsigned_hashtag(argum, tfl, tpr, len);
 		print_inverse(tfl, tpr, len);
 		print_number(argum, tfl, tpr, len);
 	}
@@ -60,7 +60,7 @@ void					print_hexoctal(va_list arg, t_format *tfl, t_print *tpr)
 	(((*tfl).flags & FLAG_ZERO) == 0))
 	{
 		print_order(tfl, tpr, len);
-		unsigned_hashtag(argum, tfl, len);
+		unsigned_hashtag(argum, tfl, tpr, len);
 		print_number(argum, tfl, tpr, len);
 	}
 }

@@ -96,7 +96,8 @@ void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt);
 void			print_int_un(va_list argpt, t_format *t_flags, t_print *t_prnt);
 void			unsigned_minus(unsigned long long ar, t_format *f, \
 				t_print *t_prnt, int len);
-void			unsigned_hashtag(unsigned long long arg, t_format *f, int len);
+void			unsigned_hashtag(unsigned long long arg, t_format *t_flags, \
+				t_print *t_prnt, int len);
 void			print_hexoctal(va_list argpt, t_format *tflags, t_print *tprnt);
 void			print_string(va_list argptr, t_format *tflags, t_print *tprnt);
 void			print_char(va_list argpt, t_format *tflags, t_print *tprnt);

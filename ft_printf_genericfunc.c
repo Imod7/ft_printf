@@ -12,7 +12,16 @@
 
 #include "includes/ft_printf.h"
 
-int					check_valid_specifier(char str, t_format *t_flags)
+int					check_valid_specifier(char str)
+{
+	if (ft_isalpha(str) == 1)
+		return (0);
+	if (str == '%')
+		return (0);
+	return (1);
+}
+
+int					check_valid_char_after_percent(char str, t_format *t_flags)
 {
 	if (str == '*' || str == '-' || str == '+')
 		return (0);
@@ -37,7 +46,7 @@ int				next_char(int fd, const char *str, t_format *t_flags)
 		(*t_flags).total_chars_printed++;
 		return (1);
 	}
-	else if (check_valid_specifier(*str, t_flags) == 1)
+	else if (check_valid_char_after_percent(*str, t_flags) == 1)
 		return (2);
 	else
 		return (3);
@@ -64,7 +73,10 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 				clear_formatstruct(&t_flags, &t_prnt);
 				save_flags(&t_flags, &str);
 				t_flags.fd = fd;
-				print_arg(argptr, &t_flags, &t_prnt);
+				if (check_valid_specifier(*str) == 0)
+					print_arg(argptr, &t_flags, &t_prnt);
+				else
+					break ;
 			}
 		}
 		else
