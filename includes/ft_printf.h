@@ -134,8 +134,8 @@ void			length_precision_diff(t_format *t_flags, int len);
 ** floats maths & printing
 */
 
-int				ft_ftoa(va_list arg, t_format *t_flags, t_print *p,
-				t_float *float_num, short *pr);
+int				ft_ftoa(t_format *t_flags, t_print *p, t_float *float_num, \
+				short *pr);
 void			str_add_prod_frac(short *pr, char *fr);
 void			frac_divide_by_two(char *fr);
 void			str_double(short *pr);
@@ -143,6 +143,8 @@ void			prod_divide_by_two(short *pr);
 int				check_inf_nan(t_float *fl, t_print *t_prnt, short *product);
 void			print_final_float(short *pr, t_format *t_flags);
 void			check_precision(short *pr, t_format *t_flags);
+void			check_modifier_float(va_list argptr, t_float *fl, \
+				t_format *t_flags);
 
 /*
 ** floats : length calculation functions

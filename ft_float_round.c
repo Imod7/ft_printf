@@ -43,17 +43,21 @@ void		zero_prec_rounding(short *pr, int prec_index)
 void		dec_part_rounding(short *pr, int prec_index)
 {
 	int		current_digit;
+	int		carry;
 
+	carry = 0;
 	current_digit = (pr[5001 + prec_index] - '0') + 1;
 	while ((current_digit % 10 == 0) && (prec_index > 0))
 	{
 		pr[5001 + prec_index] = (current_digit % 10) + '0';
+		carry = current_digit / 10;
 		prec_index--;
 		current_digit = (pr[5001 + prec_index] - '0') + 1;
 	}
-	if ((current_digit % 10 == 0) && (prec_index == 0))
+	if ((carry != 0) && (prec_index == 0))
 	{
-		pr[5001 - prec_index] = (current_digit % 10) + '0';
+		current_digit = (pr[5000 + prec_index] - '0') + 1;
+		pr[5000 + prec_index] = (current_digit % 10) + '0';
 	}
 	else
 	{

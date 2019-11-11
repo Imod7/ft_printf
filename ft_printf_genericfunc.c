@@ -12,7 +12,7 @@
 
 #include "includes/ft_printf.h"
 
-int					check_valid_specifier(char str)
+int				check_valid_specifier(char str)
 {
 	if (ft_isalpha(str) == 1)
 		return (0);
@@ -21,7 +21,7 @@ int					check_valid_specifier(char str)
 	return (1);
 }
 
-int					check_valid_char_after_percent(char str, t_format *t_flags)
+int				check_valid_char_after_percent(char str, t_format *t_flags)
 {
 	if (str == '*' || str == '-' || str == '+')
 		return (0);

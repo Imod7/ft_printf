@@ -12,46 +12,66 @@
 
 #include "includes/ft_printf.h"
 
+void		write_string_arg(char *arg, t_format *t_flags, int *len)
+{
+	// printf("\n len = %d   \n", *len);
+	if (((arg == NULL) && (!((*t_flags).flags & FLAG_PRECIS))) ||
+	((arg == NULL) && (((*t_flags).flags & FLAG_PRECIS)) &&
+	(*t_flags).precision != 0))
+	{
+		write((*t_flags).fd, "(null)", *len);
+	}
+	else if (arg != NULL)
+		write((*t_flags).fd, arg, *len);
+	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + (*len);
+}
+
+void		check_null_string(char *arg, t_format *t_flags, int *len)
+{
+	if (((arg == NULL) && (!((*t_flags).flags & FLAG_PRECIS))) ||
+	((arg == NULL) && (((*t_flags).flags & FLAG_PRECIS)) &&
+	(*t_flags).precision != 0))
+	{
+		*len = 6;
+	}
+	else if (arg != NULL)
+	{
+		*len = ft_strlen(arg);
+	}
+	(*t_flags).precision = (*t_flags).precision;
+	if ((((*t_flags).precision < *len) && ((*t_flags).precision != 0) \
+	&& (*len != 0)) || (((*t_flags).flags & FLAG_PRECIS) &&
+	((*t_flags).precision == 0) && (arg != NULL)))
+		*len = (*t_flags).precision;
+	// printf("\n AFTER : len = %d   ___\n", *len);
+}
+
 void		print_string(va_list argptr, t_format *t_flags, t_print *t_prnt)
 {
 	char	*arg;
 	int		len;
 
+	len = 0;
 	arg = va_arg(argptr, char *);
-	if (arg == NULL)
+	check_null_string(arg, t_flags, &len);
+	print_sign(t_flags, t_prnt);
+	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{
-		write((*t_flags).fd, "(null)", 6);
-		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + 6;
+		if (((*t_flags).flags & FLAG_PRECIS) && ((*t_flags).precision == 0))
+			;
+		else
+			write_string_arg(arg, t_flags, &len);
+		if ((*t_flags).minfw != 0)
+			print_padding(t_flags, t_prnt, len);
 	}
 	else
 	{
-		len = ft_strlen(arg);
-		print_sign(t_flags, t_prnt);
-		if ((((*t_flags).precision < len) && ((*t_flags).precision != 0) \
-		&& (len != 0)) || (((*t_flags).flags & FLAG_PRECIS) &&
-		((*t_flags).precision == 0)))
-			len = (*t_flags).precision;
-		(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
-		if (((*t_flags).flags & FLAG_MINUS) > 0)
-		{
-			if (((*t_flags).flags & FLAG_PRECIS) && ((*t_flags).precision == 0))
-				;
-			else
-				write((*t_flags).fd, arg, len);
-			if (((*t_flags).minfw != 0) && \
-			((*t_flags).minfw != (*t_flags).precision))
-				print_padding(t_flags, t_prnt, len);
-		}
+		if ((*t_flags).minfw != 0)
+			print_padding(t_flags, t_prnt, len);
+		if (((*t_flags).flags & FLAG_PRECIS) && ((*t_flags).precision == 0))
+			;
 		else
-		{
-			if (((*t_flags).minfw != 0) && \
-			((*t_flags).minfw != (*t_flags).precision))
-				print_padding(t_flags, t_prnt, len);
-			if (((*t_flags).flags & FLAG_PRECIS) && ((*t_flags).precision == 0))
-				;
-			else
-				write((*t_flags).fd, arg, len);
-		}
+			write_string_arg(arg, t_flags, &len);
 	}
 }
 

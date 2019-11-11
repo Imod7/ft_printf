@@ -15,10 +15,13 @@
 void	print_hex_pointer(unsigned long long arg, t_format *tfl, int len)
 {
 	if ((arg != 0) || \
-	((arg == 0) && (((*tfl).flags == 0))) || \
-	((arg == 0) && (((*tfl).flags & FLAG_HT) > 0) && \
+	((arg == 0) && ((*tfl).flags == 0) && (*tfl).minfw == 0) ||
+	((arg == 0) && (((*tfl).flags & FLAG_HT) > 0) &&
+	(((*tfl).flags & FLAG_PRECIS) == 0)) ||
+	((arg == 0) && (((*tfl).flags & FLAG_MINUS) > 0) &&
 	(((*tfl).flags & FLAG_PRECIS) == 0)))
 	{
+		// printf("edw HEX min = %d\n", (*tfl).flags);
 		(*tfl).total_chars_printed += len;
 		if ((*tfl).argtype == 'X')
 			ft_putnbr_hex_capit(arg, (*tfl).fd);
@@ -28,7 +31,8 @@ void	print_hex_pointer(unsigned long long arg, t_format *tfl, int len)
 	}
 }
 
-void	print_number(unsigned long long arg, t_format *tfl, t_print *pr,int len)
+void	print_number(unsigned long long arg, t_format *tfl, t_print *pr, \
+					int len)
 {
 	if ((arg != 0) &&
 	((*tfl).precision > len) &&
@@ -37,8 +41,9 @@ void	print_number(unsigned long long arg, t_format *tfl, t_print *pr,int len)
 	if ((*tfl).argtype == 'u')
 	{
 		if ((arg != 0) || \
-		((arg == 0) && ((*tfl).flags & FLAG_PLUS)) ||
-		((arg == 0) && ((*tfl).flags == 0)))
+		((arg == 0) && (!((*tfl).flags & FLAG_PRECIS)) &&
+		((((*tfl).flags & FLAG_MINUS)))) ||
+		((arg == 0) && ((*tfl).minfw == 0) && ((*tfl).flags == 0)))
 		{
 			(*tfl).total_chars_printed += len;
 			ft_putnbr_un_int(arg, (*tfl).fd);
@@ -64,16 +69,18 @@ void	print_number(unsigned long long arg, t_format *tfl, t_print *pr,int len)
 void	print_number_int(long long arg, t_format *tfl, t_print *tpr, int len)
 {
 	if ((arg != 0) || \
-	((arg == 0) && ((*tfl).flags & FLAG_MINUS)) ||
-	((arg == 0) && ((*tfl).flags & FLAG_PLUS)) ||
-	((arg == 0) && ((*tfl).flags & FLAG_ZERO)) ||
+	((arg == 0) && (!((*tfl).flags & FLAG_PRECIS))) ||
 	((arg == 0) && ((*tfl).flags == 0)))
 	{
+		// printf("edw WWW\n");
 		(*tfl).total_chars_printed += len;
 		if (((*tfl).precision > len) && ((*tfl).precision < (*tfl).minfw))
 			length_precision_diff(tfl, len);
 		ft_putnbr_int(arg, (*tfl).fd);
 	}
-	if (((*tfl).precision > len) && (arg == 0))
+	else if (((*tfl).precision > len) && (arg == 0))
+	{
+		// printf("edw HHHH min = %d\n", (*tfl).minfw);
 		length_precision_diff_zeros(tfl, tpr, len);
+	}
 }

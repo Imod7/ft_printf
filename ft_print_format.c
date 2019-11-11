@@ -67,6 +67,7 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 
 void		print_sign(t_format *t_flags, t_print *t_prnt)
 {
+	// printf("\n pad = %d", (*t_prnt).pad_len);
 	if (((*t_flags).flags & FLAG_NEGAT) > 0)
 	{
 		(*t_flags).flags &= ~FLAG_SPACE;
@@ -81,7 +82,7 @@ void		print_sign(t_format *t_flags, t_print *t_prnt)
 		(*t_flags).special_chars_printed++;
 		(*t_flags).total_chars_printed++;
 	}
-	if (((*t_flags).flags & FLAG_SPACE) && (!(*t_prnt).pad_len))
+	if (((*t_flags).flags & FLAG_SPACE) && (!((*t_prnt).diff)))
 	{
 		write((*t_flags).fd, &" ", 1);
 		(*t_flags).special_chars_printed++;

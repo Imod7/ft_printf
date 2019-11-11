@@ -23,20 +23,9 @@ int				length_adjust(short *product)
 	return (len);
 }
 
-void			print_float(va_list argptr, t_format *t_flags, t_print *tpr)
+void			float_checkflags(t_format *t_flags, t_print *tpr, \
+				short *product, int len)
 {
-	t_float		float_num;
-	short		product[10000];
-	int			len;
-	int			result;
-
-	result = ft_ftoa(argptr, t_flags, tpr, &float_num, product);
-	check_precision(product, t_flags);
-	len = length_adjust(product);
-	if (result == -1)
-		len = 4;
-	else if ((result == 1) || (result == 2))
-		len = 3;
 	if ((*t_flags).flags & FLAG_MINUS)
 	{
 		print_sign(t_flags, tpr);
@@ -56,6 +45,24 @@ void			print_float(va_list argptr, t_format *t_flags, t_print *tpr)
 		print_padding(t_flags, tpr, len);
 		print_final_float(product, t_flags);
 	}
+}
+
+void			print_float(va_list argptr, t_format *t_flags, t_print *tpr)
+{
+	t_float		float_num;
+	short		product[10000];
+	int			len;
+	int			result;
+
+	check_modifier_float(argptr, &float_num, t_flags);
+	result = ft_ftoa(t_flags, tpr, &float_num, product);
+	check_precision(product, t_flags);
+	len = length_adjust(product);
+	if (result == -1)
+		len = 4;
+	else if ((result == 1) || (result == 2))
+		len = 3;
+	float_checkflags(t_flags, tpr, product, len);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
 	clear_forfloat(&float_num);
 }

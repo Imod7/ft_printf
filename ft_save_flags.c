@@ -51,23 +51,35 @@ void				minfw_precision_flags(t_format *t_flags, const char **str)
 	int				digits;
 
 	if ((ft_isdigit(**str) == 1) &&
-	((*t_flags).minfw == 0))
+	((*t_flags).minfw == 0) &&
+	(!((*t_flags).flags & FLAG_PRECIS)))
 	{
+		// printf(">> MINFW *str = %c\n", **str);
 		(*t_flags).minfw = ft_atoi(*str);
 		digits = number_of_digits((*t_flags).minfw);
 		(*str) = (*str) + digits - 1;
+		// (*str)++;
 	}
 	else if (**str == '.')
 	{
 		(*t_flags).flags |= FLAG_PRECIS;
 		(*str)++;
+		// printf("\n >> **str = %c\n", **str);
 		if ((ft_isdigit(**str) == 1) && \
+		// (**str != '0') && 
 		((*t_flags).precision == 0))
 		{
+			// printf("\n >> isdigit = %c\n", **str);
 			(*t_flags).precision = ft_atoi(*str);
+			// printf(">>> precission = %d\n", (*t_flags).precision);
 			digits = number_of_digits((*t_flags).precision);
 			(*str) = (*str) + digits - 1;
+			// (*str)++;
 		}
+		// else if (**str == '0')
+		// {
+		// 	(*str)++;
+		// }
 		else
 			(*str)--;
 	}

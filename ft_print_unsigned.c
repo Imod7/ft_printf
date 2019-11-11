@@ -77,8 +77,10 @@ void					print_int_un(va_list argp, t_format *tfl, t_print *tpr)
 	check_plusflag(tfl);
 	if (arg == 0)
 		check_arg_zero(tfl, &len, tpr);
-	if (((*tfl).flags & FLAG_MINUS) > 0)
+	if ((((*tfl).flags & FLAG_MINUS) > 0) &&
+	((*tfl).minfw > (*tfl).precision))
 	{
+		// printf("\n ... EDW ");
 		(*tfl).flags &= ~FLAG_ZERO;
 		print_number(arg, tfl, tpr, len);
 		print_inverse(tfl, tpr, len);
