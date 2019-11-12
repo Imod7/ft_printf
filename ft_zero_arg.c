@@ -35,7 +35,7 @@ void	check_arg_zero(t_format *t_flags, int *len, t_print *tprnt)
 	}
 	else if (((*t_flags).precision < (*t_flags).minfw) && \
 	(!((*t_flags).flags & (FLAG_HT))) &&
-	((*t_flags).argtype != 'o') &&
+	// ((*t_flags).argtype != 'o') &&
 	(!((*t_flags).flags & (FLAG_ZERO))))
 	{
 		// printf("\n EDW mipws ?");
@@ -68,15 +68,20 @@ void	length_precision_diff_zeros(t_format *t_flags, t_print *t_pr, int len)
 	((*t_flags).precision < (*t_flags).minfw) &&
 	(!((*t_flags).flags & (FLAG_HT))) &&
 	(!((*t_flags).flags & (FLAG_MINUS))))
+	{
 		diff = (*t_flags).minfw - (*t_pr).pad_len;
+		// printf("\n >>> diff = %d", diff);
+	}
 	else if (((*t_flags).minfw == 0) || ((*t_flags).precision != 0))
 	{
 		diff = (*t_flags).precision;
+		// printf("\n --- diff = %d", diff);
 	}
 	else
 	{
 		diff = (*t_flags).precision - (*t_pr).pad_len - \
 		(*t_flags).special_chars_printed - len;
+		// printf("\n ooooo diff = %d", diff);
 	}
 	if ((((*t_flags).flags & (FLAG_SPACE)) &&
 	((*t_flags).flags & (FLAG_MINUS))) ||
@@ -94,5 +99,9 @@ void	length_precision_diff_zeros(t_format *t_flags, t_print *t_pr, int len)
 		// printf("\n edw tupwnei");
 		write((*t_flags).fd, "0", 1);
 		diff--;
+		// if (!((*t_flags).flags & (FLAG_MINUS)))
+		// 	(*t_pr).pad_len = -1;
+		// 	(*t_pr).diff = -1;
+		// printf("\n --- pad = %d", (*t_pr).pad_len);
 	}
 }

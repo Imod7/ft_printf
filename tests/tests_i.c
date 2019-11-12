@@ -409,9 +409,9 @@ int				test_i11(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%% -3.7i='% -3.7i'\n", 3267);
+	total_chars_p = dprintf(fd, "%% -3.7i='% -3.7i', %% 5i='% 5i'\n", 3267, 52625);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%% -3.7i='% -3.7i'\n", 3267);
+	total_chars_ftp = ft_dprintf(fd, "%% -3.7i='% -3.7i', %% 5i='% 5i'\n", 3267, 52625);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -421,7 +421,7 @@ int				test_i11(void)
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 113 (test_i11)	-> SUCCESS!\n"\
+		printf(ANSI_COLOR_GREEN"Test 114 (test_i11)	-> SUCCESS!\n"\
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
@@ -429,7 +429,7 @@ int				test_i11(void)
 	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 113 (test_i11)	-> FAIL!\n"\
+		printf(ANSI_COLOR_RED"Test 114 (test_i11)	-> FAIL!\n"\
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);

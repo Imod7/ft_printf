@@ -52,10 +52,11 @@ void	print_number(unsigned long long arg, t_format *tfl, t_print *pr, \
 	else if ((*tfl).argtype == 'o')
 	{
 		if ((arg != 0) || \
-		((arg == 0) && (((*tfl).flags == 0))) || \
 		((arg == 0) && ((*tfl).flags & FLAG_HT) &&
-		((*tfl).precision <= (*tfl).minfw)))
+		((*tfl).precision <= (*tfl).minfw)) ||
+		((arg == 0) && ((*tfl).minfw == 0) && ((*tfl).flags == 0)))
 		{
+			// printf("\n EDW");
 			(*tfl).total_chars_printed += len;
 			ft_putnbr_octal(arg, (*tfl).fd);
 		}

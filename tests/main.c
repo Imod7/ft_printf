@@ -12,13 +12,13 @@
 
 #include "test_header.h"
 
-int				main(void)
+int				main()
 {
 	int			option;
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[116];
+	test_func	*test_array[119];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -136,6 +136,9 @@ int				main(void)
 	test_array[113] = test_i11;
 	test_array[114] = test_float19;
 	test_array[115] = test_float20;
+	test_array[116] = test_float21;
+	test_array[117] = test_float22;
+	test_array[118] = test_float23;
 	i = 1;
 	test_passed = 0;
 	printf("Which Test do you want to run ? (0 to run All) \n");

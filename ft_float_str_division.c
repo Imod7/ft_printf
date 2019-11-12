@@ -47,17 +47,21 @@ void			prod_divide_by_two(short *pr)
 	int			index;
 	int			carry;
 
-	index = 2;
+	// index = 2;
 	carry = 0;
 	len = 5000 + length_product(pr);
-	index = 5002;
+	// len = length_product(pr);
+	// printf("len = %d", len);
 	if (pr[5000] == '1')
 	{
 		pr[5000] = '0';
 		carry = 1;
 	}
+	index = 5002;
 	while (index <= len)
+	// while (pr[index] != '\0')
 	{
+		// printf("pr = %c , index = %d", pr[index], index);
 		if (pr[index] != 0)
 			temp = pr[index] - '0';
 		else
@@ -66,5 +70,6 @@ void			prod_divide_by_two(short *pr)
 		carry = pr[index] % 2;
 		pr[index] = temp + '0';
 		index++;
+		// printf("\nafter pr = %c ", pr[index]);
 	}
 }

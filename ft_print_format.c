@@ -41,7 +41,6 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 	((*t_flags).precision >= (*t_flags).minfw))
 		(*t_pr).diff -= 1;
 	// printf("END diff = %d\n", (*t_pr).diff);
-	i = 0;
 	// printf(ANSI_COLOR_GREEN"\n===PADDING===\nargtype = %c\n", \
 	// (*t_flags).argtype);
 	// printf("minfw = %d\nspecial_chars = %d\narg_digits_len = %d", \
@@ -49,6 +48,7 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 	// printf("\nprecision = %d\npad_len = %d\n", (*t_flags).precision, \
 	// (*t_pr).pad_len);
 	// printf("diff = %d\n", (*t_pr).diff);
+	i = 0;
 	while (i < (*t_pr).pad_len)
 	{
 		if ((*t_flags).flags & FLAG_ZERO)
@@ -67,6 +67,7 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 
 void		print_sign(t_format *t_flags, t_print *t_prnt)
 {
+	// printf("\n diff = %d", (*t_prnt).diff);
 	// printf("\n pad = %d", (*t_prnt).pad_len);
 	if (((*t_flags).flags & FLAG_NEGAT) > 0)
 	{
@@ -82,7 +83,8 @@ void		print_sign(t_format *t_flags, t_print *t_prnt)
 		(*t_flags).special_chars_printed++;
 		(*t_flags).total_chars_printed++;
 	}
-	if (((*t_flags).flags & FLAG_SPACE) && (!((*t_prnt).diff)))
+	if (((*t_flags).flags & FLAG_SPACE) && ((!((*t_prnt).diff)) ||
+	((*t_prnt).pad_len <= 0)))
 	{
 		write((*t_flags).fd, &" ", 1);
 		(*t_flags).special_chars_printed++;

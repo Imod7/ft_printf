@@ -73,7 +73,10 @@ void		equal_five(short *pr, int prec_index)
 
 	carry = 0;
 	temp = (pr[5001 + prec_index] - '0') + 1;
-	if ((temp % 2 == 0) && (temp != 10))
+	// printf("\n INDEX = pr = %c%c%c%c%c%c%c", pr[5000], pr[5001], pr[5002], pr[5003], pr[5004], pr[5005],pr[5006]);
+	// printf("\n temp = %d", temp);
+	// if ((temp % 2 == 0) && (temp != 10))
+	if (((temp - 1) >= 5) && (temp != 10))
 		pr[5001 + prec_index] = temp + '0';
 	while ((temp % 10 == 0) && (prec_index > 0))
 	{

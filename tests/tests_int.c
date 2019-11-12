@@ -21,20 +21,17 @@ int				test_int1(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 01 : %%+08d='%+08d' , %%s='%s', %%c='%c' '%x'\n", 45, "coding", 'K', 18);
+	total_chars_p = dprintf(fd, "Test 01 : %%+08d='%+08d' , \
+	%%s='%s', %%c='%c' '%x'\n", 45, "coding", 'K', 18);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 01 : %%+08d='%+08d' , %%s='%s', %%c='%c' '%x'\n", 45, "coding", 'K', 18);
-	// assert(total_chars_p == total_chars_ftp);
-	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
-
+	total_chars_ftp = ft_dprintf(fd, "Test 01 : %%+08d='%+08d' , \
+	%%s='%s', %%c='%c' '%x'\n", 45, "coding", 'K', 18);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
@@ -64,15 +61,12 @@ int				test_int2(void)
 	total_chars_p = dprintf(fd, "%%+08d='%+08d', %%6d='%6d', %%s='%s' %% d='% d', %%+d='%+d'\n", 45, 899, "teleia", -42, -42);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "%%+08d='%+08d', %%6d='%6d', %%s='%s' %% d='% d', %%+d='%+d'\n", 45, 899, "teleia", -42, -42);
-	// assert(total_chars_p == total_chars_ftp);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
@@ -92,8 +86,6 @@ int				test_int2(void)
 
 int				test_int3(void)
 {
-	// total_chars_p = printf(ANSI_COLOR_CYAN"Test 3 +8d : '%+8d' \n", 55);
-	// total_chars_ftp = ft_printf(ANSI_COLOR_YELLOW"Test 3 +8d : '%+8d' \n", 55);
 	char		*returned_line_dprintf;
 	char		*returned_line_ft_dprintf;
 	int			total_chars_p;
@@ -634,9 +626,9 @@ int				test_int16(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%3d='%3d'\n", 0);
+	total_chars_p = dprintf(fd, "%%3d='%3d', %% 4d='% 4d'\n", 0, 94827);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%3d='%3d'\n", 0);
+	total_chars_ftp = ft_dprintf(fd, "%%3d='%3d', %% 4d='% 4d'\n", 0, 94827);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);

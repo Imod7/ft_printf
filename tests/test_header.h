@@ -16,6 +16,7 @@
 # include <assert.h>
 # include <fcntl.h>
 # include "../includes/ft_printf.h"
+# include <float.h>
 
 // # define ANSI_COLOR_RESET   "\x1b[0m"
 // # define ANSI_COLOR_RED     "\x1b[31m"
@@ -143,5 +144,8 @@ int		test_float17(void);
 int		test_float18(void);
 int		test_float19(void);
 int		test_float20(void);
+int		test_float21(void);
+int		test_float22(void);
+int		test_float23(void);
 
 #endif
