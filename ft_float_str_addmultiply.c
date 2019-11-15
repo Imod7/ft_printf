@@ -35,6 +35,9 @@ void			str_add_prod_frac(short *pr, char *fr)
 	int			carry;
 
 	len_pr = length_product(pr);
+	// printf("\n ppppppp len = %d, pr = %c%c%c%c%c%c%c%c%c", len_pr, pr[4998], pr[4999], pr[5000], pr[5001], pr[5002], pr[5003], pr[5004], pr[5005],pr[5006]);
+	// printf("%c%c%c%c%c%c%c", pr[5007], pr[5008], pr[5009], pr[5010], pr[5011], pr[5012],pr[5013]);
+	// printf("%c%c%c%c%c%c%c", pr[5014], pr[5015], pr[5016], pr[5017], pr[5018], pr[5019],pr[5020]);
 	len_fr = length_fraction(fr);
 	index = len_pr;
 	while (index < len_fr)

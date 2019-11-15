@@ -658,9 +658,9 @@ int				test_octal17(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%8.5o='%8.5o', %%3o='%3o', %%0-8.5o='%0-8.5o'\n", 0, 0, 0);
+	total_chars_p = dprintf(fd, "%%8.5o='%8.5o', %%3o='%3o', %%-3o='%-3o' %%0-8.5o='%0-8.5o'\n", 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%8.5o='%8.5o', %%3o='%3o', %%0-8.5o='%0-8.5o'\n", 0, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%8.5o='%8.5o', %%3o='%3o', %%-3o='%-3o' %%0-8.5o='%0-8.5o'\n", 0, 0, 0, 0);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	close(fd);

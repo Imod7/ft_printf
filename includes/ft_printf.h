@@ -63,6 +63,9 @@ typedef struct	s_format
 
 typedef struct	s_print
 {
+	char		buffer[1000];
+	int			buf_index;
+	int			print_end;
 	int			pad_len;
 	int			diff;
 	int			sign_printed;
@@ -87,11 +90,15 @@ void			check_modifier(long long *arg, t_format *t_flags);
 void			check_modif_un(unsigned long long *arg, t_format *t_flags);
 int				number_of_digits(long long num);
 int				number_of_digits_un(unsigned long long num, t_format t_flags);
-void			ft_putnbr_int(long long n, int fd);
-void			ft_putnbr_octal(unsigned long long n, int fd);
-void			ft_putnbr_hex(unsigned long long n, int fd);
-void			ft_putnbr_hex_capit(unsigned long long n, int fd);
-void			ft_putnbr_un_int(unsigned long long n, int fd);
+void			ft_putnbr_int(long long n, t_format *t_flags, t_print *t_prnt);
+void			ft_putnbr_un_int(unsigned long long n, t_format *t_flags, \
+								t_print *t_prnt);
+void			ft_putnbr_octal(unsigned long long n, t_format *t_flags, \
+								t_print *t_prnt);
+void			ft_putnbr_hex(unsigned long long n, t_format *t_flags, \
+								t_print *t_prnt);
+void			ft_putnbr_hex_capit(unsigned long long n, t_format *t_flags, \
+								t_print *t_prnt);
 void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt);
 void			print_int_un(va_list argpt, t_format *t_flags, t_print *t_prnt);
 void			unsigned_minus(unsigned long long ar, t_format *f, \
@@ -105,8 +112,9 @@ void			print_other(char arg, t_format *t_flags, t_print *t_prnt);
 void			print_float(va_list argptr, t_format *t_flags, t_print *tpr);
 void			intwithminus(long long arg, t_format *t_flags, int len);
 void			int_otherflag(long long arg, t_format *t_flags, int len);
-char			*ft_itoa_float(float n);
-void			add_to_buffer(int fd, const char **str, t_format *t_flags);
+// char			*ft_itoa_float(float n);
+void			add_to_buffer(const char **str, t_format *t_flags, \
+				t_print *tprnt);
 void			print_binary(long long flag_num);
 long long		invert_allbits(long long num);
 long long		binary_addone(long long num);
@@ -128,8 +136,10 @@ void			check_negative_num(long long *arg, t_format *t_flags,
 void			minfw_vs_precision(t_format *t_flags, t_print *t_prnt, int len);
 void			length_precision_diff_zeros(t_format *tflags, t_print *t_pr,
 				int len);
-void			length_precision_diff(t_format *t_flags, int len);
-
+void			length_precision_diff(t_format *t_flags, t_print *t_prnt, \
+				int len);
+void			buffer_writer(const void *str, int len, t_format *t_flags, \
+							t_print *t_prnt);
 /*
 ** floats maths & printing
 */
@@ -141,7 +151,7 @@ void			frac_divide_by_two(char *fr);
 void			str_double(short *pr);
 void			prod_divide_by_two(short *pr);
 int				check_inf_nan(t_float *fl, t_print *t_prnt, short *product);
-void			print_final_float(short *pr, t_format *t_flags);
+void			print_final_float(short *pr, t_format *t_flags, t_print *tprnt);
 void			check_precision(short *pr, t_format *t_flags);
 void			check_modifier_float(va_list argptr, t_float *fl, \
 				t_format *t_flags);

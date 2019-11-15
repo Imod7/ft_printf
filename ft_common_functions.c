@@ -45,7 +45,7 @@ void	print_inverse(t_format *t_flags, t_print *t_prnt, int len)
 	print_padding(t_flags, t_prnt, len);
 }
 
-void	length_precision_diff(t_format *t_flags, int len)
+void	length_precision_diff(t_format *t_flags, t_print *t_prnt, int len)
 {
 	int	diff;
 
@@ -53,7 +53,8 @@ void	length_precision_diff(t_format *t_flags, int len)
 	(*t_flags).total_chars_printed += diff;
 	while (diff > 0)
 	{
-		write((*t_flags).fd, "0", 1);
+		// write((*t_flags).fd, "0", 1);
+		buffer_writer(&"0", 1, t_flags, t_prnt);
 		diff--;
 	}
 }

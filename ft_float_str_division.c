@@ -50,8 +50,6 @@ void			prod_divide_by_two(short *pr)
 	// index = 2;
 	carry = 0;
 	len = 5000 + length_product(pr);
-	// len = length_product(pr);
-	// printf("len = %d", len);
 	if (pr[5000] == '1')
 	{
 		pr[5000] = '0';

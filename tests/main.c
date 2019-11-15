@@ -12,13 +12,13 @@
 
 #include "test_header.h"
 
-int				main()
+int				main(int argc, char **argv)
 {
 	int			option;
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[119];
+	test_func	*test_array[122];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -139,27 +139,66 @@ int				main()
 	test_array[116] = test_float21;
 	test_array[117] = test_float22;
 	test_array[118] = test_float23;
+	test_array[119] = test_exceptions6;
+	test_array[120] = test_float24;
+	test_array[121] = test_float25;
 	i = 1;
 	test_passed = 0;
-	printf("Which Test do you want to run ? (0 to run All) \n");
-	scanf("%d", &option);
-	if (option > (int)(sizeof(test_array) / sizeof(test_array[0])))
+	// test_array[116]();
+	if (argc == 1)
 	{
-		printf(ANSI_COLOR_RED"\nThe max option you can give is \
-		%d\n"ANSI_COLOR_RESET, \
-		(int)(sizeof(test_array) / sizeof(test_array[0])));
-		return (0);
+		printf("Which Test do you want to run ? (0 to run All) \n");
+		scanf("%d", &option);
+		if (option > (int)(sizeof(test_array) / sizeof(test_array[0])))
+		{
+			printf(ANSI_COLOR_RED"\nThe max option you can give is \
+			%d\n"ANSI_COLOR_RESET, \
+			(int)(sizeof(test_array) / sizeof(test_array[0])));
+			return (0);
+		}
+		if (option != 0)
+			test_array[option - 1]();
+		else
+		{
+			while (i <= (int)(sizeof(test_array) / sizeof(test_array[0])))
+			{
+				test_result = test_array[i - 1]();
+				if (test_result == 0)
+					test_passed++;
+				i++;
+			}
+		}
 	}
-	if (option != 0)
-		test_array[option - 1]();
 	else
 	{
-		while (i <= (int)(sizeof(test_array) / sizeof(test_array[0])))
+		// printf("\n domiiiii %s", argv[1]);
+		if (argv[1][0] == 102)
 		{
-			test_result = test_array[i - 1]();
-			if (test_result == 0)
-				test_passed++;
-			i++;
+			// printf("\n dom");
+			int floats_array[] = {41, 43, 44, 45, 46, 56, 57, 58, 59, 62, \
+			63, 64, 65, 66, 67, 68, 69, 78, 114, 115, 116, 117, 118};
+			i = 0;
+			while (i < (int)(sizeof(floats_array) / sizeof(floats_array[0])))
+			{
+				test_result = test_array[floats_array[i]]();
+				if (test_result == 0)
+					test_passed++;
+				i++;
+			}
+		}
+		else if (argv[1][0] == 111)
+		{
+			// printf("\n dom");
+			int floats_array[] = {16, 17, 18, 49, 52, 53, 61, 74, 76, 79, 81, \
+			82, 84, 87, 88, 89, 110};
+			i = 0;
+			while (i < (int)(sizeof(floats_array) / sizeof(floats_array[0])))
+			{
+				test_result = test_array[floats_array[i]]();
+				if (test_result == 0)
+					test_passed++;
+				i++;
+			}
 		}
 	}
 	printf(ANSI_COLOR_CYAN"\n--------------------------------------------");

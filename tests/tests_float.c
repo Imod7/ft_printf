@@ -63,7 +63,6 @@ int			test_float2(void)
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -73,9 +72,20 @@ int			test_float2(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 44 (float2)	-> SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 44 (float2)	-> SUCCESS!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 44 (float2)		-> FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 44 (float2)	-> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }
 
 int			test_float3(void)
@@ -95,7 +105,6 @@ int			test_float3(void)
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -105,9 +114,20 @@ int			test_float3(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 45 (float3)	-> SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 45 (float3)	-> SUCCESS!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 45 (float3)		-> FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 45 (float3)	-> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }
 
 int			test_float4(void)
@@ -164,24 +184,33 @@ int			test_float5(void)
 	num = 1.24e-23;
 	// num1 = 2.01234567890155;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test_47 : %%.0f='%.0f', %%.1f='%.1f', %%.2f='%.2f', %%.6f='%.6f', %%f='%f', %%.7f='%.7f', %%f='%f', %%.30f='%.30f'\n", num, num , num, num, num1, num1, num1, num1);
-	// total_chars_p = dprintf(fd, "Test_47 : %%.12f='%.12f'\n", num);
+	total_chars_p = dprintf(fd, "%%.0f='%.0f', %%.1f='%.1f', %%.2f='%.2f', \
+	%%.6f='%.6f', %%f='%f', %%.7f='%.7f', %%f='%f', %%.30f='%.30f'\n", num, num, num, num, num1, num1, num1, num1);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test_47 : %%.0f='%.0f', %%.1f='%.1f', %%.2f='%.2f', %%.6f='%.6f', %%f='%f', %%.7f='%.7f', %%f='%f', %%.30f='%.30f'\n", num, num , num, num, num1, num1, num1, num1);
-	// assert(total_chars_p == total_chars_ftp);
-
+	total_chars_ftp = ft_dprintf(fd, "%%.0f='%.0f', %%.1f='%.1f', %%.2f='%.2f', \
+	%%.6f='%.6f', %%f='%f', %%.7f='%.7f', %%f='%f', %%.30f='%.30f'\n", num, num, num, num, num1, num1, num1, num1);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 47 (float5)	-> SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 47 (float5)	-> SUCCESS!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 47 (float5)		-> FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 47 (float5)	-> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }
 
 int			test_float6(void)
@@ -194,11 +223,10 @@ int			test_float6(void)
 	char	*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 57 : rounding(197.5)='%.0f', round(196.5)='%.0f', round(195.5)='%.0f'\n", 197.5, 196.5, 195.5);
+	total_chars_p = dprintf(fd, "Checks: %%.0f rounding(197.5)='%.0f', %%.0f round(196.5)='%.0f', %%.0f round(195.5)='%.0f'\n", 197.5, 196.5, 195.5);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 57 : rounding(197.5)='%.0f', round(196.5)='%.0f', round(195.5)='%.0f'\n", 197.5, 196.5, 195.5);
+	total_chars_ftp = ft_dprintf(fd, "Checks: %%.0f rounding(197.5)='%.0f', %%.0f round(196.5)='%.0f', %%.0f round(195.5)='%.0f'\n", 197.5, 196.5, 195.5);
 	// assert(total_chars_p == total_chars_ftp);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -208,9 +236,20 @@ int			test_float6(void)
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) \
 	&& (total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 57 (float6)	-> SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 57 (float6)	-> SUCCESS!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 57 (float6)		-> FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 57 (float6)	-> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }
 
 int			test_float7(void)
@@ -264,7 +303,6 @@ int			test_float8(void)
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "Test 59 : %%.64(0.15)='%.64f'\n", 0.15);
 	// assert(total_chars_p == total_chars_ftp);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -784,9 +822,9 @@ int			test_float22(void)
 	char	*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%.49lf='%.49lf', %%.3Lf='%.3Lf'\n", -DBL_TRUE_MIN, -LDBL_MIN);
+	total_chars_p = dprintf(fd, "%%.250lf='%.250lf', %%.3Lf='%.3Lf'\n", -DBL_TRUE_MIN, -LDBL_MIN);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%.49lf='%.49lf', %%.3Lf='%.3Lf'\n", -DBL_TRUE_MIN, -LDBL_MIN);
+	total_chars_ftp = ft_dprintf(fd, "%%.250lf='%.250lf', %%.3Lf='%.3Lf'\n", -DBL_TRUE_MIN, -LDBL_MIN);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -841,6 +879,78 @@ int			test_float23(void)
 	else
 	{
 		printf(ANSI_COLOR_RED"Test 119 (float23)   -> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
+}
+
+int			test_float24(void)
+{
+	int		total_chars_p;
+	int		total_chars_ftp;
+	int		fd;
+	char	*returned_line_dprintf;
+	char	*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "Il fait au moins %f\n", (double)-8000);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "Il fait au moins %f\n", (double)-8000);
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
+	&& (total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 121 (float24)	-> SUCCESS!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
+	else
+	{
+		printf(ANSI_COLOR_RED"Test 121 (float24)   -> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
+}
+
+int			test_float25(void)
+{
+	int		total_chars_p;
+	int		total_chars_ftp;
+	int		fd;
+	char	*returned_line_dprintf;
+	char	*returned_line_ft_dprintf;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "%%.0f=%.0f\n", 0.000039);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "%%.0f=%.0f\n", 0.000039);
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
+	&& (total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 122 (float25)	-> SUCCESS!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
+	else
+	{
+		printf(ANSI_COLOR_RED"Test 122 (float25)   -> FAIL!\n"ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (-1);

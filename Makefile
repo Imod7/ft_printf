@@ -35,6 +35,7 @@ SRC =	\
 		ft_itoa_float.c \
 		ft_addtobuffer.c \
 		ft_common_functions.c \
+		ft_buffer_manager.c \
 		ft_number_len.c \
 		ft_zero_arg.c \
 		ft_float.c \

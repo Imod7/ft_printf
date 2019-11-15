@@ -38,11 +38,12 @@ int				check_valid_char_after_percent(char str, t_format *t_flags)
 	return (1);
 }
 
-int				next_char(int fd, const char *str, t_format *t_flags)
+int				next_char(const char *str, t_format *t_flags, t_print *tprnt)
 {
 	if (*str == '%')
 	{
-		write(fd, &"%", 1);
+		// write(fd, &"%", 1);
+		buffer_writer(&"%", 1, t_flags, tprnt);
 		(*t_flags).total_chars_printed++;
 		return (1);
 	}
@@ -52,6 +53,25 @@ int				next_char(int fd, const char *str, t_format *t_flags)
 		return (3);
 }
 
+void			print_end(t_format *t_flags, t_print *t_prnt)
+{
+	// printf(ANSI_COLOR_MAGENTA"\n PRINTING index = '%d' and buffer = \n --- '%s' ---\n\n\n"ANSI_COLOR_RESET, (*t_prnt).buf_index, ((*t_prnt).buffer));
+	// printf(ANSI_COLOR_RED"\n THE END PRINTING index = '%d' and buffer = \n\n\n--> '%s' <--\n\n\n"ANSI_COLOR_RESET, (*t_prnt).buf_index, ((*t_prnt).buffer));
+	(*t_prnt).print_end = 1;
+	buffer_writer("", 1, t_flags, t_prnt);
+	// (*t_prnt).buffer[0] = 0;
+	ft_memset((*t_prnt).buffer, 0, 1000);
+	(*t_flags).fd = 0;
+}
+
+void			initialize(t_format *t_flags, t_print *t_prnt)
+{
+	ft_memset((*t_prnt).buffer, 0, 1000);
+	(*t_prnt).buf_index = 0;
+	(*t_flags).total_chars_printed = 0;
+	(*t_prnt).print_end = 0;
+}
+
 int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 {
 	t_format	t_flags;
@@ -59,13 +79,14 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 	int			result;
 
 	clear_formatstruct(&t_flags, &t_prnt);
-	t_flags.total_chars_printed = 0;
+	t_flags.fd = fd;
+	initialize(&t_flags, &t_prnt);
 	while (*str != '\0')
 	{
 		if (*str == '%')
 		{
 			str++;
-			result = next_char(fd, str, &t_flags);
+			result = next_char(str, &t_flags, &t_prnt);
 			if (result == 2)
 				break ;
 			else if (result == 3)
@@ -82,10 +103,14 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 		else
 		{
 			while ((*str != '\0') && (*str != '%'))
-				add_to_buffer(fd, &str, &t_flags);
+			{
+				// printf(ANSI_COLOR_YELLOW"\n ADD TO BUFFER  "ANSI_COLOR_RESET);
+				add_to_buffer(&str, &t_flags, &t_prnt);
+			}
 			str--;
 		}
 		str++;
 	}
+	print_end(&t_flags, &t_prnt);
 	return (t_flags.total_chars_printed);
 }

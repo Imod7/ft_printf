@@ -106,5 +106,8 @@ int					ft_ftoa(t_format *tfl, t_print *tprnt, t_float *fl, \
 	if ((inf_nan == -1) || (inf_nan == 1))
 		return (inf_nan);
 	exponent_check(tfl, fl, pr);
+	// printf("\n pr = %c%c%c%c%c%c%c%c%c%c%c", pr[4996], pr[4997], pr[4998], pr[4999], pr[5000], pr[5001], pr[5002], pr[5003], pr[5004], pr[5005],pr[5006]);
+	// printf("%c%c%c%c%c%c%c", pr[5007], pr[5008], pr[5009], pr[5010], pr[5011], pr[5012],pr[5013]);
+	// printf("%c%c%c%c%c%c%c", pr[5014], pr[5015], pr[5016], pr[5017], pr[5018], pr[5019],pr[5020]);
 	return (0);
 }

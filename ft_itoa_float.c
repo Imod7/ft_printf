@@ -13,58 +13,58 @@
 #include "libft/includes/libft.h"
 #include <stdio.h>
 
-static void		make_str(char *str, float n, int len)
-{
-	int			i;
+// static void		make_str(char *str, float n, int len)
+// {
+// 	int			i;
 
-	str[len + 1] = '\0';
-	i = 0;
-	while (len >= i)
-	{
-		if (n < 0)
-		{
-			str[0] = 45;
-			n = n * (-1);
-			i = 1;
-		}
-		if (n >= 0 && n <= 9)
-		{
-			str[len] = n + 48;
-		}
-		if (n > 9)
-			n = n / 10;
-		len--;
-	}
-}
+// 	str[len + 1] = '\0';
+// 	i = 0;
+// 	while (len >= i)
+// 	{
+// 		if (n < 0)
+// 		{
+// 			str[0] = 45;
+// 			n = n * (-1);
+// 			i = 1;
+// 		}
+// 		if (n >= 0 && n <= 9)
+// 		{
+// 			str[len] = n + 48;
+// 		}
+// 		if (n > 9)
+// 			n = n / 10;
+// 		len--;
+// 	}
+// }
 
-static int		count_len(float n)
-{
-	int			len;
+// static int		count_len(float n)
+// {
+// 	int			len;
 
-	len = 0;
-	if (n < 0)
-	{
-		len++;
-		n = n * (-1);
-	}
-	if (n >= 0 && n <= 9)
-		len++;
-	else if (n > 9)
-		len = len + count_len(n / 10);
-	return (len);
-}
+// 	len = 0;
+// 	if (n < 0)
+// 	{
+// 		len++;
+// 		n = n * (-1);
+// 	}
+// 	if (n >= 0 && n <= 9)
+// 		len++;
+// 	else if (n > 9)
+// 		len = len + count_len(n / 10);
+// 	return (len);
+// }
 
-char			*ft_itoa_float(float n)
-{
-	int			len;
-	char		*str;
-	float		n1;
+// char			*ft_itoa_float(float n)
+// {
+// 	int			len;
+// 	char		*str;
+// 	float		n1;
 
-	n1 = 1 * (float)n;
-	len = count_len(n);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (str == NULL)
-		return (NULL);
-	make_str(str, n1, len - 1);
-	return (str);
-}
+// 	n1 = 1 * (float)n;
+// 	len = count_len(n);
+// 	str = (char *)malloc(sizeof(char) * (len + 1));
+// 	if (str == NULL)
+// 		return (NULL);
+// 	make_str(str, n1, len - 1);
+// 	return (str);
+// }
