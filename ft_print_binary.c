@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_addtobuffer.c                                   :+:    :+:            */
+/*   ft_print_binary.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsaripap <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/09/14 10:16:58 by dsaripap      #+#    #+#                 */
-/*   Updated: 2019/09/14 10:30:31 by dsaripap      ########   odam.nl         */
+/*   Created: 2019/11/16 19:40:27 by dsaripap      #+#    #+#                 */
+/*   Updated: 2019/11/16 19:40:30 by dsaripap      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-void		add_to_buffer(const char **str, t_format *t_flags, \
-						t_print *tprnt)
+void			print_binary(long long num)
 {
-	char	str_result[BUFFER_SIZE];
-	size_t	length;
+	int			bit;
+	int			pos;
 
-	length = 0;
-	while ((**str != '\0') && (**str != '%'))
+	printf(ANSI_COLOR_MAGENTA"\nthe num is : %d\n", (int)num);
+	if (num < 0)
+		num = num * (-1);
+	pos = 10;
+	while (pos >= 0)
 	{
-		str_result[length] = **str;
-		length++;
-		(*str)++;
+		bit = num >> pos;
+		if (bit & 1)
+			printf("1 ");
+		else
+			printf("0 ");
+		pos--;
 	}
-	buffer_writer(str_result, length, t_flags, tprnt);
-	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + length;
 }

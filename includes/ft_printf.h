@@ -28,6 +28,10 @@
 # define ANSI_COLOR_MAGENTA	"\x1b[35m"
 # define ANSI_COLOR_CYAN    "\x1b[36m"
 
+# define BUFFER_SIZE		512
+# define FLOAT_TOTAL_LEN	40000
+# define FLOAT_MIDDLE		20001
+
 # define FLAG_MINUS (1 << 0)
 # define FLAG_PLUS (1 << 1)
 # define FLAG_SPACE (1 << 2)
@@ -35,9 +39,9 @@
 # define FLAG_HT (1 << 4)
 # define FLAG_APOSTR (1 << 5)
 # define FLAG_PRECIS (1 << 6)
-# define FLAG_ASTER (1 << 7)
+# define FLAG_ASTER_MINFW (1 << 7)
 # define FLAG_NEGAT (1 << 8)
-# define FLAG_ASTER_2 (1 << 9)
+# define FLAG_ASTER_PREC (1 << 9)
 
 typedef enum	e_modifier
 {
@@ -63,7 +67,7 @@ typedef struct	s_format
 
 typedef struct	s_print
 {
-	char		buffer[1000];
+	char		buffer[BUFFER_SIZE];
 	int			buf_index;
 	int			print_end;
 	int			pad_len;
@@ -163,6 +167,7 @@ void			check_modifier_float(va_list argptr, t_float *fl, \
 int				length_fraction(char *fr);
 int				length_product(short *pr);
 int				length_product_decpart(short *pr);
+int				length_product_intpart(short *pr);
 
 /*
 ** Clearing up / Reinitializing functions

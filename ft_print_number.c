@@ -19,6 +19,9 @@ void	print_hex_pointer(unsigned long long arg, t_format *tfl, \
 	((arg == 0) && ((*tfl).flags == 0) && (*tfl).minfw == 0) ||
 	((arg == 0) && (((*tfl).flags & FLAG_HT) > 0) &&
 	(((*tfl).flags & FLAG_PRECIS) == 0)) ||
+	((arg == 0) && (((*tfl).flags & FLAG_HT) > 0) &&
+	((*tfl).precision == (*tfl).minfw) &&
+	((*tfl).precision != 0)) ||
 	((arg == 0) && (((*tfl).flags & FLAG_MINUS) > 0) &&
 	(((*tfl).flags & FLAG_PRECIS) == 0)))
 	{

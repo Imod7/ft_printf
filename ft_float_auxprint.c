@@ -15,43 +15,31 @@
 void			print_final_float(short *pr, t_format *t_flags, t_print *tprnt)
 {
 	int			index;
-	char		*str;
+	int			len;
 
 	index = 0;
-	str = 0;
-	// (*tprnt).buf_index = 0;
-	if ((pr[4999] == 0) && (pr[5000] == '0') && ((*t_flags).precision == 0))
+	len = 0;
+	if (pr[0] == 0)
 	{
-		buffer_writer(&"0", 1, t_flags, tprnt);
-		(*t_flags).total_chars_printed++;
+		index = FLOAT_MIDDLE - 1;
+		while ((pr[index] != 0) && (index >= 0))
+		{
+			index--;
+			len++;
+		}
+		index += 1;
+		// printf("\n IN len = %d, pr[%d]= %c", len, index, pr[index]);
 	}
-	// if (((*t_flags).precision == 0) && (len == 1))
-	// 	write((*t_flags).fd, &"0", 1);
-	else
+	// printf("\n len = %d, pr[%d]= %c", len, index, pr[index]);
+	while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
 	{
-		// while (pr[index] == 0)
-		while ((pr[index] == 0) && (index <= 10000))
-		{
-			index++;
-		}
-		while ((pr[index] != 0) && (index <= 10000))
-		{
-			// write((*t_flags).fd, &pr[index], 1);
-			// printf("\nthis is run pr = %c", pr[index]);
-			// printf("\n EDW str = %c", *str);
-			buffer_writer(&pr[index], 1, t_flags, tprnt);
-			index++;
-			(*t_flags).total_chars_printed++;
-			// if (((*t_flags).precision == 0) && (len == 1))
-			// 	break ;
-			// buffer_writer("0", 1, t_flags, tprnt);
-		}
+		buffer_writer(&pr[index], 1, t_flags, tprnt);
+		index++;
+		(*t_flags).total_chars_printed++;
 	}
 	if (((*t_flags).flags & FLAG_HT) && ((*t_flags).precision == 0))
 	{
 		buffer_writer(&".", 1, t_flags, tprnt);
-		// write((*t_flags).fd, &".", 1);
-		// buffer_writer(".", t_flags, tprnt);
 		(*t_flags).total_chars_printed++;
 	}
 }

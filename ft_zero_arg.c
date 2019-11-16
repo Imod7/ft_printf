@@ -62,33 +62,42 @@ void	length_precision_diff_zeros(t_format *t_flags, t_print *t_pr, int len)
 	int	diff;
 
 	// printf("EDW pad_len = %d\n", (*t_pr).pad_len);
-	if ((*t_flags).minfw == (*t_flags).precision)
-		diff = (*t_flags).precision - len;
-	else if (((*t_flags).minfw != 0) && \
-	((*t_flags).precision < (*t_flags).minfw) &&
-	(!((*t_flags).flags & (FLAG_HT))) &&
-	(!((*t_flags).flags & (FLAG_MINUS))) &&
-	(!((*t_flags).flags & (FLAG_PLUS))))
+	diff = 0;
+	if (!((((*t_flags).flags & (FLAG_MINUS)) > 0) && \
+	((*t_flags).argtype == 'u') &&
+	((*t_flags).minfw == (*t_flags).precision)))
+	// 	;
+	// else
 	{
-		diff = (*t_flags).minfw - (*t_pr).pad_len;
-		// printf("\n >>> diff = %d", diff);
-	}
-	else if (((*t_flags).minfw == 0) || ((*t_flags).precision != 0))
-	{
-		diff = (*t_flags).precision;
-		// printf("\n --- diff = %d", diff);
-	}
-	else
-	{
-		diff = (*t_flags).precision - (*t_pr).pad_len - \
-		(*t_flags).special_chars_printed - len;
-		// printf("\n ooooo diff = %d", diff);
-	}
-	if ((((*t_flags).flags & (FLAG_SPACE)) &&
-	((*t_flags).flags & (FLAG_MINUS))) ||
-	((*t_flags).minfw == (*t_flags).precision))
-	{
-		(*t_pr).pad_len = (*t_flags).minfw - (*t_flags).precision - len;
+		if ((*t_flags).minfw == (*t_flags).precision)
+			diff = (*t_flags).precision - len;
+		else if (((*t_flags).minfw != 0) && \
+		((*t_flags).precision < (*t_flags).minfw) &&
+		(!((*t_flags).flags & (FLAG_HT))) &&
+		(!((*t_flags).flags & (FLAG_MINUS))) &&
+		(!((*t_flags).flags & (FLAG_PLUS))))
+		{
+			diff = (*t_flags).minfw - (*t_pr).pad_len;
+			// printf("\n >>> diff = %d", diff);
+		}
+		else if (((*t_flags).minfw == 0) || ((*t_flags).precision != 0))
+		{
+			diff = (*t_flags).precision;
+			// printf("\n --- diff = %d", diff);
+		}
+		else
+		{
+			diff = (*t_flags).precision - (*t_pr).pad_len - \
+			(*t_flags).special_chars_printed - len;
+			// printf("\n ooooo diff = %d", diff);
+		}
+		if ((((*t_flags).flags & (FLAG_SPACE)) &&
+		((*t_flags).flags & (FLAG_MINUS))) ||
+		((*t_flags).minfw == (*t_flags).precision))
+		{
+			(*t_pr).pad_len = (*t_flags).minfw - (*t_flags).precision - len;
+			// printf("\n EQUAL diff = %d", diff);
+		}
 	}
 	if (diff > 0)
 	{
@@ -97,7 +106,7 @@ void	length_precision_diff_zeros(t_format *t_flags, t_print *t_pr, int len)
 	}
 	while (diff > 0)
 	{
-		// printf("\n edw tupwnei");
+		// printf("\n edw tupwnei diff = %d", diff);
 		buffer_writer(&"0", 1, t_flags, t_pr);
 		// write((*t_flags).fd, "0", 1);
 		diff--;

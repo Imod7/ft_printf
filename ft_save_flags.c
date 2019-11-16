@@ -89,10 +89,11 @@ void				save_flags(t_format *t_flags, const char **str)
 {
 	while (**str != '\0' && all_flags_retrieved(**str) == 0)
 	{
-		if ((**str == '*') && (!((*t_flags).flags & FLAG_ASTER)))
-			(*t_flags).flags |= FLAG_ASTER;
-		else if ((**str == '*') && ((*t_flags).flags & FLAG_ASTER))
-			(*t_flags).flags |= FLAG_ASTER_2;
+		if ((**str == '*') && (!((*t_flags).flags & FLAG_ASTER_MINFW)) && \
+		(!((*t_flags).flags & FLAG_PRECIS)))
+			(*t_flags).flags |= FLAG_ASTER_MINFW;
+		else if ((**str == '*') && (((*t_flags).flags & FLAG_PRECIS)))
+			(*t_flags).flags |= FLAG_ASTER_PREC;
 		else if (**str == '-')
 			(*t_flags).flags |= FLAG_MINUS;
 		else if (**str == '+')

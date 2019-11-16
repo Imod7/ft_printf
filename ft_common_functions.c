@@ -51,9 +51,9 @@ void	length_precision_diff(t_format *t_flags, t_print *t_prnt, int len)
 
 	diff = (*t_flags).precision - len;
 	(*t_flags).total_chars_printed += diff;
+	// printf("\n diff = %d\n", diff);
 	while (diff > 0)
 	{
-		// write((*t_flags).fd, "0", 1);
 		buffer_writer(&"0", 1, t_flags, t_prnt);
 		diff--;
 	}

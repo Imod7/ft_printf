@@ -33,17 +33,37 @@ int				length_product(short *pr)
 	int			len;
 
 	len = 0;
-	index = 0;
-	while ((pr[index] == 0) && (index <= 10000))
+	if (pr[0] == 0)
 	{
-		index++;
+		index = FLOAT_MIDDLE - 1;
+		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
+		{
+			index--;
+			len++;
+		}
+		index = FLOAT_MIDDLE + 1;
+		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
+		{
+			index++;
+			len++;
+		}
+		if (len != 1)
+			len += 1;
 	}
-	while ((pr[index] != 0) && (index <= 10000))
+	else
 	{
-		index++;
-		len++;
+		index = 0;
+		while ((pr[index] == 0) && (index <= FLOAT_TOTAL_LEN))
+		{
+			index++;
+		}
+		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
+		{
+			index++;
+			len++;
+		}
 	}
-	// printf("\n LENGTH FUNC len = %d, index = %zu, pr = %d", len, index, pr[index]);
+	// printf("\n LEN PROD = %d", len);
 	return (len);
 }
 
@@ -52,12 +72,52 @@ int				length_product_decpart(short *pr)
 	size_t		index;
 	int			len;
 
-	index = 5002;
+	index = FLOAT_MIDDLE + 1;
 	len = 0;
 	while (pr[index] != 0)
 	{
 		index++;
 		len++;
 	}
+	return (len);
+}
+
+int				length_product_intpart(short *pr)
+{
+	size_t		index;
+	int			len;
+
+	len = 0;
+	if (pr[0] == 0)
+	{
+		index = FLOAT_MIDDLE - 1;
+		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
+		{
+			index--;
+			len++;
+		}
+		// index = FLOAT_MIDDLE + 1;
+		// while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
+		// {
+		// 	index++;
+		// 	len++;
+		// }
+		// if (len != 1)
+			// len += 1;
+	}
+	else
+	{
+		index = 0;
+		while ((pr[index] == 0) && (index <= FLOAT_TOTAL_LEN))
+		{
+			index++;
+		}
+		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN) && pr[index] != '.')
+		{
+			index++;
+			len++;
+		}
+	}
+	// printf("\n len int = %d", len);
 	return (len);
 }

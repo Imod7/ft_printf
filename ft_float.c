@@ -26,14 +26,14 @@ void				initialization(char *fr, short *pr)
 	fr[1] = '.';
 	fr[2] = '0';
 	index = 0;
-	while (index < 10000)
+	while (index < FLOAT_TOTAL_LEN)
 	{
 		pr[index] = 0;
 		index++;
 	}
-	pr[5000] = '0';
-	pr[5001] = '.';
-	pr[5002] = '0';
+	pr[FLOAT_MIDDLE - 1] = '0';
+	pr[FLOAT_MIDDLE] = '.';
+	pr[FLOAT_MIDDLE + 1] = '0';
 }
 
 void				check_modifier_float(va_list argptr, t_float *fl, \
@@ -81,11 +81,11 @@ void				exponent_check(t_format *tfl, t_float *fl, short *pr)
 		exponent_calculation(pr, (*fl).exponent[4]);
 	}
 	else if ((*fl).exponent[4] == 0)
-		pr[5003] = 0;
+		pr[FLOAT_MIDDLE + 2] = 0;
 }
 
-int					ft_ftoa(t_format *tfl, t_print *tprnt, t_float *fl, \
-					short *pr)
+int					ft_ftoa(t_format *flags, t_print *tprnt, \
+							t_float *float_num, short *pr)
 {
 	char			fraction[400];
 	int				index;
@@ -97,17 +97,14 @@ int					ft_ftoa(t_format *tfl, t_print *tprnt, t_float *fl, \
 	while (index >= 0)
 	{
 		bit = 1UL << index;
-		if ((*fl).mantissa & bit)
+		if ((*float_num).mantissa & bit)
 			str_add_prod_frac(pr, fraction);
 		frac_divide_by_two(fraction);
 		index--;
 	}
-	inf_nan = check_inf_nan(fl, tprnt, pr);
+	inf_nan = check_inf_nan(float_num, tprnt, pr);
 	if ((inf_nan == -1) || (inf_nan == 1))
 		return (inf_nan);
-	exponent_check(tfl, fl, pr);
-	// printf("\n pr = %c%c%c%c%c%c%c%c%c%c%c", pr[4996], pr[4997], pr[4998], pr[4999], pr[5000], pr[5001], pr[5002], pr[5003], pr[5004], pr[5005],pr[5006]);
-	// printf("%c%c%c%c%c%c%c", pr[5007], pr[5008], pr[5009], pr[5010], pr[5011], pr[5012],pr[5013]);
-	// printf("%c%c%c%c%c%c%c", pr[5014], pr[5015], pr[5016], pr[5017], pr[5018], pr[5019],pr[5020]);
+	exponent_check(flags, float_num, pr);
 	return (0);
 }

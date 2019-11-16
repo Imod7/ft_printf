@@ -18,12 +18,12 @@ void			check_carry_and_sum(short *pr, char *fr, int carry)
 
 	if (carry > 0)
 	{
-		sum = (pr[5000] - '0');
+		sum = (pr[FLOAT_MIDDLE - 1] - '0');
 		sum++;
-		pr[5000] = sum + '0';
+		pr[FLOAT_MIDDLE - 1] = sum + '0';
 	}
-	sum = (pr[5000] - '0') + (fr[0] - '0');
-	pr[5000] = sum + '0';
+	sum = (pr[FLOAT_MIDDLE - 1] - '0') + (fr[0] - '0');
+	pr[FLOAT_MIDDLE - 1] = sum + '0';
 }
 
 void			str_add_prod_frac(short *pr, char *fr)
@@ -35,22 +35,21 @@ void			str_add_prod_frac(short *pr, char *fr)
 	int			carry;
 
 	len_pr = length_product(pr);
-	// printf("\n ppppppp len = %d, pr = %c%c%c%c%c%c%c%c%c", len_pr, pr[4998], pr[4999], pr[5000], pr[5001], pr[5002], pr[5003], pr[5004], pr[5005],pr[5006]);
-	// printf("%c%c%c%c%c%c%c", pr[5007], pr[5008], pr[5009], pr[5010], pr[5011], pr[5012],pr[5013]);
-	// printf("%c%c%c%c%c%c%c", pr[5014], pr[5015], pr[5016], pr[5017], pr[5018], pr[5019],pr[5020]);
+	// printf("\n  ADD >> len = %d", len_pr);
 	len_fr = length_fraction(fr);
 	index = len_pr;
 	while (index < len_fr)
 	{
-		pr[5000 + index] = '0';
+		pr[FLOAT_MIDDLE - 1 + index] = '0';
 		index++;
 	}
 	index = len_fr;
 	carry = 0;
 	while (index > 2)
 	{
-		sum = (pr[5000 + index - 1] - '0') + (fr[index - 1] - '0') + carry;
-		pr[5000 + index - 1] = (sum % 10) + '0';
+		sum = (pr[FLOAT_MIDDLE - 1 + index - 1] - '0') + (fr[index - 1] - '0') \
+		+ carry;
+		pr[FLOAT_MIDDLE - 1 + index - 1] = (sum % 10) + '0';
 		carry = sum / 10;
 		index--;
 	}
@@ -77,19 +76,21 @@ void			str_double(short *pr)
 	int			index;
 	int			carry;
 	int			sum;
+	int			dec_start;
 
-	index = 5000 + length_product_decpart(pr);
+	index = (FLOAT_MIDDLE - 1) + length_product_decpart(pr);
 	carry = 0;
-	while (index >= 5002)
+	dec_start = FLOAT_MIDDLE + 1;
+	while (index >= dec_start)
 	{
 		sum = ((pr[index] - '0') * 2) + carry;
 		pr[index] = (sum % 10) + '0';
 		carry = sum / 10;
 		index--;
 	}
-	sum = ((pr[5000] - '0') * 2) + carry;
-	pr[5000] = (sum % 10) + '0';
+	sum = ((pr[FLOAT_MIDDLE - 1] - '0') * 2) + carry;
+	pr[FLOAT_MIDDLE - 1] = (sum % 10) + '0';
 	carry = sum / 10;
-	index = 5000 - 1;
+	index = FLOAT_MIDDLE - 2;
 	check_carry(pr, carry, index);
 }

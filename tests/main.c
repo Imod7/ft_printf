@@ -18,7 +18,7 @@ int				main(int argc, char **argv)
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[122];
+	test_func	*test_array[129];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -142,9 +142,16 @@ int				main(int argc, char **argv)
 	test_array[119] = test_exceptions6;
 	test_array[120] = test_float24;
 	test_array[121] = test_float25;
+	test_array[122] = test_hex18;
+	test_array[123] = test_u8;
+	test_array[124] = test_u9;
+	test_array[125] = test_u10;
+	test_array[126] = test_int17;
+	test_array[127] = test_int18;
+	test_array[128] = test_string12;
 	i = 1;
 	test_passed = 0;
-	// test_array[116]();
+	// test_array[117]();
 	if (argc == 1)
 	{
 		printf("Which Test do you want to run ? (0 to run All) \n");
@@ -171,30 +178,66 @@ int				main(int argc, char **argv)
 	}
 	else
 	{
-		// printf("\n domiiiii %s", argv[1]);
-		if (argv[1][0] == 102)
+		if (argv[1][0] == 'f')
 		{
-			// printf("\n dom");
-			int floats_array[] = {41, 43, 44, 45, 46, 56, 57, 58, 59, 62, \
-			63, 64, 65, 66, 67, 68, 69, 78, 114, 115, 116, 117, 118};
+			int ids_array[] = {41, 43, 44, 45, 46, 56, 57, 58, 59, 62, \
+			63, 64, 65, 66, 67, 68, 69, 78, 114, 115, 116, 117, 118, 120, \
+			121};
 			i = 0;
-			while (i < (int)(sizeof(floats_array) / sizeof(floats_array[0])))
+			while (i < (int)(sizeof(ids_array) / sizeof(ids_array[0])))
 			{
-				test_result = test_array[floats_array[i]]();
+				test_result = test_array[ids_array[i]]();
 				if (test_result == 0)
 					test_passed++;
 				i++;
 			}
 		}
-		else if (argv[1][0] == 111)
+		else if (argv[1][0] == 'o')
 		{
-			// printf("\n dom");
-			int floats_array[] = {16, 17, 18, 49, 52, 53, 61, 74, 76, 79, 81, \
+			int ids_array[] = {16, 17, 18, 49, 52, 53, 61, 74, 76, 79, 81, \
 			82, 84, 87, 88, 89, 110};
 			i = 0;
-			while (i < (int)(sizeof(floats_array) / sizeof(floats_array[0])))
+			while (i < (int)(sizeof(ids_array) / sizeof(ids_array[0])))
 			{
-				test_result = test_array[floats_array[i]]();
+				test_result = test_array[ids_array[i]]();
+				if (test_result == 0)
+					test_passed++;
+				i++;
+			}
+		}
+		else if (argv[1][0] == 'u')
+		{
+			int ids_array[] = {51, 54, 80, 83, 85, 111, 112, 123};
+			i = 0;
+			while (i < (int)(sizeof(ids_array) / sizeof(ids_array[0])))
+			{
+				test_result = test_array[ids_array[i]]();
+				if (test_result == 0)
+					test_passed++;
+				i++;
+			}
+		}
+		else if (argv[1][0] == 'i')
+		{
+			int ids_array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 50, 71, \
+			72, 73, 104};
+			i = 0;
+			while (i < (int)(sizeof(ids_array) / sizeof(ids_array[0])))
+			{
+				test_result = test_array[ids_array[i]]();
+				if (test_result == 0)
+					test_passed++;
+				i++;
+			}
+		}
+		else if (argv[1][0] == 'z')
+		{
+			int ids_array[] = {53, 54, 55, 86, 87, 88, 89, 91, 109, 110, \
+			122, 123, 124};
+			i = 0;
+			while (i < (int)(sizeof(ids_array) / sizeof(ids_array[0])))
+			{
+				test_result = test_array[ids_array[i]]();
 				if (test_result == 0)
 					test_passed++;
 				i++;

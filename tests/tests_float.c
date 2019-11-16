@@ -822,9 +822,9 @@ int			test_float22(void)
 	char	*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%.250lf='%.250lf', %%.3Lf='%.3Lf'\n", -DBL_TRUE_MIN, -LDBL_MIN);
+	total_chars_p = dprintf(fd, "%%.550lf='%.550lf', %%.950Lf='%.950Lf'\n", -DBL_TRUE_MIN, -LDBL_MIN);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%.250lf='%.250lf', %%.3Lf='%.3Lf'\n", -DBL_TRUE_MIN, -LDBL_MIN);
+	total_chars_ftp = ft_dprintf(fd, "%%.550lf='%.550lf', %%.950Lf='%.950Lf'\n", -DBL_TRUE_MIN, -LDBL_MIN);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -930,9 +930,11 @@ int			test_float25(void)
 	char	*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%.0f=%.0f\n", 0.000039);
+	total_chars_p = dprintf(fd, "%%.0f='%.0f', %%5.0f='%5.0f'\n", 0.000039, \
+	-7.3);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%.0f=%.0f\n", 0.000039);
+	total_chars_ftp = ft_dprintf(fd, "%%.0f='%.0f', %%5.0f='%5.0f'\n", 0.000039, \
+	-7.3);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);

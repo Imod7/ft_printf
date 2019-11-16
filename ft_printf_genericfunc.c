@@ -60,13 +60,13 @@ void			print_end(t_format *t_flags, t_print *t_prnt)
 	(*t_prnt).print_end = 1;
 	buffer_writer("", 1, t_flags, t_prnt);
 	// (*t_prnt).buffer[0] = 0;
-	ft_memset((*t_prnt).buffer, 0, 1000);
+	ft_memset((*t_prnt).buffer, 0, BUFFER_SIZE);
 	(*t_flags).fd = 0;
 }
 
 void			initialize(t_format *t_flags, t_print *t_prnt)
 {
-	ft_memset((*t_prnt).buffer, 0, 1000);
+	ft_memset((*t_prnt).buffer, 0, BUFFER_SIZE);
 	(*t_prnt).buf_index = 0;
 	(*t_flags).total_chars_printed = 0;
 	(*t_prnt).print_end = 0;

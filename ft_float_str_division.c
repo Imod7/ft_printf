@@ -49,17 +49,17 @@ void			prod_divide_by_two(short *pr)
 
 	// index = 2;
 	carry = 0;
-	len = 5000 + length_product(pr);
-	if (pr[5000] == '1')
+	len = (FLOAT_MIDDLE - 1) + length_product(pr);
+	// printf("\n  DIV >> len = %d", len);
+	if (pr[FLOAT_MIDDLE - 1] == '1')
 	{
-		pr[5000] = '0';
+		pr[FLOAT_MIDDLE - 1] = '0';
 		carry = 1;
 	}
-	index = 5002;
+	index = FLOAT_MIDDLE + 1;
 	while (index <= len)
 	// while (pr[index] != '\0')
 	{
-		// printf("pr = %c , index = %d", pr[index], index);
 		if (pr[index] != 0)
 			temp = pr[index] - '0';
 		else
@@ -68,6 +68,5 @@ void			prod_divide_by_two(short *pr)
 		carry = pr[index] % 2;
 		pr[index] = temp + '0';
 		index++;
-		// printf("\nafter pr = %c ", pr[index]);
 	}
 }
