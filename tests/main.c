@@ -18,7 +18,7 @@ int				main(int argc, char **argv)
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[129];
+	test_func	*test_array[131];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -149,6 +149,8 @@ int				main(int argc, char **argv)
 	test_array[126] = test_int17;
 	test_array[127] = test_int18;
 	test_array[128] = test_string12;
+	test_array[129] = test_int19;
+	test_array[130] = test_octal18;
 	i = 1;
 	test_passed = 0;
 	// test_array[117]();

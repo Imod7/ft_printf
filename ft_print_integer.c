@@ -47,6 +47,15 @@ void			int_minus(long long arg, t_format *t_fl, t_print *t_pr, int len)
 	}
 }
 
+void			check_negative_int(long long *arg, t_format *t_flags, \
+t_print *t_prnt, int l)
+{
+	if (*arg < 0)
+		(*t_flags).flags |= FLAG_NEGAT;
+	if ((*arg < 0) && ((*t_flags).minfw == (*t_flags).precision))
+		(*t_prnt).pad_len = (*t_flags).minfw - l;
+}
+
 /*
 ** function print_integer
 ** If the flag zero is SET then print first the format (plus sign)
@@ -65,7 +74,7 @@ void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt)
 	check_plusflag(tflags);
 	check_modifier(&arg, tflags);
 	len = number_of_digits(arg);
-	check_negative_num(&arg, tflags, tprnt, len);
+	check_negative_int(&arg, tflags, tprnt, len);
 	minfw_vs_precision(tflags, tprnt, len);
 	if (arg == 0)
 		check_arg_zero(tflags, &len, tprnt);

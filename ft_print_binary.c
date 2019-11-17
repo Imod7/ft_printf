@@ -20,7 +20,7 @@ void			print_binary(long long num)
 	printf(ANSI_COLOR_MAGENTA"\nthe num is : %d\n", (int)num);
 	if (num < 0)
 		num = num * (-1);
-	pos = 10;
+	pos = 9;
 	while (pos >= 0)
 	{
 		bit = num >> pos;

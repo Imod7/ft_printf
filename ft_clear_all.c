@@ -12,13 +12,21 @@
 
 #include "includes/ft_printf.h"
 
+void			initialize_buffer(t_format *t_flags, t_print *t_prnt)
+{
+	ft_memset((*t_prnt).buffer, 0, BUFFER_SIZE);
+	(*t_prnt).buf_index = 0;
+	(*t_flags).total_chars_printed = 0;
+	(*t_prnt).print_end = 0;
+}
+
 /*
 ** The only thing we do not initialize in the function clear_formatstruct
 ** is the member total_chars_printed because we need to continue counting
 ** for more than one arguments
 */
 
-void				clear_formatstruct(t_format *t_flags, t_print *t_prnt)
+void			clear_formatstruct(t_format *t_flags, t_print *t_prnt)
 {
 	(*t_flags).flags = 0;
 	(*t_flags).minfw = 0;
@@ -31,9 +39,9 @@ void				clear_formatstruct(t_format *t_flags, t_print *t_prnt)
 	(*t_prnt).sign_printed = 0;
 }
 
-void				clear_forfloat(t_float *fl_num)
+void			clear_forfloat(t_float *fl_num)
 {
-	int				index;
+	int			index;
 
 	(*fl_num).f_num = 0;
 	(*fl_num).mantissa = 0;
@@ -43,4 +51,12 @@ void				clear_forfloat(t_float *fl_num)
 		(*fl_num).exponent[index] = 0;
 		index++;
 	}
+}
+
+void			end_of_string(t_format *t_flags, t_print *t_prnt)
+{
+	(*t_prnt).print_end = 1;
+	buffer_writer("", 1, t_flags, t_prnt);
+	ft_memset((*t_prnt).buffer, 0, BUFFER_SIZE);
+	(*t_flags).fd = 0;
 }

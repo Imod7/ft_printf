@@ -12,7 +12,7 @@
 
 #include "includes/ft_printf.h"
 
-int				store_to_buffer(unsigned char **un_str, int len, \
+int					store_to_buffer(unsigned char **un_str, int len, \
 									t_format *t_flags, t_print *t_prnt, int i)
 {
 	while (((*t_prnt).buf_index < BUFFER_SIZE) && (i < len))
@@ -49,6 +49,5 @@ void				buffer_writer(const void *str, int len, t_format *t_flags, \
 		{
 			i = store_to_buffer(&un_str, len, t_flags, t_prnt, i);
 		}
-		// (*t_flags).total_chars_printed = (*t_flags).total_chars_printed + len;
 	}
 }

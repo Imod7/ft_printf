@@ -77,10 +77,8 @@ void					print_int_un(va_list argp, t_format *tfl, t_print *tpr)
 	check_plusflag(tfl);
 	if (arg == 0)
 		check_arg_zero(tfl, &len, tpr);
-	if ((((*tfl).flags & FLAG_MINUS) > 0) &&
-	((*tfl).minfw > (*tfl).precision))
+	if ((((*tfl).flags & FLAG_MINUS) > 0) && ((*tfl).minfw > (*tfl).precision))
 	{
-		// printf("\n ... EDW ");
 		(*tfl).flags &= ~FLAG_ZERO;
 		print_number(arg, tfl, tpr, len);
 		print_inverse(tfl, tpr, len);
@@ -91,10 +89,7 @@ void					print_int_un(va_list argp, t_format *tfl, t_print *tpr)
 		(((*tfl).flags & FLAG_PRECIS) > 0))
 			print_inverse(tfl, tpr, len);
 		else
-		{
-			print_padding(tfl, tpr, len);
-			print_sign(tfl, tpr);
-		}
+			print_order(tfl, tpr, len);
 		print_number(arg, tfl, tpr, len);
 	}
 }

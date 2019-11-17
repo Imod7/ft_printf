@@ -42,7 +42,6 @@ int				next_char(const char *str, t_format *t_flags, t_print *tprnt)
 {
 	if (*str == '%')
 	{
-		// write(fd, &"%", 1);
 		buffer_writer(&"%", 1, t_flags, tprnt);
 		(*t_flags).total_chars_printed++;
 		return (1);
@@ -53,25 +52,6 @@ int				next_char(const char *str, t_format *t_flags, t_print *tprnt)
 		return (3);
 }
 
-void			print_end(t_format *t_flags, t_print *t_prnt)
-{
-	// printf(ANSI_COLOR_MAGENTA"\n PRINTING index = '%d' and buffer = \n --- '%s' ---\n\n\n"ANSI_COLOR_RESET, (*t_prnt).buf_index, ((*t_prnt).buffer));
-	// printf(ANSI_COLOR_RED"\n THE END PRINTING index = '%d' and buffer = \n\n\n--> '%s' <--\n\n\n"ANSI_COLOR_RESET, (*t_prnt).buf_index, ((*t_prnt).buffer));
-	(*t_prnt).print_end = 1;
-	buffer_writer("", 1, t_flags, t_prnt);
-	// (*t_prnt).buffer[0] = 0;
-	ft_memset((*t_prnt).buffer, 0, BUFFER_SIZE);
-	(*t_flags).fd = 0;
-}
-
-void			initialize(t_format *t_flags, t_print *t_prnt)
-{
-	ft_memset((*t_prnt).buffer, 0, BUFFER_SIZE);
-	(*t_prnt).buf_index = 0;
-	(*t_flags).total_chars_printed = 0;
-	(*t_prnt).print_end = 0;
-}
-
 int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 {
 	t_format	t_flags;
@@ -80,7 +60,7 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 
 	clear_formatstruct(&t_flags, &t_prnt);
 	t_flags.fd = fd;
-	initialize(&t_flags, &t_prnt);
+	initialize_buffer(&t_flags, &t_prnt);
 	while (*str != '\0')
 	{
 		if (*str == '%')
@@ -103,14 +83,11 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 		else
 		{
 			while ((*str != '\0') && (*str != '%'))
-			{
-				// printf(ANSI_COLOR_YELLOW"\n ADD TO BUFFER  "ANSI_COLOR_RESET);
 				add_to_buffer(&str, &t_flags, &t_prnt);
-			}
 			str--;
 		}
 		str++;
 	}
-	print_end(&t_flags, &t_prnt);
+	end_of_string(&t_flags, &t_prnt);
 	return (t_flags.total_chars_printed);
 }

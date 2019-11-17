@@ -27,6 +27,19 @@ int				length_fraction(char *fr)
 	return (len);
 }
 
+size_t			left_to_dot(short *pr, int *len)
+{
+	size_t		index;
+
+	index = FLOAT_MIDDLE - 1;
+	while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
+	{
+		index--;
+		(*len)++;
+	}
+	return (index);
+}
+
 int				length_product(short *pr)
 {
 	size_t		index;
@@ -35,12 +48,7 @@ int				length_product(short *pr)
 	len = 0;
 	if (pr[0] == 0)
 	{
-		index = FLOAT_MIDDLE - 1;
-		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
-		{
-			index--;
-			len++;
-		}
+		index = left_to_dot(pr, &len);
 		index = FLOAT_MIDDLE + 1;
 		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
 		{
@@ -54,16 +62,13 @@ int				length_product(short *pr)
 	{
 		index = 0;
 		while ((pr[index] == 0) && (index <= FLOAT_TOTAL_LEN))
-		{
 			index++;
-		}
 		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
 		{
 			index++;
 			len++;
 		}
 	}
-	// printf("\n LEN PROD = %d", len);
 	return (len);
 }
 
@@ -89,22 +94,7 @@ int				length_product_intpart(short *pr)
 
 	len = 0;
 	if (pr[0] == 0)
-	{
-		index = FLOAT_MIDDLE - 1;
-		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
-		{
-			index--;
-			len++;
-		}
-		// index = FLOAT_MIDDLE + 1;
-		// while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
-		// {
-		// 	index++;
-		// 	len++;
-		// }
-		// if (len != 1)
-			// len += 1;
-	}
+		index = left_to_dot(pr, &len);
 	else
 	{
 		index = 0;
@@ -112,12 +102,12 @@ int				length_product_intpart(short *pr)
 		{
 			index++;
 		}
-		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN) && pr[index] != '.')
+		while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN) && \
+		pr[index] != '.')
 		{
 			index++;
 			len++;
 		}
 	}
-	// printf("\n len int = %d", len);
 	return (len);
 }

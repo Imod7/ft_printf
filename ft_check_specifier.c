@@ -17,44 +17,34 @@ void		asterisk_precision(va_list argptr, t_format *t_flags)
 	int		aster_arg;
 
 	aster_arg = va_arg(argptr, int);
-	// printf("\n MPIKE EDW arg = %d, min = %d", aster_arg, (*t_flags).minfw);
 	if (aster_arg < 0)
 	{
-		// aster_arg = aster_arg * (-1);
-		(*t_flags).flags |= FLAG_MINUS;
-		// if ((*t_flags).argtype == 's')
 		(*t_flags).precision = aster_arg;
 	}
 	else if (((*t_flags).flags & FLAG_PRECIS) &&
 	((*t_flags).precision == 0))
 		(*t_flags).precision = aster_arg;
-	// else if (aster_arg > (*t_flags).precision)
-	// 	(*t_flags).minfw = aster_arg;
 }
 
 void		check_asterisks(va_list argptr, t_format *t_flags)
 {
 	int		aster_arg;
 
-	// printf("\n flags ");
-	// print_binary((*t_flags).flags);
-	// printf("\n  ");
 	if ((*t_flags).flags & FLAG_ASTER_MINFW)
 	{
-		printf("\n MAPINEI EDW ? preci = %d, min = %d", (*t_flags).precision, (*t_flags).minfw);
 		aster_arg = va_arg(argptr, int);
-		if (aster_arg < 0)
+		if ((*t_flags).minfw == 0)
 		{
-			aster_arg = aster_arg * (-1);
-			(*t_flags).flags |= FLAG_MINUS;
+			if (aster_arg < 0)
+			{
+				aster_arg = aster_arg * (-1);
+				(*t_flags).flags |= FLAG_MINUS;
+			}
+			(*t_flags).minfw = aster_arg;
 		}
-		(*t_flags).minfw = aster_arg;
-		// aster_arg = va_arg(argptr, int);
-		// (*t_flags).precision = aster_arg;
 	}
 	if ((*t_flags).flags & FLAG_ASTER_PREC)
 		asterisk_precision(argptr, t_flags);
-	// printf("\n preci = %d, min = %d", (*t_flags).precision, (*t_flags).minfw);
 }
 
 /*

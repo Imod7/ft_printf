@@ -47,10 +47,8 @@ void			prod_divide_by_two(short *pr)
 	int			index;
 	int			carry;
 
-	// index = 2;
 	carry = 0;
 	len = (FLOAT_MIDDLE - 1) + length_product(pr);
-	// printf("\n  DIV >> len = %d", len);
 	if (pr[FLOAT_MIDDLE - 1] == '1')
 	{
 		pr[FLOAT_MIDDLE - 1] = '0';
@@ -58,7 +56,6 @@ void			prod_divide_by_two(short *pr)
 	}
 	index = FLOAT_MIDDLE + 1;
 	while (index <= len)
-	// while (pr[index] != '\0')
 	{
 		if (pr[index] != 0)
 			temp = pr[index] - '0';

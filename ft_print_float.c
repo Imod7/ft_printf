@@ -60,7 +60,6 @@ void			print_float(va_list argptr, t_format *t_flags, t_print *tpr)
 	result = ft_ftoa(t_flags, tpr, &float_num, product);
 	check_precision(product, t_flags);
 	len = length_product(product);
-	// printf("\n  PRINT >> len = %d", len);
 	if (result == -1)
 		len = 4;
 	float_checkflags(t_flags, tpr, product, len);

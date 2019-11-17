@@ -33,7 +33,6 @@ SRC =	\
 		ft_print_format.c \
 		ft_print_binary.c \
 		ft_putnbr_base.c \
-		ft_itoa_float.c \
 		ft_addtobuffer.c \
 		ft_common_functions.c \
 		ft_buffer_manager.c \

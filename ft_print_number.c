@@ -25,7 +25,6 @@ void	print_hex_pointer(unsigned long long arg, t_format *tfl, \
 	((arg == 0) && (((*tfl).flags & FLAG_MINUS) > 0) &&
 	(((*tfl).flags & FLAG_PRECIS) == 0)))
 	{
-		// printf("edw HEX min = %d\n", (*tfl).flags);
 		(*tfl).total_chars_printed += len;
 		if ((*tfl).argtype == 'X')
 			ft_putnbr_hex_capit(arg, tfl, t_prnt);
@@ -62,7 +61,6 @@ void	print_number(unsigned long long arg, t_format *tfl, t_print *t_prnt, \
 		((((*tfl).flags & FLAG_MINUS)))) ||
 		((arg == 0) && ((*tfl).minfw == 0) && ((*tfl).flags == 0)))
 		{
-			// printf("\n EDW");
 			(*tfl).total_chars_printed += len;
 			ft_putnbr_octal(arg, tfl, t_prnt);
 		}
@@ -79,15 +77,11 @@ void	print_number_int(long long arg, t_format *tfl, t_print *tpr, int len)
 	((arg == 0) && (!((*tfl).flags & FLAG_PRECIS))) ||
 	((arg == 0) && ((*tfl).flags == 0)))
 	{
-		// printf("edw WWW\n");
 		(*tfl).total_chars_printed += len;
 		if (((*tfl).precision > len) && ((*tfl).precision < (*tfl).minfw))
 			length_precision_diff(tfl, tpr, len);
 		ft_putnbr_int(arg, tfl, tpr);
 	}
 	else if (((*tfl).precision > len) && (arg == 0))
-	{
-		// printf("edw HHHH min = %d\n", (*tfl).minfw);
 		length_precision_diff_zeros(tfl, tpr, len);
-	}
 }

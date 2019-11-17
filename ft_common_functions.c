@@ -51,7 +51,6 @@ void	length_precision_diff(t_format *t_flags, t_print *t_prnt, int len)
 
 	diff = (*t_flags).precision - len;
 	(*t_flags).total_chars_printed += diff;
-	// printf("\n diff = %d\n", diff);
 	while (diff > 0)
 	{
 		buffer_writer(&"0", 1, t_flags, t_prnt);
@@ -78,7 +77,7 @@ void	minfw_vs_precision(t_format *t_flags, t_print *t_prnt, int len)
 	}
 	if (((*t_flags).precision) > ((*t_flags).minfw))
 		(*t_prnt).pad_len = diff;
-	if ((((*t_flags).flags & FLAG_PRECIS) > 0) && \
+	if ((((*t_flags).flags & FLAG_PRECIS) > 0) && ((*t_flags).precision >= 0) &&
 	(((*t_flags).argtype != 's') || ((*t_flags).argtype != 'c')))
 		(*t_flags).flags &= ~FLAG_ZERO;
 }

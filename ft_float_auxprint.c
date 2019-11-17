@@ -28,9 +28,7 @@ void			print_final_float(short *pr, t_format *t_flags, t_print *tprnt)
 			len++;
 		}
 		index += 1;
-		// printf("\n IN len = %d, pr[%d]= %c", len, index, pr[index]);
 	}
-	// printf("\n len = %d, pr[%d]= %c", len, index, pr[index]);
 	while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
 	{
 		buffer_writer(&pr[index], 1, t_flags, tprnt);

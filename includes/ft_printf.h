@@ -116,7 +116,6 @@ void			print_other(char arg, t_format *t_flags, t_print *t_prnt);
 void			print_float(va_list argptr, t_format *t_flags, t_print *tpr);
 void			intwithminus(long long arg, t_format *t_flags, int len);
 void			int_otherflag(long long arg, t_format *t_flags, int len);
-// char			*ft_itoa_float(float n);
 void			add_to_buffer(const char **str, t_format *t_flags, \
 				t_print *tprnt);
 void			print_binary(long long flag_num);
@@ -135,8 +134,6 @@ void			print_number(unsigned long long arg, t_format *t_flags,
 				t_print *t_prnt, int len);
 void			print_number_int(long long arg, t_format *t_flags,
 				t_print *t_prnt, int len);
-void			check_negative_num(long long *arg, t_format *t_flags,
-				t_print *pn, int len);
 void			minfw_vs_precision(t_format *t_flags, t_print *t_prnt, int len);
 void			length_precision_diff_zeros(t_format *tflags, t_print *t_pr,
 				int len);
@@ -173,7 +170,9 @@ int				length_product_intpart(short *pr);
 ** Clearing up / Reinitializing functions
 */
 
+void			initialize_buffer(t_format *t_flags, t_print *t_prnt);
 void			clear_formatstruct(t_format *t_flags, t_print *t_prnt);
 void			clear_forfloat(t_float *fl_num);
+void			end_of_string(t_format *t_flags, t_print *t_prnt);
 
 #endif

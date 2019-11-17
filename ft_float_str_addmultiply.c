@@ -35,7 +35,6 @@ void			str_add_prod_frac(short *pr, char *fr)
 	int			carry;
 
 	len_pr = length_product(pr);
-	// printf("\n  ADD >> len = %d", len_pr);
 	len_fr = length_fraction(fr);
 	index = len_pr;
 	while (index < len_fr)
