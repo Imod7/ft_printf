@@ -61,17 +61,20 @@ typedef struct	s_format
 	char		argtype;
 	int			special_chars_printed;
 	int			total_chars_printed;
-	int			fd;
 	t_modifier	modifier;
 }				t_format;
 
 typedef struct	s_print
 {
 	char		buffer[BUFFER_SIZE];
+	void		(*writer)(const void *str, int len, struct s_print *self);
+	char		*sprintf_str;
+	int			sprintf_index;
 	int			buf_index;
 	int			print_end;
 	int			pad_len;
 	int			diff;
+	int			fd;
 	int			sign_printed;
 }				t_print;
 
@@ -82,9 +85,30 @@ typedef union	u_float
 	short		exponent[5];
 }				t_float;
 
-int				ft_printf_genericfunc(int fd, const char *str, va_list	argptr);
+/*
+** Writer functions
+*/
+
+int				ft_printf_genericfunc(t_format *t_flags, t_print *t_prnt, \
+										const char *str, va_list argptr);
 int				ft_printf(const char *str, ...);
 int				ft_dprintf(int fd, const char *str, ...);
+void			writer_printf(const void *str, int len, t_print *t_prnt);
+void			writer_sprintf(const void *str, int len, t_print *t_prnt);
+// void			add_to_buffer(const char **str, t_format *t_flags, 
+							// t_print *tprnt);
+
+/*
+** Formatting functions
+*/
+
+void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt);
+void			print_int_un(va_list argpt, t_format *t_flags, t_print *t_prnt);
+void			print_hexoctal(va_list argpt, t_format *tflags, t_print *tprnt);
+void			print_string(va_list argptr, t_format *tflags, t_print *tprnt);
+void			print_char(va_list argpt, t_format *tflags, t_print *tprnt);
+void			print_other(char arg, t_format *t_flags, t_print *t_prnt);
+void			print_float(va_list argptr, t_format *t_flags, t_print *tpr);
 void			save_flags(t_format *t_flags, const char **str);
 int				error_check(t_format t_flags, const char *str);
 void			print_arg(va_list argptr, t_format *t_flags, t_print *t_prnt);
@@ -103,21 +127,12 @@ void			ft_putnbr_hex(unsigned long long n, t_format *t_flags, \
 								t_print *t_prnt);
 void			ft_putnbr_hex_capit(unsigned long long n, t_format *t_flags, \
 								t_print *t_prnt);
-void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt);
-void			print_int_un(va_list argpt, t_format *t_flags, t_print *t_prnt);
 void			unsigned_minus(unsigned long long ar, t_format *f, \
 				t_print *t_prnt, int len);
 void			unsigned_hashtag(unsigned long long arg, t_format *t_flags, \
 				t_print *t_prnt, int len);
-void			print_hexoctal(va_list argpt, t_format *tflags, t_print *tprnt);
-void			print_string(va_list argptr, t_format *tflags, t_print *tprnt);
-void			print_char(va_list argpt, t_format *tflags, t_print *tprnt);
-void			print_other(char arg, t_format *t_flags, t_print *t_prnt);
-void			print_float(va_list argptr, t_format *t_flags, t_print *tpr);
 void			intwithminus(long long arg, t_format *t_flags, int len);
 void			int_otherflag(long long arg, t_format *t_flags, int len);
-void			add_to_buffer(const char **str, t_format *t_flags, \
-				t_print *tprnt);
 void			print_binary(long long flag_num);
 long long		invert_allbits(long long num);
 long long		binary_addone(long long num);
@@ -139,8 +154,7 @@ void			length_precision_diff_zeros(t_format *tflags, t_print *t_pr,
 				int len);
 void			length_precision_diff(t_format *t_flags, t_print *t_prnt, \
 				int len);
-void			buffer_writer(const void *str, int len, t_format *t_flags, \
-							t_print *t_prnt);
+
 /*
 ** floats maths & printing
 */
@@ -173,6 +187,6 @@ int				length_product_intpart(short *pr);
 void			initialize_buffer(t_format *t_flags, t_print *t_prnt);
 void			clear_formatstruct(t_format *t_flags, t_print *t_prnt);
 void			clear_forfloat(t_float *fl_num);
-void			end_of_string(t_format *t_flags, t_print *t_prnt);
+void			end_of_string(t_print *t_prnt);
 
 #endif

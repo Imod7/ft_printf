@@ -12,26 +12,50 @@
 
 #include "includes/ft_printf.h"
 
-int					ft_printf(const char *str, ...)
+int				ft_printf(const char *format, ...)
 {
 	va_list		argptr;
 	int			result;
-	int			fd;
+	t_format	t_flags;
+	t_print		t_prnt;
 
-	fd = 1;
-	va_start(argptr, str);
-	result = ft_printf_genericfunc(fd, str, argptr);
+	clear_formatstruct(&t_flags, &t_prnt);
+	t_prnt.fd = 1;
+	t_prnt.writer = writer_printf;
+	va_start(argptr, format);
+	result = ft_printf_genericfunc(&t_flags, &t_prnt, format, argptr);
 	va_end(argptr);
 	return (result);
 }
 
-int					ft_dprintf(int fd, const char *str, ...)
+int				ft_dprintf(int fd, const char *format, ...)
 {
 	va_list		argptr;
 	int			result;
+	t_format	t_flags;
+	t_print		t_prnt;
 
-	va_start(argptr, str);
-	result = ft_printf_genericfunc(fd, str, argptr);
+	clear_formatstruct(&t_flags, &t_prnt);
+	t_prnt.fd = fd;
+	t_prnt.writer = writer_printf;
+	va_start(argptr, format);
+	result = ft_printf_genericfunc(&t_flags, &t_prnt, format, argptr);
+	va_end(argptr);
+	return (result);
+}
+
+int				ft_sprintf(char *str, const char *format, ...)
+{
+	va_list		argptr;
+	int			result;
+	t_format	t_flags;
+	t_print		t_prnt;
+
+	clear_formatstruct(&t_flags, &t_prnt);
+	t_prnt.writer = writer_sprintf;
+	t_prnt.sprintf_str = str;
+	va_start(argptr, format);
+	result = ft_printf_genericfunc(&t_flags, &t_prnt, format, argptr);
 	va_end(argptr);
 	return (result);
 }

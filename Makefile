@@ -33,9 +33,8 @@ SRC =	\
 		ft_print_format.c \
 		ft_print_binary.c \
 		ft_putnbr_base.c \
-		ft_addtobuffer.c \
 		ft_common_functions.c \
-		ft_buffer_manager.c \
+		ft_writer_manager.c \
 		ft_number_len.c \
 		ft_zero_arg.c \
 		ft_float.c \

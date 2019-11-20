@@ -46,6 +46,8 @@ int		test_int16(void);
 int		test_int17(void);
 int		test_int18(void);
 int		test_int19(void);
+int		test_int20(void);
+int		test_int21(void);
 int		test_char1(void);
 int		test_char2(void);
 int		test_char3(void);
@@ -101,6 +103,7 @@ int		test_i8(void);
 int		test_i9(void);
 int		test_i10(void);
 int		test_i11(void);
+int		test_i12(void);
 int		test_double1(void);
 int		test_pointer1(void);
 int		test_pointer2(void);
@@ -159,5 +162,9 @@ int		test_float22(void);
 int		test_float23(void);
 int		test_float24(void);
 int		test_float25(void);
+int		test_sprintf1(void);
+int		test_sprintf2(void);
+int		test_sprintf3(void);
+int		test_mix1(void);
 
 #endif

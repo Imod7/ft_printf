@@ -55,7 +55,7 @@ void		print_padding(t_format *t_flags, t_print *t_pr, int arg_digits_len)
 		((*t_flags).argtype != 'c') && (i >= (*t_pr).diff) &&
 		((*t_pr).diff >= 0))
 			c = '0';
-		buffer_writer(&c, 1, t_flags, t_pr);
+		t_pr->writer(&c, 1, t_pr);
 		(*t_flags).total_chars_printed++;
 		i++;
 	}
@@ -67,20 +67,20 @@ void		print_sign(t_format *t_flags, t_print *t_prnt)
 	{
 		(*t_flags).flags &= ~FLAG_SPACE;
 		(*t_flags).flags &= ~FLAG_PLUS;
-		buffer_writer(&"-", 1, t_flags, t_prnt);
+		t_prnt->writer(&"-", 1, t_prnt);
 		(*t_flags).total_chars_printed++;
 		(*t_flags).special_chars_printed++;
 	}
 	if (((*t_flags).flags & FLAG_PLUS) > 0)
 	{
-		buffer_writer(&"+", 1, t_flags, t_prnt);
+		t_prnt->writer(&"+", 1, t_prnt);
 		(*t_flags).special_chars_printed++;
 		(*t_flags).total_chars_printed++;
 	}
 	if (((*t_flags).flags & FLAG_SPACE) && ((!((*t_prnt).diff)) ||
 	((*t_prnt).pad_len <= 0)))
 	{
-		buffer_writer(&" ", 1, t_flags, t_prnt);
+		t_prnt->writer(&" ", 1, t_prnt);
 		(*t_flags).special_chars_printed++;
 		(*t_flags).total_chars_printed++;
 	}

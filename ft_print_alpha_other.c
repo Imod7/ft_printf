@@ -18,9 +18,9 @@ void		write_string_arg(char *arg, t_format *t_flags, t_print *t_prnt, \
 	if (((arg == NULL) && (!((*t_flags).flags & FLAG_PRECIS))) ||
 	((arg == NULL) && (((*t_flags).flags & FLAG_PRECIS)) &&
 	(*t_flags).precision != 0))
-		buffer_writer(&"(null)", *len, t_flags, t_prnt);
+		t_prnt->writer(&"(null)", *len, t_prnt);
 	else if (arg != NULL)
-		buffer_writer(arg, *len, t_flags, t_prnt);
+		t_prnt->writer(arg, *len, t_prnt);
 	(*t_flags).total_chars_printed = (*t_flags).total_chars_printed + (*len);
 }
 
@@ -81,7 +81,7 @@ void		print_char(va_list argptr, t_format *t_flags, t_print *t_prnt)
 	(*t_flags).flags &= ~FLAG_SPACE;
 	if ((*t_flags).flags & FLAG_MINUS)
 	{
-		buffer_writer(&arg, 1, t_flags, t_prnt);
+		t_prnt->writer(&arg, 1, t_prnt);
 		print_sign(t_flags, t_prnt);
 		print_padding(t_flags, t_prnt, len);
 	}
@@ -89,7 +89,7 @@ void		print_char(va_list argptr, t_format *t_flags, t_print *t_prnt)
 	{
 		print_sign(t_flags, t_prnt);
 		print_padding(t_flags, t_prnt, len);
-		buffer_writer(&arg, 1, t_flags, t_prnt);
+		t_prnt->writer(&arg, 1, t_prnt);
 	}
 }
 
@@ -102,7 +102,7 @@ void		print_other(char arg, t_format *t_flags, t_print *t_prnt)
 	(*t_flags).total_chars_printed++;
 	if (((*t_flags).flags & FLAG_MINUS) > 0)
 	{
-		buffer_writer(&arg, 1, t_flags, t_prnt);
+		t_prnt->writer(&arg, 1, t_prnt);
 		print_sign(t_flags, t_prnt);
 		print_padding(t_flags, t_prnt, len);
 	}
@@ -110,6 +110,6 @@ void		print_other(char arg, t_format *t_flags, t_print *t_prnt)
 	{
 		print_sign(t_flags, t_prnt);
 		print_padding(t_flags, t_prnt, len);
-		buffer_writer(&arg, 1, t_flags, t_prnt);
+		t_prnt->writer(&arg, 1, t_prnt);
 	}
 }

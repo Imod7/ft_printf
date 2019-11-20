@@ -32,7 +32,7 @@ void		pointer_hashtag(t_format *t_flags, t_print *t_prnt)
 {
 	if ((((*t_flags).flags & FLAG_HT) > 0) && ((*t_flags).argtype == 'p'))
 	{
-		buffer_writer("0x", 2, t_flags, t_prnt);
+		t_prnt->writer("0x", 2, t_prnt);
 		(*t_flags).total_chars_printed += 2;
 	}
 	if (((*t_flags).argtype == 'p') &&
@@ -50,7 +50,7 @@ void		unsigned_hashtag(unsigned long long arg, t_format *t_flags, \
 	(*t_flags).precision < len)
 	{
 		c = '0';
-		buffer_writer(&c, 1, t_flags, t_prnt);
+		t_prnt->writer(&c, 1, t_prnt);
 		(*t_flags).total_chars_printed++;
 		(*t_flags).special_chars_printed++;
 	}
@@ -58,9 +58,9 @@ void		unsigned_hashtag(unsigned long long arg, t_format *t_flags, \
 	(((*t_flags).argtype == 'x') || ((*t_flags).argtype == 'X')))
 	{
 		if ((*t_flags).argtype == 'x')
-			buffer_writer("0x", 2, t_flags, t_prnt);
+			t_prnt->writer("0x", 2, t_prnt);
 		else
-			buffer_writer("0X", 2, t_flags, t_prnt);
+			t_prnt->writer("0X", 2, t_prnt);
 		(*t_flags).total_chars_printed += 2;
 		if ((*t_flags).minfw > (*t_flags).precision)
 			(*t_flags).special_chars_printed += 2;

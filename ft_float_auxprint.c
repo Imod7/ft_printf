@@ -12,7 +12,7 @@
 
 #include "includes/ft_printf.h"
 
-void			print_final_float(short *pr, t_format *t_flags, t_print *tprnt)
+void			print_final_float(short *pr, t_format *t_flags, t_print *t_prnt)
 {
 	int			index;
 	int			len;
@@ -31,13 +31,13 @@ void			print_final_float(short *pr, t_format *t_flags, t_print *tprnt)
 	}
 	while ((pr[index] != 0) && (index <= FLOAT_TOTAL_LEN))
 	{
-		buffer_writer(&pr[index], 1, t_flags, tprnt);
+		t_prnt->writer(&pr[index], 1, t_prnt);
 		index++;
 		(*t_flags).total_chars_printed++;
 	}
 	if (((*t_flags).flags & FLAG_HT) && ((*t_flags).precision == 0))
 	{
-		buffer_writer(&".", 1, t_flags, tprnt);
+		t_prnt->writer(&".", 1, t_prnt);
 		(*t_flags).total_chars_printed++;
 	}
 }

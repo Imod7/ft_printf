@@ -53,7 +53,7 @@ void	length_precision_diff(t_format *t_flags, t_print *t_prnt, int len)
 	(*t_flags).total_chars_printed += diff;
 	while (diff > 0)
 	{
-		buffer_writer(&"0", 1, t_flags, t_prnt);
+		t_prnt->writer(&"0", 1, t_prnt);
 		diff--;
 	}
 }

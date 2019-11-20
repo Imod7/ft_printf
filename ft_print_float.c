@@ -18,34 +18,34 @@ void			check_argzero(short *product, t_format *t_flags, t_print *tprnt)
 	(product[FLOAT_MIDDLE - 2] == '0') && \
 	((*t_flags).precision == 0))
 	{
-		buffer_writer(&"0", 1, t_flags, tprnt);
+		tprnt->writer(&"0", 1, tprnt);
 		(*t_flags).total_chars_printed++;
 	}
 	else
 		print_final_float(product, t_flags, tprnt);
 }
 
-void			float_checkflags(t_format *t_flags, t_print *tprnt, \
+void			float_checkflags(t_format *t_flags, t_print *t_prnt, \
 								short *product, int len)
 {
 	if ((*t_flags).flags & FLAG_MINUS)
 	{
-		print_sign(t_flags, tprnt);
-		check_argzero(product, t_flags, tprnt);
-		print_padding(t_flags, tprnt, len);
+		print_sign(t_flags, t_prnt);
+		check_argzero(product, t_flags, t_prnt);
+		print_padding(t_flags, t_prnt, len);
 	}
 	else if (((*t_flags).flags & FLAG_NEGAT) &&
 	(!((*t_flags).flags & FLAG_ZERO)))
 	{
-		print_padding(t_flags, tprnt, len);
-		print_sign(t_flags, tprnt);
-		check_argzero(product, t_flags, tprnt);
+		print_padding(t_flags, t_prnt, len);
+		print_sign(t_flags, t_prnt);
+		check_argzero(product, t_flags, t_prnt);
 	}
 	else
 	{
-		print_sign(t_flags, tprnt);
-		print_padding(t_flags, tprnt, len);
-		check_argzero(product, t_flags, tprnt);
+		print_sign(t_flags, t_prnt);
+		print_padding(t_flags, t_prnt, len);
+		check_argzero(product, t_flags, t_prnt);
 	}
 }
 

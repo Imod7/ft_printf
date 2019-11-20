@@ -38,11 +38,11 @@ int				check_valid_char_after_percent(char str, t_format *t_flags)
 	return (1);
 }
 
-int				next_char(const char *str, t_format *t_flags, t_print *tprnt)
+int				next_char(const char *str, t_format *t_flags, t_print *t_prnt)
 {
 	if (*str == '%')
 	{
-		buffer_writer(&"%", 1, t_flags, tprnt);
+		t_prnt->writer(&"%", 1, t_prnt);
 		(*t_flags).total_chars_printed++;
 		return (1);
 	}
@@ -52,30 +52,27 @@ int				next_char(const char *str, t_format *t_flags, t_print *tprnt)
 		return (3);
 }
 
-int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
+int				ft_printf_genericfunc(t_format *t_flags, t_print *t_prnt, \
+										const char *str, va_list argptr)
 {
-	t_format	t_flags;
-	t_print		t_prnt;
 	int			result;
 
-	clear_formatstruct(&t_flags, &t_prnt);
-	t_flags.fd = fd;
-	initialize_buffer(&t_flags, &t_prnt);
+	initialize_buffer(t_flags, t_prnt);
 	while (*str != '\0')
 	{
 		if (*str == '%')
 		{
 			str++;
-			result = next_char(str, &t_flags, &t_prnt);
+			result = next_char(str, t_flags, t_prnt);
 			if (result == 2)
 				break ;
 			else if (result == 3)
 			{
-				clear_formatstruct(&t_flags, &t_prnt);
-				save_flags(&t_flags, &str);
-				t_flags.fd = fd;
+				clear_formatstruct(t_flags, t_prnt);
+				save_flags(t_flags, &str);
+				// t_flags.fd = fd;
 				if (check_valid_specifier(*str) == 0)
-					print_arg(argptr, &t_flags, &t_prnt);
+					print_arg(argptr, t_flags, t_prnt);
 				else
 					break ;
 			}
@@ -83,11 +80,15 @@ int				ft_printf_genericfunc(int fd, const char *str, va_list argptr)
 		else
 		{
 			while ((*str != '\0') && (*str != '%'))
-				add_to_buffer(&str, &t_flags, &t_prnt);
+			{
+				t_prnt->writer(str, 1, t_prnt);
+				t_flags->total_chars_printed += 1;
+				str++;
+			}
 			str--;
 		}
 		str++;
 	}
-	end_of_string(&t_flags, &t_prnt);
-	return (t_flags.total_chars_printed);
+	end_of_string(t_prnt);
+	return (t_flags->total_chars_printed);
 }

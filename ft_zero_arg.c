@@ -80,7 +80,7 @@ void	length_precision_diff_zeros(t_format *t_flags, t_print *t_pr, int len)
 	}
 	while (diff > 0)
 	{
-		buffer_writer(&"0", 1, t_flags, t_pr);
+		t_pr->writer(&"0", 1, t_pr);
 		diff--;
 	}
 }

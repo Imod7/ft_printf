@@ -14,10 +14,10 @@
 
 void			initialize_buffer(t_format *t_flags, t_print *t_prnt)
 {
-	ft_memset((*t_prnt).buffer, 0, BUFFER_SIZE);
-	(*t_prnt).buf_index = 0;
-	(*t_flags).total_chars_printed = 0;
-	(*t_prnt).print_end = 0;
+	t_prnt->buf_index = 0;
+	t_flags->total_chars_printed = 0;
+	t_prnt->print_end = 0;
+	t_prnt->sprintf_index = 0;
 }
 
 /*
@@ -28,15 +28,15 @@ void			initialize_buffer(t_format *t_flags, t_print *t_prnt)
 
 void			clear_formatstruct(t_format *t_flags, t_print *t_prnt)
 {
-	(*t_flags).flags = 0;
-	(*t_flags).minfw = 0;
-	(*t_flags).precision = 0;
-	(*t_flags).argtype = 0;
-	(*t_flags).special_chars_printed = 0;
-	(*t_flags).modifier = N;
-	(*t_prnt).pad_len = 0;
-	(*t_prnt).diff = 0;
-	(*t_prnt).sign_printed = 0;
+	t_flags->flags = 0;
+	t_flags->minfw = 0;
+	t_flags->precision = 0;
+	t_flags->argtype = 0;
+	t_flags->special_chars_printed = 0;
+	t_flags->modifier = N;
+	t_prnt->pad_len = 0;
+	t_prnt->diff = 0;
+	t_prnt->sign_printed = 0;
 }
 
 void			clear_forfloat(t_float *fl_num)
@@ -53,10 +53,9 @@ void			clear_forfloat(t_float *fl_num)
 	}
 }
 
-void			end_of_string(t_format *t_flags, t_print *t_prnt)
+void			end_of_string(t_print *t_prnt)
 {
-	(*t_prnt).print_end = 1;
-	buffer_writer("", 1, t_flags, t_prnt);
-	ft_memset((*t_prnt).buffer, 0, BUFFER_SIZE);
-	(*t_flags).fd = 0;
+	t_prnt->print_end = 1;
+	t_prnt->writer("", 1, t_prnt);
+	t_prnt->fd = 0;
 }
