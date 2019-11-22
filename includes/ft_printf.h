@@ -60,7 +60,6 @@ typedef struct	s_format
 	int			precision;
 	char		argtype;
 	int			special_chars_printed;
-	int			total_chars_printed;
 	t_modifier	modifier;
 }				t_format;
 
@@ -70,6 +69,7 @@ typedef struct	s_print
 	void		(*writer)(const void *str, int len, struct s_print *self);
 	char		*sprintf_str;
 	int			sprintf_index;
+	int			total_chars_printed;
 	int			buf_index;
 	int			print_end;
 	int			pad_len;
@@ -99,7 +99,7 @@ void			writer_sprintf(const void *str, int len, t_print *t_prnt);
 							// t_print *tprnt);
 
 /*
-** Formatting functions
+** Printing different specifiers
 */
 
 void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt);
@@ -109,6 +109,12 @@ void			print_string(va_list argptr, t_format *tflags, t_print *tprnt);
 void			print_char(va_list argpt, t_format *tflags, t_print *tprnt);
 void			print_other(char arg, t_format *t_flags, t_print *t_prnt);
 void			print_float(va_list argptr, t_format *t_flags, t_print *tpr);
+// void			print_binary(va_list argptr, t_format *tflags, t_print *tprnt);
+
+/*
+** Formatting functions
+*/
+
 void			save_flags(t_format *t_flags, const char **str);
 int				error_check(t_format t_flags, const char *str);
 void			print_arg(va_list argptr, t_format *t_flags, t_print *t_prnt);
@@ -128,14 +134,32 @@ void			ft_putnbr_hex(unsigned long long n, t_format *t_flags, \
 void			ft_putnbr_hex_capit(unsigned long long n, t_format *t_flags, \
 								t_print *t_prnt);
 void			unsigned_minus(unsigned long long ar, t_format *f, \
-				t_print *t_prnt, int len);
+								t_print *t_prnt, int len);
 void			unsigned_hashtag(unsigned long long arg, t_format *t_flags, \
-				t_print *t_prnt, int len);
+								t_print *t_prnt, int len);
 void			intwithminus(long long arg, t_format *t_flags, int len);
 void			int_otherflag(long long arg, t_format *t_flags, int len);
-void			print_binary(long long flag_num);
-long long		invert_allbits(long long num);
-long long		binary_addone(long long num);
+
+/*
+** Binary Functions
+*/
+
+int				binary_length_int(long long num);
+void			binary_number_int(long long num, t_print *t_prnt);
+int				binary_length_unsigned_int(unsigned long long num);
+void			binary_number_unsigned_int(unsigned long long num, \
+											t_print *t_prnt);
+
+/*
+** Formatting functions for integers
+*/
+
+void			check_negative_int(long long *arg, t_format *t_flags, \
+								t_print *t_prnt, int l);
+void			int_minus(long long arg, t_format *t_fl, t_print *t_pr, \
+						int len);
+void			int_other(long long arg, t_format *t_fl, t_print *t_pr, \
+						int len);
 
 /*
 ** Common functions
@@ -146,21 +170,21 @@ void			check_arg_zero(t_format *t_flags, int *len, t_print *t_prnt);
 void			print_order(t_format *t_flags, t_print *t_prnt, int len);
 void			print_inverse(t_format *t_flags, t_print *t_prnt, int len);
 void			print_number(unsigned long long arg, t_format *t_flags,
-				t_print *t_prnt, int len);
+							t_print *t_prnt, int len);
 void			print_number_int(long long arg, t_format *t_flags,
-				t_print *t_prnt, int len);
+								t_print *t_prnt, int len);
 void			minfw_vs_precision(t_format *t_flags, t_print *t_prnt, int len);
 void			length_precision_diff_zeros(t_format *tflags, t_print *t_pr,
-				int len);
+											int len);
 void			length_precision_diff(t_format *t_flags, t_print *t_prnt, \
-				int len);
+									int len);
 
 /*
-** floats maths & printing
+** Floats maths & printing
 */
 
 int				ft_ftoa(t_format *t_flags, t_print *p, t_float *float_num, \
-				short *pr);
+						short *pr);
 void			str_add_prod_frac(short *pr, char *fr);
 void			frac_divide_by_two(char *fr);
 void			str_double(short *pr);
@@ -169,10 +193,10 @@ int				check_inf_nan(t_float *fl, t_print *t_prnt, short *product);
 void			print_final_float(short *pr, t_format *t_flags, t_print *tprnt);
 void			check_precision(short *pr, t_format *t_flags);
 void			check_modifier_float(va_list argptr, t_float *fl, \
-				t_format *t_flags);
+									t_format *t_flags);
 
 /*
-** floats : length calculation functions
+** Floats : length calculation functions
 */
 
 int				length_fraction(char *fr);
@@ -184,7 +208,7 @@ int				length_product_intpart(short *pr);
 ** Clearing up / Reinitializing functions
 */
 
-void			initialize_buffer(t_format *t_flags, t_print *t_prnt);
+void			initialize_buffer(t_print *t_prnt);
 void			clear_formatstruct(t_format *t_flags, t_print *t_prnt);
 void			clear_forfloat(t_float *fl_num);
 void			end_of_string(t_print *t_prnt);

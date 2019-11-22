@@ -33,11 +33,11 @@ void			print_final_float(short *pr, t_format *t_flags, t_print *t_prnt)
 	{
 		t_prnt->writer(&pr[index], 1, t_prnt);
 		index++;
-		(*t_flags).total_chars_printed++;
+		// t_flags->total_chars_printed++;
 	}
-	if (((*t_flags).flags & FLAG_HT) && ((*t_flags).precision == 0))
+	if ((t_flags->flags & FLAG_HT) && (t_flags->precision == 0))
 	{
 		t_prnt->writer(&".", 1, t_prnt);
-		(*t_flags).total_chars_printed++;
+		// t_flags->total_chars_printed++;
 	}
 }

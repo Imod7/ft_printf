@@ -28,6 +28,7 @@ int					store_to_buffer(unsigned char **un_str, int len, \
 	if ((t_prnt->buf_index == BUFFER_SIZE) || (t_prnt->print_end == 1))
 	{
 		write(t_prnt->fd, t_prnt->buffer, t_prnt->buf_index);
+		t_prnt->total_chars_printed += t_prnt->buf_index;
 		t_prnt->buf_index = 0;
 	}
 	return (i);
@@ -52,6 +53,24 @@ void				writer_printf(const void *str, int len, t_print *t_prnt)
 }
 
 void				writer_sprintf(const void *str, int len, t_print *t_prnt)
+{
+	int				i;
+	unsigned char	*un_str;
+
+	un_str = (unsigned char *)str;
+	i = 0;
+	while (i < len)
+	{
+		t_prnt->sprintf_str[t_prnt->sprintf_index] = *un_str;
+		t_prnt->sprintf_index++;
+		un_str++;
+		i++;
+		if (t_prnt->print_end != 1)
+			t_prnt->total_chars_printed += len;
+	}
+}
+
+void				writer_snprintf(const void *str, int len, t_print *t_prnt)
 {
 	int				i;
 	unsigned char	*un_str;

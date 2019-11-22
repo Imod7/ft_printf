@@ -90,16 +90,16 @@ void		len_bigger_than_prec(short *pr, t_format *t_flags)
 {
 	int		next_digit;
 
-	next_digit = (pr[FLOAT_MIDDLE + (*t_flags).precision + 1] - '0');
-	if ((next_digit > 5) && ((*t_flags).precision != 0))
-		dec_part_rounding(pr, (*t_flags).precision);
-	else if ((next_digit < 5) && ((*t_flags).precision != 0))
-		pr[FLOAT_MIDDLE + (*t_flags).precision + 1] = 0;
-	else if ((next_digit == 5) && ((*t_flags).precision != 0))
-		equal_five(pr, (*t_flags).precision);
-	else if ((*t_flags).precision == 0)
-		zero_prec_rounding(pr, (*t_flags).precision);
-	pr[FLOAT_MIDDLE + (*t_flags).precision + 1] = 0;
+	next_digit = (pr[FLOAT_MIDDLE + t_flags->precision + 1] - '0');
+	if ((next_digit > 5) && (t_flags->precision != 0))
+		dec_part_rounding(pr, t_flags->precision);
+	else if ((next_digit < 5) && (t_flags->precision != 0))
+		pr[FLOAT_MIDDLE + t_flags->precision + 1] = 0;
+	else if ((next_digit == 5) && (t_flags->precision != 0))
+		equal_five(pr, t_flags->precision);
+	else if (t_flags->precision == 0)
+		zero_prec_rounding(pr, t_flags->precision);
+	pr[FLOAT_MIDDLE + t_flags->precision + 1] = 0;
 }
 
 void		check_precision(short *pr, t_format *t_flags)
@@ -110,16 +110,16 @@ void		check_precision(short *pr, t_format *t_flags)
 	int		temp;
 
 	current_digit = 0;
-	if (((*t_flags).flags & FLAG_PRECIS) == 0)
-		(*t_flags).precision = 6;
+	if ((t_flags->flags & FLAG_PRECIS) == 0)
+		t_flags->precision = 6;
 	temp = FLOAT_MIDDLE + 1;
 	while (pr[temp] != 0)
 		temp++;
 	len = temp - (FLOAT_MIDDLE + 1);
-	if (len < (*t_flags).precision)
+	if (len < t_flags->precision)
 	{
 		prec_index = 1;
-		while (prec_index <= ((*t_flags).precision - len))
+		while (prec_index <= (t_flags->precision - len))
 		{
 			pr[FLOAT_MIDDLE + len + prec_index] = '0';
 			prec_index++;

@@ -23,6 +23,8 @@ int				test_sprintf1(void)
     %%+-05o='%+-05o'\n", 325, 2500);
 	total_chars_ftp = ft_sprintf(ft_sprintf_str, "Test sprintf1 : %%6o='%6o', \
     %%+-05o='%+-05o'\n", 325, 2500);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	if ((strcmp(sprintf_str, ft_sprintf_str) == 0) && \
 	(total_chars_p == total_chars_ftp))
     {
@@ -75,8 +77,8 @@ int				test_sprintf3(void)
     char        sprintf_str[100];
     char        ft_sprintf_str[100];
 
-	total_chars_p = sprintf(sprintf_str, "\\ntoto et %00009u%-2lu mimi et titi%--14u", 0, (unsigned long)14, 200);
-	total_chars_ftp = ft_sprintf(ft_sprintf_str, "\\ntoto et %00009u%-2lu mimi et titi%--14u", 0, (unsigned long)14, 200);
+	total_chars_p = sprintf(sprintf_str, "\\nHERE et %00009u%-2lu mimi et titi%--14u", 0, (unsigned long)14, 200);
+	total_chars_ftp = ft_sprintf(ft_sprintf_str, "\\nHERE et %00009u%-2lu mimi et titi%--14u", 0, (unsigned long)14, 200);
 	if ((strcmp(sprintf_str, ft_sprintf_str) == 0) && \
 	(total_chars_p == total_chars_ftp))
     {

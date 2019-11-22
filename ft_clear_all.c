@@ -12,10 +12,10 @@
 
 #include "includes/ft_printf.h"
 
-void			initialize_buffer(t_format *t_flags, t_print *t_prnt)
+void			initialize_buffer(t_print *t_prnt)
 {
 	t_prnt->buf_index = 0;
-	t_flags->total_chars_printed = 0;
+	t_prnt->total_chars_printed = 0;
 	t_prnt->print_end = 0;
 	t_prnt->sprintf_index = 0;
 }
@@ -39,16 +39,16 @@ void			clear_formatstruct(t_format *t_flags, t_print *t_prnt)
 	t_prnt->sign_printed = 0;
 }
 
-void			clear_forfloat(t_float *fl_num)
+void			clear_forfloat(t_float *float_num)
 {
 	int			index;
 
-	(*fl_num).f_num = 0;
-	(*fl_num).mantissa = 0;
+	float_num->f_num = 0;
+	float_num->mantissa = 0;
 	index = 0;
 	while (index < 5)
 	{
-		(*fl_num).exponent[index] = 0;
+		float_num->exponent[index] = 0;
 		index++;
 	}
 }

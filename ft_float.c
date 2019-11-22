@@ -37,13 +37,13 @@ void				initialization(char *fr, short *pr)
 }
 
 void				check_modifier_float(va_list argptr, t_float *fl, \
-t_format *t_flags)
+										t_format *t_flags)
 {
-	if ((*t_flags).modifier == N)
+	if (t_flags->modifier == N)
 		(*fl).f_num = va_arg(argptr, double);
-	if ((*t_flags).modifier == l)
+	if (t_flags->modifier == l)
 		(*fl).f_num = va_arg(argptr, double);
-	else if ((*t_flags).modifier == L)
+	else if (t_flags->modifier == L)
 		(*fl).f_num = va_arg(argptr, long double);
 }
 
@@ -70,12 +70,12 @@ void				exponent_calculation(short *pr, short exp)
 	}
 }
 
-void				exponent_check(t_format *tfl, t_float *fl, short *pr)
+void				exponent_check(t_format *t_flags, t_float *fl, short *pr)
 {
 	if ((*fl).exponent[4] != 0)
 	{
 		if (((*fl).exponent[4] & (1 << 15)) > 0)
-			(*tfl).flags |= FLAG_NEGAT;
+			t_flags->flags |= FLAG_NEGAT;
 		(*fl).exponent[4] &= ~(1 << 15);
 		(*fl).exponent[4] = (*fl).exponent[4] - 16383;
 		exponent_calculation(pr, (*fl).exponent[4]);
@@ -84,7 +84,7 @@ void				exponent_check(t_format *tfl, t_float *fl, short *pr)
 		pr[FLOAT_MIDDLE + 2] = 0;
 }
 
-int					ft_ftoa(t_format *flags, t_print *tprnt, \
+int					ft_ftoa(t_format *t_flags, t_print *tprnt, \
 							t_float *float_num, short *pr)
 {
 	char			fraction[400];
@@ -105,6 +105,6 @@ int					ft_ftoa(t_format *flags, t_print *tprnt, \
 	inf_nan = check_inf_nan(float_num, tprnt, pr);
 	if ((inf_nan == -1) || (inf_nan == 1))
 		return (inf_nan);
-	exponent_check(flags, float_num, pr);
+	exponent_check(t_flags, float_num, pr);
 	return (0);
 }

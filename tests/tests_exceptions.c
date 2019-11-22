@@ -33,6 +33,7 @@ int				test_exceptions1(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
+	close(fd);
 	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
@@ -83,6 +84,7 @@ int				test_exceptions3(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
+	close(fd);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
@@ -120,6 +122,7 @@ int				test_exceptions4(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
+	close(fd);
 	if ((returned_line_dprintf == 0) && (returned_line_ft_dprintf == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
@@ -158,6 +161,7 @@ int				test_exceptions5(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
+	close(fd);
 	if ((returned_line_dprintf == 0) && (returned_line_ft_dprintf == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
@@ -198,6 +202,7 @@ int				test_exceptions6(void)
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
+	close(fd);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{

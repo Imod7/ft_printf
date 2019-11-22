@@ -12,7 +12,7 @@
 
 #include "includes/ft_printf.h"
 
-int			check_exp_allones(t_float *fl)
+int			check_exp_allones(t_float *tfloat)
 {
 	int		bit;
 	int		pos;
@@ -20,7 +20,7 @@ int			check_exp_allones(t_float *fl)
 	pos = 14;
 	while (pos >= 0)
 	{
-		bit = (*fl).exponent[4] >> pos;
+		bit = tfloat->exponent[4] >> pos;
 		if (bit & 1)
 			pos--;
 		else
@@ -29,7 +29,7 @@ int			check_exp_allones(t_float *fl)
 	return (0);
 }
 
-int			check_mant_allzeros(t_float *fl)
+int			check_mant_allzeros(t_float *tfloat)
 {
 	int		bit;
 	int		pos;
@@ -37,7 +37,7 @@ int			check_mant_allzeros(t_float *fl)
 	pos = 62;
 	while (pos >= 0)
 	{
-		bit = (*fl).mantissa >> pos;
+		bit = tfloat->mantissa >> pos;
 		if (bit & 1)
 			return (-1);
 		else
@@ -59,12 +59,12 @@ void		fill_product(short *product, char *str)
 	}
 }
 
-int			check_inf_nan(t_float *fl, t_print *t_prnt, short *product)
+int			check_inf_nan(t_float *tfloat, t_print *t_prnt, short *product)
 {
-	if ((check_exp_allones(fl) == 0) && (check_mant_allzeros(fl) == 0))
+	if ((check_exp_allones(tfloat) == 0) && (check_mant_allzeros(tfloat) == 0))
 	{
-		(*t_prnt).diff = -1;
-		if (((*fl).exponent[4] >> 15) & 1)
+		t_prnt->diff = -1;
+		if ((tfloat->exponent[4] >> 15) & 1)
 		{
 			fill_product(product, "-inf");
 			return (-1);
@@ -75,9 +75,10 @@ int			check_inf_nan(t_float *fl, t_print *t_prnt, short *product)
 			return (1);
 		}
 	}
-	else if ((check_exp_allones(fl) == 0) && (check_mant_allzeros(fl) != 0))
+	else if ((check_exp_allones(tfloat) == 0) && \
+	(check_mant_allzeros(tfloat) != 0))
 	{
-		(*t_prnt).diff = -1;
+		t_prnt->diff = -1;
 		fill_product(product, "nan");
 		return (2);
 	}

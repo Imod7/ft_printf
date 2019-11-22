@@ -72,7 +72,10 @@ void					print_int_un(va_list argp, t_format *tfl, t_print *tpr)
 
 	arg = va_arg(argp, unsigned long long);
 	check_modif_un(&arg, tfl);
-	len = number_of_digits_un(arg, *tfl);
+	if ((*tfl).argtype == 'B')
+		len = binary_length_unsigned_int(arg);
+	else
+		len = number_of_digits_un(arg, *tfl);
 	minfw_vs_precision(tfl, tpr, len);
 	check_plusflag(tfl);
 	if (arg == 0)
@@ -92,4 +95,6 @@ void					print_int_un(va_list argp, t_format *tfl, t_print *tpr)
 			print_order(tfl, tpr, len);
 		print_number(arg, tfl, tpr, len);
 	}
+	if ((*tfl).argtype == 'B')
+		binary_number_unsigned_int(arg, tpr);
 }

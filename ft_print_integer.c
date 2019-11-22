@@ -14,8 +14,8 @@
 
 void			int_other(long long arg, t_format *t_fl, t_print *t_pr, int len)
 {
-	if (((*t_fl).precision) < ((*t_fl).minfw) &&
-	(((*t_fl).flags & FLAG_ZERO) == 0))
+	if ((t_fl->precision) < (t_fl->minfw) &&
+	((t_fl->flags & FLAG_ZERO) == 0))
 	{
 		print_padding(t_fl, t_pr, len);
 		print_sign(t_fl, t_pr);
@@ -31,9 +31,9 @@ void			int_other(long long arg, t_format *t_fl, t_print *t_pr, int len)
 
 void			int_minus(long long arg, t_format *t_fl, t_print *t_pr, int len)
 {
-	if ((((*t_fl).flags & FLAG_PRECIS) > 0) && \
-	(((*t_fl).precision) > len) && \
-	(((*t_fl).precision) >= ((*t_fl).minfw)))
+	if (((t_fl->flags & FLAG_PRECIS) > 0) && \
+	((t_fl->precision) > len) && \
+	((t_fl->precision) >= (t_fl->minfw)))
 	{
 		print_sign(t_fl, t_pr);
 		print_padding(t_fl, t_pr, len);
@@ -48,12 +48,12 @@ void			int_minus(long long arg, t_format *t_fl, t_print *t_pr, int len)
 }
 
 void			check_negative_int(long long *arg, t_format *t_flags, \
-t_print *t_prnt, int l)
+									t_print *t_prnt, int l)
 {
 	if (*arg < 0)
-		(*t_flags).flags |= FLAG_NEGAT;
-	if ((*arg < 0) && ((*t_flags).minfw == (*t_flags).precision))
-		(*t_prnt).pad_len = (*t_flags).minfw - l;
+		t_flags->flags |= FLAG_NEGAT;
+	if ((*arg < 0) && (t_flags->minfw == t_flags->precision))
+		t_prnt->pad_len = t_flags->minfw - l;
 }
 
 /*
@@ -65,7 +65,7 @@ t_print *t_prnt, int l)
 ** Check Test 1, 2
 */
 
-void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt)
+void			print_integer(va_list argptr, t_format *tflags, t_print *t_prnt)
 {
 	long long	arg;
 	int			len;
@@ -73,16 +73,21 @@ void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt)
 	arg = va_arg(argptr, long long);
 	check_plusflag(tflags);
 	check_modifier(&arg, tflags);
-	len = number_of_digits(arg);
-	check_negative_int(&arg, tflags, tprnt, len);
-	minfw_vs_precision(tflags, tprnt, len);
+	if (tflags->argtype == 'b')
+		len = binary_length_int(arg);
+	else
+		len = number_of_digits(arg);
+	check_negative_int(&arg, tflags, t_prnt, len);
+	minfw_vs_precision(tflags, t_prnt, len);
 	if (arg == 0)
-		check_arg_zero(tflags, &len, tprnt);
-	if (((*tflags).flags & FLAG_MINUS) > 0)
+		check_arg_zero(tflags, &len, t_prnt);
+	if ((tflags->flags & FLAG_MINUS) > 0)
 	{
-		(*tflags).flags &= ~FLAG_ZERO;
-		int_minus(arg, tflags, tprnt, len);
+		tflags->flags &= ~FLAG_ZERO;
+		int_minus(arg, tflags, t_prnt, len);
 	}
 	else
-		int_other(arg, tflags, tprnt, len);
+		int_other(arg, tflags, t_prnt, len);
+	if (tflags->argtype == 'b')
+		binary_number_int(arg, t_prnt);
 }

@@ -16,10 +16,10 @@ void			check_argzero(short *product, t_format *t_flags, t_print *tprnt)
 {
 	if (length_product_intpart(product) == 2 && \
 	(product[FLOAT_MIDDLE - 2] == '0') && \
-	((*t_flags).precision == 0))
+	(t_flags->precision == 0))
 	{
 		tprnt->writer(&"0", 1, tprnt);
-		(*t_flags).total_chars_printed++;
+		// t_flags->total_chars_printed++;
 	}
 	else
 		print_final_float(product, t_flags, tprnt);
@@ -28,14 +28,14 @@ void			check_argzero(short *product, t_format *t_flags, t_print *tprnt)
 void			float_checkflags(t_format *t_flags, t_print *t_prnt, \
 								short *product, int len)
 {
-	if ((*t_flags).flags & FLAG_MINUS)
+	if (t_flags->flags & FLAG_MINUS)
 	{
 		print_sign(t_flags, t_prnt);
 		check_argzero(product, t_flags, t_prnt);
 		print_padding(t_flags, t_prnt, len);
 	}
-	else if (((*t_flags).flags & FLAG_NEGAT) &&
-	(!((*t_flags).flags & FLAG_ZERO)))
+	else if ((t_flags->flags & FLAG_NEGAT) &&
+	(!(t_flags->flags & FLAG_ZERO)))
 	{
 		print_padding(t_flags, t_prnt, len);
 		print_sign(t_flags, t_prnt);

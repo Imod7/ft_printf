@@ -18,7 +18,7 @@ int				main(int argc, char **argv)
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[138];
+	test_func	*test_array[141];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -158,6 +158,9 @@ int				main(int argc, char **argv)
 	test_array[135] = test_sprintf2;
 	test_array[136] = test_int21;
 	test_array[137] = test_sprintf3;
+	test_array[138] = test_binary1;
+	test_array[139] = test_binary2;
+	test_array[140] = test_binary3;
 	i = 1;
 	test_passed = 0;
 	// test_array[117]();

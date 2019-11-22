@@ -166,5 +166,8 @@ int		test_sprintf1(void);
 int		test_sprintf2(void);
 int		test_sprintf3(void);
 int		test_mix1(void);
+int		test_binary1(void);
+int		test_binary2(void);
+int		test_binary3(void);
 
 #endif
