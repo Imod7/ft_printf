@@ -12,89 +12,92 @@
 
 #include "includes/ft_printf.h"
 
-unsigned long long		check_pointer(va_list arg, t_format *tfl)
+unsigned long long		check_pointer(va_list arg, t_format *t_flags)
 {
 	unsigned long long	argum;
 
-	if ((*tfl).argtype == 'p')
+	if (t_flags->argtype == 'p')
 	{
-		(*tfl).flags |= FLAG_HT;
+		t_flags->flags |= FLAG_HT;
 		argum = va_arg(arg, unsigned long);
-		(*tfl).special_chars_printed = (*tfl).special_chars_printed + 2;
+		t_flags->special_chars_printed = t_flags->special_chars_printed + 2;
 	}
 	else
 	{
 		argum = va_arg(arg, unsigned long long);
-		check_modif_un(&argum, tfl);
+		check_modif_un(&argum, t_flags);
 	}
 	return (argum);
 }
 
-void					print_hexoctal(va_list arg, t_format *tfl, t_print *tpr)
+void					print_hexoctal(va_list arg, t_format *t_flags, \
+										t_print *t_prnt)
 {
 	unsigned long long	argum;
 	int					len;
 
-	argum = check_pointer(arg, tfl);
-	len = number_of_digits_un(argum, *tfl);
-	minfw_vs_precision(tfl, tpr, len);
+	argum = check_pointer(arg, t_flags);
+	len = number_of_digits_un(argum, *t_flags);
+	minfw_vs_precision(t_flags, t_prnt, len);
 	if (argum == 0)
-		check_arg_zero(tfl, &len, tpr);
-	check_plusflag(tfl);
-	(*tfl).flags &= ~FLAG_PLUS;
-	(*tfl).flags &= ~FLAG_SPACE;
-	if (((*tfl).flags & FLAG_MINUS) > 0)
+		check_arg_zero(t_flags, &len, t_prnt);
+	check_plusflag(t_flags);
+	t_flags->flags &= ~FLAG_PLUS;
+	t_flags->flags &= ~FLAG_SPACE;
+	if ((t_flags->flags & FLAG_MINUS) > 0)
 	{
-		(*tfl).flags &= ~FLAG_ZERO;
-		unsigned_hashtag(argum, tfl, tpr, len);
-		unsigned_minus(argum, tfl, tpr, len);
+		t_flags->flags &= ~FLAG_ZERO;
+		unsigned_hashtag(argum, t_flags, t_prnt, len);
+		unsigned_minus(argum, t_flags, t_prnt, len);
 	}
-	else if (((*tfl).flags & FLAG_ZERO) ||
-	((*tfl).precision > (*tfl).minfw))
+	else if ((t_flags->flags & FLAG_ZERO) ||
+	(t_flags->precision > t_flags->minfw))
 	{
-		unsigned_hashtag(argum, tfl, tpr, len);
-		print_inverse(tfl, tpr, len);
-		print_number(argum, tfl, tpr, len);
+		unsigned_hashtag(argum, t_flags, t_prnt, len);
+		print_inverse(t_flags, t_prnt, len);
+		print_number(argum, t_flags, t_prnt, len);
 	}
-	else if ((((*tfl).flags & FLAG_MINUS) == 0) && \
-	(((*tfl).flags & FLAG_ZERO) == 0))
+	else if (((t_flags->flags & FLAG_MINUS) == 0) && \
+	((t_flags->flags & FLAG_ZERO) == 0))
 	{
-		print_order(tfl, tpr, len);
-		unsigned_hashtag(argum, tfl, tpr, len);
-		print_number(argum, tfl, tpr, len);
+		print_order(t_flags, t_prnt, len);
+		unsigned_hashtag(argum, t_flags, t_prnt, len);
+		print_number(argum, t_flags, t_prnt, len);
 	}
 }
 
-void					print_int_un(va_list argp, t_format *tfl, t_print *tpr)
+void					print_int_un(va_list argp, t_format *t_flags, \
+									t_print *t_prnt)
 {
 	unsigned long long	arg;
 	int					len;
 
 	arg = va_arg(argp, unsigned long long);
-	check_modif_un(&arg, tfl);
-	if ((*tfl).argtype == 'B')
+	check_modif_un(&arg, t_flags);
+	if (t_flags->argtype == 'B')
 		len = binary_length_unsigned_int(arg);
 	else
-		len = number_of_digits_un(arg, *tfl);
-	minfw_vs_precision(tfl, tpr, len);
-	check_plusflag(tfl);
+		len = number_of_digits_un(arg, *t_flags);
+	minfw_vs_precision(t_flags, t_prnt, len);
+	check_plusflag(t_flags);
 	if (arg == 0)
-		check_arg_zero(tfl, &len, tpr);
-	if ((((*tfl).flags & FLAG_MINUS) > 0) && ((*tfl).minfw > (*tfl).precision))
+		check_arg_zero(t_flags, &len, t_prnt);
+	if (((t_flags->flags & FLAG_MINUS) > 0) && \
+	(t_flags->minfw > t_flags->precision))
 	{
-		(*tfl).flags &= ~FLAG_ZERO;
-		print_number(arg, tfl, tpr, len);
-		print_inverse(tfl, tpr, len);
+		t_flags->flags &= ~FLAG_ZERO;
+		print_number(arg, t_flags, t_prnt, len);
+		print_inverse(t_flags, t_prnt, len);
 	}
 	else
 	{
-		if ((((*tfl).flags & FLAG_ZERO) > 0) || \
-		(((*tfl).flags & FLAG_PRECIS) > 0))
-			print_inverse(tfl, tpr, len);
+		if (((t_flags->flags & FLAG_ZERO) > 0) || \
+		((t_flags->flags & FLAG_PRECIS) > 0))
+			print_inverse(t_flags, t_prnt, len);
 		else
-			print_order(tfl, tpr, len);
-		print_number(arg, tfl, tpr, len);
+			print_order(t_flags, t_prnt, len);
+		print_number(arg, t_flags, t_prnt, len);
 	}
-	if ((*tfl).argtype == 'B')
-		binary_number_unsigned_int(arg, tpr);
+	if (t_flags->argtype == 'B')
+		binary_number_unsigned_int(arg, t_prnt);
 }

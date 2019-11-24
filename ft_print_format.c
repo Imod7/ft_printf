@@ -78,14 +78,14 @@ void		print_sign(t_format *t_flags, t_print *t_prnt)
 		t_flags->special_chars_printed++;
 		// t_flags->total_chars_printed++;
 	}
-	if ((t_flags->flags & FLAG_SPACE) && ((!((*t_prnt).diff)) ||
-	((*t_prnt).pad_len <= 0)))
+	if ((t_flags->flags & FLAG_SPACE) && ((!(t_prnt->diff)) ||
+	(t_prnt->pad_len <= 0)))
 	{
 		t_prnt->writer(&" ", 1, t_prnt);
 		t_flags->special_chars_printed++;
 		// t_flags->total_chars_printed++;
 	}
-	(*t_prnt).sign_printed = 1;
+	t_prnt->sign_printed = 1;
 }
 
 void		check_modifier(long long *arg, t_format *t_flags)

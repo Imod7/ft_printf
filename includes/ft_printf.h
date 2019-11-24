@@ -67,10 +67,13 @@ typedef struct	s_print
 {
 	char		buffer[BUFFER_SIZE];
 	void		(*writer)(const void *str, int len, struct s_print *self);
+	int			writer_index;
 	char		*sprintf_str;
-	int			sprintf_index;
+	int			snprintf_size;
+	// int			snprintf_return;
 	int			total_chars_printed;
-	int			buf_index;
+	// int			buf_index;
+	// int			sprintf_index;
 	int			print_end;
 	int			pad_len;
 	int			diff;
@@ -95,6 +98,7 @@ int				ft_printf(const char *str, ...);
 int				ft_dprintf(int fd, const char *str, ...);
 void			writer_printf(const void *str, int len, t_print *t_prnt);
 void			writer_sprintf(const void *str, int len, t_print *t_prnt);
+void			writer_snprintf(const void *str, int len, t_print *t_prnt);
 // void			add_to_buffer(const char **str, t_format *t_flags, 
 							// t_print *tprnt);
 

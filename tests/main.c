@@ -18,7 +18,7 @@ int				main(int argc, char **argv)
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[141];
+	test_func	*test_array[144];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -161,9 +161,12 @@ int				main(int argc, char **argv)
 	test_array[138] = test_binary1;
 	test_array[139] = test_binary2;
 	test_array[140] = test_binary3;
+	test_array[141] = test_snprintf1;
+	test_array[142] = test_snprintf2;
+	test_array[143] = test_snprintf3;
 	i = 1;
 	test_passed = 0;
-	// test_array[117]();
+	// test_array[141]();
 	if (argc == 1)
 	{
 		printf("Which Test do you want to run ? (0 to run All) \n");

@@ -23,9 +23,9 @@ int				test_mix1(void)
 
 	num = -2147483648;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "toto %%.0d='%.0d' et %%+.i='%+.i' ", 0, 0);
+	total_chars_p = dprintf(fd, "toto %%.0d='%.0d' et %%+.i='%+.i'XX", 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "toto %%.0d='%.0d' et %%+.i='%+.i' ", 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "toto %%.0d='%.0d' et %%+.i='%+.i'XX", 0, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);

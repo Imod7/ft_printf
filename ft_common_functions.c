@@ -76,7 +76,7 @@ void	minfw_vs_precision(t_format *t_flags, t_print *t_prnt, int len)
 		t_flags->special_chars_printed += diff;
 	}
 	if ((t_flags->precision) > (t_flags->minfw))
-		(*t_prnt).pad_len = diff;
+		t_prnt->pad_len = diff;
 	if (((t_flags->flags & FLAG_PRECIS) > 0) && (t_flags->precision >= 0) &&
 	((t_flags->argtype != 's') || (t_flags->argtype != 'c')))
 		t_flags->flags &= ~FLAG_ZERO;

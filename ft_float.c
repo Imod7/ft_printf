@@ -36,15 +36,15 @@ void				initialization(char *fr, short *pr)
 	pr[FLOAT_MIDDLE + 1] = '0';
 }
 
-void				check_modifier_float(va_list argptr, t_float *fl, \
+void				check_modifier_float(va_list argptr, t_float *tfloat, \
 										t_format *t_flags)
 {
 	if (t_flags->modifier == N)
-		(*fl).f_num = va_arg(argptr, double);
+		tfloat->f_num = va_arg(argptr, double);
 	if (t_flags->modifier == l)
-		(*fl).f_num = va_arg(argptr, double);
+		tfloat->f_num = va_arg(argptr, double);
 	else if (t_flags->modifier == L)
-		(*fl).f_num = va_arg(argptr, long double);
+		tfloat->f_num = va_arg(argptr, long double);
 }
 
 void				exponent_calculation(short *pr, short exp)
@@ -70,22 +70,23 @@ void				exponent_calculation(short *pr, short exp)
 	}
 }
 
-void				exponent_check(t_format *t_flags, t_float *fl, short *pr)
+void				exponent_check(t_format *t_flags, t_float *tfloat, \
+									short *pr)
 {
-	if ((*fl).exponent[4] != 0)
+	if (tfloat->exponent[4] != 0)
 	{
-		if (((*fl).exponent[4] & (1 << 15)) > 0)
+		if ((tfloat->exponent[4] & (1 << 15)) > 0)
 			t_flags->flags |= FLAG_NEGAT;
-		(*fl).exponent[4] &= ~(1 << 15);
-		(*fl).exponent[4] = (*fl).exponent[4] - 16383;
-		exponent_calculation(pr, (*fl).exponent[4]);
+		tfloat->exponent[4] &= ~(1 << 15);
+		tfloat->exponent[4] = tfloat->exponent[4] - 16383;
+		exponent_calculation(pr, tfloat->exponent[4]);
 	}
-	else if ((*fl).exponent[4] == 0)
+	else if (tfloat->exponent[4] == 0)
 		pr[FLOAT_MIDDLE + 2] = 0;
 }
 
 int					ft_ftoa(t_format *t_flags, t_print *tprnt, \
-							t_float *float_num, short *pr)
+							t_float *tfloat, short *pr)
 {
 	char			fraction[400];
 	int				index;
@@ -97,14 +98,14 @@ int					ft_ftoa(t_format *t_flags, t_print *tprnt, \
 	while (index >= 0)
 	{
 		bit = 1UL << index;
-		if ((*float_num).mantissa & bit)
+		if (tfloat->mantissa & bit)
 			str_add_prod_frac(pr, fraction);
 		frac_divide_by_two(fraction);
 		index--;
 	}
-	inf_nan = check_inf_nan(float_num, tprnt, pr);
+	inf_nan = check_inf_nan(tfloat, tprnt, pr);
 	if ((inf_nan == -1) || (inf_nan == 1))
 		return (inf_nan);
-	exponent_check(t_flags, float_num, pr);
+	exponent_check(t_flags, tfloat, pr);
 	return (0);
 }

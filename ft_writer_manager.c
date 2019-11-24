@@ -15,21 +15,21 @@
 int					store_to_buffer(unsigned char **un_str, int len, \
 									t_print *t_prnt, int i)
 {
-	while ((t_prnt->buf_index < BUFFER_SIZE) && (i < len))
+	while ((t_prnt->writer_index < BUFFER_SIZE) && (i < len))
 	{
 		if (t_prnt->print_end != 1)
 		{
-			t_prnt->buffer[t_prnt->buf_index] = **un_str;
-			t_prnt->buf_index++;
+			t_prnt->buffer[t_prnt->writer_index] = **un_str;
+			t_prnt->writer_index++;
 			(*un_str)++;
 		}
 		i++;
 	}
-	if ((t_prnt->buf_index == BUFFER_SIZE) || (t_prnt->print_end == 1))
+	if ((t_prnt->writer_index == BUFFER_SIZE) || (t_prnt->print_end == 1))
 	{
-		write(t_prnt->fd, t_prnt->buffer, t_prnt->buf_index);
-		t_prnt->total_chars_printed += t_prnt->buf_index;
-		t_prnt->buf_index = 0;
+		write(t_prnt->fd, t_prnt->buffer, t_prnt->writer_index);
+		t_prnt->total_chars_printed += t_prnt->writer_index;
+		t_prnt->writer_index = 0;
 	}
 	return (i);
 }
@@ -61,8 +61,8 @@ void				writer_sprintf(const void *str, int len, t_print *t_prnt)
 	i = 0;
 	while (i < len)
 	{
-		t_prnt->sprintf_str[t_prnt->sprintf_index] = *un_str;
-		t_prnt->sprintf_index++;
+		t_prnt->sprintf_str[t_prnt->writer_index] = *un_str;
+		t_prnt->writer_index++;
 		un_str++;
 		i++;
 		if (t_prnt->print_end != 1)
@@ -77,11 +77,30 @@ void				writer_snprintf(const void *str, int len, t_print *t_prnt)
 
 	un_str = (unsigned char *)str;
 	i = 0;
-	while (i < len)
+	// printf(ANSI_COLOR_CYAN"\nWRITER CALL un_str = %c, total_chars_printed = %d, print_end= %d\n"ANSI_COLOR_RESET, *un_str, t_prnt->total_chars_printed, t_prnt->print_end);
+	if (t_prnt->writer_index < t_prnt->snprintf_size - 1)
 	{
-		t_prnt->sprintf_str[t_prnt->sprintf_index] = *un_str;
-		t_prnt->sprintf_index++;
-		un_str++;
-		i++;
+		while (i < len)
+		{
+			t_prnt->sprintf_str[t_prnt->writer_index] = *un_str;
+			t_prnt->writer_index++;
+			un_str++;
+			i++;
+		}
+		t_prnt->total_chars_printed += len;
+		// printf(ANSI_COLOR_BLUE"WRITING un_str = %c, total_chars_printed = %d\n"ANSI_COLOR_RESET, *un_str, t_prnt->total_chars_printed);
+	}
+	else
+	//if ((t_prnt->writer_index == t_prnt->snprintf_size - 1) && (t_prnt->print_end != 1))
+	{
+		t_prnt->total_chars_printed++;
+		// printf(ANSI_COLOR_MAGENTA"INCREMENTING un_str = %c, total_chars_printed = %d\n"ANSI_COLOR_RESET, *un_str, t_prnt->total_chars_printed);
+	}
+	if (t_prnt->print_end == 1) 
+	{
+		if (t_prnt->snprintf_size != 0)
+			t_prnt->sprintf_str[t_prnt->writer_index] = 0;
+		t_prnt->total_chars_printed--;
+		// printf(ANSI_COLOR_RED"ENDING CHAR un_str = '%c', total_chars_printed = %d, print_end= %d, t_prnt->writer_index = %d\n"ANSI_COLOR_RESET, *un_str, t_prnt->total_chars_printed, t_prnt->print_end, t_prnt->writer_index);
 	}
 }

@@ -169,5 +169,8 @@ int		test_mix1(void);
 int		test_binary1(void);
 int		test_binary2(void);
 int		test_binary3(void);
+int		test_snprintf1(void);
+int		test_snprintf2(void);
+int		test_snprintf3(void);
 
 #endif

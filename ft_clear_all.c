@@ -14,10 +14,10 @@
 
 void			initialize_buffer(t_print *t_prnt)
 {
-	t_prnt->buf_index = 0;
+	t_prnt->writer_index = 0;
 	t_prnt->total_chars_printed = 0;
 	t_prnt->print_end = 0;
-	t_prnt->sprintf_index = 0;
+	// t_prnt->sprintf_index = 0;
 }
 
 /*
