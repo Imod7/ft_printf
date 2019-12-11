@@ -18,7 +18,7 @@ int				main(int argc, char **argv)
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[144];
+	test_func	*test_array[168];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -143,7 +143,7 @@ int				main(int argc, char **argv)
 	test_array[120] = test_float24;
 	test_array[121] = test_float25;
 	test_array[122] = test_hex18;
-	test_array[123] = test_u8;
+	test_array[123] = test_zeroarg5;
 	test_array[124] = test_u9;
 	test_array[125] = test_u10;
 	test_array[126] = test_int17;
@@ -164,9 +164,33 @@ int				main(int argc, char **argv)
 	test_array[141] = test_snprintf1;
 	test_array[142] = test_snprintf2;
 	test_array[143] = test_snprintf3;
+	test_array[144] = test_memory1;
+	test_array[145] = test_float26;
+	test_array[146] = test_float27;
+	test_array[147] = test_float28;
+	test_array[148] = test_zeroarg1;
+	test_array[149] = test_zeroarg2;
+	test_array[150] = test_zeroarg3;
+	test_array[151] = test_zeroarg4;
+	test_array[152] = test_zeroarg6;
+	test_array[153] = test_zeroarg7;
+	test_array[154] = test_zeroarg8;
+	test_array[155] = test_undef1;
+	test_array[156] = test_undef2;
+	test_array[157] = test_undef3;
+	test_array[158] = test_hex19;
+	test_array[159] = test_zeroarg9;
+	test_array[160] = test_mix2;
+	test_array[161] = test_float29;
+	test_array[162] = test_float30;
+	test_array[163] = test_zeroarg10;
+	test_array[164] = test_zeroarg11;
+	test_array[165] = test_octal19;
+	test_array[166] = test_pointer5;
+	test_array[167] = test_pointer6;
 	i = 1;
 	test_passed = 0;
-	// test_array[141]();
+	// test_array[117]();
 	if (argc == 1)
 	{
 		printf("Which Test do you want to run ? (0 to run All) \n");
@@ -197,7 +221,7 @@ int				main(int argc, char **argv)
 		{
 			int ids_array[] = {41, 43, 44, 45, 46, 56, 57, 58, 59, 62, \
 			63, 64, 65, 66, 67, 68, 69, 78, 114, 115, 116, 117, 118, 120, \
-			121};
+			121, 145, 146, 147, 161, 162};
 			i = 0;
 			while (i < (int)(sizeof(ids_array) / sizeof(ids_array[0])))
 			{
@@ -247,8 +271,9 @@ int				main(int argc, char **argv)
 		}
 		else if (argv[1][0] == 'z')
 		{
-			int ids_array[] = {53, 54, 55, 86, 87, 88, 89, 91, 109, 110, \
-			122, 123, 124};
+			int ids_array[] = {8, 20, 33, 52, 53, 54, 55, 70, 71, 85, 86, 87, 88, 89, \
+			90, 91, 106, 107, 109, 110, 112, 122, 123, 124, 134, 148, 149, 150, 151, 152, 153, 154,\
+			159, 163, 166, 167};
 			i = 0;
 			while (i < (int)(sizeof(ids_array) / sizeof(ids_array[0])))
 			{
@@ -260,7 +285,7 @@ int				main(int argc, char **argv)
 		}
 	}
 	printf(ANSI_COLOR_CYAN"\n--------------------------------------------");
-	printf("\nTests that Passed	-> %d / %d", test_passed, i);
+	printf("\nTests that Passed	-> %d / %d", test_passed, i - 1);
 	printf("\n--------------------------------------------\n");
 	return (0);
 }

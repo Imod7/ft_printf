@@ -23,6 +23,7 @@ int				ft_printf(const char *format, ...)
 	t_prnt.fd = 1;
 	t_prnt.writer = writer_printf;
 	va_start(argptr, format);
+	initialize_buffer(&t_prnt);
 	result = ft_printf_genericfunc(&t_flags, &t_prnt, format, argptr);
 	va_end(argptr);
 	return (result);
@@ -39,6 +40,7 @@ int				ft_dprintf(int fd, const char *format, ...)
 	t_prnt.fd = fd;
 	t_prnt.writer = writer_printf;
 	va_start(argptr, format);
+	initialize_buffer(&t_prnt);
 	result = ft_printf_genericfunc(&t_flags, &t_prnt, format, argptr);
 	va_end(argptr);
 	return (result);
@@ -55,6 +57,7 @@ int				ft_sprintf(char *str, const char *format, ...)
 	t_prnt.writer = writer_sprintf;
 	t_prnt.sprintf_str = str;
 	va_start(argptr, format);
+	initialize_buffer(&t_prnt);
 	result = ft_printf_genericfunc(&t_flags, &t_prnt, format, argptr);
 	va_end(argptr);
 	return (result);
@@ -66,18 +69,13 @@ int				ft_snprintf(char *str, size_t size, const char *format, ...)
 	int			result;
 	t_format	t_flags;
 	t_print		t_prnt;
-	// int			len;
 
 	clear_formatstruct(&t_flags, &t_prnt);
 	t_prnt.writer = writer_snprintf;
 	t_prnt.sprintf_str = str;
 	t_prnt.snprintf_size = size;
-	// len = 0;
-	// while (str[len] != '\0')
-	// 	len++;
-	// // printf("\nLEN = %d\n", len);
-	// t_prnt.snprintf_return = len;
 	va_start(argptr, format);
+	initialize_buffer(&t_prnt);
 	result = ft_printf_genericfunc(&t_flags, &t_prnt, format, argptr);
 	va_end(argptr);
 	return (result);

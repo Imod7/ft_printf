@@ -54,7 +54,8 @@ void				exponent_calculation(short *pr, short exp)
 	index = 0;
 	if (exp < 0)
 	{
-		while (index < exp * (-1))
+		exp = exp * (-1);
+		while (index < exp)
 		{
 			prod_divide_by_two(pr);
 			index++;
@@ -103,7 +104,12 @@ int					ft_ftoa(t_format *t_flags, t_print *tprnt, \
 		frac_divide_by_two(fraction);
 		index--;
 	}
-	inf_nan = check_inf_nan(tfloat, tprnt, pr);
+	inf_nan = check_inf_nan(tfloat, t_flags, tprnt, pr);
+	if (inf_nan != 0)
+	{
+		t_flags->flags &= ~FLAG_ZERO;
+		t_flags->flags &= ~FLAG_SPACE;
+	}
 	if ((inf_nan == -1) || (inf_nan == 1))
 		return (inf_nan);
 	exponent_check(t_flags, tfloat, pr);

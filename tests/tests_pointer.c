@@ -103,9 +103,9 @@ int				test_pointer3(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%p='%p', %%5p='%5p'\n", 0, 0);
+	total_chars_p = dprintf(fd, "%%p='%p', %%5p='%5p', %%11p='%11p', %%23p='%23p', %%-9p='% -9p', %%2p='%2p', %%1p='%1p'\n", 0, 0, 0, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%p='%p', %%5p='%5p'\n", 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%p='%p', %%5p='%5p', %%11p='%11p', %%23p='%23p', %%-9p='% -9p', %%2p='%2p', %%1p='%1p'\n", 0, 0, 0, 0, 0, 0, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -139,20 +139,60 @@ int				test_pointer4(void)
 	char		*returned_line_ft_dprintf;
 	int			fd;
 
+	// fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	// total_chars_p = dprintf(fd, "%%2.9p='%2.9p'\n", 1234);
+	// fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	// total_chars_ftp = ft_dprintf(fd, "%%2.9p='%2.9p'\n", 1234);
+	// close(fd);
+	// fd = open("result_dprintf.txt", O_RDONLY);
+	// get_next_line(fd, &returned_line_dprintf);
+	// close(fd);
+	// fd = open("result_ftdprintf.txt", O_RDONLY);
+	// get_next_line(fd, &returned_line_ft_dprintf);
+	// close(fd);
+	// if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	// (total_chars_p == total_chars_ftp))
+	// {
+	// 	printf(ANSI_COLOR_GREEN"Test 96 (pointer4)	-> SUCCESS!\n"\
+	// 	ANSI_COLOR_RESET);
+	// 	printf("printf    : [%s]\n", returned_line_dprintf);
+	// 	printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+	// 	return (0);
+	// }
+	// else
+	// {
+	// 	printf(ANSI_COLOR_RED"Test 96 (pointer4)	-> FAIL!\n"\
+	// 	ANSI_COLOR_RESET);
+	// 	printf("printf    : [%s]\n", returned_line_dprintf);
+	// 	printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+	// 	return (-1);
+	// }
+}
+
+int				test_pointer5(void)
+{
+	int			total_chars_p;
+	int			total_chars_ftp;
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
+	int			fd;
+
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%2.9p='%2.9p'\n", 1234);
+	total_chars_p = dprintf(fd, "%%1p='%1p', %%.1p='%.1p', %%5p='%5p', %%5.3p='%5.3p', %%2.5p='%2.5p', %%-1.p='%-1.p'\n", 0, 0, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%2.9p='%2.9p'\n", 1234);
+	total_chars_ftp = ft_dprintf(fd, "%%1p='%1p', %%.1p='%.1p', %%5p='%5p', %%5.3p='%5.3p', %%2.5p='%2.5p', %%-1.p='%-1.p'\n", 0, 0, 0, 0, 0, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
+	close(fd);
+	// printf("\nGETS HERE %s\n", returned_line_ft_dprintf);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 96 (pointer4)	-> SUCCESS!\n"\
+		printf(ANSI_COLOR_GREEN"Test 167 (pointer5)	-> SUCCESS!\n"\
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
@@ -160,10 +200,48 @@ int				test_pointer4(void)
 	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 96 (pointer4)	-> FAIL!\n"\
+		printf(ANSI_COLOR_RED"Test 167 (pointer5)	-> FAIL!\n"\
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (-1);
 	}
+}
+
+int				test_pointer6(void)
+{
+	// int			total_chars_p;
+	// int			total_chars_ftp;
+	// char		*returned_line_dprintf;
+	// char		*returned_line_ft_dprintf;
+	// int			fd;
+
+	// fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	// total_chars_p = dprintf(fd, "%%-1p='%-1p', %%-0.1p='%-0.1p', %%- 05p='%- 05p', %%- 5.3p='%- 5.3p', %%-2.5p='%-2.5p', %%- 1.p='%- 1.p'\n", 0, 0, 0, 0, 0, 0);
+	// fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	// total_chars_ftp = ft_dprintf(fd, "%%-1p='%-1p', %%-0.1p='%-0.1p', %%- 05p='%- 05p', %%- 5.3p='%- 5.3p', %%-2.5p='%-2.5p', %%- 1.p='%- 1.p'\n", 0, 0, 0, 0, 0, 0);
+	// close(fd);
+	// fd = open("result_dprintf.txt", O_RDONLY);
+	// get_next_line(fd, &returned_line_dprintf);
+	// close(fd);
+	// fd = open("result_ftdprintf.txt", O_RDONLY);
+	// get_next_line(fd, &returned_line_ft_dprintf);
+	// close(fd);
+	// if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	// (total_chars_p == total_chars_ftp))
+	// {
+	// 	printf(ANSI_COLOR_GREEN"Test 168 (pointer6)	-> SUCCESS!\n"\
+	// 	ANSI_COLOR_RESET);
+	// 	printf("printf    : [%s]\n", returned_line_dprintf);
+	// 	printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+	// 	return (0);
+	// }
+	// else
+	// {
+	// 	printf(ANSI_COLOR_RED"Test 168 (pointer6)	-> FAIL!\n"\
+	// 	ANSI_COLOR_RESET);
+	// 	printf("printf    : [%s]\n", returned_line_dprintf);
+	// 	printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+	// 	return (-1);
+	// }
 }

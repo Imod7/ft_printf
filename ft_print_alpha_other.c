@@ -21,7 +21,6 @@ void		write_string_arg(char *arg, t_format *t_flags, t_print *t_prnt, \
 		t_prnt->writer(&"(null)", *len, t_prnt);
 	else if (arg != NULL)
 		t_prnt->writer(arg, *len, t_prnt);
-	// t_flags->total_chars_printed = t_flags->total_chars_printed + (*len);
 }
 
 void		check_null_string(char *arg, t_format *t_flags, int *len)
@@ -76,7 +75,6 @@ void		print_char(va_list argptr, t_format *t_flags, t_print *t_prnt)
 
 	arg = va_arg(argptr, int);
 	len = 1;
-	// t_prnt->total_chars_printed++;
 	t_flags->flags &= ~FLAG_PLUS;
 	t_flags->flags &= ~FLAG_SPACE;
 	if (t_flags->flags & FLAG_MINUS)
@@ -99,7 +97,6 @@ void		print_other(char arg, t_format *t_flags, t_print *t_prnt)
 
 	len = 1;
 	t_flags->flags &= ~FLAG_SPACE;
-	// t_flags->total_chars_printed++;
 	if ((t_flags->flags & FLAG_MINUS) > 0)
 	{
 		t_prnt->writer(&arg, 1, t_prnt);

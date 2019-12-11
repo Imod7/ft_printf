@@ -25,11 +25,15 @@ void	check_plusflag(t_format *t_flags)
 
 void	print_order(t_format *t_flags, t_print *t_prnt, int len)
 {
+	// printf(ANSI_COLOR_YELLOW"type = %d flags = %d min = %d prec = %d", t_flags->argtype, t_flags->flags, t_flags->minfw, t_flags->precision);
 	if ((t_flags->argtype == 'o') &&
 	(t_flags->flags & FLAG_HT) &&
-	(t_flags->minfw >= t_flags->precision) &&
-	(t_flags->precision == 0))
+	// (t_flags->minfw >= t_flags->precision) &&
+	(t_flags->precision < len))
+	{
 		t_flags->special_chars_printed++;
+		// printf(ANSI_COLOR_YELLOW"Increased the special chars by one");
+	}
 	if (((t_flags->argtype == 'x') ||
 	(t_flags->argtype == 'X')) &&
 	(t_flags->flags & FLAG_HT) &&
@@ -49,8 +53,10 @@ void	length_precision_diff(t_format *t_flags, t_print *t_prnt, int len)
 {
 	int	diff;
 
-	diff = t_flags->precision - len;
-	// t_prnt->total_chars_printed += diff;
+	diff = 0;
+	if (t_prnt->diff != -1)
+		diff = t_flags->precision - len;
+	// printf("length_precision_diff function diff = %d\n", diff);
 	while (diff > 0)
 	{
 		t_prnt->writer(&"0", 1, t_prnt);
@@ -70,6 +76,7 @@ void	minfw_vs_precision(t_format *t_flags, t_print *t_prnt, int len)
 	int	diff;
 
 	diff = t_flags->precision - len;
+	// printf("minfw_vs_precision function diff = %d\n", diff);
 	if ((t_flags->precision > len) && \
 	(t_flags->precision < t_flags->minfw))
 	{

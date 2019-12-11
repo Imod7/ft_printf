@@ -24,9 +24,9 @@ int				test_char1(void)
 
 	c = 'A';
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 10 (char1) : %%+c='%+c', %%2c='%2c', %% c='% c', %% c='% c'\n", c, 0, 0, 'D');
+	total_chars_p = dprintf(fd, "Test 10 (char1) : %%2c='%2c'\n", c);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 10 (char1) : %%+c='%+c', %%2c='%2c', %% c='% c', %% c='% c'\n", c, 0, 0, 'D');
+	total_chars_ftp = ft_dprintf(fd, "Test 10 (char1) : %%2c='%2c'\n", c);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -98,6 +98,7 @@ int				test_char3(void)
 	c = 'K';
 	ft_printf(ANSI_COLOR_MAGENTA"Test 12 (char3) 	-> UNDEFINED BEHAVIOUR\n");
 	// printf(ANSI_COLOR_CYAN"Test 12 -0c THE PRINTF : '%-0c'\n", c);
+	return (0);
 }
 
 int				test_char4(void)
@@ -106,6 +107,7 @@ int				test_char4(void)
 
 	c = 'M';
 	ft_printf(ANSI_COLOR_MAGENTA"Test 13 (char4) 	-> UNDEFINED BEHAVIOUR\n");
+	return (0);
 	// printf(ANSI_COLOR_CYAN"Test 13 hc THE PRINTF : '%hc'\n", c);
 	// ft_printf(ANSI_COLOR_YELLOW"Test 13 hc MY  PRINTF : '%hc'\n\n", c);
 }
@@ -118,6 +120,7 @@ int				test_char5(void)
 	ft_printf(ANSI_COLOR_MAGENTA"Test 14 (char5) 	-> UNDEFINED BEHAVIOUR\n");
 	// printf(ANSI_COLOR_CYAN"Test 14 hhc THE PRINTF : '%hhc'\n", c);
 	// ft_printf(ANSI_COLOR_YELLOW"Test 14 hhc MY  PRINTF : '%hhc'\n\n", c);
+	return (0);
 }
 
 int				test_char6(void)
@@ -165,6 +168,7 @@ int				test_char7(void)
 	ft_printf(ANSI_COLOR_MAGENTA"Test 16 		-> Error/Warning >> ");
 	// printf(ANSI_COLOR_CYAN"Test 16 4llc THE PRINTF : '%4llc'\n", c);
 	ft_printf(ANSI_COLOR_YELLOW" 4llc MY  PRINTF : '%4llc'\n", c);
+	return (0);
 }
 
 int				test_char8(void)
@@ -179,11 +183,9 @@ int				test_char8(void)
 	setlocale(LC_ALL, "en_US.UTF-8");
 	c = 'B';
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "😀%%c='%c', %%.2c='%.2c', %%3c='%3c'\n", \
-	0, NULL, 0);
+	total_chars_p = dprintf(fd, "😀%%c='%c', %%3c='%3c'\n", 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "😀%%c='%c', %%.2c='%.2c', %%3c='%3c'\n", \
-	0, NULL, 0);
+	total_chars_ftp = ft_dprintf(fd, "😀%%c='%c', %%3c='%3c'\n", 0, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);

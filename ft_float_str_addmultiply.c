@@ -26,6 +26,21 @@ void			check_carry_and_sum(short *pr, char *fr, int carry)
 	pr[FLOAT_MIDDLE - 1] = sum + '0';
 }
 
+int				length_fraction(char *fr)
+{
+	size_t		index;
+	int			len;
+
+	index = 0;
+	len = 0;
+	while (fr[index] != 0)
+	{
+		index++;
+		len++;
+	}
+	return (len);
+}
+
 void			str_add_prod_frac(short *pr, char *fr)
 {
 	int			len_pr;

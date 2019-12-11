@@ -20,9 +20,9 @@ int				test_sprintf1(void)
     char        ft_sprintf_str[50];
 
 	total_chars_p = sprintf(sprintf_str, "Test sprintf1 : %%6o='%6o', \
-    %%+-05o='%+-05o'\n", 325, 2500);
+    %%-5o='%-5o'\n", 325, 2500);
 	total_chars_ftp = ft_sprintf(ft_sprintf_str, "Test sprintf1 : %%6o='%6o', \
-    %%+-05o='%+-05o'\n", 325, 2500);
+    %%-5o='%-5o'\n", 325, 2500);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	if ((strcmp(sprintf_str, ft_sprintf_str) == 0) && \

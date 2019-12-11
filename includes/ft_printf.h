@@ -16,9 +16,9 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include "../libft/includes/libft.h"
 # include "../libft/includes/get_next_line.h"
+# include <stdio.h>
 
 # define ANSI_COLOR_RESET   "\x1b[0m"
 # define ANSI_COLOR_RED     "\x1b[31m"
@@ -32,16 +32,18 @@
 # define FLOAT_TOTAL_LEN	40000
 # define FLOAT_MIDDLE		20001
 
-# define FLAG_MINUS (1 << 0)
-# define FLAG_PLUS (1 << 1)
-# define FLAG_SPACE (1 << 2)
-# define FLAG_ZERO (1 << 3)
-# define FLAG_HT (1 << 4)
-# define FLAG_APOSTR (1 << 5)
-# define FLAG_PRECIS (1 << 6)
-# define FLAG_ASTER_MINFW (1 << 7)
-# define FLAG_NEGAT (1 << 8)
-# define FLAG_ASTER_PREC (1 << 9)
+# define FLAG_MINUS 		(1 << 0)
+# define FLAG_PLUS 			(1 << 1)
+# define FLAG_SPACE 		(1 << 2)
+# define FLAG_ZERO 			(1 << 3)
+# define FLAG_HT 			(1 << 4)
+# define FLAG_APOSTR 		(1 << 5)
+# define FLAG_PRECIS 		(1 << 6)
+# define FLAG_ASTER_MINFW 	(1 << 7)
+# define FLAG_NEGAT 		(1 << 8)
+# define FLAG_ASTER_PREC 	(1 << 9)
+# define FLAG_INF_NAN 		(1 << 10)
+# define FLAG_ARG_ZERO 		(1 << 11)
 
 typedef enum	e_modifier
 {
@@ -70,10 +72,7 @@ typedef struct	s_print
 	int			writer_index;
 	char		*sprintf_str;
 	int			snprintf_size;
-	// int			snprintf_return;
 	int			total_chars_printed;
-	// int			buf_index;
-	// int			sprintf_index;
 	int			print_end;
 	int			pad_len;
 	int			diff;
@@ -92,28 +91,26 @@ typedef union	u_float
 ** Writer functions
 */
 
+int				ft_printf(const char *str, ...);
 int				ft_printf_genericfunc(t_format *t_flags, t_print *t_prnt, \
 										const char *str, va_list argptr);
-int				ft_printf(const char *str, ...);
-int				ft_dprintf(int fd, const char *str, ...);
 void			writer_printf(const void *str, int len, t_print *t_prnt);
 void			writer_sprintf(const void *str, int len, t_print *t_prnt);
 void			writer_snprintf(const void *str, int len, t_print *t_prnt);
-// void			add_to_buffer(const char **str, t_format *t_flags, 
-							// t_print *tprnt);
 
 /*
 ** Printing different specifiers
 */
 
 void			print_integer(va_list argptr, t_format *tflags, t_print *tprnt);
-void			print_int_un(va_list argpt, t_format *t_flags, t_print *t_prnt);
+void			print_int_unsigned(va_list argpt, t_format *t_flags, \
+									t_print *t_prnt);
 void			print_hexoctal(va_list argpt, t_format *tflags, t_print *tprnt);
 void			print_string(va_list argptr, t_format *tflags, t_print *tprnt);
 void			print_char(va_list argpt, t_format *tflags, t_print *tprnt);
 void			print_other(char arg, t_format *t_flags, t_print *t_prnt);
 void			print_float(va_list argptr, t_format *t_flags, t_print *tpr);
-// void			print_binary(va_list argptr, t_format *tflags, t_print *tprnt);
+void			print_memory(va_list argptr, t_print *t_prnt);
 
 /*
 ** Formatting functions
@@ -193,7 +190,9 @@ void			str_add_prod_frac(short *pr, char *fr);
 void			frac_divide_by_two(char *fr);
 void			str_double(short *pr);
 void			prod_divide_by_two(short *pr);
-int				check_inf_nan(t_float *fl, t_print *t_prnt, short *product);
+// int				check_inf_nan(t_float *fl, t_print *t_prnt, short *product);
+int				check_inf_nan(t_float *tfloat, t_format *t_flags, \
+							t_print *t_prnt, short *product);
 void			print_final_float(short *pr, t_format *t_flags, t_print *tprnt);
 void			check_precision(short *pr, t_format *t_flags);
 void			check_modifier_float(va_list argptr, t_float *fl, \
@@ -216,5 +215,13 @@ void			initialize_buffer(t_print *t_prnt);
 void			clear_formatstruct(t_format *t_flags, t_print *t_prnt);
 void			clear_forfloat(t_float *fl_num);
 void			end_of_string(t_print *t_prnt);
+
+/*
+** Bonus functions
+*/
+
+int				ft_dprintf(int fd, const char *str, ...);
+int				ft_sprintf(char *str, const char *format, ...);
+int				ft_snprintf(char *str, size_t size, const char *format, ...);
 
 #endif

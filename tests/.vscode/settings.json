@@ -3,7 +3,6 @@
         "fcntl.h": "c",
         "complex": "c",
         "ft_printf.h": "c",
-        "stdio.h": "c"
     },
     "editor.rulers": [
         80

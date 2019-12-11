@@ -12,7 +12,7 @@
 
 #include "includes/ft_printf.h"
 
-void		unsigned_minus(unsigned long long ar, t_format *t_flags, 
+void		unsigned_minus(unsigned long long ar, t_format *t_flags,
 						t_print *t_prnt, int len)
 {
 	if (((t_flags->precision) > len) &&
@@ -33,7 +33,6 @@ void		pointer_hashtag(t_format *t_flags, t_print *t_prnt)
 	if (((t_flags->flags & FLAG_HT) > 0) && (t_flags->argtype == 'p'))
 	{
 		t_prnt->writer("0x", 2, t_prnt);
-		// t_flags->total_chars_printed += 2;
 	}
 	if ((t_flags->argtype == 'p') &&
 	(t_flags->precision > t_flags->minfw))
@@ -45,13 +44,13 @@ void		unsigned_hashtag(unsigned long long arg, t_format *t_flags, \
 {
 	char	c;
 
+	// printf("unsigned_hashtag function\n");
 	if (((t_flags->argtype == 'o') > 0) &&
 	(arg != 0) && (t_flags->flags & FLAG_HT) &&
 	t_flags->precision < len)
 	{
 		c = '0';
 		t_prnt->writer(&c, 1, t_prnt);
-		// t_flags->total_chars_printed++;
 		t_flags->special_chars_printed++;
 	}
 	if (((t_flags->flags & FLAG_HT) > 0) && (arg != 0) &&
@@ -61,7 +60,6 @@ void		unsigned_hashtag(unsigned long long arg, t_format *t_flags, \
 			t_prnt->writer("0x", 2, t_prnt);
 		else
 			t_prnt->writer("0X", 2, t_prnt);
-		// t_flags->total_chars_printed += 2;
 		if (t_flags->minfw > t_flags->precision)
 			t_flags->special_chars_printed += 2;
 	}

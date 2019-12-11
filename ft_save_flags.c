@@ -78,8 +78,7 @@ void				save_flags(t_format *t_flags, const char **str)
 {
 	while (**str != '\0' && all_flags_retrieved(**str) == 0)
 	{
-		if ((**str == '*') && (!(t_flags->flags & FLAG_ASTER_MINFW)) && \
-		(!(t_flags->flags & FLAG_PRECIS)))
+		if ((**str == '*') && (!(t_flags->flags & FLAG_PRECIS)))
 			t_flags->flags |= FLAG_ASTER_MINFW;
 		else if ((**str == '*') && ((t_flags->flags & FLAG_PRECIS)))
 			t_flags->flags |= FLAG_ASTER_PREC;
@@ -96,8 +95,8 @@ void				save_flags(t_format *t_flags, const char **str)
 		else if (((ft_isdigit(**str) == 1) &&
 		(t_flags->minfw == 0)) || (**str == '.'))
 			minfw_precision_flags(t_flags, str);
-		else if ((**str == 'h' || **str == 'l' || **str == 'L')
-		&& (t_flags->modifier == 0))
+		else if ((**str == 'h' || **str == 'l' || **str == 'L') && \
+		(t_flags->modifier == 0))
 			save_modifier(*str, t_flags);
 		(*str)++;
 	}

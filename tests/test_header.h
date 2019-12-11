@@ -13,17 +13,19 @@
 #ifndef TEST_HEADER_H
 # define TEST_HEADER_H
 
+# define ANSI_COLOR_RESET   "\x1b[0m"
+# define ANSI_COLOR_RED     "\x1b[31m"
+# define ANSI_COLOR_GREEN   "\x1b[32m"
+# define ANSI_COLOR_YELLOW	"\x1b[33m"
+# define ANSI_COLOR_BLUE	"\x1b[34m"
+# define ANSI_COLOR_MAGENTA	"\x1b[35m"
+# define ANSI_COLOR_CYAN    "\x1b[36m"
+
+# include "../ft_printf_ORIGINAL/includes/ft_printf.h"
 # include <assert.h>
 # include <fcntl.h>
-# include "../includes/ft_printf.h"
 # include <float.h>
-
-// # define ANSI_COLOR_RESET   "\x1b[0m"
-// # define ANSI_COLOR_RED     "\x1b[31m"
-// # define ANSI_COLOR_GREEN   "\x1b[32m"
-// # define ANSI_COLOR_YELLOW	"\x1b[33m"
-// # define ANSI_COLOR_MAGENTA	"\x1b[35m"
-// # define ANSI_COLOR_CYAN    "\x1b[36m"
+# include <stdio.h>
 
 typedef int test_func(void);
 
@@ -74,6 +76,7 @@ int		test_octal15(void);
 int		test_octal16(void);
 int		test_octal17(void);
 int		test_octal18(void);
+int		test_octal19(void);
 int		test_hex1(void);
 int		test_hex2(void);
 int		test_hex3(void);
@@ -92,6 +95,7 @@ int		test_hex15(void);
 int		test_hex16(void);
 int		test_hex17(void);
 int		test_hex18(void);
+int		test_hex19(void);
 int		test_i1(void);
 int		test_i2(void);
 int		test_i3(void);
@@ -109,6 +113,8 @@ int		test_pointer1(void);
 int		test_pointer2(void);
 int		test_pointer3(void);
 int		test_pointer4(void);
+int		test_pointer5(void);
+int		test_pointer6(void);
 int		test_exceptions1(void);
 int		test_exceptions2(void);
 int		test_exceptions3(void);
@@ -134,7 +140,6 @@ int		test_u4(void);
 int		test_u5(void);
 int		test_u6(void);
 int		test_u7(void);
-int		test_u8(void);
 int		test_u9(void);
 int		test_u10(void);
 int		test_float1(void);
@@ -162,15 +167,36 @@ int		test_float22(void);
 int		test_float23(void);
 int		test_float24(void);
 int		test_float25(void);
+int		test_float26(void);
+int		test_float27(void);
+int		test_float28(void);
+int		test_float29(void);
+int		test_float30(void);
 int		test_sprintf1(void);
 int		test_sprintf2(void);
 int		test_sprintf3(void);
 int		test_mix1(void);
+int		test_mix2(void);
 int		test_binary1(void);
 int		test_binary2(void);
 int		test_binary3(void);
 int		test_snprintf1(void);
 int		test_snprintf2(void);
 int		test_snprintf3(void);
+int		test_memory1(void);
+int		test_zeroarg1(void);
+int		test_zeroarg2(void);
+int		test_zeroarg3(void);
+int		test_zeroarg4(void);
+int		test_zeroarg5(void);
+int		test_zeroarg6(void);
+int		test_zeroarg7(void);
+int		test_zeroarg8(void);
+int		test_zeroarg9(void);
+int		test_zeroarg10(void);
+int		test_zeroarg11(void);
+int		test_undef1(void);
+int		test_undef2(void);
+int		test_undef3(void);
 
 #endif

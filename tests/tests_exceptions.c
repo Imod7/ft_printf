@@ -42,6 +42,7 @@ int				test_exceptions1(void)
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
 	}
 	else
 	{
@@ -64,6 +65,7 @@ int				test_exceptions2(void)
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_MAGENTA"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_MAGENTA"total_chars_ftp = %d \n", total_chars_ftp);
+	return (0);
 }
 
 int				test_exceptions3(void)

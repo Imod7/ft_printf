@@ -41,6 +41,7 @@ int		test_u1(void)
 	// else
 		// printf(ANSI_COLOR_RED"Test 52 : FAIL!\n");
 	printf(ANSI_COLOR_MAGENTA"Test 52 (u1)	-> SUCCESS with no flags!\n");
+	return (0);
 }
 
 int				test_u2(void)
@@ -52,12 +53,9 @@ int				test_u2(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%u='%u', %%15lu='%15lu', %%.0u='%.0u', \
-	%%.2u='%.2u', %%.5u='%.5u', %%5.3u='%5.3u'\n", 0, 4294967295, 0, 0, 0, 0);
-	// total_chars_p = dprintf(fd, "%5.3u", 0);
+	total_chars_p = dprintf(fd, "%%u='%u', %%15lu='%15lu', %%.0u='%.0u', %%.2u='%.2u', %%.5u='%.5u', %%5.3u='%5.3u'\n", 0, 4294967295, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%u='%u', %%15lu='%15lu', %%.0u='%.0u', \
-	%%.2u='%.2u', %%.5u='%.5u', %%5.3u='%5.3u'\n", 0, 4294967295, 0, 0, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%u='%u', %%15lu='%15lu', %%.0u='%.0u', %%.2u='%.2u', %%.5u='%.5u', %%5.3u='%5.3u'\n", 0, 4294967295, 0, 0, 0, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -166,9 +164,9 @@ int				test_u5(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-*.*u='%-*.*u'\n", 5, 0, 0);
+	total_chars_p = dprintf(fd, "%%-*.*u (min=5, prec=0)='%-*.*u', %%-7u='%-7u'\n", 5, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-*.*u='%-*.*u'\n", 5, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%-*.*u (min=5, prec=0)='%-*.*u', %%-7u='%-7u'\n", 5, 0, 0, 0);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	close(fd);
@@ -242,9 +240,15 @@ int				test_u7(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-3u='%-3u', %%3u='%3u'\n", 0, 0);
+	total_chars_p = dprintf(fd, "%%-3u='%-3u', %%3u='%3u', \
+	%%*.*u (min=0, prec=0)='%*.*u', %%*.*u (min=0, prec=5)='%*.*u', \
+	%%*.*u (min=5, prec=5)='%*.*u', %%*.*u (min=5, prec=8)='%*.*u'\n", \
+	0, 0, 0, 0, 0, 0, 5, 0, 5, 5, 0, 5, 8, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-3u='%-3u', %%3u='%3u'\n", 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%-3u='%-3u', %%3u='%3u', \
+	%%*.*u (min=0, prec=0)='%*.*u', %%*.*u (min=0, prec=5)='%*.*u', \
+	%%*.*u (min=5, prec=5)='%*.*u', %%*.*u (min=5, prec=8)='%*.*u'\n", \
+	0, 0, 0, 0, 0, 0, 5, 0, 5, 5, 0, 5, 8, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -254,7 +258,7 @@ int				test_u7(void)
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 113 (u7) 	 	-> SUCCESS!\n"\
+		printf(ANSI_COLOR_GREEN"Test 113 (u7) ZERO_ARG -> SUCCESS!\n"\
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
@@ -262,44 +266,7 @@ int				test_u7(void)
 	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 113 (u7) 	-> FAIL!\n"\
-		ANSI_COLOR_RESET);
-		printf("printf    : [%s]\n", returned_line_dprintf);
-		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
-		return (-1);
-	}
-}
-
-int						test_u8(void)
-{
-	int					total_chars_p;
-	int					total_chars_ftp;
-	int					fd;
-	char				*returned_line_dprintf;
-	char				*returned_line_ft_dprintf;
-
-	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-#*.*u='%-#*.*u'\n", 5, 5, 0);
-	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-#*.*u='%-#*.*u'\n", 5, 5, 0);
-	close(fd);
-	fd = open("result_dprintf.txt", O_RDONLY);
-	get_next_line(fd, &returned_line_dprintf);
-	close(fd);
-	fd = open("result_ftdprintf.txt", O_RDONLY);
-	get_next_line(fd, &returned_line_ft_dprintf);
-	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
-	(total_chars_p == total_chars_ftp))
-	{
-		printf(ANSI_COLOR_GREEN"Test 124 (u8)	ZERO_ARG -> \
-		SUCCESS!\n"ANSI_COLOR_RESET);
-		printf("printf    : [%s]\n", returned_line_dprintf);
-		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
-		return (0);
-	}
-	else
-	{
-		printf(ANSI_COLOR_RED"Test 124 (u8) ZERO_ARG 	-> FAIL!\n"\
+		printf(ANSI_COLOR_RED"Test 113 (u7) ZERO_ARG -> FAIL!\n"\
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
@@ -316,9 +283,9 @@ int						test_u9(void)
 	char				*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-*.*u='%-*.*u'\n", 5, 5, 0);
+	total_chars_p = dprintf(fd, "%%-*.*u (min=5, prec=5)='%-*.*u'\n", 5, 5, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-*.*u='%-*.*u'\n", 5, 5, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%-*.*u (min=5, prec=5)='%-*.*u'\n", 5, 5, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);

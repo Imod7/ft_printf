@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 NAME = ft_printf
-LIBFTPRINTF = ../libftprintf.a
-CC = gcc -w
+LIBFTPRINTF = ../ft_printf_ORIGINAL/libftprintf.a
+CC = gcc
 
 GREEN=\033[0;32m
 RED=\033[0;31m
@@ -23,36 +23,29 @@ SRC =	\
 
 OBJ = $(SRC:%.c=%.o)
 
-INCL = -I../ft_printf.h -I../libft/includes/
+INCL = -I../ft_printf_ORIGINAL/includes/ft_printf.h -I../ft_printf_ORIGINAL/libft/includes/ -I. test_header.h
 
 all: $(NAME)
 
-$(LIBFTPRINTF):
-	@MAKE -C ../
+# $(LIBFTPRINTF):
+# 	@MAKE -C ../
 
 $(NAME): $(OBJ) $(LIBFTPRINTF)
 	@echo "${GREEN}Making ft_printf${NC}"
-	$(CC) -o $(NAME) -I$(INCL) -L.. -lftprintf $(OBJ)
+	$(CC) -o $(NAME) $(SRC) $(LIBFTPRINTF)
 
 %.o: %.c $(INCL)
-	@$(CC) -o $@ -c $< 
+	$(CC) -o $@ -c $< 
 
 .PHONY: clean
 
 clean:
 	@echo "${RED}Cleaning all object test files${NC}"
-	@rm -f $(OBJ)
+	rm -f $(OBJ)
 
 fclean: clean
 	@echo "${RED}Deleting the executable printf${NC}"
-	@rm -f $(NAME)
-	@echo "${CYAN}Calling fclean of printf${NC}"	
-	@$(MAKE) fclean -C ../
+	rm -f $(NAME)
 
 re: fclean all
 
-lldb: re
-	$(CC) -g -o $(NAME) -I$(INCL) -L.. -lftprintf $(OBJ)
-
-norm:
-	norminette $(SRC) $(INCL) | grep -e "Error" -e "Warning" -B 1

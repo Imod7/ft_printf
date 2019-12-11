@@ -27,11 +27,6 @@ int				test_i1(void)
 	total_chars_p = dprintf(fd, "%%0.22i='%0.22i'", 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "%%0.22i='%0.22i'", 0);
-	// total_chars_ftp = ft_dprintf(fd, "%%i='%i'\n", 0);
-	// assert(total_chars_p == total_chars_ftp);
-	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -182,11 +177,10 @@ int				test_i5(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-d='%-d'\n", 0);
+	total_chars_p = dprintf(fd, "%%-d='%-d', %%-i='%-i'\n", 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-d='%-d'\n", 0);
+	total_chars_ftp = ft_dprintf(fd, "%%-d='%-d', %%-i='%-i'\n", 0, 0);
 	// assert(total_chars_p == total_chars_ftp);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -197,14 +191,14 @@ int				test_i5(void)
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 71 (test_i5)	-> SUCCESS!\n"ANSI_COLOR_RESET);
+		printf(ANSI_COLOR_GREEN"Test 71 (test_i5) ZERO_ARG -> SUCCESS!\n"ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (0);
 	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 71 (test_i5)	-> FAIL!\n"ANSI_COLOR_RESET);
+		printf(ANSI_COLOR_RED"Test 71 (test_i5)	ZERO_ARG -> FAIL!\n"ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (-1);
@@ -294,9 +288,9 @@ int				test_i8(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "this %% i='% i' number'\n", 0);
+	total_chars_p = dprintf(fd, "this %% i='% i' number, %% 3i='% 3i', %% .3i='% .3i'\n", 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "this %% i='% i' number'\n", 0);
+	total_chars_ftp = ft_dprintf(fd, "this %% i='% i' number, %% 3i='% 3i', %% .3i='% .3i'\n", 0, 0, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -332,10 +326,10 @@ int				test_i9(void)
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_p = dprintf(fd, "%%-5.0i='%-5.0i', %% .3i='% .3i', \
-	%% -8.5i='% -8.5i', %% +8.5d='% +8.5d'\n", 0, 0, 0, 0);
+	%% -8.5i='% -8.5i', %%+8.5d='%+8.5d'\n", 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_ftp = ft_dprintf(fd, "%%-5.0i='%-5.0i', %% .3i='% .3i', \
-	%% -8.5i='% -8.5i', %% +8.5d='% +8.5d'\n", 0, 0, 0, 0);
+	%% -8.5i='% -8.5i', %%+8.5d='%+8.5d'\n", 0, 0, 0, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -345,7 +339,7 @@ int				test_i9(void)
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 108 (test_i9)	-> SUCCESS!\n"\
+		printf(ANSI_COLOR_GREEN"Test 108 (test_i9) ZERO_ARG -> SUCCESS!\n"\
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
@@ -353,7 +347,7 @@ int				test_i9(void)
 	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 108 (test_i9)	-> FAIL!\n"\
+		printf(ANSI_COLOR_RED"Test 108 (test_i9) ZERO_ARG -> FAIL!\n"\
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);

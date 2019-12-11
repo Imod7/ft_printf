@@ -23,25 +23,30 @@ int				test_octal1(void)
 
 	num = 74;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 17 (octal1) : %%6o='%6o', %%6o='%6lo', %%+-05o='%-05o'\n", num, 4294967296, 2500);
+	total_chars_p = dprintf(fd, "Test 17 (octal1) : %%6o='%6o', %%6o='%6lo'\n", num, 4294967296);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 17 (octal1) : %%6o='%6o', %%6o='%6lo', %%+-05o='%-05o'\n", num, 4294967296, 2500);
-	// assert(total_chars_p == total_chars_ftp);
-	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
-
+	total_chars_ftp = ft_dprintf(fd, "Test 17 (octal1) : %%6o='%6o', %%6o='%6lo'\n", num, 4294967296);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);
-	// assert(strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0);
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
-		printf(ANSI_COLOR_GREEN"Test 17 (octal1)	-> SUCCESS!\n");
+	{
+		printf(ANSI_COLOR_GREEN"Test 17 (octal1)	-> SUCCESS!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
 	else
-		printf(ANSI_COLOR_RED"Test 17 (octal1)		-> FAIL!\n");
+	{
+		printf(ANSI_COLOR_RED"Test 17 (octal1)		-> FAIL!\n"ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
 }
 
 int				test_octal2(void)
@@ -99,9 +104,9 @@ int				test_octal3(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 19 (octal3) : %% 7o='% 7o', %%#6o='%#6o', %%-#6o='%-#6o'\n", 120, 2500, 2500);
+	total_chars_p = dprintf(fd, "%%7o='%7o', %%#6o='%#6o', %%#6.3o='%#6.3o', %%-#6o='%-#6o', %%-#6.1o='%-#6.1o', %%7.9o='%7.9o'\n", 120, 2500, 2500, 289, 59874, 4711);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 19 (octal3) : %% 7o='% 7o', %%#6o='%#6o', %%-#6o='%-#6o'\n", 120, 2500, 2500);
+	total_chars_ftp = ft_dprintf(fd, "%%7o='%7o', %%#6o='%#6o', %%#6.3o='%#6.3o', %%-#6o='%-#6o', %%-#6.1o='%-#6.1o', %%7.9o='%7.9o'\n", 120, 2500, 2500, 289, 59874, 4711);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
@@ -188,13 +193,12 @@ int				test_octal5(void)
 
 	num = 74;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 53 (octal5 with ZEROS) : %%.o='%.o', %%.0o='%.0o', %%.0d='%.0d', %%.0x='%.0x', %%.0u='%.0u', %%.0X='%.0X', %%.0i='%.0i'\n", 0, 0, 0, 0, 0, 0, 0);
+	total_chars_p = dprintf(fd, "%%.o='%.o', %%.0o='%.0o', %%.0d='%.0d', %%.0x='%.0x', %%.0u='%.0u', %%u='%u', %%.0X='%.0X', %%X='%X', %%.0i='%.0i'\n", 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 53 (octal5 with ZEROS) : %%.o='%.o', %%.0o='%.0o', %%.0d='%.0d', %%.0x='%.0x', %%.0u='%.0u', %%.0X='%.0X', %%.0i='%.0i'\n", 0, 0, 0, 0, 0, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%.o='%.o', %%.0o='%.0o', %%.0d='%.0d', %%.0x='%.0x', %%.0u='%.0u', %%u='%u', %%.0X='%.0X', %%X='%X', %%.0i='%.0i'\n", 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	// assert(total_chars_p == total_chars_ftp);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -207,14 +211,14 @@ int				test_octal5(void)
 	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
 	(total_chars_p == total_chars_ftp))
 	{
-		printf(ANSI_COLOR_GREEN"Test 53 (octal5)	-> SUCCESS!\n"ANSI_COLOR_RESET);
+		printf(ANSI_COLOR_GREEN"Test 53 (octal5) ZERO_ARG -> SUCCESS!\n"ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (0);
 	}
 	else
 	{
-		printf(ANSI_COLOR_RED"Test 53 (octal5)	-> FAIL!\n"ANSI_COLOR_RESET);
+		printf(ANSI_COLOR_RED"Test 53 (octal5) ZERO_ARG	-> FAIL!\n"ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
 		return (-1);
@@ -239,7 +243,6 @@ int				test_octal6(void)
 	total_chars_ftp = ft_dprintf(fd, "%%5.o='%5.o', %%5.0o='%5.0o', \
 	%%#.o='%#.o', %%#.0o='%#.0o', %%#.0x='%#.0x', %%o='%o'\n", \
 	0, 0, 0, 0, 0, 0);
-
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -274,11 +277,13 @@ int				test_octal7(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-5.10o='%-5.10o', %%#.o='%#.o'\n", 2500, 0);
+	total_chars_p = dprintf(fd, "%%-5.10o='%-5.10o', %%-15.10o='%-15.10o',\
+	%%-2.10o='%-2.10o', %%#.o='%#.o'\n", 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-5.10o='%-5.10o', %%#.o='%#.o'\n", 2500, 0);
-	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
-	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	total_chars_ftp = ft_dprintf(fd, "%%-5.10o='%-5.10o', %%-15.10o='%-15.10o',\
+	%%-2.10o='%-2.10o', %%#.o='%#.o'\n", 0, 0, 0, 0);
+	printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -389,9 +394,9 @@ int				test_octal10(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%#*.*o='%#*.*o'\n", 40, 20, 142424242);
+	total_chars_p = dprintf(fd, "%%#*.*o (min=40, prec=20)='%#*.*o'\n", 40, 20, 142424242);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%#*.*o='%#*.*o'\n", 40, 20, 142424242);
+	total_chars_ftp = ft_dprintf(fd, "%%#*.*o (min=40, prec=20)='%#*.*o'\n", 40, 20, 142424242);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	close(fd);
@@ -506,9 +511,11 @@ int				test_octal13(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-#*.*o='%-#*.*o'\n", 5, 0, 0);
+	total_chars_p = dprintf(fd, "%%-#*.*o (min=5, prec=2)='%-#*.*o', \
+	%%#*.*o (min=5, prec=0)='%-#*.*o'\n", 5, 2, 0, 5, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-#*.*o='%-#*.*o'\n", 5, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%-#*.*o (min=5, prec=2)='%-#*.*o', \
+	%%#*.*o (min=5, prec=0)='%-#*.*o'\n", 5, 2, 0, 5, 0, 0);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_dprintf);
@@ -543,9 +550,9 @@ int				test_octal14(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-#*.*o='%-#*.*o'\n", 0, 5, 0);
+	total_chars_p = dprintf(fd, "%%-#*.*o (min=0, prec=5) ='%-#*.*o'\n", 0, 5, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-#*.*o='%-#*.*o'\n", 0, 5, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%-#*.*o (min=0, prec=5) ='%-#*.*o'\n", 0, 5, 0);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	close(fd);
@@ -619,9 +626,9 @@ int				test_octal16(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%#.o %%#.o='%#.o %#.o'\n", 0, 0);
+	total_chars_p = dprintf(fd, "%%#.0o='%#.0o', %%#2.3o='%#2.3o', %%#.o='%#.o', %%#5.2o='%#5.2o'\n", 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%#.o %%#.o='%#.o %#.o'\n", 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%#.0o='%#.0o', %%#2.3o='%#2.3o', %%#.o='%#.o', %%#5.2o='%#5.2o'\n", 0, 0, 0, 0);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	close(fd);
@@ -658,9 +665,9 @@ int				test_octal17(void)
 	int			fd;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%8.5o='%8.5o', %%3o='%3o', %%-3o='%-3o' %%0-8.5o='%0-8.5o'\n", 0, 0, 0, 0);
+	total_chars_p = dprintf(fd, "%%8.5o='%8.5o', %%3o='%3o', %%-3o='%-3o' %%-8.5o='%-8.5o' %%8.5o='%8.5o' %%-.0o='%-.0o'\n", 0, 0, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%8.5o='%8.5o', %%3o='%3o', %%-3o='%-3o' %%0-8.5o='%0-8.5o'\n", 0, 0, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "%%8.5o='%8.5o', %%3o='%3o', %%-3o='%-3o' %%-8.5o='%-8.5o' %%8.5o='%8.5o' %%-.0o='%-.0o'\n", 0, 0, 0, 0, 0, 0);
 	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
 	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
 	close(fd);
@@ -720,6 +727,45 @@ int				test_octal18(void)
 	else
 	{
 		printf(ANSI_COLOR_RED"Test 131 (octal18)	ZERO_ARG -> FAIL!\n"
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (-1);
+	}
+}
+
+int				test_octal19(void)
+{
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
+	int			total_chars_p;
+	int			total_chars_ftp;
+	int			fd;
+
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_p = dprintf(fd, "%%-5.10o='%-5.10o', %%-15.10o='%-15.10o', %%-1.1o='%-1.1o', %%-2.0o='%-2.0o', %%-4.0o='%-4.0o', %%-3.5o='%-3.5o'\n", 2500, 2500, 2500, 2500, 2500, 2500);
+	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd, "%%-5.10o='%-5.10o', %%-15.10o='%-15.10o', %%-1.1o='%-1.1o', %%-2.0o='%-2.0o', %%-4.0o='%-4.0o', %%-3.5o='%-3.5o'\n", 2500, 2500, 2500, 2500, 2500, 2500);
+	// printf(ANSI_COLOR_CYAN"total_chars_p   = %d \n", total_chars_p);
+	// printf(ANSI_COLOR_YELLOW"total_chars_ftp = %d \n", total_chars_ftp);
+	close(fd);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	close(fd);
+	fd = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_ft_dprintf);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0) && \
+	(total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 166 (octal19)  -> SUCCESS!\n"
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
+	else
+	{
+		printf(ANSI_COLOR_RED"Test 166 (octal19)	 -> FAIL!\n"
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);

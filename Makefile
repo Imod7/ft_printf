@@ -29,6 +29,7 @@ SRC =	\
 		ft_print_unsigned.c \
 		ft_print_float.c \
 		ft_print_alpha_other.c \
+		ft_print_memory.c \
 		ft_print_number.c \
 		ft_print_format.c \
 		ft_print_binary.c \

@@ -57,13 +57,16 @@ void		fill_product(short *product, char *str)
 		str++;
 		index++;
 	}
+	product[index] = '\0';
 }
 
-int			check_inf_nan(t_float *tfloat, t_print *t_prnt, short *product)
+int			check_inf_nan(t_float *tfloat, t_format *t_flags, t_print *t_prnt, \
+							short *product)
 {
 	if ((check_exp_allones(tfloat) == 0) && (check_mant_allzeros(tfloat) == 0))
 	{
 		t_prnt->diff = -1;
+		t_flags->flags |= FLAG_INF_NAN;
 		if ((tfloat->exponent[4] >> 15) & 1)
 		{
 			fill_product(product, "-inf");
@@ -79,6 +82,8 @@ int			check_inf_nan(t_float *tfloat, t_print *t_prnt, short *product)
 	(check_mant_allzeros(tfloat) != 0))
 	{
 		t_prnt->diff = -1;
+		t_flags->flags &= ~FLAG_PLUS;
+		t_flags->flags |= FLAG_INF_NAN;
 		fill_product(product, "nan");
 		return (2);
 	}

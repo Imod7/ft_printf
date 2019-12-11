@@ -44,26 +44,67 @@ void		dec_part_rounding(short *pr, int prec_index)
 {
 	int		current_digit;
 	int		carry;
+	int		len_intpart;
+	// int		len;
+	int		i;
 
 	carry = 0;
+	i = 1;
 	current_digit = (pr[FLOAT_MIDDLE + prec_index] - '0') + 1;
+	len_intpart = length_product_intpart(pr);
+	// len = len_intpart;
+	printf("integer part length = %d\n", len_intpart);
 	while ((current_digit % 10 == 0) && (prec_index > 0))
 	{
+		printf(ANSI_COLOR_YELLOW">>> WHILE DEC PART current = %d carry = %d, precision = %d, float = '%c' '%c' '%c' '%c' '%c' '%c'\n", current_digit, carry, prec_index, pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2], pr[FLOAT_MIDDLE + 3]);
 		pr[FLOAT_MIDDLE + prec_index] = (current_digit % 10) + '0';
 		carry = current_digit / 10;
 		prec_index--;
 		current_digit = (pr[FLOAT_MIDDLE + prec_index] - '0') + 1;
 	}
+	printf(ANSI_COLOR_YELLOW">>> OUT of WHILE DEC PART carry = %d, float = '%c' '%c' '%c' '%c' '%c'\n", carry, pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2]);
 	if ((carry != 0) && (prec_index == 0))
 	{
-		current_digit = (pr[(FLOAT_MIDDLE - 1) + prec_index] - '0') + 1;
-		pr[(FLOAT_MIDDLE - 1) + prec_index] = (current_digit % 10) + '0';
+		current_digit = (pr[FLOAT_MIDDLE - i] - '0') + 1;
+		printf(ANSI_COLOR_YELLOW">>> carry = %d, current_digit = %d, INT PART float = '%c' '%c' '%c' '%c' '%c'\n", carry, current_digit, pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2]);
+		while ((current_digit % 10 == 0) && ((len_intpart - i) >= 0))
+		{
+			pr[FLOAT_MIDDLE - i] = (current_digit % 10) + '0';
+			carry = current_digit / 10;
+			printf(ANSI_COLOR_YELLOW">>> WHILE INT PART carry = %d, current_digit = %d, float = '%c' '%c' '%c' '%c' '%c'\n", carry, current_digit, pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2]);
+			i += 1;
+			current_digit = (pr[FLOAT_MIDDLE - i] - '0') + 1;
+			// len_intpart--;
+		}
+		printf(ANSI_COLOR_YELLOW">>> 3rd IF carry = %d, i =%d float = '%c' '%c' '%c' '%c' '%c'\n", carry, i, pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2]);
+		if (carry != 0)
+		{
+			printf(ANSI_COLOR_YELLOW">>> ELSE pr = %c , current_digit = %d carry = %d float = '%c' '%c' '%c' '%c' '%c'\n", pr[FLOAT_MIDDLE - i], current_digit, carry, pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2]);
+			if (i > len_intpart)
+				pr[FLOAT_MIDDLE - i] = '1';
+			else if (i <= len_intpart)
+			{
+				current_digit = (pr[FLOAT_MIDDLE - i] - '0') + 1;
+				printf(ANSI_COLOR_YELLOW">>> ELSE pr = %c , current_digit = %d carry = %d float = '%c' '%c' '%c' '%c' '%c'\n", pr[FLOAT_MIDDLE - i], current_digit, carry, pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2]);
+				pr[FLOAT_MIDDLE - i] = current_digit + '0';
+			}
+			// current_digit = 1;
+		}
 	}
+	// if ((carry != 0) && (prec_index == 0))
+	// {
+	// 	current_digit = (pr[(FLOAT_MIDDLE - 1) + prec_index] - '0') + 1;
+	// 	printf(ANSI_COLOR_YELLOW">>> IF carry = %d, current_digit= %d float = '%c' '%c' '%c' '%c' '%c'\n", carry, current_digit, pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2]);
+	// 	pr[(FLOAT_MIDDLE - 1) + prec_index] = (current_digit % 10) + '0';
+	// 	printf(ANSI_COLOR_YELLOW">>> IF pr[FLOAT - 1] = %d float = '%c' '%c' '%c' '%c' '%c'\n", pr[(FLOAT_MIDDLE - 1) + prec_index], pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2]);
+	// }
 	else
 	{
+		printf(ANSI_COLOR_YELLOW">>> ELSE carry = %d float = '%c' '%c' '%c' '%c' '%c'\n", carry, pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2]);
 		pr[FLOAT_MIDDLE + prec_index] = (current_digit % 10) + '0';
 		current_digit = (pr[FLOAT_MIDDLE + prec_index] - '0') + 1;
 	}
+	printf(ANSI_COLOR_YELLOW">>>float = '%c' '%c' '%c' '%c' '%c'\n", pr[FLOAT_MIDDLE - 2], pr[FLOAT_MIDDLE - 1], pr[FLOAT_MIDDLE], pr[FLOAT_MIDDLE + 1], pr[FLOAT_MIDDLE + 2]);
 }
 
 void		equal_five(short *pr, int prec_index)

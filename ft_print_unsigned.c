@@ -30,6 +30,35 @@ unsigned long long		check_pointer(va_list arg, t_format *t_flags)
 	return (argum);
 }
 
+void					hexoctal_checkflags(unsigned long long argum, \
+											t_format *t_flags, t_print *t_prnt,\
+											int len)
+{
+	if ((t_flags->flags & FLAG_MINUS) > 0)
+	{
+		t_flags->flags &= ~FLAG_ZERO;
+		unsigned_hashtag(argum, t_flags, t_prnt, len);
+		unsigned_minus(argum, t_flags, t_prnt, len);
+	}
+	else if ((t_flags->flags & FLAG_ZERO) ||
+	(t_flags->precision > t_flags->minfw))
+	{
+		unsigned_hashtag(argum, t_flags, t_prnt, len);
+		print_inverse(t_flags, t_prnt, len);
+		print_number(argum, t_flags, t_prnt, len);
+	}
+	else if (!(t_flags->flags & (FLAG_MINUS & FLAG_ZERO)))
+	// else if (((t_flags->flags & FLAG_MINUS) == 0) && \
+	// ((t_flags->flags & FLAG_ZERO) == 0))
+	{
+		// printf(ANSI_COLOR_MAGENTA"\nhexoctal_checkflags NO ZER NO MINUS\n");
+		print_order(t_flags, t_prnt, len);
+		unsigned_hashtag(argum, t_flags, t_prnt, len);
+		print_number(argum, t_flags, t_prnt, len);
+	}
+	// printf("hexoctal_checkflags pad = %d\n"ANSI_COLOR_RESET, t_prnt->pad_len);
+}
+
 void					print_hexoctal(va_list arg, t_format *t_flags, \
 										t_print *t_prnt)
 {
@@ -44,29 +73,33 @@ void					print_hexoctal(va_list arg, t_format *t_flags, \
 	check_plusflag(t_flags);
 	t_flags->flags &= ~FLAG_PLUS;
 	t_flags->flags &= ~FLAG_SPACE;
-	if ((t_flags->flags & FLAG_MINUS) > 0)
+	hexoctal_checkflags(argum, t_flags, t_prnt, len);
+}
+
+void					unsigned_checkflags(unsigned long long arg, \
+											t_format *t_flags, \
+											t_print *t_prnt, int len)
+{
+	if (((t_flags->flags & FLAG_MINUS) > 0) && \
+	(t_flags->minfw > t_flags->precision))
 	{
 		t_flags->flags &= ~FLAG_ZERO;
-		unsigned_hashtag(argum, t_flags, t_prnt, len);
-		unsigned_minus(argum, t_flags, t_prnt, len);
-	}
-	else if ((t_flags->flags & FLAG_ZERO) ||
-	(t_flags->precision > t_flags->minfw))
-	{
-		unsigned_hashtag(argum, t_flags, t_prnt, len);
+		print_number(arg, t_flags, t_prnt, len);
 		print_inverse(t_flags, t_prnt, len);
-		print_number(argum, t_flags, t_prnt, len);
 	}
-	else if (((t_flags->flags & FLAG_MINUS) == 0) && \
-	((t_flags->flags & FLAG_ZERO) == 0))
+	else
 	{
-		print_order(t_flags, t_prnt, len);
-		unsigned_hashtag(argum, t_flags, t_prnt, len);
-		print_number(argum, t_flags, t_prnt, len);
+		if (t_flags->flags & (FLAG_PRECIS | FLAG_ZERO))
+		// if (((t_flags->flags & FLAG_ZERO) > 0) || \
+		// ((t_flags->flags & FLAG_PRECIS) > 0))
+			print_inverse(t_flags, t_prnt, len);
+		else
+			print_order(t_flags, t_prnt, len);
+		print_number(arg, t_flags, t_prnt, len);
 	}
 }
 
-void					print_int_un(va_list argp, t_format *t_flags, \
+void					print_int_unsigned(va_list argp, t_format *t_flags, \
 									t_print *t_prnt)
 {
 	unsigned long long	arg;
@@ -82,22 +115,7 @@ void					print_int_un(va_list argp, t_format *t_flags, \
 	check_plusflag(t_flags);
 	if (arg == 0)
 		check_arg_zero(t_flags, &len, t_prnt);
-	if (((t_flags->flags & FLAG_MINUS) > 0) && \
-	(t_flags->minfw > t_flags->precision))
-	{
-		t_flags->flags &= ~FLAG_ZERO;
-		print_number(arg, t_flags, t_prnt, len);
-		print_inverse(t_flags, t_prnt, len);
-	}
-	else
-	{
-		if (((t_flags->flags & FLAG_ZERO) > 0) || \
-		((t_flags->flags & FLAG_PRECIS) > 0))
-			print_inverse(t_flags, t_prnt, len);
-		else
-			print_order(t_flags, t_prnt, len);
-		print_number(arg, t_flags, t_prnt, len);
-	}
+	unsigned_checkflags(arg, t_flags, t_prnt, len);
 	if (t_flags->argtype == 'B')
 		binary_number_unsigned_int(arg, t_prnt);
 }

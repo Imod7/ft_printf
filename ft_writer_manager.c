@@ -77,7 +77,6 @@ void				writer_snprintf(const void *str, int len, t_print *t_prnt)
 
 	un_str = (unsigned char *)str;
 	i = 0;
-	// printf(ANSI_COLOR_CYAN"\nWRITER CALL un_str = %c, total_chars_printed = %d, print_end= %d\n"ANSI_COLOR_RESET, *un_str, t_prnt->total_chars_printed, t_prnt->print_end);
 	if (t_prnt->writer_index < t_prnt->snprintf_size - 1)
 	{
 		while (i < len)
@@ -88,19 +87,13 @@ void				writer_snprintf(const void *str, int len, t_print *t_prnt)
 			i++;
 		}
 		t_prnt->total_chars_printed += len;
-		// printf(ANSI_COLOR_BLUE"WRITING un_str = %c, total_chars_printed = %d\n"ANSI_COLOR_RESET, *un_str, t_prnt->total_chars_printed);
 	}
 	else
-	//if ((t_prnt->writer_index == t_prnt->snprintf_size - 1) && (t_prnt->print_end != 1))
-	{
 		t_prnt->total_chars_printed++;
-		// printf(ANSI_COLOR_MAGENTA"INCREMENTING un_str = %c, total_chars_printed = %d\n"ANSI_COLOR_RESET, *un_str, t_prnt->total_chars_printed);
-	}
-	if (t_prnt->print_end == 1) 
+	if (t_prnt->print_end == 1)
 	{
 		if (t_prnt->snprintf_size != 0)
 			t_prnt->sprintf_str[t_prnt->writer_index] = 0;
 		t_prnt->total_chars_printed--;
-		// printf(ANSI_COLOR_RED"ENDING CHAR un_str = '%c', total_chars_printed = %d, print_end= %d, t_prnt->writer_index = %d\n"ANSI_COLOR_RESET, *un_str, t_prnt->total_chars_printed, t_prnt->print_end, t_prnt->writer_index);
 	}
 }
