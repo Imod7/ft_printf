@@ -97,6 +97,8 @@ void		print_other(char arg, t_format *t_flags, t_print *t_prnt)
 
 	len = 1;
 	t_flags->flags &= ~FLAG_SPACE;
+	t_flags->flags &= ~FLAG_PLUS;
+	t_flags->precision = 0;
 	if ((t_flags->flags & FLAG_MINUS) > 0)
 	{
 		t_prnt->writer(&arg, 1, t_prnt);

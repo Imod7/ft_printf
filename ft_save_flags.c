@@ -60,6 +60,7 @@ void				minfw_precision_flags(t_format *t_flags, const char **str)
 	}
 	else if (**str == '.')
 	{
+		// printf("\nSAVED THE PRECISION FLAG \n");
 		t_flags->flags |= FLAG_PRECIS;
 		(*str)++;
 		if ((ft_isdigit(**str) == 1) && \
@@ -91,7 +92,10 @@ void				save_flags(t_format *t_flags, const char **str)
 		else if (**str == '0')
 			t_flags->flags |= FLAG_ZERO;
 		else if (**str == '#')
+		{
 			t_flags->flags |= FLAG_HT;
+			// printf("\nSAVED THE HASHTAG \n");
+		}
 		else if (((ft_isdigit(**str) == 1) &&
 		(t_flags->minfw == 0)) || (**str == '.'))
 			minfw_precision_flags(t_flags, str);

@@ -25,19 +25,23 @@ void	check_plusflag(t_format *t_flags)
 
 void	print_order(t_format *t_flags, t_print *t_prnt, int len)
 {
-	// printf(ANSI_COLOR_YELLOW"type = %d flags = %d min = %d prec = %d", t_flags->argtype, t_flags->flags, t_flags->minfw, t_flags->precision);
+	// printf(ANSI_COLOR_YELLOW"--print_order--type = %d flags = %d min = %d prec = %d", t_flags->argtype, t_flags->flags, t_flags->minfw, t_flags->precision);
 	if ((t_flags->argtype == 'o') &&
 	(t_flags->flags & FLAG_HT) &&
-	// (t_flags->minfw >= t_flags->precision) &&
 	(t_flags->precision < len))
 	{
-		t_flags->special_chars_printed++;
-		// printf(ANSI_COLOR_YELLOW"Increased the special chars by one");
+		if (t_flags->flags & FLAG_ARG_ZERO)
+			t_flags->special_chars_printed = 0;
+		else
+			t_flags->special_chars_printed += 1;
+		
+		// printf(ANSI_COLOR_YELLOW"Changing special chars %d\n", t_flags->special_chars_printed);
 	}
 	if (((t_flags->argtype == 'x') ||
 	(t_flags->argtype == 'X')) &&
 	(t_flags->flags & FLAG_HT) &&
-	(t_flags->minfw > t_flags->precision))
+	(t_flags->minfw > t_flags->precision) && \
+	(!(t_flags->flags & FLAG_ARG_ZERO)))
 		t_flags->special_chars_printed += 2;
 	print_padding(t_flags, t_prnt, len);
 	print_sign(t_flags, t_prnt);
@@ -86,5 +90,8 @@ void	minfw_vs_precision(t_format *t_flags, t_print *t_prnt, int len)
 		t_prnt->pad_len = diff;
 	if (((t_flags->flags & FLAG_PRECIS) > 0) && (t_flags->precision >= 0) &&
 	((t_flags->argtype != 's') || (t_flags->argtype != 'c')))
+	{
 		t_flags->flags &= ~FLAG_ZERO;
+		// printf("REMOVING FLAG ZERO");
+	}
 }

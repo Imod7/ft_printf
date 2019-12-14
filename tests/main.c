@@ -18,7 +18,7 @@ int				main(int argc, char **argv)
 	int			i;
 	int			test_result;
 	int			test_passed;
-	test_func	*test_array[168];
+	test_func	*test_array[171];
 
 	test_array[0] = test_int1;
 	test_array[1] = test_int2;
@@ -188,6 +188,9 @@ int				main(int argc, char **argv)
 	test_array[165] = test_octal19;
 	test_array[166] = test_pointer5;
 	test_array[167] = test_pointer6;
+	test_array[168] = test_binary4;
+	test_array[169] = test_zeroarg12;
+	test_array[170] = test_zeroarg13;
 	i = 1;
 	test_passed = 0;
 	// test_array[117]();
@@ -273,7 +276,7 @@ int				main(int argc, char **argv)
 		{
 			int ids_array[] = {8, 20, 33, 52, 53, 54, 55, 70, 71, 85, 86, 87, 88, 89, \
 			90, 91, 106, 107, 109, 110, 112, 122, 123, 124, 134, 148, 149, 150, 151, 152, 153, 154,\
-			159, 163, 166, 167};
+			159, 163, 164, 166, 167, 169};
 			i = 0;
 			while (i < (int)(sizeof(ids_array) / sizeof(ids_array[0])))
 			{

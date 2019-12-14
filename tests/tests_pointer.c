@@ -66,9 +66,9 @@ int				test_pointer2(void)
 	num = 9223372036854775807;
 	ptr = &num;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-*p='%-*p', %%*p='%*p'\n", 29, ptr, 16, ptr);
+	total_chars_p = dprintf(fd, "%%-*p='%-*p', %%*p='%*p', %%2.9p='%2.9p'\n", 29, ptr, 16, ptr, 1234);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-*p='%-*p', %%*p='%*p'\n", 29, ptr, 16, ptr);
+	total_chars_ftp = ft_dprintf(fd, "%%-*p='%-*p', %%*p='%*p', %%2.9p='%2.9p'\n", 29, ptr, 16, ptr, 1234);
 	// assert(total_chars_p == total_chars_ftp);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -177,6 +177,7 @@ int				test_pointer5(void)
 	char		*returned_line_ft_dprintf;
 	int			fd;
 
+	close(fd);
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_p = dprintf(fd, "%%1p='%1p', %%.1p='%.1p', %%5p='%5p', %%5.3p='%5.3p', %%2.5p='%2.5p', %%-1.p='%-1.p'\n", 0, 0, 0, 0, 0, 0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);

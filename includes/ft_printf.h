@@ -37,13 +37,15 @@
 # define FLAG_SPACE 		(1 << 2)
 # define FLAG_ZERO 			(1 << 3)
 # define FLAG_HT 			(1 << 4)
-# define FLAG_APOSTR 		(1 << 5)
+# define FLAG_PADLEN_SET 	(1 << 5)
 # define FLAG_PRECIS 		(1 << 6)
 # define FLAG_ASTER_MINFW 	(1 << 7)
 # define FLAG_NEGAT 		(1 << 8)
 # define FLAG_ASTER_PREC 	(1 << 9)
 # define FLAG_INF_NAN 		(1 << 10)
 # define FLAG_ARG_ZERO 		(1 << 11)
+
+# define NOFLAGS_MASK		(001011011111)
 
 typedef enum	e_modifier
 {
@@ -175,7 +177,7 @@ void			print_number(unsigned long long arg, t_format *t_flags,
 void			print_number_int(long long arg, t_format *t_flags,
 								t_print *t_prnt, int len);
 void			minfw_vs_precision(t_format *t_flags, t_print *t_prnt, int len);
-void			length_precision_diff_zeros(t_format *tflags, t_print *t_pr,
+void			print_padding_with_zeros(t_format *tflags, t_print *t_pr,
 											int len);
 void			length_precision_diff(t_format *t_flags, t_print *t_prnt, \
 									int len);

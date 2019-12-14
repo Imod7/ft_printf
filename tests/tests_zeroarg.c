@@ -346,9 +346,9 @@ int				test_zeroarg11(void)
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
 	// total_chars_p = dprintf(fd, "%%#.o='%#.o', %%#5.3o='%#5.3o', %%5.3o='%5.3o', %%#5.3d='%#5.3d',\n", 0, 0, 0, 0);
-	total_chars_p = dprintf(fd, "%%5.3o='%5.3o', %%2.5o='%2.5o', %%11p='%11p'\n", 0, 0, 0, 0);
+	total_chars_p = dprintf(fd, "%%5.3o='%5.3o', %%2.5o='%2.5o', %%11p='%11p', %%+7i='%+7i', %% 8.5i='% 8.5i', %% -3i='% -3i', %% -3d='% -3d'\n", 0, 0, 0, 0, 0, 0, 0);
 	fd1 = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd1, "%%5.3o='%5.3o', %%2.5o='%2.5o', %%11p='%11p'\n", 0, 0, 0, 0);
+	total_chars_ftp = ft_dprintf(fd1, "%%5.3o='%5.3o', %%2.5o='%2.5o', %%11p='%11p', %%+7i='%+7i', %% 8.5i='% 8.5i', %% -3i='% -3i', %% -3d='% -3d'\n", 0, 0, 0, 0, 0, 0, 0);
 	close(fd);
 	close(fd1);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -369,6 +369,94 @@ int				test_zeroarg11(void)
 	else
 	{ 
 		printf(ANSI_COLOR_RED"Test 165 (test_zeroarg11) 	-> FAIL!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		printf(ANSI_COLOR_CYAN"printf return total chars     = %d \n"ANSI_COLOR_RESET, total_chars_p);
+		printf(ANSI_COLOR_YELLOW"ft_printf return total chars  = %d \n"ANSI_COLOR_RESET, total_chars_ftp);
+		return (-1);
+	}
+}
+
+int				test_zeroarg12(void)
+{
+	int			total_chars_p;
+	int			total_chars_ftp;
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
+	int			fd;
+	int			fd1;
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	// total_chars_p = dprintf(fd, "%%#.o='%#.o', %%#5.3o='%#5.3o', %%5.3o='%5.3o', %%#5.3d='%#5.3d',\n", 0, 0, 0, 0);
+	total_chars_p = dprintf(fd, "%%+-8.5i='%+-8.5i', %% +-8.5i='% +-8.5i', %%+-8.5d='%+-8.5d', %% +-8.5d='% +-8.5d', %%3x='%3x', %%#3x='%#3x'\n", 0, 0, 0, 0, 0, 0);
+	fd1 = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd1, "%%+-8.5i='%+-8.5i', %% +-8.5i='% +-8.5i', %%+-8.5d='%+-8.5d', %% +-8.5d='% +-8.5d', %%3x='%3x', %%#3x='%#3x'\n", 0, 0, 0, 0, 0, 0);
+	close(fd);
+	close(fd1);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	fd1 = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd1, &returned_line_ft_dprintf);
+	close(fd);
+	close(fd1);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
+	&& (total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 170 (test_zeroarg12) 	-> SUCCESS!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
+	else
+	{ 
+		printf(ANSI_COLOR_RED"Test 170 (test_zeroarg12) 	-> FAIL!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		printf(ANSI_COLOR_CYAN"printf return total chars     = %d \n"ANSI_COLOR_RESET, total_chars_p);
+		printf(ANSI_COLOR_YELLOW"ft_printf return total chars  = %d \n"ANSI_COLOR_RESET, total_chars_ftp);
+		return (-1);
+	}
+}
+
+int				test_zeroarg13(void)
+{
+	int			total_chars_p;
+	int			total_chars_ftp;
+	char		*returned_line_dprintf;
+	char		*returned_line_ft_dprintf;
+	int			fd;
+	int			fd1;
+
+	close(fd);
+	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
+	// total_chars_p = dprintf(fd, "%%#.o='%#.o', %%#5.3o='%#5.3o', %%5.3o='%5.3o', %%#5.3d='%#5.3d',\n", 0, 0, 0, 0);
+	total_chars_p = dprintf(fd, "%%#-3x='%#-3x', %%3X='%3X', %%#3X='%#3X', %%#3o='%#3o', %%-5.0o='%-5.0o', %%-5.o='%-5.o'\n", 0, 0, 0, 0, 0, 0);
+	fd1 = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
+	total_chars_ftp = ft_dprintf(fd1, "%%#-3x='%#-3x', %%3X='%3X', %%#3X='%#3X', %%#3o='%#3o', %%-5.0o='%-5.0o', %%-5.o='%-5.o'\n", 0, 0, 0, 0, 0, 0);
+	close(fd);
+	close(fd1);
+	fd = open("result_dprintf.txt", O_RDONLY);
+	get_next_line(fd, &returned_line_dprintf);
+	fd1 = open("result_ftdprintf.txt", O_RDONLY);
+	get_next_line(fd1, &returned_line_ft_dprintf);
+	close(fd);
+	close(fd1);
+	if ((strcmp(returned_line_dprintf, returned_line_ft_dprintf) == 0)
+	&& (total_chars_p == total_chars_ftp))
+	{
+		printf(ANSI_COLOR_GREEN"Test 171 (test_zeroarg13) 	-> SUCCESS!\n"\
+		ANSI_COLOR_RESET);
+		printf("printf    : [%s]\n", returned_line_dprintf);
+		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);
+		return (0);
+	}
+	else
+	{ 
+		printf(ANSI_COLOR_RED"Test 171 (test_zeroarg13) 	-> FAIL!\n"\
 		ANSI_COLOR_RESET);
 		printf("printf    : [%s]\n", returned_line_dprintf);
 		printf("ft_printf : [%s]\n", returned_line_ft_dprintf);

@@ -83,7 +83,7 @@ void			binary_number_unsigned_int(unsigned long long num, \
 	while (pos >= 0)
 	{
 		bit = num >> pos;
-		if (bit & 1)
+		if (bit & 1UL)
 		{
 			t_prnt->writer("1", 1, t_prnt);
 			start = 1;

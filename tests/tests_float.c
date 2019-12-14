@@ -304,9 +304,9 @@ int			test_float8(void)
 	char	*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "Test 59 : %%.64(0.15)='%.64f'\n", 0.15);
+	total_chars_p = dprintf(fd, "%%.64f (num=0.15) ='%.64f', %%#.f='%#.f'\n", 0.15, (double)0);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test 59 : %%.64(0.15)='%.64f'\n", 0.15);
+	total_chars_ftp = ft_dprintf(fd, "%%.64f (num=0.15) ='%.64f', %%#.f='%#.f'\n", 0.15, (double)0);
 	// assert(total_chars_p == total_chars_ftp);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -493,9 +493,9 @@ int			test_float13(void)
 	char	*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-f='%-f'\n",  -1.0 / 0.0);
+	total_chars_p = dprintf(fd, "%%-f='%-f', %%+020.10f='%+020.10f'\n",  -1.0 / 0.0, (double)((double)10 / 3));
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-f='%-f'\n",  -1.0 / 0.0);
+	total_chars_ftp = ft_dprintf(fd, "%%-f='%-f', %%+020.10f='%+020.10f'\n",  -1.0 / 0.0, (double)((double)10 / 3));
 	// assert(total_chars_p == total_chars_ftp);
 
 	close(fd);
@@ -531,9 +531,9 @@ int			test_float14(void)
 	char	*returned_line_ft_dprintf;
 
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%%-10.10f='%-10.10f'\n",  -1.0 / 0.0);
+	total_chars_p = dprintf(fd, "%%-10.10f='%-10.10f', %%#010.f='%#010.f', %%#010.f='%#010.1f'\n",  -1.0 / 0.0, 1.25, 1.25);
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "%%-10.10f='%-10.10f'\n",  -1.0 / 0.0);
+	total_chars_ftp = ft_dprintf(fd, "%%-10.10f='%-10.10f', %%#010.f='%#010.f', %%#010.f='%#010.1f'\n",  -1.0 / 0.0, 1.25, 1.25);
 	// assert(total_chars_p == total_chars_ftp);
 	close(fd);
 	fd = open("result_dprintf.txt", O_RDONLY);
@@ -1078,8 +1078,8 @@ int			test_float29(void)
 	char	*returned_line_dprintf;
 	char	*returned_line_ft_dprintf;
 
-	close(fd);
-	close(fd1);
+	// close(fd);
+	// close(fd1);
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
 	total_chars_p = dprintf(fd, "%%#04f=[%#04f], %%+.4f=[%+.4f], %%+06f=[%+06f], %%#-5f=[%#-5f]---END\n", (0.0 / 0.0), (0.0 / 0.0), (1.0 / 0.0), (-1.0 / 0.0));
 	fd1 = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);

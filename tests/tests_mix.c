@@ -66,9 +66,9 @@ int				test_mix2(void)
 
 	num = -2147483648;
 	fd = open("result_dprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_p = dprintf(fd, "%-d, x=%f %.4s\n", n2, x, s);
+	total_chars_p = dprintf(fd, "%-d, x=%f %.4s ,printf:---%-4d---% +---12.5%---%%%0004%---%+1%---END\n", n2, x, s, 10000);
 	fd1 = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd1, "%-d, x=%f %.4s\n", n2, x, s);
+	total_chars_ftp = ft_dprintf(fd1, "%-d, x=%f %.4s ,printf:---%-4d---% +---12.5%---%%%0004%---%+1%---END\n", n2, x, s, 10000);
 	close(fd);
 	close(fd1);
 	fd = open("result_dprintf.txt", O_RDONLY);

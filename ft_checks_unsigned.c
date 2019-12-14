@@ -12,6 +12,17 @@
 
 #include "includes/ft_printf.h"
 
+// void		print_unsigned_num(unsigned long long ar, t_format *t_flags,
+// 						t_print *t_prnt, int len)
+// {
+// 	if (t_flags->argtype == 'B')
+// 	{}
+// 		binary_number_unsigned_int(ar, t_prnt);
+// 		print_number(ar, t_flags, t_prnt, len);
+// 	else
+// 		print_number(ar, t_flags, t_prnt, len);
+// }
+
 void		unsigned_minus(unsigned long long ar, t_format *t_flags,
 						t_print *t_prnt, int len)
 {
@@ -20,10 +31,12 @@ void		unsigned_minus(unsigned long long ar, t_format *t_flags,
 	{
 		print_inverse(t_flags, t_prnt, len);
 		print_number(ar, t_flags, t_prnt, len);
+		// print_unsigned_num(ar, t_flags, t_prnt, len);
 	}
 	else
 	{
 		print_number(ar, t_flags, t_prnt, len);
+		// print_unsigned_num(ar, t_flags, t_prnt, len);
 		print_inverse(t_flags, t_prnt, len);
 	}
 }

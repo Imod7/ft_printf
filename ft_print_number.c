@@ -12,12 +12,60 @@
 
 #include "includes/ft_printf.h"
 
+int		check_binary(t_format *t_flags)
+{
+	// printf("check zero flags \n");
+	// if (t_flags->flags & FLAG_ARG_ZERO)
+	// 	printf("FLAG ZERO ARG is ON");
+	if (((t_flags->argtype == 'B') && (t_flags->flags & FLAG_ARG_ZERO)) \
+	|| ((t_flags->argtype == 'b') && (t_flags->flags & FLAG_ARG_ZERO))
+	|| ((t_flags->argtype != 'B') && (t_flags->argtype != 'b')))
+		return (1);
+	else
+		return (0);
+}
+
+void	print_unsigned_num(unsigned long long arg, t_format *t_flags, \
+						t_print *t_prnt)
+{
+	if (t_flags->argtype == 'B')
+	{
+		binary_number_unsigned_int(arg, t_prnt);
+	}
+	else if (t_flags->argtype == 'X')
+		{
+			ft_putnbr_hex_capit(arg, t_flags, t_prnt);
+			// printf(ANSI_COLOR_MAGENTA"PRINTS THE NUM arg = %llu\n"ANSI_COLOR_RESET, arg);
+		}
+	else if ((t_flags->argtype == 'x') || \
+	(t_flags->argtype == 'p'))
+	{
+		if (check_binary(t_flags) == 1)
+			ft_putnbr_hex(arg, t_flags, t_prnt);
+	}
+	else if (t_flags->argtype == 'o')
+	{
+		if (check_binary(t_flags) == 1)
+		{
+			ft_putnbr_octal(arg, t_flags, t_prnt);
+		}
+	}
+	else if (t_flags->argtype == 'u')
+	{
+		if (check_binary(t_flags) == 1)
+		{
+			ft_putnbr_un_int(arg, t_flags, t_prnt);
+		}
+	}
+}
+
 void	print_hex_pointer(unsigned long long arg, t_format *t_flags, \
 						t_print *t_prnt)
 {
 	// printf(ANSI_COLOR_MAGENTA"print_hex_pointer t_flags->flags= %d\n"ANSI_COLOR_RESET, t_flags->flags);
 	if ((arg != 0) || \
-	((arg == 0) && ((t_flags->flags - 2048) == 0)) ||
+	// ((arg == 0) && ((t_flags->flags - 2048) == 0)) ||
+	((arg == 0) && ((t_flags->flags & NOFLAGS_MASK) == 0)) ||
 	((arg == 0) && ((t_flags->flags & FLAG_HT) > 0) &&
 	((t_flags->flags & FLAG_PRECIS) == 0)))
 	// ((arg == 0) && ((t_flags->flags & FLAG_HT) > 0) &&
@@ -26,17 +74,18 @@ void	print_hex_pointer(unsigned long long arg, t_format *t_flags, \
 	// ((arg == 0) && ((t_flags->flags & FLAG_MINUS) > 0) &&
 	// ((t_flags->flags & FLAG_PRECIS) == 0)))
 	{
-		if (t_flags->argtype == 'X')
-		{
-			ft_putnbr_hex_capit(arg, t_flags, t_prnt);
-			// printf(ANSI_COLOR_MAGENTA"PRINTS THE NUM arg = %llu\n"ANSI_COLOR_RESET, arg);
-		}
-		if ((t_flags->argtype == 'x') || \
-		(t_flags->argtype == 'p'))
-		{
-			if (t_flags->argtype != 'B')
-				ft_putnbr_hex(arg, t_flags, t_prnt);
-		}
+		print_unsigned_num(arg, t_flags, t_prnt);
+		// if (t_flags->argtype == 'X')
+		// {
+		// 	ft_putnbr_hex_capit(arg, t_flags, t_prnt);
+		// 	// printf(ANSI_COLOR_MAGENTA"PRINTS THE NUM arg = %llu\n"ANSI_COLOR_RESET, arg);
+		// }
+		// if ((t_flags->argtype == 'x') || \
+		// (t_flags->argtype == 'p'))
+		// {
+		// 	if (check_binary(t_flags) == 1)
+		// 		ft_putnbr_hex(arg, t_flags, t_prnt);
+		// }
 	}
 }
 
@@ -51,30 +100,35 @@ void	print_octal_number(unsigned long long arg, t_format *t_flags, \
 	// ((arg == 0) && (t_flags->minfw == 0) && ((t_flags->flags - 2048) == 0)))
 	{
 		// printf(ANSI_COLOR_MAGENTA"PRINTS THE NUM arg = %llu\n"ANSI_COLOR_RESET, arg);
-		if (t_flags->argtype != 'B')
-		{
-			ft_putnbr_octal(arg, t_flags, t_prnt);
-		}
+		// if (t_flags->argtype != 'B')
+		// if (check_binary(t_flags) == 1)
+		// {
+		// 	ft_putnbr_octal(arg, t_flags, t_prnt);
+		// }
+		print_unsigned_num(arg, t_flags, t_prnt);
 	}
 }
 
 void	print_number(unsigned long long arg, t_format *t_flags, \
 					t_print *t_prnt, int len)
 {
-	// printf(ANSI_COLOR_MAGENTA"PRINTS THE NUM argtype = %c\n"ANSI_COLOR_RESET, t_flags->argtype);
+	// printf(ANSI_COLOR_CYAN"PRINTS THE NUM argtype = %c\n"ANSI_COLOR_RESET, t_flags->argtype);
 	if ((arg != 0) &&
 	(t_flags->precision > len) &&
 	(t_flags->precision <= t_flags->minfw))
 		length_precision_diff(t_flags, t_prnt, len);
-	if (t_flags->argtype == 'u')
+	if ((t_flags->argtype == 'u') || (t_flags->argtype == 'B'))
 	{
 		if ((arg != 0) || \
 		// ((arg == 0) && (!(t_flags->flags & FLAG_PRECIS)) &&
 		// (((t_flags->flags & FLAG_MINUS)))) ||
-		((arg == 0) && (t_flags->minfw == 0) && ((t_flags->flags - 2048) == 0)))
+		// ((arg == 0) && (t_flags->minfw == 0) && ((t_flags->flags - 2048) == 0)))
+		((arg == 0) && (t_flags->minfw == 0) && ((t_flags->flags & NOFLAGS_MASK) == 0)))
 		{
-			if (t_flags->argtype != 'B')
-				ft_putnbr_un_int(arg, t_flags, t_prnt);
+			// if (t_flags->argtype != 'B')
+			print_unsigned_num(arg, t_flags, t_prnt);
+			// if (check_binary(t_flags) == 1)
+			// 	ft_putnbr_un_int(arg, t_flags, t_prnt);
 		}
 	}
 	else if (t_flags->argtype == 'o')
@@ -82,26 +136,25 @@ void	print_number(unsigned long long arg, t_format *t_flags, \
 	else
 		print_hex_pointer(arg, t_flags, t_prnt);
 	if (arg == 0)
-		length_precision_diff_zeros(t_flags, t_prnt, len);
+		print_padding_with_zeros(t_flags, t_prnt, len);
 }
 
-void	print_number_int(long long arg, t_format *t_flags, t_print *tpr, \
+void	print_number_int(long long arg, t_format *t_flags, t_print *t_prnt, \
 						int len)
 {
-	// printf("FLAG or = %d\n", t_flags->flags & (FLAG_PLUS | FLAG_MINUS));
-	if (arg != 0) 
-	// || 
-	// ((arg == 0) && ((t_flags->flags - 2048) == 0) && (t_flags->minfw == 0) &&
-	// (t_flags->argtype == 'd')))
-	// || 
-	// ((arg == 0) && (t_flags->flags & FLAG_PLUS) && (t_flags->precision == 0) &&
-	// (t_flags->argtype == 'd')))
+	// printf(ANSI_COLOR_CYAN"print_number_int - type= %d\n", t_flags->argtype);
+	if ((arg != 0) || (t_flags->argtype == 'b'))
+	// (t_flags->argtype == 'd'))
+	// || ((arg == 0) && (t_flags->flags & FLAG_PLUS) && (t_flags->precision == 0)))
+	// (t_flags->argtype == 'd')
+	// ((t_flags->flags & FLAG_PLUS) && (!(t_flags->flags & FLAG_PRECIS))))
 	{
 		if ((t_flags->precision > len) && (t_flags->precision < t_flags->minfw))
-			length_precision_diff(t_flags, tpr, len);
-		if (t_flags->argtype != 'b')
-			ft_putnbr_int(arg, t_flags, tpr);
+			length_precision_diff(t_flags, t_prnt, len);
+		// if (t_flags->argtype != 'b')
+		if (check_binary(t_flags) == 1)
+			ft_putnbr_int(arg, t_flags, t_prnt);
 	}
 	if (arg == 0)
-		length_precision_diff_zeros(t_flags, tpr, len);
+		print_padding_with_zeros(t_flags, t_prnt, len);
 }

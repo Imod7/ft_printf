@@ -21,19 +21,17 @@
 void	check_arg_zero(t_format *t_flags, int *len, t_print *t_prnt)
 {
 	*len = *len;
-	// printf(ANSI_COLOR_BLUE"check_arg_zero function\n");
+	// printf(ANSI_COLOR_BLUE"check_arg_zero function SET FLAG ARG ZERO, pad_len = %d\n", t_prnt->pad_len);
 	t_flags->flags |= FLAG_ARG_ZERO;
 	if (t_flags->precision > t_flags->minfw)
 		t_prnt->pad_len = -1;
 	else if ((t_flags->precision < t_flags->minfw) && \
 	(t_flags->argtype == 'p'))
-	// (!(t_flags->flags & (FLAG_PRECIS))))
 	{
 		t_prnt->pad_len = t_flags->minfw - t_flags->special_chars_printed -
 		*len;
 		// printf(ANSI_COLOR_BLUE"%d %d %d\n", t_flags->minfw, t_flags->special_chars_printed, *len);
 	}
-		
 	else if ((t_flags->precision < t_flags->minfw) && \
 	(!(t_flags->flags & (FLAG_HT))) &&
 	(t_flags->precision != 0) && \
@@ -42,36 +40,37 @@ void	check_arg_zero(t_format *t_flags, int *len, t_print *t_prnt)
 		t_prnt->pad_len = t_flags->minfw - t_flags->precision;
 		// printf("t_prnt->pad_len = %d\n", t_prnt->pad_len);
 	}
-	// else if ((t_flags->precision <= t_flags->minfw) && \
-	// (((t_flags->flags & (FLAG_HT)) &&
-	// (t_flags->argtype == 'o'))
-	// || (t_flags->flags & (FLAG_ZERO))))
-	// {
-	// 	t_prnt->pad_len = t_flags->minfw - *len;
-	// 	printf(ANSI_COLOR_MAGENTA"pad = %d\n", t_prnt->pad_len);
-	// }
-	// else
-	// 	t_prnt->pad_len = t_flags->minfw;
-	if (t_flags->flags & (FLAG_PLUS) && (!(t_prnt->pad_len)))
+	if ((t_flags->flags & (FLAG_PLUS & FLAG_PRECIS)) && \
+	(!(t_prnt->pad_len)))
 		t_prnt->pad_len = t_flags->minfw - 1;
+	else if (t_flags->flags & (FLAG_PLUS) && \
+	(!(t_flags->flags & FLAG_PRECIS)) && (!(t_prnt->pad_len)))
+		t_prnt->pad_len = t_flags->minfw - 2;
 	else if (t_flags->flags & (FLAG_PLUS) && (t_prnt->pad_len))
 		t_prnt->pad_len -= 1;
-	if (t_flags->flags & FLAG_SPACE)
-		t_prnt->pad_len = 0;
-	// printf(ANSI_COLOR_BLUE">>/pad = %d\n"ANSI_COLOR_RESET, t_prnt->pad_len);
+	if ((t_flags->flags & FLAG_SPACE) && \
+	(t_flags->flags & FLAG_MINUS))
+	{
+		// t_prnt->pad_len = 0;
+		if (t_flags->precision == 0)
+			t_prnt->pad_len = t_flags->minfw - *len - 1;
+		else
+			t_prnt->pad_len = t_flags->minfw - t_flags->precision - 1;
+		// t_flags->flags |= FLAG_PADLEN_SET;
+		// printf(ANSI_COLOR_YELLOW"SPACE KAI MINUS\n");
+	}
+	// printf(ANSI_COLOR_BLUE">>pad = %d\n"ANSI_COLOR_RESET, t_prnt->pad_len);
 }
 
-void	length_diff_zeros_unsigned(t_format *t_flags, t_print *t_prnt, int len,\
-									int *diff)
+void	minfw_equal_precision(t_format *t_flags, int len,\
+							int *diff)
 {
-	// printf(ANSI_COLOR_YELLOW"length_diff_zeros_unsigned function\n"ANSI_COLOR_RESET);
-	if ((t_flags->minfw == t_flags->precision) && (t_flags->minfw != 0))
+	if (t_flags->minfw != 0)
 	{
 		// printf(ANSI_COLOR_YELLOW"MIN == PREC = pad%d min%d len%d\n"ANSI_COLOR_RESET, t_prnt->pad_len, t_flags->minfw, len);
 		*diff = t_flags->precision;
 	}
-	else if ((t_flags->minfw == t_flags->precision) && \
-	(t_flags->minfw == 0) &&
+	else if ((t_flags->minfw == 0) &&
 	(
 	(!((t_flags->flags & (FLAG_PRECIS)) && t_flags->precision == 0) && \
 	(t_flags->argtype == 'o')) || \
@@ -83,70 +82,100 @@ void	length_diff_zeros_unsigned(t_format *t_flags, t_print *t_prnt, int len,\
 		*diff = len;
 		// printf(ANSI_COLOR_YELLOW"MIN == PREC min not zero = pad%d min%d len%d diff%d\n"ANSI_COLOR_RESET, t_prnt->pad_len, t_flags->minfw, len, *diff);
 	}
-	else if ((t_flags->minfw > t_flags->precision) && \
-	(t_flags->minfw != 0))
+}
+
+void	minfw_bigger_precision(t_format *t_flags, t_print *t_prnt, int len,\
+								int *diff)
+{
+	printf(ANSI_COLOR_YELLOW"minfw_bigger_precision %d %d\n"ANSI_COLOR_RESET, t_flags->precision, t_prnt->pad_len);
+	if (t_prnt->pad_len <= 0)
 	{
-		// printf(ANSI_COLOR_YELLOW"MIN > PREC min not zero = pad%d min%d len%d diff%d\n"ANSI_COLOR_RESET, t_prnt->pad_len, t_flags->minfw, len, *diff);
-		if ((t_flags->precision == 0) && (t_prnt->pad_len <= 0))
+		if ((t_flags->precision == 0) && \
+		((t_flags->argtype != 'o') ||
+		(!((t_flags->argtype == 'o') && (t_flags->flags & FLAG_MINUS) &&
+		((t_flags->flags & (FLAG_PRECIS)) > 0))) ||
+		((t_flags->argtype == 'o') && (t_flags->flags & (FLAG_HT)))))
 		{
+			// printf(ANSI_COLOR_YELLOW"min - len \n"ANSI_COLOR_RESET);
 			t_prnt->pad_len = t_flags->minfw - len;
 		}
-		else if ((t_flags->precision != 0) && (t_prnt->pad_len <= 0))
-		{
+		else
 			t_prnt->pad_len = t_flags->minfw - t_flags->precision;
-		}
-		if ((t_flags->flags & (FLAG_HT | FLAG_SPACE | FLAG_MINUS | FLAG_PLUS))
-		&& ((t_flags->flags & (FLAG_PRECIS)))
-		&& (t_flags->precision == 0) && \
-		(ft_strchr("o", t_flags->argtype) == 0))
+	}
+	if ((t_flags->flags & (FLAG_HT | FLAG_SPACE | FLAG_MINUS | FLAG_PLUS))
+	&& ((t_flags->flags & (FLAG_PRECIS)))
+	&& (t_flags->precision == 0) && \
+	(ft_strchr("o", t_flags->argtype) == 0))
+	{
+		// printf(ANSI_COLOR_YELLOW"HERE \n"ANSI_COLOR_RESET);
+		t_prnt->pad_len = 0;
+		*diff = 0;
+	}
+	else
+	{
+		if (((t_flags->flags & (FLAG_PLUS | FLAG_SPACE)) && \
+		(t_flags->flags & FLAG_PRECIS)) ||
+		((t_flags->flags & FLAG_HT) && (ft_strchr("xX", t_flags->argtype) > 0)))
 		{
-			t_prnt->pad_len = 0;
-			*diff = 0;
+			// printf(ANSI_COLOR_YELLOW"Set pad = prec ??? \n"ANSI_COLOR_RESET);
+			*diff = t_flags->precision;
+		}
+		else if (((t_flags->flags & (FLAG_PLUS | FLAG_HT | FLAG_SPACE)) ||
+		(((t_flags->flags & NOFLAGS_MASK) == 0) && \
+		(ft_strchr("xX", t_flags->argtype) != 0))) && \
+		(!(t_flags->flags & (FLAG_PRECIS))))
+		{
+			// printf(ANSI_COLOR_YELLOW"here edw \n"ANSI_COLOR_RESET);
+			if (((t_flags->flags & FLAG_HT) && (t_flags->argtype == 'o')) ||
+			((t_flags->flags & FLAG_SPACE) && (!(t_flags->flags & FLAG_ZERO)) && \
+			(ft_strchr("di", t_flags->argtype) > 0)))
+			{
+				*diff = t_flags->minfw - t_prnt->pad_len;
+				// printf(ANSI_COLOR_YELLOW"mallon edw \n"ANSI_COLOR_RESET);
+			}
+			else
+			{
+				// printf(ANSI_COLOR_YELLOW"EDW \n"ANSI_COLOR_RESET);
+				*diff = t_flags->minfw - t_prnt->pad_len - 1;
+			}
 		}
 		else
 		{
-			if ((t_flags->flags & (FLAG_PLUS)) && (t_prnt->sign_printed == 1))
-				// *diff = t_flags->minfw - t_prnt->pad_len - 1;
-				*diff = t_flags->precision;
-			else if ((t_flags->flags & (FLAG_SPACE)) && (t_prnt->sign_printed == 1)
-			&& (t_flags->flags & (FLAG_ZERO)))
-			{
-					// printf("GETS HERE");
-					*diff = t_flags->minfw - t_prnt->pad_len - 1;
-			}
-			else
+			// if ((t_flags->flags & FLAG_HT) && (t_flags->argtype == 'o'))
+			// {
+			// 	printf(ANSI_COLOR_YELLOW"LAST ELSE octal--- "ANSI_COLOR_RESET);
+			// 	*diff = 1;
+			// 	t_prnt->pad_len--;
+			// }
+			// else
+			// {
+				// printf(ANSI_COLOR_YELLOW"LAST ELSE--- "ANSI_COLOR_RESET);
 				*diff = t_flags->minfw - t_prnt->pad_len;
+			// }
 		}
 	}
+}
+
+void	length_diff_zeros_unsigned(t_format *t_flags, t_print *t_prnt, int len,\
+									int *diff)
+{
+	// printf(ANSI_COLOR_YELLOW"length_diff_zeros_unsigned function\n"ANSI_COLOR_RESET);
+	if (t_flags->minfw == t_flags->precision)
+		minfw_equal_precision(t_flags, len, diff);
+	else if (t_flags->minfw > t_flags->precision)
+		minfw_bigger_precision(t_flags, t_prnt, len, diff);
 	else if (t_flags->minfw < t_flags->precision)
 	{
 		t_prnt->pad_len = 0;
 		*diff = t_flags->precision;
 	}
-	else
-	{
-		*diff = t_flags->precision - t_prnt->pad_len - \
-		t_flags->special_chars_printed - len;
-		// printf(ANSI_COLOR_YELLOW".............................else case diff = %d\n"ANSI_COLOR_RESET, *diff);
-	}
 }
 
-// void	diff_zeros_pointer(t_format *t_flags, t_print *t_prnt, int len,\
-// 									int *diff)
-// {
-
-// }
-
-void	length_precision_diff_zeros(t_format *t_flags, t_print *t_prnt, int len)
+void	print_padding_with_zeros(t_format *t_flags, t_print *t_prnt, int len)
 {
 	int	diff;
 
 	diff = 0;
-	// if (t_prnt->diff != -1)
-	// {
-	// if (!(t_flags->flags & (FLAG_MINUS)))
-	// (t_flags->argtype == 'u') &&
-	// (t_flags->minfw == t_flags->precision)))
 	length_diff_zeros_unsigned(t_flags, t_prnt, len, &diff);
 	if ((t_flags->argtype == 'p') && (t_flags->precision != 0))
 		diff = t_flags->precision;
@@ -154,20 +183,30 @@ void	length_precision_diff_zeros(t_format *t_flags, t_print *t_prnt, int len)
 	{
 		diff = 0;
 	}
-	
-	// 	diff_zeros_pointer(t_flags, t_prnt, len, &diff);
-	// }
 	if (diff > 0)
 	{
-		if ((t_flags->flags & (FLAG_SPACE)) && (t_prnt->sign_printed == 1))
-		{
-			t_prnt->pad_len = t_flags->minfw - diff - 1;
-		}
-		else
-			t_prnt->pad_len = t_flags->minfw - diff;
+		if ((t_flags->flags & FLAG_SPACE) && \
+			(t_flags->flags & FLAG_MINUS) && (t_flags->precision == 0))
+			diff -= 1;
+		// if ((t_flags->flags & (FLAG_SPACE)) && (t_prnt->sign_printed == 1) && \
+		// (!(t_prnt->pad_len)))
+		// {
+		// 	printf("space on \n");
+		// 	t_prnt->pad_len = t_flags->minfw - diff - 1;
+		// 	if ((t_flags->flags & FLAG_SPACE) > 0 &&
+		// 	(t_flags->flags & FLAG_ZERO) && \
+		// 	(!(t_flags->flags & (FLAG_PRECIS))))
+		// 		diff -= 1;
+		// }
+		// else if ((!(t_flags->flags & FLAG_SPACE)) && \
+		// (t_prnt->sign_printed == 1) && (!(t_prnt->pad_len)))
+		// {
+		// 	// printf("space on ELSE\n");
+		// 	t_prnt->pad_len = t_flags->minfw - diff;
+		// }
 		t_flags->special_chars_printed += diff;
 	}
-	// printf(ANSI_COLOR_YELLOW"length_precision_diff_zeros\ndiff = %d\nt_prnt->diff = %d\npad = %d\nt_flags->flags=%d, special_chars = %d\n"ANSI_COLOR_RESET, diff, t_prnt->diff, t_prnt->pad_len, t_flags->flags - 2048, t_flags->special_chars_printed);
+	// printf(ANSI_COLOR_YELLOW"===print_extra_zeros===\ndiff = %d\nt_prnt->diff = %d\npad = %d\nt_flags->flags=%d, special_chars = %d\n"ANSI_COLOR_RESET, diff, t_prnt->diff, t_prnt->pad_len, t_flags->flags, t_flags->special_chars_printed);
 	while (diff > 0)
 	{
 		t_prnt->writer(&"0", 1, t_prnt);

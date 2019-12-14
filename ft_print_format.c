@@ -16,20 +16,18 @@ void		checks_before_padding(t_format *t_flags, t_print *t_prnt, \
 								int arg_digits_len)
 {
 	if ((t_prnt->sign_printed == 0) &&
-	((t_flags->flags & (FLAG_PLUS)) ||
-	(t_flags->flags & (FLAG_MINUS)) ||
-	(t_flags->flags & (FLAG_NEGAT))))
+	(t_flags->flags & (FLAG_PLUS | FLAG_MINUS | FLAG_NEGAT)))
 		t_flags->special_chars_printed += 1;
-	// printf(ANSI_COLOR_CYAN"PADDING CHECKS\npad = %d diff = %d flags = %d spec = %d\n", t_prnt->pad_len, t_prnt->diff, t_flags->flags, t_flags->special_chars_printed);
+	// printf(ANSI_COLOR_CYAN"\nPADDING CHECKS : pad = %d diff = %d flags = %d spec = %d\n", t_prnt->pad_len, t_prnt->diff, t_flags->flags, t_flags->special_chars_printed);
 	if (!(t_prnt->pad_len) && (!(t_flags->flags & FLAG_ARG_ZERO)))
 	{
 		t_prnt->pad_len = t_flags->minfw - \
 		t_flags->special_chars_printed - arg_digits_len;
-		// printf(ANSI_COLOR_CYAN"FOR ARG NOT ZERO : pad = %d, diff = %d\n", t_prnt->pad_len, t_prnt->diff);
+		// printf(ANSI_COLOR_CYAN"FOR ARG NOT ZERO : pad = %d, diff = %d, arg_digits_len = %d\n", t_prnt->pad_len, t_prnt->diff, arg_digits_len);
 	}
-	else if (!(t_prnt->pad_len) && ((t_flags->flags & FLAG_ARG_ZERO)))
+	else if (!(t_prnt->pad_len) && (t_flags->flags & FLAG_ARG_ZERO))
 	{
-		// printf(ANSI_COLOR_CYAN"FOR ARG ZERO prec = 0 and not precision : pad = %d, diff = %d\n", t_prnt->pad_len, t_prnt->diff);
+		// printf(ANSI_COLOR_CYAN"FOR ARG ZERO prec = 0 : pad = %d, diff = %d\n", t_prnt->pad_len, t_prnt->diff);
 		if ((t_flags->precision == 0) && (!(t_flags->flags & FLAG_PRECIS)))
 		{
 			// printf(ANSI_COLOR_CYAN"PRECISION = 0 and not precision : pad = %d, diff = %d\n", t_prnt->pad_len, t_prnt->diff);
@@ -38,7 +36,7 @@ void		checks_before_padding(t_format *t_flags, t_print *t_prnt, \
 		else
 		{
 			// printf(ANSI_COLOR_CYAN"ARG ZERO and PRECISION NOT zero : flags = %d\n", t_flags->flags & (FLAG_MINUS | FLAG_PLUS | FLAG_SPACE));
-			if ((t_flags->flags & (FLAG_MINUS | FLAG_PLUS | FLAG_SPACE)) || \
+			if ((t_flags->flags & (FLAG_MINUS | FLAG_PLUS)) || \
 			((t_flags->argtype == 'p') && (t_flags->precision > arg_digits_len)))
 			{
 				// printf(ANSI_COLOR_CYAN"IF FLAGS ARE ON : pad = %d, diff = %d\n", t_prnt->pad_len, t_prnt->diff);
@@ -51,6 +49,8 @@ void		checks_before_padding(t_format *t_flags, t_print *t_prnt, \
 			}
 		}
 	}
+	// if (t_flags->flags & (FLAG_SPACE & FLAG_MINUS))
+	// 	t_prnt->pad_len -= 1;
 	if ((!(t_prnt->diff)) && (t_flags->precision == t_flags->minfw) &&
 	(t_flags->flags & FLAG_ARG_ZERO))
 		t_prnt->diff = t_prnt->pad_len - t_flags->precision;
@@ -91,12 +91,13 @@ void		print_padding(t_format *t_flags, t_print *t_prnt, \
 			// c = 'b';
 		else
 			c = ' ';
-			// c = 'b';
+			// c = 'c';
 		if ((t_flags->flags & FLAG_PRECIS) && (t_flags->argtype != 's') &&
 		(t_flags->argtype != 'c') && (i >= t_prnt->diff) &&
 		(t_prnt->diff >= 0))
 		{
 			c = '0';
+			// c = 'd';
 			flag_diff = -1;
 		}
 		t_prnt->writer(&c, 1, t_prnt);

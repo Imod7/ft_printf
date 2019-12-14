@@ -12,6 +12,14 @@
 
 #include "includes/ft_printf.h"
 
+void			print_num(long long arg, t_format *t_fl, t_print *t_pr, int len)
+{
+	if (t_fl->argtype == 'b')
+		binary_number_int(arg, t_pr);
+	else
+		print_number_int(arg, t_fl, t_pr, len);
+}
+
 void			int_other(long long arg, t_format *t_fl, t_print *t_pr, int len)
 {
 	if ((t_fl->precision) < (t_fl->minfw) &&
@@ -19,13 +27,15 @@ void			int_other(long long arg, t_format *t_fl, t_print *t_pr, int len)
 	{
 		print_padding(t_fl, t_pr, len);
 		print_sign(t_fl, t_pr);
-		print_number_int(arg, t_fl, t_pr, len);
+		// print_number_int(arg, t_fl, t_pr, len);
+		print_num(arg, t_fl, t_pr, len);
 	}
 	else
 	{
 		print_sign(t_fl, t_pr);
 		print_padding(t_fl, t_pr, len);
-		print_number_int(arg, t_fl, t_pr, len);
+		// print_number_int(arg, t_fl, t_pr, len);
+		print_num(arg, t_fl, t_pr, len);
 	}
 }
 
@@ -37,12 +47,14 @@ void			int_minus(long long arg, t_format *t_fl, t_print *t_pr, int len)
 	{
 		print_sign(t_fl, t_pr);
 		print_padding(t_fl, t_pr, len);
-		print_number_int(arg, t_fl, t_pr, len);
+		// print_number_int(arg, t_fl, t_pr, len);
+		print_num(arg, t_fl, t_pr, len);
 	}
 	else
 	{
 		print_sign(t_fl, t_pr);
-		print_number_int(arg, t_fl, t_pr, len);
+		// print_number_int(arg, t_fl, t_pr, len);
+		print_num(arg, t_fl, t_pr, len);
 		print_padding(t_fl, t_pr, len);
 	}
 }
@@ -88,6 +100,6 @@ void			print_integer(va_list argptr, t_format *tflags, t_print *t_prnt)
 	}
 	else
 		int_other(arg, tflags, t_prnt, len);
-	if (tflags->argtype == 'b')
-		binary_number_int(arg, t_prnt);
+	// if (tflags->argtype == 'b')
+	// 	binary_number_int(arg, t_prnt);
 }

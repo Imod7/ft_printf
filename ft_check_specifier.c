@@ -67,7 +67,7 @@ void		print_arg(va_list argptr, t_format *t_flags, t_print *t_prnt)
 	else if ((t_flags->argtype == 'x') || (t_flags->argtype == 'X') || \
 	(t_flags->argtype == 'p') || (t_flags->argtype == 'o'))
 	{
-		// printf(ANSI_COLOR_MAGENTA"\nNEXT NUMBER flags=%d\n"ANSI_COLOR_RESET, t_flags->flags);
+		printf(ANSI_COLOR_MAGENTA"\nNEXT NUMBER flags=%d\n"ANSI_COLOR_RESET, t_flags->flags);
 		print_hexoctal(argptr, t_flags, t_prnt);
 	}
 	else if (t_flags->argtype == 'u')
@@ -76,7 +76,10 @@ void		print_arg(va_list argptr, t_format *t_flags, t_print *t_prnt)
 		print_int_unsigned(argptr, t_flags, t_prnt);
 	}
 	else if (t_flags->argtype == 'f')
+	{
+		// printf(ANSI_COLOR_MAGENTA"NEXT NUMBER\n"ANSI_COLOR_RESET);
 		print_float(argptr, t_flags, t_prnt);
+	}
 	else if (t_flags->argtype == 'b')
 		print_integer(argptr, t_flags, t_prnt);
 	else if (t_flags->argtype == 'B')

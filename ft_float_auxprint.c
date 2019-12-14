@@ -34,7 +34,19 @@ void			print_final_float(short *pr, t_format *t_flags, t_print *t_prnt)
 		t_prnt->writer(&pr[index], 1, t_prnt);
 		index++;
 	}
-	if ((t_flags->flags & FLAG_HT) && (t_flags->precision == 0) && \
+	// printf("print final float = %d", t_flags->flags);
+	// if ((t_flags->flags & FLAG_INF_NAN) > 0)
+	// 	printf("inf nan? = %d", t_flags->flags);
+	// if ((t_flags->flags & FLAG_PRECIS) > 0)
+	// 	printf("PREC = %d", t_flags->flags);
+	// if ((t_flags->flags & FLAG_HT) > 0)
+	// 	printf("HT = %d", t_flags->flags);
+	if ((t_flags->flags & FLAG_HT) && 
+	//(t_flags->flags & FLAG_PRECIS) &&
+	(t_flags->precision == 0) && \
 	(!(t_flags->flags & FLAG_INF_NAN)))
+	{
 		t_prnt->writer(&".", 1, t_prnt);
+		// printf("DOESNT GET INTO HERE !!! \n");
+	}
 }

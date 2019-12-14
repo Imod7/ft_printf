@@ -19,6 +19,8 @@ void			check_argzero(short *product, t_format *t_flags, t_print *tprnt)
 	(t_flags->precision == 0))
 	{
 		tprnt->writer(&"0", 1, tprnt);
+		if ((t_flags->flags & FLAG_HT) && (t_flags->flags & FLAG_PRECIS))
+			tprnt->writer(&".", 1, tprnt);
 	}
 	else
 		print_final_float(product, t_flags, tprnt);
@@ -27,6 +29,7 @@ void			check_argzero(short *product, t_format *t_flags, t_print *tprnt)
 void			float_checkflags(t_format *t_flags, t_print *t_prnt, \
 								short *product, int len)
 {
+	// printf(" NUM flags=  %d\n", t_flags->flags);
 	if (t_flags->flags & FLAG_MINUS)
 	{
 		print_sign(t_flags, t_prnt);
@@ -35,8 +38,9 @@ void			float_checkflags(t_format *t_flags, t_print *t_prnt, \
 	}
 	else if (((t_flags->flags & FLAG_NEGAT) &&
 	(!(t_flags->flags & FLAG_ZERO))) || \
-	(t_flags->flags & FLAG_PLUS))
+	((t_flags->flags & FLAG_PLUS) && (!(t_flags->flags & FLAG_ZERO))))
 	{
+		// printf("IT GOES HERE \n");
 		print_padding(t_flags, t_prnt, len);
 		print_sign(t_flags, t_prnt);
 		check_argzero(product, t_flags, t_prnt);
@@ -59,10 +63,12 @@ void			print_float(va_list argptr, t_format *t_flags, t_print *tpr)
 	check_modifier_float(argptr, &float_num, t_flags);
 	result = ft_ftoa(t_flags, tpr, &float_num, product);
 	check_precision(product, t_flags);
-	printf("\nfloat = '%c' '%c' '%c' '%c' '%c'\n", product[FLOAT_MIDDLE - 2], product[FLOAT_MIDDLE - 1], product[FLOAT_MIDDLE], product[FLOAT_MIDDLE + 1], product[FLOAT_MIDDLE + 2]);
+	// printf("\nfloat = '%c' '%c' '%c' '%c' '%c'\n", product[FLOAT_MIDDLE - 2], product[FLOAT_MIDDLE - 1], product[FLOAT_MIDDLE], product[FLOAT_MIDDLE + 1], product[FLOAT_MIDDLE + 2]);
 	len = length_product(product);
 	if (result == -1)
 		len = 4;
+	if ((t_flags->flags & FLAG_HT) && (t_flags->precision == 0))
+		len += 1;
 	float_checkflags(t_flags, tpr, product, len);
 	clear_forfloat(&float_num);
 }

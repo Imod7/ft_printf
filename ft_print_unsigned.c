@@ -116,6 +116,6 @@ void					print_int_unsigned(va_list argp, t_format *t_flags, \
 	if (arg == 0)
 		check_arg_zero(t_flags, &len, t_prnt);
 	unsigned_checkflags(arg, t_flags, t_prnt, len);
-	if (t_flags->argtype == 'B')
-		binary_number_unsigned_int(arg, t_prnt);
+	// if (t_flags->argtype == 'B')
+	// 	binary_number_unsigned_int(arg, t_prnt);
 }
