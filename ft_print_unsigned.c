@@ -20,7 +20,7 @@ unsigned long long		check_pointer(va_list arg, t_format *t_flags)
 	{
 		t_flags->flags |= FLAG_HT;
 		argum = va_arg(arg, unsigned long);
-		t_flags->special_chars_printed = t_flags->special_chars_printed + 2;
+		t_flags->specialchars_printed = t_flags->specialchars_printed + 2;
 	}
 	else
 	{
@@ -48,15 +48,11 @@ void					hexoctal_checkflags(unsigned long long argum, \
 		print_number(argum, t_flags, t_prnt, len);
 	}
 	else if (!(t_flags->flags & (FLAG_MINUS & FLAG_ZERO)))
-	// else if (((t_flags->flags & FLAG_MINUS) == 0) && \
-	// ((t_flags->flags & FLAG_ZERO) == 0))
 	{
-		// printf(ANSI_COLOR_MAGENTA"\nhexoctal_checkflags NO ZER NO MINUS\n");
 		print_order(t_flags, t_prnt, len);
 		unsigned_hashtag(argum, t_flags, t_prnt, len);
 		print_number(argum, t_flags, t_prnt, len);
 	}
-	// printf("hexoctal_checkflags pad = %d\n"ANSI_COLOR_RESET, t_prnt->pad_len);
 }
 
 void					print_hexoctal(va_list arg, t_format *t_flags, \
@@ -90,8 +86,6 @@ void					unsigned_checkflags(unsigned long long arg, \
 	else
 	{
 		if (t_flags->flags & (FLAG_PRECIS | FLAG_ZERO))
-		// if (((t_flags->flags & FLAG_ZERO) > 0) || \
-		// ((t_flags->flags & FLAG_PRECIS) > 0))
 			print_inverse(t_flags, t_prnt, len);
 		else
 			print_order(t_flags, t_prnt, len);
@@ -116,6 +110,4 @@ void					print_int_unsigned(va_list argp, t_format *t_flags, \
 	if (arg == 0)
 		check_arg_zero(t_flags, &len, t_prnt);
 	unsigned_checkflags(arg, t_flags, t_prnt, len);
-	// if (t_flags->argtype == 'B')
-	// 	binary_number_unsigned_int(arg, t_prnt);
 }

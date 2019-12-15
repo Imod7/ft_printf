@@ -12,17 +12,6 @@
 
 #include "includes/ft_printf.h"
 
-// void		print_unsigned_num(unsigned long long ar, t_format *t_flags,
-// 						t_print *t_prnt, int len)
-// {
-// 	if (t_flags->argtype == 'B')
-// 	{}
-// 		binary_number_unsigned_int(ar, t_prnt);
-// 		print_number(ar, t_flags, t_prnt, len);
-// 	else
-// 		print_number(ar, t_flags, t_prnt, len);
-// }
-
 void		unsigned_minus(unsigned long long ar, t_format *t_flags,
 						t_print *t_prnt, int len)
 {
@@ -31,12 +20,10 @@ void		unsigned_minus(unsigned long long ar, t_format *t_flags,
 	{
 		print_inverse(t_flags, t_prnt, len);
 		print_number(ar, t_flags, t_prnt, len);
-		// print_unsigned_num(ar, t_flags, t_prnt, len);
 	}
 	else
 	{
 		print_number(ar, t_flags, t_prnt, len);
-		// print_unsigned_num(ar, t_flags, t_prnt, len);
 		print_inverse(t_flags, t_prnt, len);
 	}
 }
@@ -57,14 +44,13 @@ void		unsigned_hashtag(unsigned long long arg, t_format *t_flags, \
 {
 	char	c;
 
-	// printf("unsigned_hashtag function\n");
 	if (((t_flags->argtype == 'o') > 0) &&
 	(arg != 0) && (t_flags->flags & FLAG_HT) &&
 	t_flags->precision < len)
 	{
 		c = '0';
 		t_prnt->writer(&c, 1, t_prnt);
-		t_flags->special_chars_printed++;
+		t_flags->specialchars_printed++;
 	}
 	if (((t_flags->flags & FLAG_HT) > 0) && (arg != 0) &&
 	((t_flags->argtype == 'x') || (t_flags->argtype == 'X')))
@@ -74,7 +60,7 @@ void		unsigned_hashtag(unsigned long long arg, t_format *t_flags, \
 		else
 			t_prnt->writer("0X", 2, t_prnt);
 		if (t_flags->minfw > t_flags->precision)
-			t_flags->special_chars_printed += 2;
+			t_flags->specialchars_printed += 2;
 	}
 	pointer_hashtag(t_flags, t_prnt);
 }

@@ -74,7 +74,7 @@ int				test_binary4(void)
 	int			fd;
 
 	fd = open("result_ftdprintf.txt", O_TRUNC | O_WRONLY);
-	total_chars_ftp = ft_dprintf(fd, "Test binary : %%llB='%llB', %%b (zero arg)= '%b', %%B (zero arg)= '%B'\n", (unsigned long long)18446744073709551615, 0, 0);
+	total_chars_ftp = ft_dprintf(fd, "Test binary : %%llB='%llB', %%3b (zero arg)= '%3b', %%3B (zero arg)= '%3B', %%b (zero arg)= '%b', %%B (zero arg)= '%B'\n", (unsigned long long)18446744073709551615, 0, 0, 0, 0);
 	close(fd);
 	fd = open("result_ftdprintf.txt", O_RDONLY);
 	get_next_line(fd, &returned_line_ft_dprintf);

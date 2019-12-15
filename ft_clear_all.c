@@ -31,7 +31,7 @@ void			clear_formatstruct(t_format *t_flags, t_print *t_prnt)
 	t_flags->minfw = 0;
 	t_flags->precision = 0;
 	t_flags->argtype = 0;
-	t_flags->special_chars_printed = 0;
+	t_flags->specialchars_printed = 0;
 	t_flags->modifier = N;
 	t_prnt->pad_len = 0;
 	t_prnt->diff = 0;

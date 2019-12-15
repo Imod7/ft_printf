@@ -42,7 +42,7 @@ SRC =	\
 		ft_float_str_addmultiply.c \
 		ft_float_str_division.c \
 		ft_float_round.c \
-		ft_float_auxprint.c \
+		ft_float_auxfunctions.c \
 		ft_float_inf_nan.c \
 		ft_float_len.c \
 		ft_clear_all.c \
@@ -63,7 +63,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	@ar crs $(NAME) $(OBJ)
 
 %.o: %.c $(INCL)
-	@$(CC) -o $@ -c $< 
+	@$(CC) -o $@ -c $<
 
 .PHONY: clean
 
@@ -74,7 +74,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "${CYAN}Calling fclean of libft${NC}"	
+	@echo "${CYAN}Calling fclean of libft${NC}"
 	@$(MAKE) fclean -C libft
 
 re: fclean all

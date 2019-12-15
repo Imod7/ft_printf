@@ -18,7 +18,6 @@
 # include <stdlib.h>
 # include "../libft/includes/libft.h"
 # include "../libft/includes/get_next_line.h"
-# include <stdio.h>
 
 # define ANSI_COLOR_RESET   "\x1b[0m"
 # define ANSI_COLOR_RED     "\x1b[31m"
@@ -63,7 +62,7 @@ typedef struct	s_format
 	int			minfw;
 	int			precision;
 	char		argtype;
-	int			special_chars_printed;
+	int			specialchars_printed;
 	t_modifier	modifier;
 }				t_format;
 
@@ -192,13 +191,13 @@ void			str_add_prod_frac(short *pr, char *fr);
 void			frac_divide_by_two(char *fr);
 void			str_double(short *pr);
 void			prod_divide_by_two(short *pr);
-// int				check_inf_nan(t_float *fl, t_print *t_prnt, short *product);
 int				check_inf_nan(t_float *tfloat, t_format *t_flags, \
 							t_print *t_prnt, short *product);
 void			print_final_float(short *pr, t_format *t_flags, t_print *tprnt);
 void			check_precision(short *pr, t_format *t_flags);
 void			check_modifier_float(va_list argptr, t_float *fl, \
 									t_format *t_flags);
+void			len_bigger_than_prec(short *pr, t_format *t_flags);
 
 /*
 ** Floats : length calculation functions
